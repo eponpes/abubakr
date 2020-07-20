@@ -2,3 +2,4 @@
 .env.production
 .env.testing
 .htaccess
+/assets/uploads/
