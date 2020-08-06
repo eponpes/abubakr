@@ -7,6 +7,8 @@
         <li  class=""><a href="#tab_mark"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-file-archive-o"></i> <?php echo $this->lang->line('exam_mark'); ?></a> </li>                          
         <li  class=""><a href="#tab_payment"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-dollar"></i> <?php echo $this->lang->line('payment'); ?> </a> </li>                          
         <li  class=""><a href="#tab_activity"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-clipboard"></i> <?php echo $this->lang->line('activity'); ?> </a> </li>                          
+        <!-- CUSTOM BY FATHAN F -->
+        <li  class=""><a href="#tab_tahfizh"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-clipboard"></i> <?php echo $this->lang->line('tahfizh'); ?> </a> </li>
     </ul>
     <br/>
 
@@ -481,7 +483,106 @@
                 </tbody>                   
             </table>  
         </div>  
-        
+        <!-- CUSTOM BY FATHAN F -->
+        <div  class="tab-pane fade in " id="tab_tahfizh" >
+            <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                    <th><?php echo $this->lang->line('sl_no'); ?></th>
+                    <th><?php echo $this->lang->line('student'); ?></th>
+                    <th><?php echo $this->lang->line('class'); ?></th>
+                    <th><?php echo $this->lang->line('section'); ?></th>
+                    <th><?php echo $this->lang->line('month'); ?> </th>
+                    <th><?php echo $this->lang->line('year'); ?></th>
+                    <th><?php echo $this->lang->line('day_6'); ?></th>
+                </tr>
+                </thead>
+                 <tbody>   
+                    <?php $pencapaian = 0; $count = 1; if(isset($tahfizh) && !empty($tahfizh)){ ?>
+                    <?php foreach($tahfizh as $obj){ ?>
+                    <tr>
+                        <td><?php echo $count++; ?></td>
+                        <td><?php echo $obj->student; ?></td>
+                        <td><?php echo $obj->class_name; ?></td>
+                        <td><?php echo $obj->section; ?></td>
+                        <td><?php echo $obj->month; ?></td>
+                        <td><?php echo $obj->year; ?></td>
+                        <td>
+                        <?php for($i=1;$i<=31;$i++){
+                                $days = 'day_'.$i;
+                                if(!empty($obj->$days)) {
+                                    $getdata = json_decode($obj->$days);
+                                    $tahfizh_date = ""; $tahfizh_type = ""; $tahfizh_shaff = ""; $tahfizh_shaff_o = ""; $tahfizh_shaff_note = "";
+                                    if(!empty($getdata->type)){ // Type
+                                        $tahfizh_type = $getdata->type;
+                                        if($tahfizh_type == 'M') {$tahfizh_type = 'Murajaah ';}
+                                        else if($tahfizh_type == 'Z') {$tahfizh_type = 'Ziyadah ';}
+                                    } if(!empty($getdata->shaff)){ // Shaff
+                                        if($getdata->shaff != "O"){
+                                            $tahfizh_shaff = $getdata->shaff . ' Halaman';
+                                            $pencapaian = $pencapaian+$getdata->shaff;
+                                        }
+                                            
+                                    } if(!empty($getdata->shaffo)){ // Shaff other
+                                        $tahfizh_shaff_o = $getdata->shaffo . ' Halaman';
+                                        $pencapaian = $pencapaian+$getdata->shaffo;
+                                    } if(!empty($getdata->shaffn)){ // Shaff note
+                                        $tahfizh_shaff_note = ' Dari ' . $getdata->shaffn;
+                                    } if(!empty($getdata->date)){ // Shaff note
+                                        //$tahfizh_date = date("j/n", $getdata->date);
+                                        $epoch= $getdata->date;
+                                        $hari = date ("D",$epoch);
+                                        switch($hari){
+                                            case 'Sun':
+                                                $hari_ini = "Minggu";
+                                            break;
+                                        
+                                            case 'Mon':         
+                                                $hari_ini = "Senin";
+                                            break;
+                                        
+                                            case 'Tue':
+                                                $hari_ini = "Selasa";
+                                            break;
+                                        
+                                            case 'Wed':
+                                                $hari_ini = "Rabu";
+                                            break;
+                                        
+                                            case 'Thu':
+                                                $hari_ini = "Kamis";
+                                            break;
+                                        
+                                            case 'Fri':
+                                                $hari_ini = "Jumat";
+                                            break;
+                                        
+                                            case 'Sat':
+                                                $hari_ini = "Sabtu";
+                                            break;
+                                            
+                                            default:
+                                                $hari_ini = "Tidak di ketahui";     
+                                            break;
+                                        }
+                                        $tahfizh_date = $hari_ini . date(" d/m", $epoch);
+
+                                    }
+                                    $info_tahfizh = $tahfizh_date .' - '. $tahfizh_type . $tahfizh_shaff . $tahfizh_shaff_o . $tahfizh_shaff_note;
+                                    echo $info_tahfizh.'</br>';
+                                }
+                            }
+                        ?>
+                        </td>
+                    </tr>
+                               
+                    <?php } ?>
+                <?php } ?>
+                </tbody>                        
+            </table>  
+            PENCAPAIAN TOTAL: <strong><?php echo juzFormat($pencapaian); ?></strong>
+        </div>
+
     </div>
 </div>
 

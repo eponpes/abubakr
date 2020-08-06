@@ -1103,5 +1103,45 @@ class Report extends My_Controller {
         
     }
     
+    /** CUSTOm FUNCTION BY FATHAN F */
+    public function stahfizh() {
+
+        check_permission(VIEW);
+
+        $this->data['month_number'] = 1;
+        $session = $this->report->get_single('academic_years', array('is_running' => 1));
+
+        if ($_POST) {
+
+            $academic_year_id = $this->input->post('academic_year_id');
+            $class_id = $this->input->post('class_id');
+            $section_id = $this->input->post('section_id');
+            $month = $this->input->post('month');
+
+
+            $this->data['academic_year_id'] = $academic_year_id;
+            $this->data['class_id'] = $class_id;
+            $this->data['section_id'] = $section_id;
+            $this->data['month'] = $month;
+            $this->data['month_number'] = date('m', strtotime($this->data['month']));
+            $session = $this->report->get_single('academic_years', array('id' => $academic_year_id));
+
+            $this->data['students'] = $this->report->get_student_list($academic_year_id, $class_id, $section_id);
+            $this->data['academic_year'] = $this->db->get_where('academic_years', array('id'=>$academic_year_id))->row()->session_year;
+            $this->data['class_name'] = $this->db->get_where('classes', array('id'=>$class_id))->row()->name;
+            $this->data['section_name'] = $this->db->get_where('sections', array('id'=>$section_id))->row()->name;
+            
+        }
+
+
+        $this->data['year'] = substr($session->session_year, 7);
+        $this->data['days'] =  @date('t', mktime(0, 0, 0, $this->data['month_number'], 1, $this->data['year']));
+        //$this->data['days'] = cal_days_in_month(CAL_GREGORIAN, $this->data['month_number'], $this->data['year']);
+        $this->data['classes'] = $this->report->get_list('classes', array('status' => 1), '','', '', 'id', 'ASC');
+
+        $this->data['report_url'] = site_url('report/stahfizh');
+        $this->layout->title($this->lang->line('student') . ' ' . $this->lang->line('tahfizh') . ' ' . $this->lang->line('report') . ' | ' . SMS);
+        $this->layout->view('stahfizh/index', $this->data);
+    }
 
 }

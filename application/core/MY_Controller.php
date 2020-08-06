@@ -21,7 +21,7 @@ class My_Controller extends CI_Controller {
         }
         
         // Get all schools
-        $this->schools = $this->db->get_where('schools', array('status'=>1))->result();
+        $this->schools = $this->db->order_by('id', 'ASC')->get_where('schools', array('status'=>1))->result();
         $this->global_setting = $this->db->get_where('global_setting', array('status'=>1))->row();       
         if($this->session->userdata('role_id') != SUPER_ADMIN){
             $this->school_setting = $this->db->get_where('schools', array('status'=>1, 'id'=>$this->session->userdata('school_id')))->row();

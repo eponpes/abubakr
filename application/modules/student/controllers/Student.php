@@ -275,7 +275,8 @@ class Student extends MY_Controller {
         
         $this->data['exams'] = $this->student->get_list('exams', array('status' => 1, 'school_id'=>$student->school_id, 'academic_year_id' => $school->academic_year_id), '', '', '', 'id', 'ASC');
         $this->data['invoices'] = $this->student->get_invoice_list($student->school_id, $student_id);  
-        $this->data['activity'] = $this->student->get_activity_list($student_id);  
+        $this->data['activity'] = $this->student->get_activity_list($student_id);
+        $this->data['tahfizh'] = $this->student->get_tahfizh_list($student_id); // by Fathan F
         
         echo $this->load->view('get-single-student', $this->data);
     }

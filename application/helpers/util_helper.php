@@ -868,8 +868,10 @@ if (!function_exists('get_groups')) {
         $ci = & get_instance();
         return array(
             'science' => $ci->lang->line('science'),
-            'arts' => $ci->lang->line('arts'),
-            'commerce' => $ci->lang->line('commerce')
+            'socialstudies' => "IPS"
+            //'science' => $ci->lang->line('science'),
+            //'arts' => $ci->lang->line('arts'),
+            //'commerce' => $ci->lang->line('commerce')
         );
     }
 
@@ -1944,4 +1946,27 @@ if (!function_exists('get_student_access_data')) {
    }   
 }
 
+/** CUSTOM FUNCTION By FATHAN F*/
+if (!function_exists('get_student_tahfizh')) {
+
+    function get_student_tahfizh($student_id, $school_id, $academic_year_id, $class_id, $section_id  = null, $year = null, $month = null, $day = null) {
+        $ci = & get_instance();
+        $field = 'day_' . abs($day);
+        $ci->db->select('SA.' . $field);
+        $ci->db->from('student_tahfizh AS SA');
+        $ci->db->where('SA.student_id', $student_id);
+        $ci->db->where('SA.academic_year_id', $academic_year_id);
+        $ci->db->where('SA.school_id', $school_id);
+        $ci->db->where('SA.class_id', $class_id);
+        
+        if($section_id){
+            $ci->db->where('SA.section_id', $section_id);
+        }
+        
+        $ci->db->where('SA.year', $year);
+        $ci->db->where('SA.month', $month);
+        return @$ci->db->get()->row()->$field;
+    }
+
+}
 /*STRICT DATA ACCESS END*/

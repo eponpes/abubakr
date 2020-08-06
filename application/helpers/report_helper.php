@@ -106,7 +106,32 @@ if (!function_exists('get_employee_monthly_attendance')) {
 
 }
 
+/** CUSTOM BY FATHAN F */
+if (!function_exists('get_student_monthly_tahfizh')) {
 
+    function get_student_monthly_tahfizh($student_id, $academic_year_id, $class_id, $section_id, $month, $days) {
 
+        $fields = '';
+
+        for ($i = 1; $i <= $days; $i++) {
+            if ($i == $days) {
+                $fields .= 'SA.day_' . $i;
+            } else {
+                $fields .= 'SA.day_' . $i . ',';
+            }
+        }
+
+        $ci = & get_instance();
+        $ci->db->select($fields);
+        $ci->db->from('student_tahfizh AS SA');
+        $ci->db->where('SA.student_id', $student_id);
+        $ci->db->where('SA.academic_year_id', $academic_year_id);
+        $ci->db->where('SA.class_id', $class_id);
+        $ci->db->where('SA.section_id', $section_id);
+        $ci->db->where('SA.month', $month);
+        return $ci->db->get()->row();
+    }
+
+}
 
 
