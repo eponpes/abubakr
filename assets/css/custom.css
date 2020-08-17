@@ -2870,3 +2870,27 @@ label{
     border: .5px solid #dadada;
     padding: 5px;
 }
+
+.tile_button {
+    margin-bottom: 20px;
+    margin-top: 20px
+}
+
+.tile_button .button{
+    padding: 10px;
+    float: left
+}
+
+.tile_button .button figure {
+    margin: 0 0 15px;
+}
+
+.tile_button .button figure img {
+    border-radius: 100%;
+}
+
+.tile_button .button .text {
+    font-weight: bold;
+    margin: 0 0 15px;
+    font-size: 13px;
+}

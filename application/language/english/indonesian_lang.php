@@ -1025,3 +1025,4 @@ $lang['zoom_secret'] = "Rahasia Zoom";
 $lang['following_is_your_live_class_schedule'] = "Berikut ini adalah jadwal kelas live Anda";
 $lang['following_is_your_child_live_class_schedule'] = "Berikut ini adalah jadwal kelas langsung anak Anda";
 $lang['live_class_type'] = "Jenis Kelas Langsung";
+$lang['student_tahfizh'] = "Santri Tahfizh";

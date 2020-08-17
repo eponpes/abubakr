@@ -1,4 +1,26 @@
 <div class="row ">
+    <div class="tile_button">
+    <?php if(has_permission(VIEW, 'attendance', 'student')){ ?>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <a href="<?php echo site_url('attendance/student/index'); ?>" class="button">
+            <figure><img src="<?php echo IMG_URL; ?>icon/attendances.png"></figure>
+            <div class="text">
+            <?php echo $this->lang->line('student_attendance'); ?>
+            </div>
+        </a></div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <a href="<?php echo site_url('tahfizh/student/index'); ?>" class="button">
+            <figure><img src="<?php echo IMG_URL; ?>icon/tahfizh.png"></figure>
+            <div class="text">
+            <?php echo $this->lang->line('student_tahfizh'); ?>
+            </div>
+        </a>    
+    </div>
+    <?php } ?>
+    </div>
+</div>  
+<!-- /top tiles -->
+<div class="row ">
     <div class="tile_count">
      <?php if(has_permission(VIEW, 'student', 'student')){ ?>
     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
