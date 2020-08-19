@@ -1,5 +1,5 @@
 <div class="top_nav">
-    <div class="nav_menu">
+    <div class="nav_menu fixed">
         <nav>
             <div class="col-md-1">
                 <div class="nav toggle">
@@ -17,6 +17,17 @@
             </div>
             <div class="col-md-4">
                 <ul class="nav navbar-nav <?php echo $this->enable_rtl ? 'navbar-left' : 'navbar-right'; ?>">
+                    <?php if($this->global_setting->enable_frontend){ ?>
+                        <li>
+                            <?php if($this->session->userdata('role_id') != SUPER_ADMIN){ ?>                            
+                                    <?php if($this->school_setting->enable_frontend){ ?>
+                                        <a href="<?php echo site_url(); ?>"><i class="fa fa-globe"></i> <?php echo $this->lang->line('web'); ?></a>
+                                    <?php } ?> 
+                            <?php }else{ ?>  
+                                <a href="<?php echo site_url(); ?>"><i class="fa fa-globe"></i> <?php echo $this->lang->line('web'); ?></a>
+                            <?php } ?>  
+                        </li>
+                    <?php } ?> 
                     <li class="">
                         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <?php
@@ -77,18 +88,10 @@
                             </li>
                         </ul>
                     </li>
-                    <?php } ?>                     
-                    <?php if($this->global_setting->enable_frontend){ ?>
-                        <li>
-                            <?php if($this->session->userdata('role_id') != SUPER_ADMIN){ ?>                            
-                                    <?php if($this->school_setting->enable_frontend){ ?>
-                                        <a href="<?php echo site_url(); ?>"><i class="fa fa-globe"></i> <?php echo $this->lang->line('web'); ?></a>
-                                    <?php } ?> 
-                            <?php }else{ ?>  
-                                <a href="<?php echo site_url(); ?>"><i class="fa fa-globe"></i> <?php echo $this->lang->line('web'); ?></a>
-                            <?php } ?>  
-                        </li>
-                    <?php } ?>  
+                    <?php } ?>
+                    <?php $pagename = !empty($this->uri->segment(1))?$this->uri->segment(1):''; ?>
+                    <li class="mobile-bars page-<?php echo $pagename; ?>"><a href="<?php echo site_url('dashboard'); ?>"><i class="fa fa-angle-left"></i> <?php echo $this->lang->line('home'); ?></a></li>                  
+                     
                 </ul>
             </div>
         </nav>

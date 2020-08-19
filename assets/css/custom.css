@@ -2870,12 +2870,8 @@ label{
     border: .5px solid #dadada;
     padding: 5px;
 }
-.tile_button {
+.home-row {
     margin-bottom: 20px;
-    margin-top: 20px;
-}
-.tile_title {
-
 }
 .tile_title h4 {
     margin: 0px;
@@ -2906,11 +2902,27 @@ label{
 
 .tile_button .button .text {
     font-weight: bold;
-    margin: 0 0 15px;
     font-size: 13px;
     text-align: center;
 }
+.top_nav .navbar-right li.mobile-bars {
+    display: none;
+}
+.top_nav .navbar-right li.mobile-bars.page-dashboard {
+    display: none;
+}
 @media (max-width: 720px) and (min-width: 320px) {
+    .top_nav .navbar-right li.mobile-bars {
+        display: block;
+    }
+    .right_col > .row:nth-of-type(1),
+    .right_col > .col-md-12:nth-of-type(1) {
+        margin-top: 80px;
+    }
+    .fixed {
+        position: fixed;
+        z-index: 999;
+    }
     .shaff_note_textarea {
         width: 120px;
     }
