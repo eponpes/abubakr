@@ -70,16 +70,18 @@
             </div>
              <?php } ?>
             
-            <div class="x_content">
+            <div class="x_content x_apps">
                 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th><?php echo $this->lang->line('sl_no'); ?></th>
-                            <th><?php echo $this->lang->line('photo'); ?></th>
                             <th><?php echo $this->lang->line('name'); ?></th>
+                            <?php /*
+                            <th><?php echo $this->lang->line('photo'); ?></th>
                             <th><?php echo $this->lang->line('email'); ?></th>
                             <th><?php echo $this->lang->line('phone'); ?></th>
                             <th><?php echo $this->lang->line('roll_no'); ?></th>
+                            */ ?>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                             <?php /*
@@ -114,6 +116,8 @@
                             ?>
                                 <tr>
                                     <td><?php echo $count++;  ?></td>
+                                    <td><?php echo ucfirst($obj->name); ?></td>
+                                    <?php /*
                                     <td>
                                         <?php if ($obj->photo != '') { ?>
                                             <img src="<?php echo UPLOAD_PATH; ?>/student-photo/<?php echo $obj->photo; ?>" alt="" width="60" /> 
@@ -121,10 +125,11 @@
                                             <img src="<?php echo IMG_URL; ?>/default-user.png" alt="" width="60" /> 
                                         <?php } ?>
                                     </td>  
-                                    <td><?php echo ucfirst($obj->name); ?></td>
+                                    
                                     <td><?php echo $obj->email; ?></td>
                                     <td><?php echo $obj->phone; ?></td>
                                     <td><?php echo $obj->roll_no; ?></td>
+                                    */ ?>
                                     <td>
                                     <div id="shaff_type_<?php echo $obj->id; ?>" style="display: block; width: 100%">
                                         <input type="radio" value="M" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizh_type == 'M'){ echo 'checked="checked"'; } ?> /> Murajaah

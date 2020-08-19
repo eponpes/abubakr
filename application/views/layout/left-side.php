@@ -297,7 +297,7 @@
                                         <li><a href="<?php echo site_url('attendance/student/guardian'); ?>"><?php echo $this->lang->line('student_attendance'); ?></a></li>
                                      <?php }else{ ?>   
                                         <li><a href="<?php echo site_url('attendance/student/index'); ?>"><?php echo $this->lang->line('student_attendance'); ?></a></li>
-                                        <li><a href="<?php echo site_url('tahfizh/student'); ?>"><?php echo $this->lang->line('student'); ?> <?php echo $this->lang->line('tahfizh'); ?></a></li>
+                                        <li><a href="<?php echo site_url('tahfizh/student'); ?>"><?php echo $this->lang->line('student_tahfizh'); ?></a></li>
                                      <?php } ?>   
                                 <?php } ?>
                                 <?php if(has_permission(VIEW, 'attendance', 'teacher')){ ?>
