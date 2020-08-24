@@ -110,7 +110,7 @@
                     
                     <div class="tab-content">
                         <div  class="tab-pane fade in active" id="tab_tabular" >
-                            <div class="x_content">
+                            <div class="x_content table-responsive">
                                                             
                             <table class="datatable-responsive table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>

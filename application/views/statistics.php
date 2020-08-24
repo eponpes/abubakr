@@ -57,6 +57,7 @@
     </div>
 </div>  
 
+<?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
 <div class="row">
            
     <div class="col-md-12 col-sm-12 col-xs-12">            
@@ -126,7 +127,7 @@
     </div>  
    
 </div>
- 
+<?php } ?>
  
 
 <div class="row">

@@ -109,7 +109,7 @@ if (!function_exists('get_employee_monthly_attendance')) {
 /** CUSTOM BY FATHAN F */
 if (!function_exists('get_student_monthly_tahfizh')) {
 
-    function get_student_monthly_tahfizh($student_id, $academic_year_id, $class_id, $section_id, $month, $days) {
+    function get_student_monthly_tahfizh($school_id, $student_id, $academic_year_id, $class_id, $section_id, $month, $days) {
 
         $fields = '';
 
@@ -124,6 +124,7 @@ if (!function_exists('get_student_monthly_tahfizh')) {
         $ci = & get_instance();
         $ci->db->select($fields);
         $ci->db->from('student_tahfizh AS SA');
+        $ci->db->where('SA.school_id', $school_id);
         $ci->db->where('SA.student_id', $student_id);
         $ci->db->where('SA.academic_year_id', $academic_year_id);
         $ci->db->where('SA.class_id', $class_id);

@@ -100,18 +100,23 @@
                             <?php  $attendance = get_student_tahfizh($obj->id, $school_id, $academic_year_id, $class_id, $section_id, $year, $month, $day ); 
 
                             $getdata = json_decode($attendance);
-
-                            $tahfizh_type = ""; $tahfizh_shaff = ""; $tahfizh_shaff_o = ""; $tahfizh_shaff_note = "";
-                            if(!empty($getdata->type)){ // Type
-                                $tahfizh_type = $getdata->type;
-                            } if(!empty($getdata->shaff)){ // Shaff
-                                $tahfizh_shaff = $getdata->shaff;
-                            } if(!empty($getdata->shaffo)){ // Shaff other
-                                $tahfizh_shaff_o = $getdata->shaffo;
-                            } if(!empty($getdata->shaffn)){ // Shaff note
-                                $tahfizh_shaff_note = $getdata->shaffn;
+                            foreach($getdata as $gda){
+                                if($gda->type == "M"){
+                                    $tahfizhm_type = !empty($gda->type) ? $gda->type : "";
+                                    $tahfizhm_shaff = !empty($gda->shaff) ? $gda->shaff : "";
+                                    $tahfizhm_shaff_o = !empty($gda->shaffo) ? $gda->shaffo : "";
+                                    $tahfizhm_shaff_note = !empty($gda->shaffn) ? $gda->shaffn : "";
+                                    $tahfizhm_shaff_score = !empty($gda->shaffs) ? $gda->shaffs : "";
+                                }
+                                if($gda->type == "Z"){
+                                    $tahfizhz_type = !empty($gda->type) ? $gda->type : "";
+                                    $tahfizhz_shaff = !empty($gda->shaff) ? $gda->shaff : "";
+                                    $tahfizhz_shaff_o = !empty($gda->shaffo) ? $gda->shaffo : "";
+                                    $tahfizhz_shaff_note = !empty($gda->shaffn) ? $gda->shaffn : "";
+                                    $tahfizhz_shaff_score = !empty($gda->shaffs) ? $gda->shaffs : "";
+                                }
+                                
                             }
-
                             
                             ?>
                                 <tr>
@@ -132,29 +137,71 @@
                                     */ ?>
                                     <td>
                                     <div id="shaff_type_<?php echo $obj->id; ?>" style="display: block; width: 100%">
-                                        <input type="radio" value="M" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizh_type == 'M'){ echo 'checked="checked"'; } ?> /> Murajaah
-                                        <input type="radio" value="Z" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizh_type == 'Z'){ echo 'checked="checked"'; } ?> /> Ziyadah
-                                        <input type="radio" value="A" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizh_type == 'A'){ echo 'checked="checked"'; } ?> /> Tidak ada
+                                    <input type="radio" value="P" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhm_type == 'M' || $tahfizhz_type == 'Z' ){ echo 'checked="checked"'; } ?> /> Hadir
+                                        <fieldset class="group_tahfizh" id="group_tahfizh_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_type == 'M' || $tahfizhz_type == 'Z') echo 'display:block'; else echo 'display:none' ?>">
+                                            <input type="checkbox" value="M" itemid="<?php echo $obj->id; ?>" name="tahfizhm_<?php echo $obj->id; ?>" id="tahfizhm_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhm_type == 'M'){ echo 'checked="checked"'; } ?> /> Murajaah
+                                            <div id="detail_shaffm_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_type == 'M') echo 'display:block'; else echo 'display:none' ?>">
+                                                <select itemid="<?php echo $obj->id; ?>" id="shaffm_<?php echo $obj->id; ?>" name="shaffm_<?php echo $obj->id; ?>">
+                                                    <option>Jumlah Murajaah</option>
+                                                    <option value="0.3" <?php if($tahfizhm_shaff == '0.3') echo 'selected';?>>1/3 Halaman</option>
+                                                    <option value="0.5" <?php if($tahfizhm_shaff == '0.5') echo 'selected';?>>1/2 Halaman</option>
+                                                    <option value="1" <?php if($tahfizhm_shaff == '1') echo 'selected';?>>1 Halaman</option>
+                                                    <option value="1.3" <?php if($tahfizhm_shaff == '1.3') echo 'selected';?>>1 1/3 Halaman</option>
+                                                    <option value="1.5" <?php if($tahfizhm_shaff == '1.5') echo 'selected';?>>1 1/2 Halaman</option>
+                                                    <option value="2" <?php if($tahfizhm_shaff == '2') echo 'selected';?>>2 Halaman</option>
+                                                    <option value="O" <?php if($tahfizhm_shaff == 'O') echo 'selected';?>>Lainnya</option>
+                                                </select>
+                                                <div id="shaffm_other_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_shaff == 'O') echo 'display:block'; else echo 'display:none'?>">
+                                                    <input type="text" id="shaffm_o_<?php echo $obj->id; ?>" name="shaffm_o_<?php echo $obj->id; ?>" value="<?php if(!empty($tahfizhm_shaff_o)) echo $tahfizhm_shaff_o;?>" style='width:45px'/> Halaman
+                                                </div>
+                                                <div class="shaffm_note">
+                                                    <label for="shaffm_note_<?php echo $obj->id; ?>">Catatan:</label>  
+                                                    <textarea class="shaffm_note_textarea" id="shaffm_note_<?php echo $obj->id; ?>" name="shaffm_note_<?php echo $obj->id; ?>" /><?php if(!empty($tahfizhm_shaff_note)) echo $tahfizhm_shaff_note;?></textarea>
+                                                    <select itemid="<?php echo $obj->id; ?>" id="shaffm_score_<?php echo $obj->id; ?>" name="shaffm_score_<?php echo $obj->id; ?>">
+                                                    <option>Nilai</option>
+                                                    <option value="A+" <?php if($tahfizhm_shaff_score == 'A+') echo 'selected';?>>A+ (Mumtaz-Sempurna)</option>
+                                                    <option value="A" <?php if($tahfizhm_shaff_score == 'A') echo 'selected';?>>A (Jayyid Jiddan-Baik Sekali)</option>
+                                                    <option value="B" <?php if($tahfizhm_shaff_score == 'B') echo 'selected';?>>B (Jayyid-Baik)</option>
+                                                    <option value="C" <?php if($tahfizhm_shaff_score == 'C') echo 'selected';?>>C (Maqbul-Cukup)</option>
+                                                    <option value="D" <?php if($tahfizhm_shaff_score == 'D') echo 'selected';?>>D(Naqis-Kurang Baik)</option>
+                                                    <option value="E" <?php if($tahfizhm_shaff_score == 'D') echo 'selected';?>>E (Dhoif-Lemah)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <input type="checkbox" value="Z" itemid="<?php echo $obj->id; ?>" name="tahfizhz_<?php echo $obj->id; ?>" id="tahfizhz_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhz_type == 'Z'){ echo 'checked="checked"'; } ?> /> Ziyadah
+                                            <div id="detail_shaffz_<?php echo $obj->id; ?>" style="<?php if($tahfizhz_type == 'Z') echo 'display:block'; else echo 'display:none' ?>">
+                                                <select itemid="<?php echo $obj->id; ?>" id="shaffz_<?php echo $obj->id; ?>" name="shaffz_<?php echo $obj->id; ?>">
+                                                <option>Jumlah Ziyadah</option>
+                                                <option value="0.3" <?php if($tahfizhz_shaff == '0.3') echo 'selected';?>>1/3 Halaman</option>
+                                                <option value="0.5" <?php if($tahfizhz_shaff == '0.5') echo 'selected';?>>1/2 Halaman</option>
+                                                <option value="1" <?php if($tahfizhz_shaff == '1') echo 'selected';?>>1 Halaman</option>
+                                                <option value="1.3" <?php if($tahfizhz_shaff == '1.3') echo 'selected';?>>1 1/3 Halaman</option>
+                                                <option value="1.5" <?php if($tahfizhz_shaff == '1.5') echo 'selected';?>>1 1/2 Halaman</option>
+                                                <option value="2" <?php if($tahfizhz_shaff == '2') echo 'selected';?>>2 Halaman</option>
+                                                <option value="O" <?php if($tahfizhz_shaff == 'O') echo 'selected';?>>Lainnya</option>
+                                                </select>
+                                                <div id="shaffz_other_<?php echo $obj->id; ?>" style="<?php if($tahfizhz_shaff == 'O') echo 'display:block'; else echo 'display:none'?>">
+                                                    <input type="text" id="shaffz_o_<?php echo $obj->id; ?>" name="shaffz_o_<?php echo $obj->id; ?>" value="<?php if(!empty($tahfizhz_shaff_o)) echo $tahfizhz_shaff_o;?>" style='width:45px'/> Halaman
+                                                </div>
+                                                <div class="shaffz_note">
+                                                <label for="shaffz_note_<?php echo $obj->id; ?>">Catatan:</label>  
+                                                <textarea class="shaffz_note_textarea" id="shaffz_note_<?php echo $obj->id; ?>" name="shaffz_note_<?php echo $obj->id; ?>" /><?php if(!empty($tahfizhz_shaff_note)) echo $tahfizhz_shaff_note;?></textarea>
+                                                <select itemid="<?php echo $obj->id; ?>" id="shaffz_score_<?php echo $obj->id; ?>" name="shaffz_score_<?php echo $obj->id; ?>">
+                                                    <option>Nilai</option>
+                                                    <option value="A+" <?php if($tahfizhz_shaff_score == 'A+') echo 'selected';?>>A+ (Mumtaz-Sempurna)</option>
+                                                    <option value="A" <?php if($tahfizhz_shaff_score == 'A') echo 'selected';?>>A (Jayyid Jiddan-Baik Sekali)</option>
+                                                    <option value="B" <?php if($tahfizhz_shaff_score == 'B') echo 'selected';?>>B (Jayyid-Baik)</option>
+                                                    <option value="C" <?php if($tahfizhz_shaff_score == 'C') echo 'selected';?>>C (Maqbul-Cukup)</option>
+                                                    <option value="D" <?php if($tahfizhz_shaff_score == 'D') echo 'selected';?>>D(Naqis-Kurang Baik)</option>
+                                                    <option value="E" <?php if($tahfizhz_shaff_score == 'D') echo 'selected';?>>E (Dhoif-Lemah)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    <input type="radio" value="A" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizh_type == 'A'){ echo 'checked="checked"'; } ?> /> Tidak ada
                                     </div>
-                                    <div id="detail_shaff_<?php echo $obj->id; ?>" style="<?php if($tahfizh_type == 'Z' || $tahfizh_type == 'M') echo 'display:block'; else echo 'display:none' ?>">
-                                        <select itemid="<?php echo $obj->id; ?>" id="shaff_<?php echo $obj->id; ?>" name="shaff_<?php echo $obj->id; ?>">
-                                        <option>Jumlah Halaman</option>
-                                        <option value="0.3" <?php if($tahfizh_shaff == '0.3') echo 'selected';?>>1/3 Halaman</option>
-                                        <option value="0.5" <?php if($tahfizh_shaff == '0.5') echo 'selected';?>>1/2 Halaman</option>
-                                        <option value="1" <?php if($tahfizh_shaff == '1') echo 'selected';?>>1 Halaman</option>
-                                        <option value="1.3" <?php if($tahfizh_shaff == '1.3') echo 'selected';?>>1 1/3 Halaman</option>
-                                        <option value="1.5" <?php if($tahfizh_shaff == '1.5') echo 'selected';?>>1 1/2 Halaman</option>
-                                        <option value="2" <?php if($tahfizh_shaff == '2') echo 'selected';?>>2 Halaman</option>
-                                        <option value="O" <?php if($tahfizh_shaff == 'O') echo 'selected';?>>Lainnya</option>
-                                        </select>
-                                        <div id="shaff_other_<?php echo $obj->id; ?>" style="<?php if($tahfizh_shaff == 'O') echo 'display:block'; else echo 'display:none'?>">
-                                            <input type="text" id="shaff_o_<?php echo $obj->id; ?>" name="shaff_o_<?php echo $obj->id; ?>" value="<?php if(!empty($tahfizh_shaff_o)) echo $tahfizh_shaff_o;?>" style='width:45px'/> Halaman
-                                        </div>
-                                        <div class="shaff_note">
-                                        <label for="shaff_note_<?php echo $obj->id; ?>">Catatan:</label>  
-                                        <textarea class="shaff_note_textarea" id="shaff_note_<?php echo $obj->id; ?>" name="shaff_note_<?php echo $obj->id; ?>" /><?php if(!empty($tahfizh_shaff_note)) echo $tahfizh_shaff_note;?></textarea>
-                                        </div>
-                                    </div>
+                                    
                                     </td>
                                     <td><input type="submit" itemid="<?php echo $obj->id; ?>" name="submit_tahfizh_<?php echo $obj->id; ?>"></td>
                                     <?php /*
@@ -260,25 +307,58 @@
            var student_id = $(this).attr('itemid');
            if(status == 'A'){
             $("#detail_shaff_"+student_id).hide();
+            $("#group_tahfizh_"+student_id).hide();
+            $("input[name='tahfizh_"+student_id+"']").prop('disabled', true);
            } else {
             $("#detail_shaff_"+student_id).show();
+            $("#group_tahfizh_"+student_id).show();
+            $("input[name='tahfizh_"+student_id+"']").prop('disabled', false);
            }
            
     }); 
 
-    $("[name^='shaff']").on('change', function() {
+    $("[name^='tahfizhm_']").on('change', function() {
+        var status     = $(this).prop('checked') ? $(this).val() : '';
+        var itemid = $(this).attr('itemid');
+        if (status === "M"){
+            $("#detail_shaffm_"+itemid).show();
+        } else {
+            $("#detail_shaffm_"+itemid).hide();
+        }
+    });
+
+    $("[name^='tahfizhz_']").on('change', function() {
+        var status     = $(this).prop('checked') ? $(this).val() : '';
+        var itemid = $(this).attr('itemid');
+        if (status === "Z"){
+            $("#detail_shaffz_"+itemid).show();
+        } else {
+            $("#detail_shaffz_"+itemid).hide();
+        }
+    });
+
+    $("[name^='shaffm']").on('change', function() {
         var val = $(this).val();
         var itemid = $(this).attr('itemid');
-        $("#shaff_other_"+itemid).hide();
+        $("#shaffm_other_"+itemid).hide();
         if (val === "O"){
-            $("#shaff_other_"+itemid).show();
+            $("#shaffm_other_"+itemid).show();
+        }
+    });
+
+    $("[name^='shaffz']").on('change', function() {
+        var val = $(this).val();
+        var itemid = $(this).attr('itemid');
+        $("#shaffz_other_"+itemid).hide();
+        if (val === "O"){
+            $("#shaffz_other_"+itemid).show();
         }
     });
 
     $("[name^='submit_tahfizh_']").on('click', function() {
         var itemid = student_id = $(this).attr('itemid');
         let type;
-        let status;
+        //let status;
 
         $.each($("#student_"+itemid+":checked"), function(){
             type = $(this).val();
@@ -296,15 +376,34 @@
             dateg = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0]);
         var datefix = dateg.getTime();
 
-        var shaff = $("#shaff_"+itemid).val();
-        var shaff_other = $("#shaff_o_"+itemid).val();
-        var shaff_note = $("#shaff_note_"+itemid).val();
+        //var shaff = $("#shaff_"+itemid).val();
+        //var shaff_other = $("#shaff_o_"+itemid).val();
+        //var shaff_note = $("#shaff_note_"+itemid).val();
         var tahfizhdate = Math.floor(datefix / 1000);
 
+        var tahfizhm     = $("#tahfizhm_"+itemid).prop('checked') ? $("#tahfizhm_"+itemid).val() : '';
+        var tahfizhz     = $("#tahfizhz_"+itemid).prop('checked') ? $("#tahfizhz_"+itemid).val() : '';
+        
+        var status = new Array(); 
         if(type == 'A'){
             status = { type: type, date: tahfizhdate };
         } else {
-            status = { type: type, date: tahfizhdate, shaff: shaff, shaffo : shaff_other, shaffn : shaff_note };
+            if(tahfizhm === 'M'){
+                var shaffm = $("#shaffm_"+itemid).val();
+                var shaffm_other = $("#shaffm_o_"+itemid).val();
+                var shaffm_note = $("#shaffm_note_"+itemid).val();
+                var shaffm_score = $("#shaffm_score_"+itemid).val();
+                tahfizhmpush = { type: tahfizhm, date: tahfizhdate, shaff: shaffm, shaffo : shaffm_other, shaffn : shaffm_note, shaffs : shaffm_score };
+                status.push (  tahfizhmpush );
+            } 
+            if(tahfizhz === 'Z'){
+                var shaffz = $("#shaffz_"+itemid).val();
+                var shaffz_other = $("#shaffz_o_"+itemid).val();
+                var shaffz_note = $("#shaffz_note_"+itemid).val();
+                var shaffz_score = $("#shaffz_score_"+itemid).val();
+                tahfizhmpush = { type: tahfizhz, date: tahfizhdate, shaff: shaffz, shaffo : shaffz_other, shaffn : shaffz_note, shaffs : shaffz_score };
+                status.push (  tahfizhmpush );
+            }
         }
 
         status = JSON.stringify(status);

@@ -647,6 +647,7 @@
                                 <li><a href="<?php echo site_url('report/feecollection'); ?>"><?php echo $this->lang->line('fee_collection_report'); ?></a></li>
                                 <li><a href="<?php echo site_url('report/balance'); ?>"><?php echo $this->lang->line('accounting_balance_report'); ?></a></li> 
                                 <li><a href="<?php echo site_url('report/library'); ?>"><?php echo $this->lang->line('library_report'); ?></a></li>
+                                <li><a href="<?php echo site_url('report/stahfizh'); ?>"><?php echo $this->lang->line('student_tahfizh_report'); ?></a></li>
                                 <li><a href="<?php echo site_url('report/sattendance'); ?>"><?php echo $this->lang->line('student_attendance_report'); ?></a></li>
                                 <li><a href="<?php echo site_url('report/syattendance'); ?>"><?php echo $this->lang->line('student_yearly_attendance_report'); ?></a></li>
                                 <li><a href="<?php echo site_url('report/tattendance'); ?>"><?php echo $this->lang->line('teacher_attendance_report'); ?></a></li>

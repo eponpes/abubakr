@@ -2911,6 +2911,12 @@ label{
 .top_nav .navbar-right li.mobile-bars.page-dashboard {
     display: none;
 }
+.layout-box img {
+    max-width: 100px;
+}
+.group_tahfizh {
+    display:none;
+}
 @media (max-width: 720px) and (min-width: 320px) {
     .top_nav .navbar-right li.mobile-bars {
         display: block;
@@ -2961,40 +2967,40 @@ label{
       background: #ccc;
     }
     
-		.x_apps td {
-			/* Behave  like a "row" */
-			border: none;
-			border-bottom: 1px solid #eee;
-			position: relative;
-			padding-left: 50%;
-		}
+    .x_apps td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
 
-		.x_apps td:before {
-			/* Now like a table header */
-			position: absolute;
-			/* Top/left values mimic padding */
-			top: 0;
-			left: 6px;
-			width: 45%;
-			padding-right: 10px;
-			white-space: nowrap;
-		}
+    .x_apps td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 0;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
 
-		/*
-		Label the data
-    You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
-		*/
-		.x_apps td:nth-of-type(1):before { content: "No"; }
-		.x_apps td:nth-of-type(2):before { content: "Nama"; }
-		.x_apps td:nth-of-type(3):before { content: "Aktivitas"; }
-        .x_apps td:nth-of-type(4):before { content: ""; }
-        
-        .x_apps .table>tbody>tr>td, 
-        .x_apps .table>tbody>tr>th, 
-        .x_apps .table>tfoot>tr>td, 
-        .x_apps .table>tfoot>tr>th, 
-        .x_apps .table>thead>tr>td, 
-        .x_apps .table>thead>tr>th {
-            padding-left: 30%;
-        }
-	}
+    /*
+    Label the data
+You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
+    */
+    .x_apps td:nth-of-type(1):before { content: "No"; }
+    .x_apps td:nth-of-type(2):before { content: "Nama"; }
+    .x_apps td:nth-of-type(3):before { content: "Aktivitas"; }
+    .x_apps td:nth-of-type(4):before { content: ""; }
+    
+    .x_apps .table>tbody>tr>td, 
+    .x_apps .table>tbody>tr>th, 
+    .x_apps .table>tfoot>tr>td, 
+    .x_apps .table>tfoot>tr>th, 
+    .x_apps .table>thead>tr>td, 
+    .x_apps .table>thead>tr>th {
+        padding-left: 30%;
+    }
+}
