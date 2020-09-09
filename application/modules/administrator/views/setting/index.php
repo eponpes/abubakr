@@ -196,6 +196,31 @@
                                         <div class="help-block"><?php echo form_error('google_analytics'); ?></div> 
                                     </div>
                                 </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="registration_number">
+                                        APPS INFORMATION
+                                    </label>
+                                </div>
+
+                                <div class="item form-group">
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="registration_number"> Nomor Registrasi </label>
+                                   <div class="col-md-6 col-sm-6 col-xs-12">                                      
+                                        <?php echo isset($setting) ?  $setting->registration_number   : ''; ?>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="registration_date"> Tanggal Registrasi </label>
+                                   <div class="col-md-6 col-sm-6 col-xs-12">                                      
+                                        <?php echo isset($setting) ?  $setting->registration_date   : ''; ?>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="serial_code"> Serial Code </label>
+                                   <div class="col-md-6 col-sm-6 col-xs-12">                                      
+                                        <?php echo isset($setting) ?  $setting->serial_code   : ''; ?>
+                                    </div>
+                                </div>
                                 
 
                                 <div class="ln_solid"></div>

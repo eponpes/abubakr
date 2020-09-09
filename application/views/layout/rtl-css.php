@@ -65,7 +65,18 @@
             }
             .nav-md ul.nav.child_menu li:after {
                  border-right: 1px solid #9eff8b;
-             }             
+             }   
+        
+        <?php }elseif($this->session->userdata('theme') == 'ibad-v1'){ ?>
+    
+            .nav.side-menu>li.current-page, 
+            .nav.side-menu>li.active,
+            .nav-sm .nav.side-menu li.active-sm {
+                border-left: 5px solid #9eff8b;
+            }
+            .nav-md ul.nav.child_menu li:after {
+                border-right: 1px solid #9eff8b;
+            }  
 
         <?php }elseif($this->session->userdata('theme') == 'black'){ ?>
                 
@@ -195,6 +206,17 @@
                 
         <?php if($this->session->userdata('theme') == 'lime-green'){ ?>
                 
+            .nav.side-menu>li.current-page, 
+            .nav.side-menu>li.active,
+            .nav-sm .nav.side-menu li.active-sm {
+                border-right: 5px solid #9eff8b;
+            }
+            .nav-md ul.nav.child_menu li:after {
+                border-left: 1px solid #fdfdfd;
+            }
+        
+        <?php }elseif($this->session->userdata('theme') == 'lime-green'){ ?>
+            
             .nav.side-menu>li.current-page, 
             .nav.side-menu>li.active,
             .nav-sm .nav.side-menu li.active-sm {

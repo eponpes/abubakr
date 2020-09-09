@@ -434,7 +434,32 @@
    .form-control.has-feedback-left {
         border: .5px solid #ff4261;     
    }
-    
+
+<?php }elseif($this->global_setting->theme_name == 'ibad-v1'){ ?>
+
+    .login{    
+        background: url(<?php echo $path; ?>assets/images/login-screen/lime-green.jpg);  
+        background-color: #33ce34;
+    }
+    .login_form{
+        background: #49c549; 
+    }     
+    .login-button{
+        color: #2d2d2d !important;
+        background-color: #6fe66f !important;
+        border: .5px solid #e0e0e0 !important;
+    }
+    .login-button:hover{
+        background-color: #6ad26a !important;
+    }
+    .login_wrapper h1{   
+        background: #3e3d3d;
+        color: #e2e2e2; 
+   }
+   .form-control.has-feedback-left {
+        border: .5px solid #49c549;     
+   }
+
 <?php }else{ ?>
     
  
