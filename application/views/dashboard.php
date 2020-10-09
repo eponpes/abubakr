@@ -140,10 +140,6 @@
         </div>
         <div class="x_content">
             <div class="row home-row">
-                <div class="tile_title">
-                    <h4>Komunikasi</h4>
-                    <h5>Komplain, Pesan, Broadcast, Berita</h5>
-                </div>
                 <div class="tile_button">
                 <?php if(has_permission(VIEW, 'complain', 'complain')){ ?>
                 <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
@@ -188,5 +184,55 @@
         </div>
     </div>
 </div>
+
+<?php if(has_permission(VIEW, 'report', 'report')){ ?>
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">            
+    <div class="x_panel tile overflow_hidden">
+        <div class="x_title">
+            <h4 class="head-title">Laporan</h4>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>                                
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row home-row">
+                <div class="tile_button">
+                <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                    <a href="<?php echo site_url('report/stahfizh'); ?>" class="button">
+                        <figure><img src="<?php echo IMG_URL; ?>icon/stats2.png"></figure>
+                        <div class="text">
+                        <?php echo $this->lang->line('student_tahfizh_report'); ?>
+                        </div>
+                    </a></div>
+                <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                    <a href="<?php echo site_url('report/sattendance'); ?>" class="button">
+                        <figure><img src="<?php echo IMG_URL; ?>icon/report1.png"></figure>
+                        <div class="text">
+                        <?php echo $this->lang->line('student_attendance_report'); ?>
+                        </div>
+                    </a></div>
+                <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                    <a href="<?php echo site_url('report/tattendance'); ?>" class="button">
+                        <figure><img src="<?php echo IMG_URL; ?>icon/report2.png"></figure>
+                        <div class="text">
+                        <?php echo $this->lang->line('teacher_attendance_report'); ?>
+                        </div>
+                    </a>    
                 </div>
-  
+                <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                    <a href="<?php echo site_url('report/student'); ?>" class="button">
+                        <figure><img src="<?php echo IMG_URL; ?>icon/report-student.png"></figure>
+                        <div class="text">
+                        <?php echo $this->lang->line('student_report'); ?>
+                        </div>
+                    </a>    
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                <?php } ?>
+                </div>

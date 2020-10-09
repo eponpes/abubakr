@@ -22,7 +22,7 @@ class Student extends MY_Controller {
         
         $this->load->helper('report');
         $this->load->model('Student_Model', 'student', true);
-        $this->data['classes'] = $this->student->get_list('classes', array('status' => 1), '', '', '', 'id', 'ASC');
+        $this->data['classes'] = $this->student->get_list('classes', array('status' => 1, 'group_id' => 2), '', '', '', 'id', 'ASC');
         
     }
 

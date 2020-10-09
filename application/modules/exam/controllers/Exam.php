@@ -241,6 +241,7 @@ class Exam extends MY_Controller {
         $items = array();
         $items[] = 'school_id';
         $items[] = 'title';
+        $items[] = 'group_id';
         $items[] = 'note';
         $data = elements($items, $_POST);
 

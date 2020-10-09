@@ -27,6 +27,7 @@
         
         <!-- Bootstrap -->
         <link href="<?php echo VENDOR_URL; ?>bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="<?php echo VENDOR_URL; ?>select2/dist/css/select2.min.css">
         
         <!-- Font Awesome -->
         <link href="<?php echo VENDOR_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -49,6 +50,8 @@
         <!-- jQuery -->
         <script src="<?php echo JS_URL; ?>jquery-1.11.2.min.js"></script>
         <script src="<?php echo JS_URL; ?>jquery.validate.js"></script>
+        <script src="<?php echo VENDOR_URL; ?>select2/dist/js/select2.min.js"></script>   
+
         
          <script type="text/javascript" src="<?php echo VENDOR_URL; ?>toastr/toastr.min.js"></script>
         

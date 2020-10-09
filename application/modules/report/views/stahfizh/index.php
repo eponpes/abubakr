@@ -123,9 +123,11 @@
                                 </thead>
                                 <tbody>   
                                     <?php  $count = 1; if(isset($students) && !empty($students)){ ?>
-                                        <?php foreach($students as $obj){ ?>
+                                        <?php foreach($students as $obj){ 
+                                        $buildid = 'report/srecord/'.$obj->id.'/'.$school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id.'/'.$month_number;
+                                            ?>
                                         <tr>
-                                            <td><?php echo $obj->name; ?></td>
+                                            <td><a href="<?php echo site_url($buildid); ?>"><?php echo $obj->name; ?></a></td>
                                             <?php $attendance = get_student_monthly_tahfizh($school_id, $obj->id, $academic_year_id, $class_id, $section_id, $month_number ,$days); ?>
                                             <?php if(!empty($attendance)){ ?>
                                                 <?php foreach($attendance AS $key ){ ?>

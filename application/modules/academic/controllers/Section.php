@@ -193,11 +193,11 @@ class Section extends MY_Controller {
       
         $condition = array();
         $condition['status'] = 1;        
-        if($this->session->userdata('role_id') != SUPER_ADMIN){            
-            $condition['school_id'] = $this->session->userdata('school_id');
+        //if($this->session->userdata('role_id') != SUPER_ADMIN){            
+            $condition['school_id'] = $this->data['section']->school_id;
             $this->data['classes'] = $this->section->get_list('classes', $condition, '','', '', 'id', 'ASC');
             $this->data['teachers'] = $this->section->get_list('teachers', $condition, '','', '', 'id', 'ASC');
-        }
+        //}
         
         $this->data['class_id'] = $class_id;
         $this->data['filter_class_id'] = $class_id;

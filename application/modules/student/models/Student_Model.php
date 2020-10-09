@@ -15,7 +15,7 @@ class Student_Model extends MY_Model {
             return;
         }
         
-        $this->db->select('S.*, SC.school_name, E.roll_no, E.class_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section');
+        $this->db->select('S.*, SC.school_name, E.roll_no, E.class_id, E.class_mahad_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section');
         $this->db->from('enrollments AS E');
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
         $this->db->join('users AS U', 'U.id = S.user_id', 'left');
@@ -54,7 +54,7 @@ class Student_Model extends MY_Model {
     
     public function get_single_student($id,  $academic_year_id){
         
-        $this->db->select('S.*,  SC.school_name, T.type, D.amount, D.title AS discount_title, SC.school_name, G.name as guardian, E.academic_year_id, E.roll_no, E.class_id, E.section_id, U.username, U.role_id, R.name AS role,  C.name AS class_name, SE.name AS section');
+        $this->db->select('S.*,  SC.school_name, T.type, D.amount, D.title AS discount_title, SC.school_name, G.name as guardian, E.academic_year_id, E.roll_no, E.class_id, E.section_id, E.class_mahad_id, E.section_mahad_id, U.username, U.role_id, R.name AS role,  C.name AS class_name, SE.name AS section');
         $this->db->from('enrollments AS E');
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
         $this->db->join('users AS U', 'U.id = S.user_id', 'left');
@@ -135,5 +135,14 @@ class Student_Model extends MY_Model {
         $this->db->join('academic_years AS AY', 'AY.id = SA.academic_year_id', 'left');
         $this->db->where('SA.student_id', $student_id);
         return $this->db->get()->result();
+    }
+
+    public function get_provinces(){
+        
+        $this->db->select('*');
+        $this->db->from('provinces');
+        $this->db->order_by('name', 'ASC');
+        return $this->db->get()->result();
+        
     }
 }

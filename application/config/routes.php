@@ -67,6 +67,7 @@ $route['staff'] = 'web/staff';
 $route['contact'] = 'web/contact';
 $route['admission-online'] = 'web/admission_online';
 $route['admission-form'] = 'web/admission_form';
+$route['ajax/(:any)'] = 'ajax/$1';
 
 $route['page/(:any)'] = 'web/page/$1';
 

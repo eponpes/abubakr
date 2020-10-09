@@ -121,9 +121,13 @@ if (!function_exists('get_student_monthly_tahfizh')) {
             }
         }
 
+
+        $fields .= ',ST.name';
+
         $ci = & get_instance();
         $ci->db->select($fields);
         $ci->db->from('student_tahfizh AS SA');
+        $ci->db->join('students AS ST', 'ST.id = SA.student_id', 'left');
         $ci->db->where('SA.school_id', $school_id);
         $ci->db->where('SA.student_id', $student_id);
         $ci->db->where('SA.academic_year_id', $academic_year_id);
@@ -133,6 +137,62 @@ if (!function_exists('get_student_monthly_tahfizh')) {
         return $ci->db->get()->row();
     }
 
+}
+
+if (!function_exists('get_student_tahfizh_record')) {
+
+    function get_student_tahfizh_record($school_id, $student_id, $academic_year_id, $class_id, $section_id, $month, $year) {
+
+        $ci = & get_instance();
+        $ci->db->select('ST.name as name, ST.photo, C.name as class_name, S.name as section, T.name as teacher_name, AY.start_year as academic_year_start, AY.end_year as academic_year_end');
+        $ci->db->from('student_tahfizh AS SA');
+        $ci->db->join('students AS ST', 'ST.id = SA.student_id', 'left');
+        $ci->db->join('classes AS C', 'C.id = SA.class_id', 'left');
+        $ci->db->join('sections AS S', 'S.id = SA.section_id', 'left');
+        $ci->db->join('teachers AS T', 'T.id = SA.class_id', 'left');
+        $ci->db->join('academic_years AS AY', 'AY.id = SA.academic_year_id', 'left');
+        $ci->db->where('SA.school_id', $school_id);
+        $ci->db->where('SA.student_id', $student_id);
+        $ci->db->where('SA.academic_year_id', $academic_year_id);
+        $ci->db->where('SA.class_id', $class_id);
+        $ci->db->where('SA.section_id', $section_id);
+        $ci->db->where('SA.month', $month);
+        return $ci->db->get()->row();
+    }
+
+}
+
+if (!function_exists('get_predicate')) {
+    function get_predicate($value = null) {
+        $predicate = "";
+        switch ($value){
+            case 'A+':
+            $predicate = 'Mumtaz';
+            break;
+
+            case 'A':
+            $predicate = 'Jayyid Jiddan';
+            break;
+            
+            case 'B':
+            $predicate = 'Jayyid';
+            break;
+
+            case 'C':
+            $predicate = 'Maqbul';
+            break;
+
+            case 'D';
+            $predicate = 'Naqis';
+            break;
+
+            case 'E';
+            $predicate = 'Rosib/Dhoif';
+            break;
+        }
+
+        return $predicate;
+    }
 }
 
 

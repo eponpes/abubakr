@@ -106,35 +106,23 @@
                 </div>            
             </div>
              <?php } ?>
-            
             <div class="x_content">
                 <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th rowspan="2"><?php echo $this->lang->line('sl_no'); ?></th>
                             <th rowspan="2"  width="12%"><?php echo $this->lang->line('subject'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('written'); ?></th>                                            
-                            <th colspan="2"><?php echo $this->lang->line('tutorial'); ?></th>                                            
-                            <th colspan="2"><?php echo $this->lang->line('practical'); ?></th>                                            
-                            <th colspan="2"><?php echo $this->lang->line('viva'); ?></th>                                            
-                            <th colspan="2"><?php echo $this->lang->line('total'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('letter_grade'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('grade_point'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('lowest'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('height'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('position'); ?></th>                                            
+                            <th rowspan="2">KKM</th>
+                            <th colspan="3">Pengetahuan</th>                                            
+                            <th colspan="3">Skill</th>                  
                         </tr>
                         <tr>                           
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th>                                            
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th>                                            
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th>                                            
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th>                                            
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th> 
+                            <th>Nilai</th>
+                            <th>Predikat</th>                                            
+                            <th>Deskripsi</th>
+                            <th>Nilai</th>
+                            <th>Predikat</th>                                            
+                            <th>Deskripsi</th>         
                         </tr>
                     </thead>
                     <tbody id="fn_mark"> 
@@ -147,7 +135,8 @@
                             </tr>
                         
                             <?php
-                            $exam_subjects = get_subject_list($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id);
+                            $group_id = 3;
+                            $exam_subjects = get_subject_list($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id, $group_id);
                             $count = 1;
                             if (isset($exam_subjects) && !empty($exam_subjects)) {
                             ?>
@@ -156,27 +145,16 @@
                             
                                 <?php $exam = get_exam_result($school_id, $ex->id, $student_id, $academic_year_id, $class_id, $section_id); ?>
                                 <?php if(@$exam->name == ''){ continue; } ?> 
-                                
-                                <?php $lh       = get_lowet_height_mark($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $obj->subject_id ); ?>
-                                <?php $position = get_position_in_subject($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $obj->subject_id , $obj->obtain_total_mark); ?>
                                 <tr>
                                     <td><?php echo $count++;  ?></td>
                                     <td><?php echo ucfirst($obj->subject); ?></td>
-                                    <td><?php echo $obj->written_mark; ?></td>
-                                    <td><?php echo $obj->written_obtain; ?></td>
-                                    <td><?php echo $obj->tutorial_mark; ?></td>
-                                    <td><?php echo $obj->tutorial_obtain; ?></td>
-                                    <td><?php echo $obj->practical_mark; ?></td>
-                                    <td><?php echo $obj->practical_obtain; ?></td>
-                                    <td><?php echo $obj->viva_mark; ?></td>
-                                    <td><?php echo $obj->viva_obtain; ?></td>
-                                    <td><?php echo $obj->exam_total_mark; ?></td>
-                                    <td><?php echo $obj->obtain_total_mark; ?></td>
-                                    <td><?php echo $obj->name; ?></td>
-                                    <td><?php echo $obj->point; ?></td>                               
-                                    <td><?php echo $lh->lowest; ?></td>                               
-                                    <td><?php echo $lh->height; ?></td>                               
-                                    <td><?php echo $position; ?></td>                                
+                                    <td><?php echo $obj->subjectmark; ?></td>
+                                    <td><?php echo $obj->knowledge_obtain; ?></td>
+                                    <td><?php echo get_grades($obj->knowledge_obtain); ?></td>
+                                    <td><?php echo $obj->knowledge_note; ?></td>
+                                    <td><?php echo $obj->skill_obtain; ?></td>
+                                    <td><?php echo get_grades($obj->skill_obtain); ?></td>
+                                    <td><?php echo $obj->skill_note; ?></td>                         
                                 </tr>
                             <?php } ?>
                         <?php }else{ ?>
@@ -194,113 +172,10 @@
                     </tbody>
                 </table> 
                 
-                <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th rowspan="2"><?php echo $this->lang->line('sl_no'); ?></th>
-                            <th rowspan="2" width="12%"><?php echo $this->lang->line('exam'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('written'); ?></th>                                            
-                            <th colspan="2"><?php echo $this->lang->line('tutorial'); ?></th>                                            
-                            <th colspan="2"><?php echo $this->lang->line('practical'); ?></th>                                            
-                            <th colspan="2"><?php echo $this->lang->line('viva'); ?></th>                                            
-                            <th colspan="2"><?php echo $this->lang->line('total'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('average_grade_point'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('letter_grade'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('lowest'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('height'); ?></th>                                            
-                            <th rowspan="2"><?php echo $this->lang->line('position'); ?></th>                                            
-                        </tr>
-                        <tr>                           
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th>                                            
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th>                                            
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th>                                            
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th>                                            
-                            <th><?php echo $this->lang->line('mark'); ?></th>                                            
-                            <th><?php echo $this->lang->line('obtain'); ?></th> 
-                        </tr>
-                    </thead>
-                    <?php
-                    
-                    $count = 1;
-                    if (isset($exams) && !empty($exams)) {
-                    ?>
-                    
-                        <?php foreach ($exams as $ex) { ?>
-                    
-                            <?php $exam = get_exam_result($school_id, $ex->id, $student_id, $academic_year_id, $class_id, $section_id); ?>
-                            <?php if(@$exam->name == ''){ continue; } ?>
-                    
-                            <?php $mark = get_exam_wise_markt($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id ); ?>
-                            <?php $obtain_total_mark = $mark->written_obtain+$mark->tutorial_obtain+$mark->practical_obtain+$mark->viva_obtain; ?>
-                            <?php $rank = get_position_in_exam($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $obtain_total_mark); ?>
-                            <?php $exam_lh = get_lowet_height_result($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id); ?>
-
-                            <tr>
-                                <td><?php echo $count++;  ?></td>
-                                <td><?php echo ucfirst($ex->title); ?></td>
-                                <td><?php echo $mark->written_mark; ?></td>
-                                <td><?php echo $mark->written_obtain; ?></td>
-                                <td><?php echo $mark->tutorial_mark; ?></td>
-                                <td><?php echo $mark->tutorial_obtain; ?></td>
-                                <td><?php echo $mark->practical_mark; ?></td>
-                                <td><?php echo $mark->practical_obtain; ?></td>
-                                <td><?php echo $mark->viva_mark; ?></td>
-                                <td><?php echo $mark->viva_obtain; ?></td>
-                                <td><?php echo $mark->written_mark+$mark->tutorial_mark+$mark->practical_mark+$mark->viva_mark; ?></td>
-                                <td><?php echo $obtain_total_mark; ?></td>
-                                <td><?php echo @number_format($mark->point/$mark->total_subject,2); ?></td>                               
-                                <td><?php echo @$exam->name; ?></td>
-                                <td><?php echo $exam_lh->lowest; ?></td>                               
-                                <td><?php echo $exam_lh->height; ?></td>                               
-                                <td><?php echo $rank; ?></td>                                
-                            </tr>                        
-                        <?php } ?>   
-                    <?php } ?>   
-                </table>
+                
                               
-            </div> 
-            
-            <?php  if (isset($student) && !empty($student)) { ?>
-            <table class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th ><?php echo $this->lang->line('total_subject'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('total_mark'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('obtain_mark'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('percentage'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('average_grade_point'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('letter_grade'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('status'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('position_in_section'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('position_in_class'); ?></th>                                            
-                        <th ><?php echo $this->lang->line('remark'); ?></th> 
-                    </tr>
-                 </thead>
-                 <tbody>
-                     
-                    <?php $class_position = get_student_position($school_id, $academic_year_id, $class_id, $student_id); ?>    
-                    <?php $section_position = get_student_position($school_id, $academic_year_id, $class_id,$student_id, $section_id); ?> 
-                     
-                     <tr>
-                         <td><?php echo isset($final_result->total_subject) ? $final_result->total_subject : 0; ?></td> 
-                         <td><?php echo isset($final_result->total_mark) ? $final_result->total_mark : 0; ?></td> 
-                         <td><?php echo isset($final_result->total_obtain_mark) ? $final_result->total_obtain_mark : 0; ?></td> 
-                         <td><?php echo isset($final_result->total_mark) && $final_result->total_mark > 0 ? number_format(@$final_result->total_obtain_mark/$final_result->total_mark*100, 2) : 0; ?>%</td> 
-                         <td><?php echo isset($final_result->avg_grade_point) ? $final_result->avg_grade_point : 0; ?></td> 
-                         <td><?php echo isset($final_result->grade) ? $final_result->grade : 0; ?></td> 
-                         <td><?php echo isset($final_result->result_status)? $this->lang->line($final_result->result_status) : ''; ?></td> 
-                         <td><?php echo $section_position; ?></td> 
-                         <td><?php echo $class_position; ?></td> 
-                         <td><?php echo isset($final_result->remark) ? $final_result->remark : '--'; ?></td>
-                         
-                     </tr>
-                 </tbody>
-            </table>
-            <?php } ?>  
+            </div>
+
             <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
             <div class="rowt">
                 <div class="col-xs-4 text-center signature">

@@ -419,6 +419,9 @@
                                 <?php } ?>
                                 <?php if(has_permission(VIEW, 'exam', 'resultcard')){ ?>
                                     <li><a href="<?php echo site_url('exam/resultcard/index'); ?>"><?php echo $this->lang->line('result_card'); ?></a></li>
+                                <?php } ?>   
+                                <?php if(has_permission(VIEW, 'exam', 'resultcard')){ ?>
+                                    <li><a href="<?php echo site_url('exam/resultcardmahad/index'); ?>"><?php echo $this->lang->line('result_card'); ?> Ma'had</a></li>
                                 <?php } ?>                               
                                 <?php if(has_permission(VIEW, 'exam', 'mail')){ ?>
                                     <li><a href="<?php echo site_url('exam/mail/index'); ?>"><?php echo $this->lang->line('mark_send_by_email'); ?></a></li>

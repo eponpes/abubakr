@@ -100,6 +100,21 @@
                                 <?php $this->load->view('layout/school_list_form'); ?>
                                 
                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="group_id">Group <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <?php $classgroups = get_class_groups(); ?>
+                                        <select  class="form-control col-md-7 col-xs-12"  name="group_id"  id="add_group_id" required="required" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                            <?php foreach($classgroups as $key=>$value ){ ?>
+                                                <option value="<?php echo $key; ?>" <?php echo isset($post['group_id']) && $post['teacher_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                                            <?php } ?>                                            
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('group_id'); ?></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('class'); ?> <?php echo $this->lang->line('name'); ?> <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -107,6 +122,7 @@
                                         <div class="help-block"><?php echo form_error('name'); ?></div>
                                     </div>
                                 </div>
+
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="numeric_name"><?php echo $this->lang->line('numeric_name'); ?><span class="required"> *</span>
                                     </label>
@@ -162,6 +178,21 @@
                                 
                                 <?php $this->load->view('layout/school_list_edit_form'); ?> 
                                 
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="group_id">Group <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <?php $classgroups = get_class_groups(); ?>
+                                        <select  class="form-control col-md-7 col-xs-12"  name="group_id"  id="edit_group_id" required="required" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                            <?php foreach($classgroups as $key=>$value ){ ?>
+                                            <option value="<?php echo $key; ?>" <?php if($class->group_id == $key){ echo 'selected="selected"';} ?> ><?php echo $value; ?></option>
+                                            <?php } ?>                                            
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('group_id'); ?></div>
+                                    </div>
+                                </div>
+
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('class'); ?> <?php echo $this->lang->line('name'); ?> <span class="required">*</span>
                                     </label>

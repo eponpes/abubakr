@@ -108,7 +108,7 @@
                                         <th><?php echo $this->lang->line('class'); ?></th>
                                         <th><?php echo $this->lang->line('section'); ?></th>
                                         <th><?php echo $this->lang->line('roll_no'); ?></th>
-                                        <th><?php echo $this->lang->line('email'); ?></th>
+                                        <th>QrCode</th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
                                 </thead>
@@ -140,7 +140,8 @@
                                             <td><?php echo $obj->class_name; ?></td>
                                             <td><?php echo $obj->section; ?></td>
                                             <td><?php echo $obj->roll_no; ?></td>
-                                            <td><?php echo $obj->email; ?></td>
+                                            <td><img src="<?php echo UPLOAD_PATH; ?>/qrcode/<?php echo $obj->qrcode; ?>" alt="" width="70" /> 
+                                                </td>
                                             <td>
                                                 <?php if(has_permission(EDIT, 'student', 'student') && $obj->status_type == 'regular'){ ?>
                                                     <a href="<?php echo site_url('student/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
@@ -174,16 +175,10 @@
                                 
                                 <?php $this->load->view('layout/school_list_form'); ?>
                                 
-                               <div class="row">                  
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <h5  class="column-title"><strong><?php echo $this->lang->line('basic_information'); ?>:</strong></h5>
-                                    </div>
-                                </div>
-                                
                                 <div class="row">                  
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="name"><?php echo $this->lang->line('name'); ?> <span class="required">*</span></label>
+                                            <label for="name"><?php echo $this->lang->line('name'); ?> Lengkap <span class="required">*</span></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($post['name']) ?  $post['name'] : ''; ?>" placeholder="<?php echo $this->lang->line('name'); ?>" required="required" type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('name'); ?></div> 
                                         </div>
@@ -195,14 +190,23 @@
                                             <div class="help-block"><?php echo form_error('admission_no'); ?></div> 
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
                                         <div class="item form-group">
                                             <label for="admission_date"><?php echo $this->lang->line('admission_date'); ?> <span class="required">*</span></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="admission_date"  id="add_admission_date" value="<?php echo isset($post['admission_date']) ?  $post['admission_date'] : ''; ?>" placeholder="<?php echo $this->lang->line('admission_date'); ?>" required="required" type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('admission_date'); ?></div> 
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="pob">Tempat <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="pob"  id="pob" value="<?php echo isset($post['pob']) ?  $post['pob'] : ''; ?>" placeholder="<?php echo $this->lang->line('pob'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('pob'); ?></div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
                                          <div class="item form-group">
                                             <label  for="dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="dob"  id="add_dob" value="<?php echo isset($post['dob']) ?  $post['dob'] : ''; ?>" placeholder="<?php echo $this->lang->line('birth_date'); ?>" required="required" type="text" autocomplete="off">
@@ -256,6 +260,38 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
+                                             <label for="weight">Berat Badan</label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="weight"  id="weight" value="<?php echo isset($post['weight']) ?  $post['weight'] : ''; ?>" placeholder="<?php echo $this->lang->line('weight'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('weight'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                           <label for="height">Tinggi Badan </label>
+                                           <input  class="form-control col-md-7 col-xs-12"  name="height"  id="height" value="<?php echo isset($post['height']) ?  $post['height'] : ''; ?>" placeholder="<?php echo $this->lang->line('height'); ?>" type="text" autocomplete="off">
+                                           <div class="help-block"><?php echo form_error('height'); ?></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-2 col-sm-2 col-xs-6">
+                                         <div class="item form-group">
+                                             <label for="child_no">Anak Ke</label>
+                                             <input  class="form-control col-md-3 col-xs-6"  name="child_no"  id="child_no" value="<?php echo isset($post['child_no']) ?  $post['child_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('child_no'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('child_no'); ?></div>
+                                        </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-6">
+                                         <div class="item form-group">
+                                             <label for="child_from">Dari</label>
+                                             <input  class="form-control col-md-3 col-xs-6"  name="child_from"  id="child_from" value="<?php echo isset($post['child_from']) ?  $post['child_from'] : ''; ?>" placeholder="<?php echo $this->lang->line('child_from'); ?>" type="text" autocomplete="off"> Bersaudara
+                                             <div class="help-block"><?php echo form_error('child_from'); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row"> 
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
                                              <label for="phone"><?php echo $this->lang->line('phone'); ?> <span class="required">*</span></label>
                                              <input  class="form-control col-md-7 col-xs-12"  name="phone"  id="add_phone" value="<?php echo isset($post['phone']) ?  $post['phone'] : ''; ?>" placeholder="<?php echo $this->lang->line('phone'); ?>" required="required" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('phone'); ?></div>
@@ -269,15 +305,29 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <!--div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="national_id"><?php echo $this->lang->line('national_id'); ?> </label>
                                              <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($post['national_id']) ?  $post['national_id'] : ''; ?>" placeholder="<?php echo $this->lang->line('national_id'); ?>" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('national_id'); ?></div>
                                          </div>
+                                     </div-->
+
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="nisn_no">No. NISN</label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="nisn_no"  id="nisn_no" value="<?php echo isset($post['nisn_no']) ?  $post['nisn_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('nisn_no'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('nisn_no'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="skhun_no">No. SKHUN</label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="skhun_no"  id="skhun_no" value="<?php echo isset($post['skhun_no']) ?  $post['skhun_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('skhun_no'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('skhun_no'); ?></div>
+                                         </div>
                                      </div>
                                 </div>
-                                
                                   
                                 <div class="row">                  
                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -414,6 +464,27 @@
                                             <div class="help-block"><?php echo form_error('father_designation'); ?></div>
                                          </div>
                                      </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_religion">Agama</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_religion"  id="father_religion" value="<?php echo isset($post['father_religion']) ?  $post['father_religion'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_religion'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_religion'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_pob">Tempat</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_pob"  id="father_pob" value="<?php echo isset($post['father_pob']) ?  $post['father_pob'] : ''; ?>" placeholder="Kota Lahir"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_pob'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label  for="father_dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_dob"  id="add_father_dob" value="<?php echo isset($post['father_dob']) ?  $post['father_dob'] : ''; ?>" placeholder="<?php echo $this->lang->line('birth_date'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_dob'); ?></div>
+                                         </div>
+                                    </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label ><?php echo $this->lang->line('father_photo'); ?></label>
@@ -468,6 +539,27 @@
                                             <div class="help-block"><?php echo form_error('mother_designation'); ?></div>
                                          </div>
                                      </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_religion">Agama</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_religion"  id="mother_religion" value="<?php echo isset($post['mother_religion']) ?  $post['mother_religion'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_religion'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_religion'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_pob">Tempat</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_pob"  id="mother_pob" value="<?php echo isset($post['mother_pob']) ?  $post['mother_pob'] : ''; ?>" placeholder="Kota Lahir"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_pob'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label  for="mother_dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_dob"  id="add_mother_dob" value="<?php echo isset($post['mother_dob']) ?  $post['mother_dob'] : ''; ?>" placeholder="<?php echo $this->lang->line('birth_date'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_dob'); ?></div>
+                                         </div>
+                                    </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label ><?php echo $this->lang->line('mother_photo'); ?></label>
@@ -590,7 +682,6 @@
                                                 <div class="help-block"><?php echo form_error('gud_present_address'); ?></div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="item form-group">
                                                 <label for="gud_permanent_address"><?php echo $this->lang->line('permanent'); ?> <?php echo $this->lang->line('address'); ?></label>
@@ -601,10 +692,39 @@
                                     </div>
                                     
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="item form-group">
                                                 <label for="other_info"><?php echo $this->lang->line('other_info'); ?> </label>
                                                 <textarea  class="form-control col-md-7 col-xs-12 textarea-4column"  name="gud_other_info"  id="add_gud_other_info" placeholder="<?php echo $this->lang->line('other_info'); ?>"><?php echo isset($post['gud_other_info']) ?  $post['gud_other_info'] : ''; ?></textarea>
+                                                <div class="help-block"><?php echo form_error('gud_other_info'); ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <div class="item form-group">
+                                                <label for="other_info">Penghasilan Orang Tua/Wali Per Bulan </label>
+                                                <!-- Default inline 1-->
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" id="earning" name="inlineDeA">
+                                                <label class="custom-control-label" for="defaultInline1">< Rp. 2.500.000</label>
+                                                </div>
+
+                                                <!-- Default inline 2-->
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
+                                                <label class="custom-control-label" for="defaultInline2">Rp. 2.500.000 - 5.000.000</label>
+                                                </div>
+
+                                                <!-- Default inline 3-->
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" id="defaultInline3" name="inlineDefaultRadiosExample">
+                                                <label class="custom-control-label" for="defaultInline3">Rp. 5.000.000,- s/d 10.000.000</label>
+                                                </div>
+
+                                                <!-- Default inline 4-->
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" id="defaultInline3" name="inlineDefaultRadiosExample">
+                                                <label class="custom-control-label" for="defaultInline3">> Rp. 10.000.000,-</label>
+                                                </div>
                                                 <div class="help-block"><?php echo form_error('gud_other_info'); ?></div>
                                             </div>
                                         </div>                                        
@@ -629,7 +749,7 @@
                                               <textarea  class="form-control col-md-7 col-xs-12 textarea-4column"  name="present_address"  id="add_present_address"  placeholder="<?php echo $this->lang->line('present_address'); ?>"><?php echo isset($post['present_address']) ?  $post['present_address'] : ''; ?></textarea>
                                               <div class="help-block"><?php echo form_error('present_address'); ?></div>
                                          </div>
-                                     </div>                                    
+                                     </div>
                                      <div class="col-md-6 col-sm-6 col-xs-12">
                                          <div class="item form-group">
                                             <label for="permanent_address"><?php echo $this->lang->line('permanent_address'); ?></label>
@@ -637,6 +757,54 @@
                                             <div class="help-block"><?php echo form_error('permanent_address'); ?></div>
                                          </div>
                                      </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="prov">Provinsi <span class="required">*</span></label>
+                                              <select  class="form-control col-md-12 col-xs-12"  name="province_id"  id="add_province_id" required="required" onchange="get_cities_by_prov(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php foreach($provinces as $prov){ ?>
+                                                    <option value="<?php echo $prov->id; ?>" <?php echo isset($post['prov']) && $post['prov'] == $prov->id ?  'selected="selected"' : ''; ?>><?php echo $prov->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('prov'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="regency_id">Kota <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="regency_id" id="add_regency_id" required="required"  onchange="get_district_by_city(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('regency_id'); ?></div>
+                                         </div>
+                                     </div>
+
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="district_id">Kecamatan <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="district_id" id="add_district_id" required="required"  onchange="get_villages_by_district(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('district_id'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="district_id">Kelurahan <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="villages_id" id="add_villages_id" required="required" onchange="get_postal_code(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('villages_id'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="post_code">Kode Pos <span class="required">*</span></label>
+                                            <input name="postal_code" id="add_postal_code" value="">
+                                            <div class="help-block"><?php echo form_error('post_code'); ?></div>
+                                         </div>
+                                     </div>                    
+                                     
                                 </div>
                            
                                 
@@ -660,7 +828,27 @@
                                             <div class="help-block"><?php echo form_error('previous_class'); ?></div>
                                          </div>
                                      </div>
-                                    
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="previous_school_address"><?php echo $this->lang->line('school_address'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="previous_school_address"  id="previous_school_address" value="<?php echo isset($post['previous_school_address']) ?  $post['previous_school_address'] : ''; ?>" placeholder="<?php echo $this->lang->line('school_name'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('previous_school_address'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="previous_school_city">Kota Asal</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="previous_school_city"  id="previous_school_city" value="<?php echo isset($post['previous_school_city']) ?  $post['previous_school_city'] : ''; ?>" placeholder="<?php echo $this->lang->line('school_name'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('previous_school_city'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="graduate_year">Tahun Kelulusan</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="graduate_year"  id="graduate_year" value="<?php echo isset($post['graduate_year']) ?  $post['graduate_year'] : ''; ?>" placeholder="<?php echo $this->lang->line('school_name'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('graduate_year'); ?></div>
+                                         </div>
+                                     </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label ><?php echo $this->lang->line('transfer_certificate'); ?> </label>
@@ -776,14 +964,21 @@
                                             <div class="help-block"><?php echo form_error('admission_no'); ?></div> 
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
                                         <div class="item form-group">
                                             <label for="admission_date"><?php echo $this->lang->line('admission_date'); ?><span class="required">*</span></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="admission_date"  id="edit_admission_date" value="<?php echo isset($student->admission_date) ?   date('d-m-Y', strtotime($student->admission_date)) : ''; ?>" placeholder="<?php echo $this->lang->line('admission_date'); ?>" required="required" type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('admission_date'); ?></div> 
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="pob">Tempat <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="pob"  id="pob" value="<?php echo isset($student->pob) ?  $student->pob : ''; ?>" placeholder="<?php echo $this->lang->line('pob'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('pob'); ?></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
                                          <div class="item form-group">
                                             <label  for="dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="dob"  id="edit_dob" value="<?php echo isset($student->dob) ?  date('d-m-Y', strtotime($student->dob)) : ''; ?>" placeholder="<?php echo $this->lang->line('birth_date'); ?>" required="required" type="text" autocomplete="off">
@@ -835,6 +1030,39 @@
                                          </div>
                                      </div>
                                 </div>
+
+                                <div class="row"> 
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="weight">Berat Badan</label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="weight"  id="weight" value="<?php echo isset($student->weight) ?  $student->weight : ''; ?>" placeholder="<?php echo $this->lang->line('weight'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('weight'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                           <label for="height">Tinggi Badan </label>
+                                           <input  class="form-control col-md-7 col-xs-12"  name="height"  id="height" value="<?php echo isset($student->height) ?  $student->height : ''; ?>" placeholder="<?php echo $this->lang->line('height'); ?>" type="text" autocomplete="off">
+                                           <div class="help-block"><?php echo form_error('height'); ?></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-2 col-sm-2 col-xs-6">
+                                         <div class="item form-group">
+                                             <label for="child_no">Anak Ke</label>
+                                             <input  class="form-control col-md-3 col-xs-6"  name="child_no"  id="child_no" value="<?php echo isset($student->child_no) ?  $student->child_no : ''; ?>" placeholder="<?php echo $this->lang->line('child_no'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('child_no'); ?></div>
+                                        </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-6">
+                                         <div class="item form-group">
+                                             <label for="child_from">Dari</label>
+                                             <input  class="form-control col-md-3 col-xs-6"  name="child_from"  id="child_from" value="<?php echo isset($student->child_from) ?  $student->child_from : ''; ?>" placeholder="<?php echo $this->lang->line('child_from'); ?>" type="text" autocomplete="off"> Bersaudara
+                                             <div class="help-block"><?php echo form_error('child_from'); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
@@ -850,11 +1078,26 @@
                                             <div class="help-block"><?php echo form_error('email'); ?></div>
                                          </div>
                                      </div>
+                                     <?php /*
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="national_id"><?php echo $this->lang->line('national_id'); ?> </label>
                                              <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($student->national_id) ?  $student->national_id : ''; ?>" placeholder="<?php echo $this->lang->line('national_id'); ?>" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('national_id'); ?></div>
+                                         </div>
+                                     </div> */ ?>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="nisn_no">No. NISN</label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="nisn_no"  id="nisn_no" value="<?php echo isset($student->nisn_no) ?  $student->nisn_no : ''; ?>" placeholder="<?php echo $this->lang->line('nisn_no'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('nisn_no'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="skhun_no">No. SKHUN</label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="skhun_no"  id="skhun_no" value="<?php echo isset($student->skhun_no) ?  $student->skhun_no : ''; ?>" placeholder="<?php echo $this->lang->line('skhun_no'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('skhun_no'); ?></div>
                                          </div>
                                      </div>                                    
                                 </div>
@@ -911,6 +1154,31 @@
                                             <div class="help-block"><?php echo form_error('group'); ?></div>
                                          </div>
                                      </div>                                     
+                                </div>
+
+                                <div class="row">
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_mahad_id" id="edit_class_mahad_id" required="required"  onchange="get_section_mahad_by_class(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php foreach($classesm as $objm){ ?>
+                                                    <option value="<?php echo $objm->id; ?>" <?php if($student->class_mahad_id == $objm->id){ echo 'selected="selected"';} ?>><?php echo $objm->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_mahad_id" id="edit_section_mahad_id" required="required">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('section_id'); ?></div>
+                                         </div>
+                                     </div>
+                                                                          
                                 </div>
                                     
                                 <div class="row"> 
@@ -992,6 +1260,27 @@
                                             <div class="help-block"><?php echo form_error('father_designation'); ?></div>
                                          </div>
                                      </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_religion">Agama</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_religion"  id="father_religion" value="<?php echo isset($student->father_religion) ?  $student->father_religion : ''; ?>" placeholder="<?php echo $this->lang->line('father_religion'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_religion'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_pob">Tempat</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_pob"  id="father_pob" value="<?php echo isset($student->father_pob) ?  $student->father_pob : ''; ?>" placeholder="Kota Lahir"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_pob'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label  for="father_dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_dob"  id="edit_father_dob" value="<?php echo isset($student->father_dob) ?  date('d-m-Y', strtotime($student->father_dob)) : ''; ?>" placeholder="<?php echo $this->lang->line('birth_date'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_dob'); ?></div>
+                                         </div>
+                                    </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label ><?php echo $this->lang->line('father_photo'); ?></label>
@@ -1054,6 +1343,27 @@
                                             <div class="help-block"><?php echo form_error('mother_designation'); ?></div>
                                          </div>
                                      </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_religion">Agama</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_religion"  id="mother_religion" value="<?php echo isset($student->mother_religion) ?  $student->mother_religion : ''; ?>" placeholder="<?php echo $this->lang->line('mother_religion'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_religion'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_pob">Tempat</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_pob"  id="mother_pob" value="<?php echo isset($student->mother_pob) ?  $student->mother_pob : ''; ?>" placeholder="Kota Lahir"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_pob'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-2 col-sm-2 col-xs-12">
+                                         <div class="item form-group">
+                                            <label  for="mother_dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_dob"  id="edit_mother_dob" value="<?php echo isset($student->mother_dob) ?  date('d-m-Y', strtotime($student->mother_dob)) : ''; ?>" placeholder="<?php echo $this->lang->line('birth_date'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_dob'); ?></div>
+                                         </div>
+                                    </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label ><?php echo $this->lang->line('mother_photo'); ?></label>
@@ -1125,8 +1435,55 @@
                                             <div class="help-block"><?php echo form_error('permanent_address'); ?></div>
                                          </div>
                                      </div>
-                                </div>
-                                                                
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="prov">Provinsi <span class="required">*</span></label>
+                                              <select  class="form-control col-md-7 col-xs-12"  name="province_id"  id="edit_province_id" required="required" onchange="get_cities_by_prov(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php foreach($provinces as $prov){ ?>
+                                                    <option value="<?php echo $prov->id; ?>" <?php echo isset($student->province_id) && $student->province_id == $prov->id ?  'selected="selected"' : ''; ?>><?php echo $prov->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('prov'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="regency_id">Kota <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="regency_id" id="edit_regency_id" required="required"  onchange="get_district_by_city(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('regency_id'); ?></div>
+                                         </div>
+                                     </div>
+
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="district_id">Kecamatan <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="district_id" id="edit_district_id" required="required"  onchange="get_villages_by_district(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('district_id'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="district_id">Kelurahan <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="villages_id" id="edit_villages_id" required="required" onchange="get_postal_code(this.value, '');">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('villages_id'); ?></div>
+                                         </div>
+                                     </div>
+
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="postal_code">Kode Pos <span class="required">*</span></label>
+                                            <input name="postal_code" id="edit_postal_code" value="<?php echo isset($student->postal_code) ?  $student->postal_code : ''; ?>">
+                                            <div class="help-block"><?php echo form_error('postal_code'); ?></div>
+                                         </div>
+                                     </div>
+                                </div>                                                             
                               
                                 
                                 <div class="row">                  
@@ -1151,7 +1508,29 @@
                                             <div class="help-block"><?php echo form_error('previous_class'); ?></div>
                                          </div>
                                      </div>
-                                   
+
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="previous_school_address"><?php echo $this->lang->line('school_address'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="previous_school_address"  id="previous_school_address" value="<?php echo isset($student->previous_school_address) ?  $student->previous_school_address : ''; ?>" placeholder="<?php echo $this->lang->line('school_name'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('previous_school_address'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="previous_school_city">Kota Asal</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="previous_school_city"  id="previous_school_city" value="<?php echo isset($student->previous_school_city) ?  $student->previous_school_city : ''; ?>" placeholder="<?php echo $this->lang->line('school_name'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('previous_school_city'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="graduate_year">Tahun Kelulusan</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="graduate_year"  id="graduate_year" value="<?php echo isset($student->graduate_year) ?  $student->graduate_year : ''; ?>" placeholder="<?php echo $this->lang->line('school_name'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('graduate_year'); ?></div>
+                                         </div>
+                                     </div>
+                                                    
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label ><?php echo $this->lang->line('transfer_certificate'); ?></label>
@@ -1362,17 +1741,20 @@
       
         var school_id = $(this).val();        
         var class_id = '';
+        var class_mahad_id = '';
         var guardian_id = '';       
         var discount_id = ''; 
         var type_id = ''; 
         
         <?php if(isset($edit) && !empty($edit)){ ?>
                 class_id =  '<?php echo $student->class_id; ?>';
+                class_mahad_id =  '<?php echo $student->class_mahad_id; ?>';
                 guardian_id =  '<?php echo $student->guardian_id; ?>';
                 discount_id =  '<?php echo $student->discount_id; ?>';
                 type_id =  '<?php echo $student->type_id; ?>';
          <?php }elseif($post && !empty ($post)){ ?>
                 class_id =  '<?php echo $post['class_id']; ?>';
+                class_mahad_id =  '<?php echo $post['class_mahad_id']; ?>';
                 guardian_id =  '<?php echo $post['guardian_id']; ?>';
                 discount_id =  '<?php echo $post['discount_id']; ?>';
                 type_id =  '<?php echo $post['type_id']; ?>';
@@ -1386,7 +1768,7 @@
        $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
-            data   : { school_id:school_id, class_id:class_id},               
+            data   : { school_id:school_id, class_id:class_id, group_id:1},               
             async  : false,
             success: function(response){                                                   
                if(response)
@@ -1395,6 +1777,27 @@
                        $('#edit_class_id').html(response);   
                    }else{
                        $('#add_class_id').html(response);   
+                   }
+                                    
+                   get_guardian_by_school(school_id, guardian_id);
+                   get_discount_by_school(school_id, discount_id);
+                   get_student_type_by_school(school_id, type_id);
+               }
+            }
+        });
+
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
+            data   : { school_id:school_id, class_id:class_mahad_id, group_id:2},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {  
+                   if(edit){
+                       $('#edit_class_mahad_id').html(response);   
+                   }else{
+                       $('#add_class_mahad_id').html(response);   
                    }
                                     
                    get_guardian_by_school(school_id, guardian_id);
@@ -1471,11 +1874,23 @@
     $('#edit_admission_date').datepicker();
     $('#add_dob').datepicker({ startView: 2 });
     $('#edit_dob').datepicker({ startView: 2 });
-  
+    $('#add_father_dob').datepicker({ startView: 2 });
+    $('#edit_father_dob').datepicker({ startView: 2 });
+    $('#add_mother_dob').datepicker({ startView: 2 });
+    $('#edit_mother_dob').datepicker({ startView: 2 });
+
     <?php if(isset($edit)){ ?>
         get_section_by_class('<?php echo $student->class_id; ?>', '<?php echo $student->section_id; ?>');
+        get_section_mahad_by_class('<?php echo $student->class_mahad_id; ?>', '<?php echo $student->section_mahad_id; ?>');
+        get_cities_by_prov('<?php echo $student->province_id; ?>', '<?php echo $student->regency_id; ?>');
+        get_district_by_city('<?php echo $student->regency_id; ?>', '<?php echo $student->district_id; ?>');
+        get_villages_by_district('<?php echo $student->district_id; ?>', '<?php echo $student->villages_id; ?>');
     <?php }elseif($post && !empty ($post)){ ?>  
         get_section_by_class('<?php echo $post['class_id']; ?>', '<?php echo $post['section_id']; ?>');
+        get_section_mahad_by_class('<?php echo $post['class_mahad_id']; ?>', '<?php echo $post['section_mahad_id']; ?>');
+        get_cities_by_prov('<?php echo $post['province_id']; ?>', '<?php echo $post['regency_id']; ?>');
+        get_district_by_city('<?php echo $post['regency_id']; ?>', '<?php echo $post['district_id']; ?>');
+        get_villages_by_district('<?php echo $post['district_id']; ?>', '<?php echo $post['villages_id']; ?>');
     <?php } ?>
     
     function get_section_by_class(class_id, section_id){       
@@ -1510,6 +1925,157 @@
             }
         });  
                      
+        
+   }
+
+   function get_section_mahad_by_class(class_mahad_id, section_mahad_id){       
+        
+        var school_id = '';
+        <?php if(isset($edit)){ ?>                
+            school_id = $('#edit_school_id').val();
+         <?php }else{ ?> 
+            school_id = $('#add_school_id').val();
+         <?php } ?> 
+          
+        
+       if(!school_id){
+           toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+           return false;
+        }
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_mahad_id , section_id: section_mahad_id},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {
+                   if(edit){
+                       $('#edit_section_mahad_id').html(response);
+                   }else{
+                       $('#add_section_mahad_id').html(response);
+                   }
+               }
+            }
+        });  
+                     
+        
+   }
+
+   function get_cities_by_prov(province_id, regency_id){       
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_cities_by_prov'); ?>",
+            data   : { province_id : province_id , regency_id: regency_id},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {
+                   if(edit){
+                       $('#edit_regency_id').html(response);
+                   }else{
+                       $('#add_regency_id').html(response);
+                   }
+               }
+            }
+        });  
+                     
+        
+   }
+
+   function get_district_by_city(regency_id, district_id){       
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_district_by_city'); ?>",
+            data   : { regency_id : regency_id , district_id: district_id},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {
+                   if(edit){
+                       $('#edit_district_id').html(response);
+                   }else{
+                       $('#add_district_id').html(response);
+                   }
+               }
+            }
+        });  
+                     
+        
+   }
+
+   function get_villages_by_district(district_id, villages_id){       
+            $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_villages_by_district'); ?>",
+            data   : { district_id : district_id , villages_id: villages_id},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {
+                   if(edit){
+                       $('#edit_villages_id').html(response);
+                   }else{
+                       $('#add_villages_id').html(response);
+                   }
+               }
+            }
+        });  
+                     
+        
+   }
+
+   function get_postal_code(){
+
+        if(edit){
+            var urban = $('#edit_villages_id option:selected').text();
+            var sub_district = $('#edit_district_id option:selected').text();
+            var city = $('#edit_regency_id option:selected').text();
+            var province_code = $('#edit_province_id option:selected').val();
+
+        } else {
+            var urban = $('#add_villages_id option:selected').text();
+            var sub_district = $('#add_district_id option:selected').text();
+            var city = $('#add_regency_id option:selected').text();
+            var province_code = $('#add_province_id option:selected').val();
+        }
+        
+        var kab = city.startsWith("KABUPATEN");
+        var kota = city.startsWith("KOTA");
+
+        if(kab){
+            city = city.slice(10);
+        } else if(kota){
+            city = city.slice(5);
+        }
+
+
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_postal_code'); ?>",
+            data   : { urban : urban , sub_district : sub_district, city : city, province_code : province_code},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {
+                   if(edit){
+                       $('#edit_postal_code').val(response);
+                   }else{
+                       $('#add_postal_code').val(response);
+                   }
+               } else {
+                if(edit){
+                $('#edit_postal_code').val("");
+                } else {
+                    $('#add_postal_code').val("");
+                }
+               }
+            }
+        }); 
+
         
    }
   </script>
@@ -1720,5 +2286,21 @@
              
     $("#add").validate();     
     $("#edit").validate();   
+    $('#edit_province_id, #add_province_id').select2({
+	  	placeholder: 'Pilih Provinsi',
+	  	language: "id"
+    });
+    $('#edit_regency_id, #add_regency_id').select2({
+	  	placeholder: 'Pilih Kota/Kab',
+	  	language: "id"
+    });
+    $('#edit_district_id, #add_district_id').select2({
+	  	placeholder: 'Pilih Kecamatan',
+	  	language: "id"
+    });
+    $('#edit_villages_id, #add_villages_id').select2({
+	  	placeholder: 'Pilih Kelurahan',
+	  	language: "id"
+	});
     
 </script>

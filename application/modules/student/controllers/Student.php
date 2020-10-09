@@ -18,7 +18,7 @@ class Student extends MY_Controller {
     public $data = array();
 
     function __construct() {
-        parent::__construct();      
+        parent::__construct();
         
         $this->load->model('Student_Model', 'student', true);            
     }
@@ -85,6 +85,8 @@ class Student extends MY_Controller {
             $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
             $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC'); 
         }
+
+        $this->data['provinces'] = $this->student->get_provinces();
         
         $this->data['schools'] = $this->schools;
         $this->data['list'] = TRUE;
@@ -150,6 +152,8 @@ class Student extends MY_Controller {
             $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
             $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC');
         }
+
+        $this->data['provinces'] = $this->student->get_provinces();
         
         $this->data['schools'] = $this->schools;
         $this->data['add'] = TRUE;
@@ -176,7 +180,7 @@ class Student extends MY_Controller {
             redirect('student/index');     
         }
         
-        $student = $this->student->get_single('students', array('id'=>$id));        
+        $student = $this->student->get_single('students', array('id'=>$id));  
         $school = $this->student->get_school_by_id($student->school_id);
         
         if ($_POST) {
@@ -220,8 +224,8 @@ class Student extends MY_Controller {
         $this->data['students'] = $this->student->get_student_list($class_id, $school->id, $school->academic_year_id);
         $this->data['roles'] = $this->student->get_list('roles', array('status' => 1), '', '', '', 'id', 'ASC');
         
-          
         $condition = array();
+        $conditionm = array();
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');
@@ -229,9 +233,13 @@ class Student extends MY_Controller {
             $condition['school_id'] = $this->data['student']->school_id;
             
         }
-        
+        $conditionclass = $conditionclassm = $condition;
+        $conditionclass['group_id'] = 1;
+        $conditionclassm['group_id'] = 2;
+        //$conditionm = $condition;
         $this->data['discounts'] = $this->student->get_list('discounts', $condition, '','', '', 'id', 'ASC');
-        $this->data['classes'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
+        $this->data['classes'] = $this->student->get_list('classes', $conditionclass, '','', '', 'id', 'ASC');
+        $this->data['classesm'] = $this->student->get_list('classes', $conditionclassm, '','', '', 'id', 'ASC');
         $this->data['guardians'] = $this->student->get_list('guardians', $condition, '','', '', 'id', 'ASC');
         $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
         $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC');
@@ -241,6 +249,9 @@ class Student extends MY_Controller {
         
         $this->data['schools'] = $this->schools;
         $this->data['edit'] = TRUE;
+
+        $this->data['provinces'] = $this->student->get_provinces();
+        
         $this->layout->title($this->lang->line('edit') . ' | ' . SMS);
         $this->layout->view('student/index', $this->data);
     }
@@ -270,6 +281,8 @@ class Student extends MY_Controller {
         $this->data['academic_year_id'] = $school->academic_year_id;
         $this->data['class_id'] = $this->data['student']->class_id;
         $this->data['section_id'] = $this->data['student']->section_id;
+        $this->data['class_mahad_id'] = $this->data['student']->class_mahad_id;
+        $this->data['section_mahad_id'] = $this->data['student']->section_mahad_id;
         $this->data['student_id'] = $student_id;
         $this->data['school_id'] = $student->school_id;
         
@@ -484,25 +497,46 @@ class Student extends MY_Controller {
         $items[] = 'religion';
         $items[] = 'caste';
         $items[] = 'discount_id';
+
+        $items[] = 'weight';
+        $items[] = 'height';
+        $items[] = 'child_no';
+        $items[] = 'child_from';
+        $items[] = 'nisn_no';
+        $items[] = 'skhun_no';
+        $items[] = 'pob';
         
         $items[] = 'present_address';
         $items[] = 'permanent_address';
-        
+
+        $items[] = 'province_id';
+        $items[] = 'regency_id';
+        $items[] = 'district_id';
+        $items[] = 'villages_id';
+        $items[] = 'postal_code';
+
         $items[] = 'second_language';
         $items[] = 'previous_school';
         $items[] = 'previous_class';
+        $items[] = 'previous_school_address';
+        $items[] = 'previous_school_city';
+        $items[] = 'graduate_year';
         
         $items[] = 'father_name';
         $items[] = 'father_phone';
         $items[] = 'father_education';
         $items[] = 'father_profession';
         $items[] = 'father_designation';
+        $items[] = 'father_religion';
+        $items[] = 'father_pob';
         
         $items[] = 'mother_name';
         $items[] = 'mother_phone';
         $items[] = 'mother_education';
         $items[] = 'mother_profession';
         $items[] = 'mother_designation';
+        $items[] = 'mother_religion';
+        $items[] = 'mother_pob';
         
         $items[] = 'health_condition';
         $items[] = 'other_info';
@@ -513,6 +547,8 @@ class Student extends MY_Controller {
         $data = elements($items, $_POST);
 
         $data['dob'] = date('Y-m-d', strtotime($this->input->post('dob')));
+        $data['father_dob'] = date('Y-m-d', strtotime($this->input->post('father_dob')));
+        $data['mother_dob'] = date('Y-m-d', strtotime($this->input->post('mother_dob')));
         $data['admission_date'] = date('Y-m-d', strtotime($this->input->post('admission_date')));
         $data['age'] = floor((time() - strtotime($data['dob'])) / 31556926);
         
@@ -596,6 +632,30 @@ class Student extends MY_Controller {
         if ($_FILES['mother_photo']['name']) {
             $data['mother_photo'] = $this->_upload_mother_photo();
         }
+
+        $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+		$config['cacheable']	= true; //boolean, the default is true
+		$config['cachedir']		= './assets/'; //string, the default is application/cache/
+		$config['errorlog']		= './assets/'; //string, the default is application/logs/
+		$config['imagedir']		= './assets/uploads/qrcode/'; //direktori penyimpanan qr code
+		$config['quality']		= true; //boolean, the default is true
+		$config['size']			= '1024'; //interger, the default is 1024
+		$config['black']		= array(224,255,255); // array, default is array(255,255,255)
+        $config['white']		= array(70,130,180); // array, default is array(0,0,0)
+        $this->ciqrcode->initialize($config);
+
+        $nim = $data['nisn_no'];
+        $image_name = '';
+        if(!empty($nim)){
+            $image_name=$nim.'.png'; //buat name dari qr code sesuai dengan nim
+        }
+        $data['qrcode'] = $image_name;
+
+		$params['data'] = $nim; //data yang akan di jadikan QR CODE
+		$params['level'] = 'H'; //H=High
+		$params['size'] = 10;
+		$params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
+		$this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
         return $data;
     }
@@ -860,6 +920,8 @@ class Student extends MY_Controller {
         $data['school_id'] = $this->input->post('school_id');
         $data['class_id'] = $this->input->post('class_id');
         $data['section_id'] = $this->input->post('section_id');
+        $data['class_mahad_id'] = $this->input->post('class_mahad_id');
+        $data['section_mahad_id'] = $this->input->post('section_mahad_id');
         $data['academic_year_id'] = $school->academic_year_id;
         $data['roll_no'] = $this->input->post('roll_no');
         $data['created_at'] = date('Y-m-d H:i:s');

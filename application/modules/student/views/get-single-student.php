@@ -1,3 +1,11 @@
+<?php
+function juzFormat($value)
+{
+    $number = $value / 20;
+//if you want 2 decimal digits
+    return $newVal = number_format($number,2) . ' Juz';
+}
+?>
 <div class="" data-example-id="togglable-tabs">
     <ul  class="nav nav-tabs bordered">
         <li class="active"><a href="#tab_basic_info"   role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-info-circle"></i> <?php echo $this->lang->line('basic_information'); ?></a> </li>

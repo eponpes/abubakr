@@ -22,6 +22,7 @@ class Web extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Web_Model', 'web', true); 
+        $this->load->model('Ajax_Model', 'ajax', true); 
         
         $global_setting = $this->db->get_where('global_setting',array('status'=>1))->row();
         if($global_setting){
@@ -38,6 +39,7 @@ class Web extends CI_Controller {
              $this->session->set_userdata('front_school_id', $this->data['schools'][0]->id);
         }
          
+
         if($this->session->userdata('front_school_id')){ 
             $this->data['school'] = $this->web->get_single('schools', array('status' => 1, 'id'=>$this->session->userdata('front_school_id')));
             $this->data['footer_pages'] = $this->web->get_list('pages', array('status' => 1, 'page_location'=>'footer', 'school_id'=>$this->session->userdata('front_school_id')));
@@ -60,6 +62,23 @@ class Web extends CI_Controller {
             }else{
                 $this->lang->load('english');
             }
+        }
+
+        switch($this->global_setting->serial_code){
+            case 'EP1RJHC6SKWBHY80L3L':
+            $this->data['theme'] = 'ibad';
+            break;
+
+            case 'EP1NRMVUNVVXQF4EHZR':
+            $this->data['theme'] = 'pptq';
+            break;
+
+            case 'EP1CABCVVDTTNO4ROFY':
+            $this->data['theme'] = 'rtq';
+            break;
+
+            default:
+            $this->data['theme'] = 'pptq';
         }
     }
         
@@ -94,7 +113,8 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function index() {
         
-        
+        $this->data['page'] = 'home';
+
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');
@@ -112,10 +132,10 @@ class Web extends CI_Controller {
             
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('home') . ' | ' . SMS);
-            $this->layout->view('index', $this->data);
+            $this->layout->view($this->data['theme'].'/index', $this->data);
 
-        }else{            
-            $this->load->view('splash', $this->data);              
+        }else{  
+            $this->load->view($this->data['theme'].'/splash', $this->data);
         }
     }
     
@@ -138,10 +158,10 @@ class Web extends CI_Controller {
             $this->data['list'] = TRUE;
             
             $this->layout->title($this->lang->line('news') . ' | ' . SMS);
-            $this->layout->view('news', $this->data);
+            $this->layout->view($this->data['theme'].'/news', $this->data);
         
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -168,10 +188,10 @@ class Web extends CI_Controller {
             $this->data['latest_news'] = $this->web->get_news_list($school_id, 6);
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('news_detail') . ' | ' . SMS);
-            $this->layout->view('news_detail', $this->data);
+            $this->layout->view($this->data['theme'].'/news_detail', $this->data);
         
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -194,10 +214,10 @@ class Web extends CI_Controller {
             $this->data['notices'] = $this->web->get_notice_list($school_id, 100);
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('notice') . ' | ' . SMS);
-            $this->layout->view('notice', $this->data);
+            $this->layout->view($this->data['theme'].'/notice', $this->data);
         
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -219,10 +239,10 @@ class Web extends CI_Controller {
             $this->data['notices'] = $this->web->get_notice_list($school_id, 6);
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('notice_detail') . ' | ' . SMS);
-            $this->layout->view('notice_detail', $this->data);        
+            $this->layout->view($this->data['theme'].'/notice_detail', $this->data);        
         
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -244,10 +264,10 @@ class Web extends CI_Controller {
             $this->data['holidays'] = $this->web->get_list('holidays', array('status'=>1, 'school_id'=>$school_id, 'is_view_on_web'=>1), '', '', '', 'id', 'DESC');
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('holiday') . ' | ' . SMS);            
-            $this->layout->view('holiday', $this->data);
+            $this->layout->view($this->data['theme'].'/holiday', $this->data);
             
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -269,10 +289,10 @@ class Web extends CI_Controller {
             $this->data['holidays'] = $this->web->get_list('holidays', array('status'=>1, 'school_id'=>$school_id, 'is_view_on_web'=>1), '', '6', '', 'id', 'DESC');
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('holiday_detail') . ' | ' . SMS);
-            $this->layout->view('holiday_detail', $this->data);
+            $this->layout->view($this->data['theme'].'/holiday_detail', $this->data);
         
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -293,10 +313,10 @@ class Web extends CI_Controller {
             $this->data['events'] = $this->web->get_event_list($school_id, 6);
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('event') . ' | ' . SMS);
-            $this->layout->view('event', $this->data);
+            $this->layout->view($this->data['theme'].'/event', $this->data);
             
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -318,10 +338,10 @@ class Web extends CI_Controller {
             $this->data['events'] = $this->web->get_event_list($school_id, 6);
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('event_detail') . ' | ' . SMS);
-            $this->layout->view('event_detail', $this->data);
+            $this->layout->view($this->data['theme'].'/event_detail', $this->data);
         
          }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -343,10 +363,10 @@ class Web extends CI_Controller {
             $this->data['galleries'] = $this->web->get_list('galleries', array('status'=>1, 'school_id'=>$school_id, 'is_view_on_web'=>1), '', '', '', 'id', 'DESC');
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('media_gallery') . ' | ' . SMS);
-            $this->layout->view('gallery', $this->data);
+            $this->layout->view($this->data['theme'].'/gallery', $this->data);
          
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
 
@@ -366,10 +386,10 @@ class Web extends CI_Controller {
             $this->data['teachers'] = $this->web->get_teacher_list($school_id);
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('teacher') . ' | ' . SMS);
-            $this->layout->view('teacher', $this->data);        
+            $this->layout->view($this->data['theme'].'/teacher', $this->data);        
           
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -390,9 +410,9 @@ class Web extends CI_Controller {
             $this->data['employees'] = $this->web->get_employee_list($school_id);
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('staff') . ' | ' . SMS);
-            $this->layout->view('staff', $this->data);
+            $this->layout->view($this->data['theme'].'/staff', $this->data);
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -416,10 +436,10 @@ class Web extends CI_Controller {
             }
             
             $this->layout->title($this->lang->line('page') .' | ' . SMS);
-            $this->layout->view('page', $this->data);
+            $this->layout->view($this->data['theme'].'/page', $this->data);
             
          }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -438,10 +458,10 @@ class Web extends CI_Controller {
             $school_id = $this->session->userdata('front_school_id');
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('about_school') .' | ' . SMS);
-            $this->layout->view('about', $this->data);
+            $this->layout->view($this->data['theme'].'/about', $this->data);
             
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
         
     }
@@ -464,14 +484,14 @@ class Web extends CI_Controller {
                 $school_id = $this->session->userdata('front_school_id');
                 $this->data['list'] = TRUE;
                 $this->layout->title($this->lang->line('admission_form') . ' | ' . SMS);
-                $this->layout->view('admission-form', $this->data);
+                $this->layout->view($this->data['theme'].'/admission-form', $this->data);
             
             }else{               
                redirect('/');
            }
             
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -512,17 +532,18 @@ class Web extends CI_Controller {
             $school_id = $this->session->userdata('front_school_id');            
             $this->data['classes'] = $this->web->get_list('classes', array('school_id'=>$school_id), '', '', '', 'id', 'ASC');
             $this->data['types'] = $this->web->get_list('student_types', array('school_id'=>$school_id), '', '', '', 'id', 'ASC');
+            $this->data['provinces'] = $this->web->get_provinces();
 
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('online_admission'). ' | ' . SMS);
-            $this->layout->view('admission-online', $this->data);
+            $this->layout->view($this->data['theme'].'/admission-online', $this->data);
             
            }else{               
                redirect('/');
            }
            
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -624,7 +645,20 @@ class Web extends CI_Controller {
         $items[] = 'second_language';
         $items[] = 'present_address';
         $items[] = 'permanent_address';
-        
+        $items[] = 'province_id';
+        $items[] = 'regency_id';
+        $items[] = 'district_id';
+        $items[] = 'villages_id';
+        $items[] = 'postal_code';
+        $items[] = 'weight';
+        $items[] = 'height';
+        $items[] = 'child_no';
+        $items[] = 'child_from';
+        $items[] = 'nisn_no';
+        $items[] = 'skhun_no';
+        $items[] = 'pob';
+        $items[] = 'ijazah_no';
+                
         $items[] = 'is_guardian';
         $items[] = 'guardian_id';
         $items[] = 'gud_phone';
@@ -637,25 +671,35 @@ class Web extends CI_Controller {
         $items[] = 'gud_other_info';
         $items[] = 'gud_present_address';
         $items[] = 'gud_permanent_address';
+        $items[] = 'gud_earning_id';
         
         $items[] = 'father_name';
         $items[] = 'father_phone';
         $items[] = 'father_education';
         $items[] = 'father_profession';
         $items[] = 'father_designation';
+        $items[] = 'father_religion';
+        $items[] = 'father_pob';
         $items[] = 'mother_name';
         $items[] = 'mother_phone';
         $items[] = 'mother_education';
         $items[] = 'mother_profession';
         $items[] = 'mother_designation';
+        $items[] = 'mother_religion';
+        $items[] = 'mother_pob';
         
         $items[] = 'previous_school';
         $items[] = 'previous_class';
+        $items[] = 'previous_school_address';
+        $items[] = 'previous_school_city';
+        $items[] = 'graduate_year';
         
         $data = elements($items, $_POST);        
         
         $data['school_id'] = $this->session->userdata('front_school_id');  
         $data['dob'] = date('Y-m-d', strtotime($this->input->post('dob')));  
+        $data['father_dob'] = date('Y-m-d', strtotime($this->input->post('father_dob')));
+        $data['mother_dob'] = date('Y-m-d', strtotime($this->input->post('mother_dob')));
         
         if ($this->input->post('id')) {
             $data['modified_at'] = date('Y-m-d H:i:s');
@@ -735,11 +779,133 @@ class Web extends CI_Controller {
 
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('contact_us') . ' | ' . SMS);
-            $this->layout->view('contact', $this->data);
+            $this->layout->view($this->data['theme'].'/contact', $this->data);
         
         }else{            
-            $this->load->view('splash', $this->data);              
+            $this->load->view($this->data['theme'].'/splash', $this->data);              
         }
+    }
+
+    /**     * *************Function get_cities_by_prov**********************************
+     * @type            : Function
+     * @function name   : get_cities_by_prov
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_cities_by_prov() {
+
+        $province_id = $this->input->post('province_id');
+        $regency_id = $this->input->post('regency_id');
+        
+        $cities = $this->ajax->get_list('regencies', array('province_id' => $province_id), '', '', '', 'name', 'ASC');
+        
+        $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+    
+        $select = 'selected="selected"';
+        if (!empty($cities)) {
+            foreach ($cities as $obj) {
+                
+                $selected = $regency_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . '</option>';
+            }
+        }
+
+        echo $str;
+    }
+
+    /**     * *************Function get_district_by_city**********************************
+     * @type            : Function
+     * @function name   : get_district_by_city
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_district_by_city() {
+
+        $regency_id = $this->input->post('regency_id');
+        $district_id = $this->input->post('district_id');
+        
+        $districts = $this->ajax->get_list('districts', array('regency_id' => $regency_id), '', '', '', 'name', 'ASC');
+        
+        $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+    
+        $select = 'selected="selected"';
+        if (!empty($districts)) {
+            foreach ($districts as $obj) {
+                
+                $selected = $district_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . '</option>';
+            }
+        }
+
+        echo $str;
+    }
+
+    /**     * *************Function get_villages_by_district**********************************
+     * @type            : Function
+     * @function name   : get_villages_by_district
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_villages_by_district() {
+
+        $district_id = $this->input->post('district_id');
+        $villages_id = $this->input->post('villages_id');
+        
+        $villages = $this->ajax->get_list('villages', array('district_id' => $district_id), '', '', '', 'name', 'ASC');
+        
+        $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+    
+        $select = 'selected="selected"';
+        if (!empty($villages)) {
+            foreach ($villages as $obj) {
+                
+                $selected = $villages_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . '</option>';
+            }
+        }
+
+        echo $str;
+    }
+
+    /**     * *************Function get_postal_code**********************************
+     * @type            : Function
+     * @function name   : get_postal_code
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_postal_code() {
+
+        $postal_code = $this->input->post('postal_code');
+        $urban = $this->input->post('urban');
+        $sub_district = $this->input->post('sub_district');
+        $city = $this->input->post('city');
+        $province_code = $this->input->post('province_code');
+        
+        $postal = $this->ajax->get_list('db_postal_code_data', array(
+            'urban' => $urban,
+            'sub_district' => $sub_district,
+            'city' => $city,
+            'province_code' => $province_code,
+            ''
+        ), '', '', '', 'postal_code', 'ASC');
+        
+        $str = '';
+    
+        if (!empty($postal)) {
+            foreach ($postal as $pos) {
+                $str = $pos->postal_code;
+            }
+        }
+
+        echo $str;
     }
     
       /* ***************Function _send_email**********************************

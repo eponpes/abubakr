@@ -111,7 +111,14 @@ class Mark extends MY_Controller {
         }  
 
         $this->layout->title($this->lang->line('manage_mark') . ' | ' . SMS);
-        $this->layout->view('mark/index', $this->data);
+        if($subject_id == 1) {
+            $this->layout->view('mark/tahsin', $this->data);
+        } else if($subject_id == 2) {
+            $this->layout->view('mark/tahfizh', $this->data);
+        } else {
+            $this->layout->view('mark/default', $this->data);
+        }
+        
     }
 
     
@@ -177,7 +184,20 @@ class Mark extends MY_Controller {
                     
                     $data['grade_id'] = $_POST['grade_id'][$value];                    
                     $data['remark'] = $_POST['remark'][$value];
-                    
+
+                    $data['knowledge_mark'] = $_POST['knowledge_mark'][$value];
+                    $data['knowledge_obtain'] = $_POST['knowledge_obtain'][$value];
+                    $data['knowledge_note'] = $_POST['knowledge_note'][$value];
+
+                    $data['skill_mark'] = $_POST['skill_mark'][$value];
+                    $data['skill_obtain'] = $_POST['skill_obtain'][$value];
+                    $data['skill_note'] = $_POST['skill_note'][$value];
+
+                    $data['fashohah'] = $_POST['fashohah'][$value];
+                    $data['tajwid'] = $_POST['tajwid'][$value];
+                    $data['fluency'] = $_POST['fluency'][$value];
+                    $data['tahfizh_note'] = $_POST['tahfizh_note'][$value];
+
                     $data['status'] = 1;
                     $data['created_at'] = date('Y-m-d H:i:s');
                     $data['created_by'] = logged_in_user_id();

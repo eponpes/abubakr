@@ -233,6 +233,7 @@ class Classes extends MY_Controller {
         $items = array();
         $items[] = 'school_id';
         $items[] = 'teacher_id';
+        $items[] = 'group_id';
         $items[] = 'name';
         $items[] = 'numeric_name';        
         $items[] = 'note';

@@ -165,6 +165,15 @@ class Web_Model extends MY_Model {
         $this->db->where('U.school_id', $school_id);
         return $this->db->count_all_results();
     }
+
+    public function get_provinces(){
+        
+        $this->db->select('*');
+        $this->db->from('provinces');
+        $this->db->order_by('name', 'ASC');
+        return $this->db->get()->result();
+        
+    }
     
   
 }

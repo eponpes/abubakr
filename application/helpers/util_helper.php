@@ -483,15 +483,18 @@ if (!function_exists('get_position_in_subject')) {
 
 if (!function_exists('get_subject_list')) {
 
-    function get_subject_list($school_id, $academic_year_id, $exam_id, $class_id, $section_id = null, $student_id = null) {
+    function get_subject_list($school_id, $academic_year_id, $exam_id, $class_id, $section_id = null, $student_id = null, $group_id = null) {
         $ci = & get_instance();
-        $ci->db->select('M.*,S.name AS subject, G.point, G.name');
+        $ci->db->select('M.*,S.name AS subject, S.mark AS subjectmark, G.point, G.name');
         $ci->db->from('marks AS M');        
         $ci->db->join('subjects AS S', 'S.id = M.subject_id', 'left');
         $ci->db->join('grades AS G', 'G.id = M.grade_id', 'left');
         $ci->db->where('M.school_id', $school_id);
         $ci->db->where('M.academic_year_id', $academic_year_id);
         $ci->db->where('M.class_id', $class_id);
+        if($group_id){
+            $ci->db->where('S.group_id', $group_id);
+        }
         if($section_id){
             $ci->db->where('M.section_id', $section_id);
         }
@@ -1966,6 +1969,95 @@ if (!function_exists('get_student_tahfizh')) {
         $ci->db->where('SA.year', $year);
         $ci->db->where('SA.month', $month);
         return @$ci->db->get()->row()->$field;
+    }
+
+}
+if (!function_exists('get_average_total')){
+    function get_average_total($values = array()){
+        $average = 0;
+        if(isset($values) && !empty($values)){
+            $mark = 0;
+            foreach($values as $val){
+                $mark += $val;
+            }
+            $total_values = count($values);
+            $average = $mark / $total_values;
+        }
+        
+        return number_format((float)$average, 2, '.', '');
+    }
+}
+if (!function_exists('get_grades')){
+    function get_grades($value = null) {
+        $predicate = '';
+        if($value >= 90){
+            $predicate = 'A';
+        } else if($value >= 80 && $value < 90) {
+            $predicate = 'B';
+        } else if($value >= 65 && $value < 80) {
+            $predicate = 'C';
+        } else if($value >= 55 && $value < 65) {
+            $predicate = 'D';
+        } else {
+            $predicate = 'E';
+        }
+        return $predicate;
+    }
+}
+
+if (!function_exists('get_grade_tahfizh')){
+    function get_grade_tahfizh($value = null) {
+        $predicate = '';
+        if($value >= 90){
+            $predicate = 'Mumtaz';
+        } else if($value >= 80 && $value < 90) {
+            $predicate = 'Jayyid Jiddan';
+        } else if($value >= 65 && $value < 80) {
+            $predicate = 'Jayyid';
+        } else if($value >= 55 && $value < 65) {
+            $predicate = 'Maqbul';
+        } else {
+            $predicate = 'Naqis';
+        }
+        return $predicate;
+    }
+}
+
+if (!function_exists('get_subject_groups')) {
+
+    function get_subject_groups() {
+        $ci = & get_instance();
+        return array(
+            '1' => 'Tahfizh',
+            '2' => 'Mahad',
+            '3' => 'Akademik'
+        );
+    }
+
+}
+
+if (!function_exists('get_guardian_earning')) {
+
+    function get_guardian_earning() {
+        $ci = & get_instance();
+        return array(
+            '1' => '< Rp. 2.500.000,-',
+            '2' => 'Rp. 2.500.000 s/d 5.000.000,-',
+            '3' => 'Rp. 5.000.000 s/d 10.000.000,-',
+            '4' => '> Rp. 10.000.000,-'
+        );
+    }
+
+}
+
+if (!function_exists('get_class_groups')) {
+
+    function get_class_groups() {
+        $ci = & get_instance();
+        return array(
+            '1' => 'Academic',
+            '2' => 'Mahad'
+        );
     }
 
 }

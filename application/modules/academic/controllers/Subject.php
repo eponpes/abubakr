@@ -333,6 +333,8 @@ class Subject extends MY_Controller {
         $items[] = 'type';
         $items[] = 'code';
         $items[] = 'author';
+        $items[] = 'group_id';
+        $items[] = 'mark';
         $items[] = 'name';
         $items[] = 'note';
         $data = elements($items, $_POST);        

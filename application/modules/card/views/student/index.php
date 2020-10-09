@@ -111,9 +111,9 @@
                                                         <p><span class="card-title"><?php echo $this->lang->line('student_name'); ?></span><span class="card-value">: <?php echo $obj->name; ?></span></p>
                                                         <p><span class="card-title"><?php echo $this->lang->line('class'); ?></span><span class="card-value">: <?php echo $obj->class_name; ?></span></p>
                                                         <p><span class="card-title"><?php echo $this->lang->line('section'); ?></span><span class="card-value">: <?php echo $obj->section; ?></span></p>
-                                                        <p><span class="card-title"><?php echo $this->lang->line('roll_no'); ?></span><span class="card-value">: <?php echo $obj->roll_no; ?></span></p>
-                                                        <p><span class="card-title"><?php echo $this->lang->line('blood_group'); ?></span><span class="card-value">: <?php echo $this->lang->line($obj->blood_group); ?></span></p>
-                                                        <p><span class="card-title"><?php echo $this->lang->line('birth_date'); ?></span><span class="card-value">: <?php echo date($this->global_setting->date_format, strtotime($obj->dob)); ?></span></p>
+                                                        <p><span class="card-title">No. Induk</span><span class="card-value">: <?php echo $obj->roll_no; ?></span></p>
+                                                        <p><span class="card-title">TTL</span><span class="card-value">: <?php echo $obj->pob . ', ' . date($this->global_setting->date_format, strtotime($obj->dob)); ?></span></p>
+                                                        <p><span class="card-title"><?php echo $this->lang->line('address'); ?></span><span class="card-value">: <?php echo $obj->permanent_address; ?></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="card-bottom">

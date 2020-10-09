@@ -59,7 +59,7 @@ class Resultcard extends MY_Controller {
             
             $school = $this->resultcard->get_school_by_id($school_id);
             $academic_year_id = $this->input->post('academic_year_id');
-            $this->data['exams'] = $this->resultcard->get_list('exams', array('school_id'=>$school_id, 'status' => 1, 'academic_year_id' => $academic_year_id), '', '', '', 'id', 'ASC');
+            $this->data['exams'] = $this->resultcard->get_list('exams', array('school_id'=>$school_id, 'status' => 1, 'academic_year_id' => $academic_year_id, 'group_id' => 3), '', '', '', 'id', 'ASC');
            
             $this->data['school'] = $school;
             $this->data['school_id'] = $school_id;

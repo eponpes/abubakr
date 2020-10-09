@@ -1162,4 +1162,37 @@ class Report extends My_Controller {
         
     }
 
+    public function srecord($student_id = null, $school_id = null, $academic_year_id = null, $class_id = null, $section_id = null, $month = null) {
+        
+        //check_permission(EDIT);
+
+        if(!is_numeric($student_id)){
+            error($this->lang->line('unexpected_error'));
+            redirect('stahfizh/index');     
+        }
+
+        $this->data['school_id'] = $school_id;
+        $this->data['academic_year_id'] = $academic_year_id;
+        $this->data['class_id'] = $class_id;
+        $this->data['section_id'] = $section_id;
+        $this->data['month'] = $month;
+        $this->data['student_id'] = $student_id;
+        
+        $session = $this->report->get_single('academic_years', array('id' => $academic_year_id, 'school_id'=>$school_id));            
+        $this->data['year'] = $year = substr($session->session_year, 7);
+        $this->data['days'] =  @date('t', mktime(0, 0, 0, $month, 1, $this->data['year']));
+        $school = $this->report->get_school_by_id($school_id);
+        $student_record = get_student_monthly_tahfizh($school_id, $student_id, $academic_year_id, $class_id, $section_id, $month ,$this->data['days']);
+        $student_detail = get_student_tahfizh_record($school_id, $student_id, $academic_year_id, $class_id, $section_id, $month, $year);
+        
+        $this->data['school'] = $school;
+        $this->data['student_record'] = $student_record;
+        $this->data['student'] = $student_detail;
+        
+        $this->data['report_url'] = site_url('report/stahfizh');
+        $this->layout->title($this->lang->line('student_tahfizh') . ' | ' . SMS);
+        $this->layout->view('stahfizh/record', $this->data);
+
+    }
+
 }

@@ -82,6 +82,7 @@
                                         <th><?php echo $this->lang->line('subject_code'); ?></th>
                                         <th><?php echo $this->lang->line('class'); ?></th>
                                         <th><?php echo $this->lang->line('teacher'); ?></th>
+                                        <th><?php echo $this->lang->line('group'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
                                 </thead>
@@ -94,6 +95,7 @@
                                             }elseif($this->session->userdata('role_id') == STUDENT){
                                                 if ($obj->class_id != $this->session->userdata('class_id')){ continue; }
                                             }
+                                            $subjectgroups = get_subject_groups();
                                         ?>
                                         <tr>
                                             <td><?php echo $count++; ?></td>
@@ -104,6 +106,7 @@
                                             <td><?php echo $obj->code; ?></td>
                                             <td><?php echo $obj->class_name; ?></td>
                                             <td><?php echo $obj->teacher; ?></td>
+                                            <td><?php echo $subjectgroups[$obj->group_id]; ?></td>
                                             <td>
                                                 <?php if(has_permission(EDIT, 'academic', 'subject')){ ?>
                                                     <a href="<?php echo site_url('academic/subject/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
@@ -152,6 +155,13 @@
                                     </div>
                                 </div>
                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mark">KKM</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="mark"  id="mark" value="<?php echo isset($post['mark']) ?  $post['mark'] : ''; ?>" placeholder="<?php echo $this->lang->line('mark'); ?>"  type="number" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('mark'); ?></div>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type"><?php echo $this->lang->line('type'); ?> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12" name="type" id="type" >
@@ -162,6 +172,20 @@
                                             <?php } ?>
                                         </select>
                                         <div class="help-block"><?php echo form_error('type'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="group_id">Group </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="group_id" id="group_id" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            <?php $subjectgroups = get_subject_groups(); ?>
+                                            <?php foreach($subjectgroups as $key=>$value){ ?>
+                                                <option value="<?php echo $key; ?>" <?php echo isset($post['group_id']) && $post['group_id'] == $key ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('group_id'); ?></div>
                                     </div>
                                 </div>
                                                                 
@@ -241,6 +265,13 @@
                                     </div>
                                 </div>
                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mark">KKM</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12"  name="mark"  id="mark" value="<?php echo isset($subject->mark) ?  $subject->mark : ''; ?>" placeholder="<?php echo $this->lang->line('mark'); ?>"  type="number" step=".01" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('mark'); ?></div>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type"><?php echo $this->lang->line('type'); ?> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12" name="type" id="type" >
@@ -251,6 +282,20 @@
                                             <?php } ?>
                                         </select>
                                         <div class="help-block"><?php echo form_error('type'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="group_id">Subject Group </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="group_id" id="group_id" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            <?php $subjectgroups = get_subject_groups(); ?>
+                                            <?php foreach($subjectgroups as $key=>$value){ ?>
+                                                <option value="<?php echo $key; ?>" <?php if($subject->group_id == $key){ echo 'selected="selected"';} ?>><?php echo $value; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('group_id'); ?></div>
                                     </div>
                                 </div>
                                 

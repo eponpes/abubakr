@@ -93,7 +93,7 @@
                                      <div class="col-md-2 col-sm-2 col-xs-12">
                                          <div class="item form-group">
                                              <label for="">&nbsp;</label>
-                                            <a href="<?php echo ASSET_URL; ?>csv/bulk_student.csv"  class="btn btn-success btn-md"><?php echo $this->lang->line('generate_csv'); ?></a>
+                                            <a href="<?php echo ASSET_URL; ?>csv/bulk_students.csv"  class="btn btn-success btn-md"><?php echo $this->lang->line('generate_csv'); ?></a>
                                          </div>
                                      </div> 
                                     <div class="col-md-2 col-sm-2 col-xs-12">
@@ -101,7 +101,7 @@
                                              <label ><?php echo $this->lang->line('csv_file'); ?>&nbsp;</label>
                                             <div class="btn btn-default btn-file">
                                                 <i class="fa fa-paperclip"></i> <?php echo $this->lang->line('upload'); ?>
-                                                <input  class="form-control col-md-7 col-xs-12"  name="bulk_student"  id="bulk_student" type="file">
+                                                <input  class="form-control col-md-7 col-xs-12"  name="bulk_students"  id="bulk_student" type="file">
                                             </div>
                                          </div>
                                      </div>

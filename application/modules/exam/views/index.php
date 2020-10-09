@@ -53,13 +53,14 @@
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('exam_title'); ?></th>
                                         <th><?php echo $this->lang->line('exam_date'); ?></th>                                       
-                                        <th><?php echo $this->lang->line('academic_year'); ?></th>                                       
+                                        <th><?php echo $this->lang->line('academic_year'); ?></th>
+                                        <th><?php echo $this->lang->line('group'); ?></th>                                       
                                         <th width="25%"><?php echo $this->lang->line('note'); ?></th>                                       
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
                                 </thead>
                                 <tbody>   
-                                    <?php $count = 1; if(isset($exams) && !empty($exams)){ ?>
+                                    <?php $examgroups = get_subject_groups(); $count = 1; if(isset($exams) && !empty($exams)){ ?>
                                         <?php foreach($exams as $obj){ ?>
                                         <tr>
                                             <td><?php echo $count++; ?></td>
@@ -69,6 +70,7 @@
                                             <td><?php echo $obj->title; ?></td>
                                             <td><?php echo date($this->global_setting->date_format, strtotime($obj->start_date)); ?></td>
                                             <td><?php echo $obj->session_year; ?></td>
+                                            <td><?php echo $examgroups[$obj->group_id]; ?></td>
                                             <td><?php echo $obj->note; ?></td>
                                             <td>
                                                 <?php if(has_permission(EDIT, 'exam', 'exam')){ ?>
@@ -98,6 +100,20 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input  class="form-control col-md-7 col-xs-12"  name="title"  id="title" value="<?php echo isset($post['title']) ?  $post['title'] : ''; ?>" placeholder="<?php echo $this->lang->line('exam_title'); ?>" required="required" type="text" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('title'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="group_id">Group *</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="group_id" id="group_id" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            <?php $subjectgroups = get_subject_groups(); ?>
+                                            <?php foreach($subjectgroups as $key=>$value){ ?>
+                                                <option value="<?php echo $key; ?>" <?php echo isset($post['group_id']) && $post['group_id'] == $key ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('group_id'); ?></div>
                                     </div>
                                 </div>                                
                                 
@@ -144,6 +160,20 @@
                                     </div>
                                 </div>
                                 
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="group_id">Group ujian * </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="group_id" id="group_id" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            <?php $subjectgroups = get_subject_groups(); ?>
+                                            <?php foreach($subjectgroups as $key=>$value){ ?>
+                                                <option value="<?php echo $key; ?>" <?php if($exam->group_id == $key){ echo 'selected="selected"';} ?>><?php echo $value; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('group_id'); ?></div>
+                                    </div>
+                                </div>
+
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="start_date"><?php echo $this->lang->line('start_date'); ?> <span class="required">*</span>
                                     </label>

@@ -147,12 +147,16 @@
 .callus{
     text-align: right;
 }
-.callus p{
+.callus p,
+.callus a{
     margin-bottom: 0;
     color: #fff;
     letter-spacing: 2.8px;
     text-transform: uppercase;
     font-size: 14px;
+}
+.callus a:hover{
+    color: #1aa15f !important;
 }
 .isSticky.fixedHeader{
     position: fixed;
@@ -169,7 +173,8 @@
     top: 0;
 }
 .isSticky.fixedHeader .mainMenu ul li a,
-.isSticky.fixedHeader .callus p{
+.isSticky.fixedHeader .callus p,
+.isSticky.fixedHeader .callus a {
     color: #333;
     font-weight: 600;
 }
@@ -1498,7 +1503,8 @@
     position: relative;
 }
 .header.workDetail .mainMenu ul li a,
-.header.workDetail .callus p{
+.header.workDetail .callus p,
+.header.workDetail .callus a {
     color: #000;
 }
 .workDetailHead {

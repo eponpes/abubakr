@@ -192,6 +192,128 @@ class Ajax extends My_Controller {
         echo $str;
     }
 
+    /**     * *************Function get_cities_by_prov**********************************
+     * @type            : Function
+     * @function name   : get_cities_by_prov
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_cities_by_prov() {
+
+        $province_id = $this->input->post('province_id');
+        $regency_id = $this->input->post('regency_id');
+        
+        $cities = $this->ajax->get_list('regencies', array('province_id' => $province_id), '', '', '', 'name', 'ASC');
+        
+        $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+    
+        $select = 'selected="selected"';
+        if (!empty($cities)) {
+            foreach ($cities as $obj) {
+                
+                $selected = $regency_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . '</option>';
+            }
+        }
+
+        echo $str;
+    }
+
+    /**     * *************Function get_district_by_city**********************************
+     * @type            : Function
+     * @function name   : get_district_by_city
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_district_by_city() {
+
+        $regency_id = $this->input->post('regency_id');
+        $district_id = $this->input->post('district_id');
+        
+        $districts = $this->ajax->get_list('districts', array('regency_id' => $regency_id), '', '', '', 'name', 'ASC');
+        
+        $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+    
+        $select = 'selected="selected"';
+        if (!empty($districts)) {
+            foreach ($districts as $obj) {
+                
+                $selected = $district_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . '</option>';
+            }
+        }
+
+        echo $str;
+    }
+
+    /**     * *************Function get_villages_by_district**********************************
+     * @type            : Function
+     * @function name   : get_villages_by_district
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_villages_by_district() {
+
+        $district_id = $this->input->post('district_id');
+        $villages_id = $this->input->post('villages_id');
+        
+        $villages = $this->ajax->get_list('villages', array('district_id' => $district_id), '', '', '', 'name', 'ASC');
+        
+        $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+    
+        $select = 'selected="selected"';
+        if (!empty($villages)) {
+            foreach ($villages as $obj) {
+                
+                $selected = $villages_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . '</option>';
+            }
+        }
+
+        echo $str;
+    }
+
+    /**     * *************Function get_postal_code**********************************
+     * @type            : Function
+     * @function name   : get_postal_code
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_postal_code() {
+
+        $postal_code = $this->input->post('postal_code');
+        $urban = $this->input->post('urban');
+        $sub_district = $this->input->post('sub_district');
+        $city = $this->input->post('city');
+        $province_code = $this->input->post('province_code');
+        
+        $postal = $this->ajax->get_list('db_postal_code_data', array(
+            'urban' => $urban,
+            'sub_district' => $sub_district,
+            'city' => $city,
+            'province_code' => $province_code,
+            ''
+        ), '', '', '', 'postal_code', 'ASC');
+        
+        $str = '';
+    
+        if (!empty($postal)) {
+            foreach ($postal as $pos) {
+                $str = $pos->postal_code;
+            }
+        }
+
+        echo $str;
+    }
+
     /*     * **************Function get_student_by_section**********************************
      * @type            : Function
      * @function name   : get_student_by_section
@@ -604,8 +726,13 @@ class Ajax extends My_Controller {
         
          $school_id  = $this->input->post('school_id');
          $class_id  = $this->input->post('class_id');
-         
-        $classes = $this->ajax->get_list('classes', array('status'=>1, 'school_id'=>$school_id), '','', '', 'id', 'ASC'); 
+         $group_id  = !empty($this->input->post('group_id'))?$this->input->post('group_id'):'';
+        $condition['status'] = 1;
+        $condition['school_id'] = $school_id;
+        if(!empty($group_id)){
+             $condition['group_id'] = $group_id;
+        }
+        $classes = $this->ajax->get_list('classes', $condition, '','', '', 'id', 'ASC'); 
          
         $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
         $select = 'selected="selected"';
