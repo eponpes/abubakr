@@ -9,13 +9,9 @@
             </div>
             <div class="col-sm-4">
                 <div class="blogCat">
-                    <h6>Categories <i class="fa fa-bars"></i></h6>
+                    <h6>Kategori <i class="fa fa-bars"></i></h6>
                     <ul>
-                        <li><a href="#">Web Desgin</a></li>
-                        <li><a href="#">UI / UX</a></li>
-                        <li><a href="#">Branding</a></li>
-                        <li><a href="#">Development</a></li>
-                        <li><a href="#">Mobile</a></li>
+                        <li><a href="#">Umum</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,8 +42,8 @@
                             <p><?php echo strip_tags(substr($obj->news, 0, 180)); ?> ...</p>
                         </div>
                         <div class="blogBott">
-                            <div class="bauthor">By<a href="#">Ihsan</a></div>
-                            <div class="blogComs"><img src="images/comment.png" alt=""><a href="#">2 Comments</a></div>
+                            <div class="bauthor"><?php echo $this->lang->line('by'); ?> / <?php echo $obj->name; ?></div>
+                            <!--div class="blogComs"><img src="images/comment.png" alt=""><a href="#">2 Comments</a></div-->
                         </div>
                     </div>
                 </div>

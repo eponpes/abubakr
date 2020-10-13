@@ -169,7 +169,7 @@
             </div>
         </div>
     </div>
-    <div class="ourServices">
+    <div class="ourServices" id="school">
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
@@ -220,7 +220,7 @@
                 <div class="wedoContent">
                     <h5 class="text-uppercase color_white bold">YANG KITA LAKUKAN</h5>
                     <h2 class="lead color_white">Mendidik, Membina <span>&</span> Mengembangkan.</h2>
-                    <a href="#" class="bes_button2">Daftarkan Anak Anda Sekarang Juga <i class="flaticon-arrows"></i></a>
+                    <a href="<?php echo site_url('admission-online'); ?>" class="bes_button2">Daftarkan Anak Anda Sekarang Juga <i class="flaticon-arrows"></i></a>
                 </div>
             </div>
         </div>
@@ -300,6 +300,11 @@
                 </div>
             </div>
                             <?php } } ?>
+            <div class="row">
+                <div class="col-sm-12 abcontentT">
+                    <a href="<?php echo site_url('news'); ?>">Lihat Semua Berita</a>
+                </div>
+            </div>
             
         </div>
     </div>
@@ -314,36 +319,36 @@
                 <div class="contactInner">
                     <h3 class="greeny light">Kontak kami jika ingin mengajukan pertanyaan</h3>
                     <div class="contactForm">
-                        <form action="#" method="post" id="contactForm">
+                    <form action="<?php echo site_url('contact'); ?>" method="post" id="contact_us" name="contact_us" >
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="single_form home_page2">
                                         <label for="con_name">Nama:</label>
-                                        <input type="text" name="con_name" id="con_name" class="required">
+                                        <input type="text" name="name" id="name" class="required">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="single_form home_page2">
                                         <label for="con_phone">No HP/WA:</label>
-                                        <input type="text" name="con_phone" id="con_phone" class="required">
+                                        <input type="text" name="phone" id="phone" class="required">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="single_form home_page2">
                                         <label for="con_email">Email:</label>
-                                        <input type="email" name="con_email" id="con_email" class="required">
+                                        <input type="email" name="email" id="email" class="required">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="single_form home_page2">
                                         <label for="con_company">Asal:</label>
-                                        <input type="text" name="con_company" id="con_company" class="required">
+                                        <input type="text" name="company" id="company" class="required">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="single_form home_page2">
                                         <label for="con_msg">Pesan:</label>
-                                        <textarea id="con_msg" name="con_msg" class="required"></textarea>
+                                        <textarea id="message" name="message" class="required"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 text-center">

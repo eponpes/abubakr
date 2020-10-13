@@ -66,12 +66,10 @@
                                 <li class="scroll"><a href="#about">PROFILE</a></li>
                                 <li class="scroll"><a href="#whatwe">KEUNGGULAN</a></li>
                                 <li class="scroll"><a href="#ourwork">JENJANG</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/">SMP-SMA (PONDOK)</a></li>
-                                        <li><a href="/">SD</a></li>
-                                        <li><a href="/">TK</a></li>
-                                        <li><a href="/">TPA</a></li>
-                                        <li><a href="/">KOBER</a></li>
+                                <ul class="sub-menu">
+                                    <?php foreach($schools as $obj ){ ?>
+                                        <li><a href="#" link="<?php echo site_url('school/'.$obj->id); ?>" onclick="change_school(this.getAttribute('link'));return false;"><?php echo $obj->school_name; ?></a></li>
+                                    <?php } ?>
                                     </ul>
                                 </li>
                                 <li class="scroll has-menu-items"><a href="#blog">BERITA</a></li>
@@ -406,7 +404,7 @@
                         <div class="wedoContent">
                             <h5 class="text-uppercase color_white bold">YANG KITA LAKUKAN</h5>
                             <h2 class="lead color_white">Mendidik, Membina <span>&</span> Mengembangkan.</h2>
-                            <a href="#" class="bes_button2">Daftarkan Anak Anda Sekarang Juga <i class="flaticon-arrows"></i></a>
+                            <a href="<?php echo site_url('admission-online'); ?>" class="bes_button2">Daftarkan Anak Anda Sekarang Juga <i class="flaticon-arrows"></i></a>
                         </div>
                     </div>
                 </div>

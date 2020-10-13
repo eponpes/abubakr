@@ -2427,3 +2427,10 @@
 }
 
 
+.alignleft {
+    float: left;
+    margin-top: 6px;
+    margin-right: 24px;
+    margin-bottom: 6px !important;
+    margin-left: 0;
+}

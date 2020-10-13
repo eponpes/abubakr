@@ -113,7 +113,7 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function index() {
         
-        $this->data['page'] = 'home';
+        $this->data['home'] = 'home';
 
         if($this->session->userdata('front_school_id')){           
 
@@ -135,7 +135,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/index', $this->data);
 
         }else{  
-            $this->load->view($this->data['theme'].'/splash', $this->data);
+            $this->layout->view($this->data['theme'].'/splash', $this->data);
         }
     }
     
@@ -955,7 +955,7 @@ class Web extends CI_Controller {
             
             $this->email->from($this->input->post('email'), $this->input->post('name'));
             $this->email->to($this->data['school']->email);
-            //$this->email->to('yousuf361@gmail.com');
+            $this->email->to('fathanrbe@gmail.com');
             $subject = $this->lang->line('contact_mail_from') . ' - '. $this->data['school']->school_name;
             $this->email->subject($subject);       
 
