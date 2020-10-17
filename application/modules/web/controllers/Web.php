@@ -78,7 +78,7 @@ class Web extends CI_Controller {
             break;
 
             default:
-            $this->data['theme'] = 'pptq';
+            $this->data['theme'] = 'default';
         }
     }
         
