@@ -44,7 +44,6 @@
     </head>
 
     <body>
-        <div id="preloader"></div>
         <div class="login-area bg-with-black">
             <div class="container login-area-all-box">
                 <div class="row">
