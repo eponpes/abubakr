@@ -161,7 +161,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/news', $this->data);
         
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -191,7 +191,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/news_detail', $this->data);
         
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -217,7 +217,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/notice', $this->data);
         
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -242,7 +242,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/notice_detail', $this->data);        
         
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -267,7 +267,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/holiday', $this->data);
             
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -292,7 +292,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/holiday_detail', $this->data);
         
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -316,7 +316,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/event', $this->data);
             
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -341,7 +341,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/event_detail', $this->data);
         
          }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -366,7 +366,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/gallery', $this->data);
          
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
 
@@ -389,7 +389,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/teacher', $this->data);        
           
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -412,7 +412,7 @@ class Web extends CI_Controller {
             $this->layout->title($this->lang->line('staff') . ' | ' . SMS);
             $this->layout->view($this->data['theme'].'/staff', $this->data);
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -439,7 +439,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/page', $this->data);
             
          }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -461,7 +461,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/about', $this->data);
             
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
         
     }
@@ -491,7 +491,7 @@ class Web extends CI_Controller {
            }
             
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -543,7 +543,7 @@ class Web extends CI_Controller {
            }
            
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
     
@@ -782,7 +782,7 @@ class Web extends CI_Controller {
             $this->layout->view($this->data['theme'].'/contact', $this->data);
         
         }else{            
-            $this->load->view($this->data['theme'].'/splash', $this->data);              
+            $this->layout->view($this->data['theme'].'/splash', $this->data);              
         }
     }
 

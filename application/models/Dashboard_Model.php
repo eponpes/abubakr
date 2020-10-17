@@ -208,7 +208,7 @@ class Dashboard_Model extends MY_Model {
         if(empty($school)){
             return;
         }        
-        $this->db->select('S.id, S.name, S.photo, S.dob, E.roll_no, C.name AS class_name, SE.name AS section, AY.session_year');
+        $this->db->select('S.id, S.name, S.photo, S.dob, E.*, C.name AS class_name, SE.name AS section, AY.session_year');
         $this->db->from('enrollments AS E');
         $this->db->join('classes AS C', 'C.id = E.class_id', 'left');
         $this->db->join('sections AS SE', 'SE.id = E.section_id', 'left');

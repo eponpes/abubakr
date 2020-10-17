@@ -2030,7 +2030,8 @@ if (!function_exists('get_subject_groups')) {
         return array(
             '1' => 'Tahfizh',
             '2' => 'Mahad',
-            '3' => 'Akademik'
+            '3' => 'Akademik',
+            '4' => 'BPI'
         );
     }
 
@@ -2056,7 +2057,9 @@ if (!function_exists('get_class_groups')) {
         $ci = & get_instance();
         return array(
             '1' => 'Academic',
-            '2' => 'Mahad'
+            '2' => 'Mahad',
+            '3' => 'Tahfizh',
+            '4' => 'BPI'
         );
     }
 

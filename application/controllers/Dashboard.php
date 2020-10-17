@@ -174,7 +174,10 @@ class Dashboard extends MY_Controller {
                               <div class="col-xs-12 col-sm-12 bottom text-center">
                                   <a href="'.site_url('student/view/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> '.$this->lang->line('view_profile').'
-                                  </a>                           
+                                  </a>    
+                                  <a href="'.site_url('exam/resultcardmahad/view/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
+                                    <i class="fa fa-user"> </i> Rapot Mahad
+                                  </a>                       
                               </div>
                             </div>
                           </div>'; 
