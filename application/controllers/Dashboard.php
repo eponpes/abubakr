@@ -177,6 +177,12 @@ class Dashboard extends MY_Controller {
                                   </a>    
                                   <a href="'.site_url('exam/resultcardmahad/view/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Rapot Mahad
+                                  </a>
+                                  <a href="'.site_url('exam/resultcardform/view/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
+                                    <i class="fa fa-user"> </i> Rapot BPI
+                                  </a>
+                                  <a href="'.site_url('exam/mark/form/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
+                                    <i class="fa fa-user"> </i> Input Nilai BPI
                                   </a>                       
                               </div>
                             </div>

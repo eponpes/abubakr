@@ -19,7 +19,8 @@ class Mark extends MY_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Mark_Model', 'mark', true);        
+        $this->load->model('Mark_Model', 'mark', true);  
+        $this->load->model('Markforms_Model', 'markforms', true);        
     }
 
     
@@ -214,6 +215,130 @@ class Mark extends MY_Controller {
 
         $this->layout->title($this->lang->line('add')  . ' | ' . SMS);
         $this->layout->view('mark/index', $this->data);
+    }
+
+    public function form($type = null, $school_id = null, $academic_year_id = null, $class_id = null, $section_id = null, $student_id = null) {
+
+        //check_permission(ADD);
+
+        $data_character = get_character_indicator();
+
+        $this->data['characters'] = $data_character;
+
+        $condition = array(
+            'school_id' => $school_id,
+            'academic_year_id' => $academic_year_id,
+            'class_id' => $class_id,
+            'section_id' => $section_id,
+            'student_id' => $student_id
+        );
+        $this->data['school_id'] = $school_id;
+        $this->data['academic_year_id'] = $academic_year_id;
+        $this->data['class_id'] = $class_id;
+        $this->data['section_id'] = $section_id;
+        $this->data['student_id'] = $student_id;
+
+        $this->data['students'] = $data = $condition;
+
+        if(!empty($_GET['q'])){
+            $quarterlist = array('Q1','Q2','Q3','Q4');
+            if(!in_array($_GET['q'], $quarterlist)){
+                redirect('dashboard');
+            }
+            $condition['quarter'] = $_GET['q'];
+            
+            $markforms = $this->markforms->get_single('mark_forms', $condition);
+            if (empty($markforms)) {
+                $data['value'] = '';
+                $data['quarter'] = $_GET['q'];
+                $data['status'] = 1;
+                $data['created_at'] = date('Y-m-d H:i:s');
+                $data['created_by'] = logged_in_user_id();
+                $this->markforms->insert('mark_forms', $data);
+            } else {
+                $markvalues = json_decode($markforms->value, true);
+                $vlabo = array();
+                foreach ($markvalues as $lo){
+                    $mark = $lo['mark'];
+                    $id = $lo['id'];
+                    $vlabo[$id] = $mark;                    
+                }
+                $this->data['markvalues'] = $vlabo;            
+            }
+
+            
+        }
+
+        if (!empty($_POST)) {
+            $data = array();
+            $school_id = $this->input->post('school_id');
+            $academic_year_id = $this->input->post('academic_year_id');
+            $class_id = $this->input->post('class_id');
+            $section_id = $this->input->post('section_id');
+            $student_id = $this->input->post('student_id');
+            $quarter = $this->input->post('quarter');
+            $condition = array(
+                'school_id' => $school_id,
+                'academic_year_id' => $academic_year_id,
+                'class_id' => $class_id,
+                'section_id' => $section_id,
+                'student_id' => $student_id,
+                'quarter' => $quarter
+            );
+
+            $data = $condition;
+
+            if(!empty($_POST['indicator'])){
+                $vla = array();
+                foreach ($_POST['indicator'] as $ind => $val){
+                    $valin = array(
+                        'id' => $ind,
+                        'mark' => $val
+                    );
+                    array_push($vla, $valin);
+                }
+                $vlas = json_encode($vla);
+                
+                $data['value'] = $vlas;
+                $condition['school_id'] = $school_id;
+                $condition['academic_year_id'] = $academic_year_id;
+                $condition['class_id'] = $class_id;
+                $condition['section_id'] = $section_id;
+                $condition['student_id'] = $student_id;
+                $data['status'] = 1;
+                $data['created_at'] = date('Y-m-d H:i:s');
+                $data['created_by'] = logged_in_user_id();
+                //echo '-----';
+                //print_r($data);
+                //die();
+                $this->markforms->update('mark_forms', $data, $condition);
+            }
+            
+
+            //print_r($_POST);die();
+
+            /*if (!empty($_POST['students'])) {
+
+                foreach ($_POST['students'] as $key => $value) {
+
+                    $condition['student_id'] = $value;
+                    
+                    $data['status'] = 1;
+                    $data['created_at'] = date('Y-m-d H:i:s');
+                    $data['created_by'] = logged_in_user_id();
+                    $this->mark->updateform('markforms', $data, $condition);
+                }
+            }
+            
+            create_log('Has been process exam mark and save for class: '. $class->name);
+            
+            success($this->lang->line('insert_success'));
+            redirect('exam/mark');
+            */
+        }
+
+        $this->layout->title($this->lang->line('add')  . ' | ' . SMS);
+        $this->layout->view('mark/indexform', $this->data);
     }
 
 }

@@ -228,8 +228,6 @@ class Bulk extends MY_Controller {
 
                     // now need to create enroll
                     $this->_insert_enrollment($enroll);
-                    $this->db->_error_message();
-                    die();                
                 }
             }
         }

@@ -343,6 +343,37 @@ if (!function_exists('get_exam_result')) {
     }
 }
 
+if (!function_exists('get_mark_form_results')) {
+
+    function get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id) {
+        $ci = & get_instance();
+        $ci->db->select('MF.*');
+        $ci->db->from('mark_forms AS MF');  
+        $ci->db->where('MF.school_id', $school_id);
+        $ci->db->where('MF.academic_year_id', $academic_year_id);
+        $ci->db->where('MF.student_id', $student_id);
+        $ci->db->where('MF.class_id', $class_id);
+        $ci->db->where('MF.section_id', $section_id);
+        return  $ci->db->get()->result();
+    }
+}
+
+function get_markform_score($score = null){
+    $grade = '';
+    if($score >= 4){
+        $grade = 'A';
+    } else if($score >=3){
+        $grade = 'B';
+    } else if($score >=2){
+        $grade = 'C';
+    } else if($score >=1){
+        $grade = 'D';
+    } else {
+        $grade = 'E';
+    }
+    return $grade;
+}
+
 
 if (!function_exists('get_exam_final_result')) {
 
@@ -2063,5 +2094,72 @@ if (!function_exists('get_class_groups')) {
         );
     }
 
+}
+if (!function_exists('get_character_indicator')) {
+
+    function get_character_indicator() {
+        $data_character = array(
+            '1' => array(
+                'name' => 'Akidah Yang Bersih',
+                'indicator' => array(
+                    '11' => 'Tidak berhubungan dengan jin',
+                    '12' => 'Tidak meminta tolong kepada orang yang berlindung kepada jin',
+                    '13' => 'Tidak meramal nasib dengan melihat telapak tangan',
+                    '14' => 'Tidak menghadiri majelis dukun dan peramal',
+                    '15' => 'Tidak meminta berkah dengan mengusap-usap kuburan'
+                )
+            ),
+            '2' => array(
+                'name' => 'Ibadah Yang Benar',
+                'indicator' => array(
+                    '21' => 'Tidak sungkan Adzan',
+                    '22' => 'Ihsan dalam Thaharah',
+                    '23' => 'Bersemangat untuk shalat'
+                )
+            ),
+            '3' => array(
+                'name' => 'Kepribadian yang matang dan berakhlak mulia',
+                'indicator' => array(
+                    '31' => 'Tidak takabur',
+                    '32' => 'Tidak imma’ah (asal ikut, tidak punya prinsip)',
+                    '33' => 'Tidak dusta'
+                )
+            ),
+            '4' => array(
+                'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
+                'indicator' => array(
+                    '41' => 'Menjauhi segala yang haram',
+                    '42' => 'Menjauhi tempat-tempat maksiat',
+                    '43' => 'Menjauhi tempat-tempat bermain yang haram'
+                )
+            ),
+            '5' => array(
+                'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
+                'indicator' => array(
+                    '51' => 'Komitmen dengan adab tilawah',
+                    '52' => 'Khusyuk dalam membaca Al-Quran',
+                    '53' => 'Hafal satu juz Al-Qur’an'
+                )
+            ),
+            '6' => array(
+                'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
+                'indicator' => array(
+                    '61' => 'Baik dalam membaca dan menulis',
+                    '62' => 'Mengkaji marhalah Makkiyah dan menguasai karakteristiknya',
+                    '63' => 'Mengenal 10 shahabat yang dijamin masuk surga'
+                )
+            ),
+            '7' => array(
+                'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
+                'indicator' => array(
+                    '71' => 'Menjauhi sumber penghasilan haram',
+                    '72' => 'Menjauhi riba',
+                    '73' => 'Menjauhi judi dengan segala macamnya'
+                )
+            )
+        );
+
+        return $data_character;
+    }
 }
 /*STRICT DATA ACCESS END*/
