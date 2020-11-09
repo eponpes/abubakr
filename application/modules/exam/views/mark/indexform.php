@@ -131,6 +131,15 @@
                 <div class="row">
                     <div class="col-md-5 col-sm-5 col-xs-12">
                         <div class="item form-group">
+                        <select id="level" name="level">
+                            <option>Pilih Level</option>
+                            <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
+                            <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="item form-group">
                         <select id="quarter" name="quarter">
                             <option>Pilih Quarter</option>
                             <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
@@ -319,15 +328,21 @@
         }
      
       $("#marksheet").validate();
+    $('#level').change(function(){
+        var l = this.value;
+        window.location = "<?php echo $form_url; ?>?q=Q1&l="+l;
+        /*$('#addmarkform').submit();*/
+    });
     $('#quarter').change(function(){
+        var l = $("#level option:selected").val();
         var q = this.value;
-        window.location = "<?php echo $form_url; ?>?q="+q;
+        window.location = "<?php echo $form_url; ?>?q="+q+"&l="+l;
         /*$('#addmarkform').submit();*/
     });
     $("#send").on("click", function(e){
         e.preventDefault();
         var student_id = $("#student_id option:selected").val();
-        var fullurl = "<?php echo $form_url_s; ?>/"+student_id+".html?q=Q1";
+        var fullurl = "<?php echo $form_url_s; ?>/"+student_id+".html?q=Q1&l=1";
         $('#resultcard').attr('action', fullurl).submit();
     });
 </script>

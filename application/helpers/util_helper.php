@@ -345,7 +345,7 @@ if (!function_exists('get_exam_result')) {
 
 if (!function_exists('get_mark_form_results')) {
 
-    function get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id) {
+    function get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $level) {
         $ci = & get_instance();
         $ci->db->select('MF.*');
         $ci->db->from('mark_forms AS MF');  
@@ -354,6 +354,7 @@ if (!function_exists('get_mark_form_results')) {
         $ci->db->where('MF.student_id', $student_id);
         $ci->db->where('MF.class_id', $class_id);
         $ci->db->where('MF.section_id', $section_id);
+        $ci->db->where('MF.level', $level);
         return  $ci->db->get()->result();
     }
 }
@@ -2097,67 +2098,131 @@ if (!function_exists('get_class_groups')) {
 }
 if (!function_exists('get_character_indicator')) {
 
-    function get_character_indicator() {
-        $data_character = array(
-            '1' => array(
-                'name' => 'Akidah Yang Bersih',
-                'indicator' => array(
-                    '11' => 'Tidak berhubungan dengan jin',
-                    '12' => 'Tidak meminta tolong kepada orang yang berlindung kepada jin',
-                    '13' => 'Tidak meramal nasib dengan melihat telapak tangan',
-                    '14' => 'Tidak menghadiri majelis dukun dan peramal',
-                    '15' => 'Tidak meminta berkah dengan mengusap-usap kuburan'
+    function get_character_indicator($level = null) {
+        if(empty($level) || $level == 1) {
+            $data_character = array(
+                '1' => array(
+                    'name' => 'Akidah Yang Bersih',
+                    'indicator' => array(
+                        '11' => 'Tidak berhubungan dengan jin',
+                        '12' => 'Tidak meminta tolong kepada orang yang berlindung kepada jin',
+                        '13' => 'Tidak meramal nasib dengan melihat telapak tangan',
+                        '14' => 'Tidak menghadiri majelis dukun dan peramal',
+                        '15' => 'Tidak meminta berkah dengan mengusap-usap kuburan'
+                    )
+                ),
+                '2' => array(
+                    'name' => 'Ibadah Yang Benar',
+                    'indicator' => array(
+                        '21' => 'Tidak sungkan Adzan',
+                        '22' => 'Ihsan dalam Thaharah',
+                        '23' => 'Bersemangat untuk shalat'
+                    )
+                ),
+                '3' => array(
+                    'name' => 'Kepribadian yang matang dan berakhlak mulia',
+                    'indicator' => array(
+                        '31' => 'Tidak takabur',
+                        '32' => 'Tidak imma’ah (asal ikut, tidak punya prinsip)',
+                        '33' => 'Tidak dusta'
+                    )
+                ),
+                '4' => array(
+                    'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
+                    'indicator' => array(
+                        '41' => 'Menjauhi segala yang haram',
+                        '42' => 'Menjauhi tempat-tempat maksiat',
+                        '43' => 'Menjauhi tempat-tempat bermain yang haram'
+                    )
+                ),
+                '5' => array(
+                    'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
+                    'indicator' => array(
+                        '51' => 'Komitmen dengan adab tilawah',
+                        '52' => 'Khusyuk dalam membaca Al-Quran',
+                        '53' => 'Hafal satu juz Al-Qur’an'
+                    )
+                ),
+                '6' => array(
+                    'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
+                    'indicator' => array(
+                        '61' => 'Baik dalam membaca dan menulis',
+                        '62' => 'Mengkaji marhalah Makkiyah dan menguasai karakteristiknya',
+                        '63' => 'Mengenal 10 shahabat yang dijamin masuk surga'
+                    )
+                ),
+                '7' => array(
+                    'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
+                    'indicator' => array(
+                        '71' => 'Menjauhi sumber penghasilan haram',
+                        '72' => 'Menjauhi riba',
+                        '73' => 'Menjauhi judi dengan segala macamnya'
+                    )
                 )
-            ),
-            '2' => array(
-                'name' => 'Ibadah Yang Benar',
-                'indicator' => array(
-                    '21' => 'Tidak sungkan Adzan',
-                    '22' => 'Ihsan dalam Thaharah',
-                    '23' => 'Bersemangat untuk shalat'
+            );
+        } else if($level == 2){
+            $data_character = array(
+                '1' => array(
+                    'name' => 'Akidah Yang Bersih',
+                    'indicator' => array(
+                        '11' => 'Tidak mengafirkan seorang muslim',
+                        '12' => 'Tidak mendahulukan makhluk atas Khaliq',
+                        '13' => 'Mengingkari orang-orang yang memperolok-olokkan ayat-ayat Allah swt dan tidak bergabung dalam majelis mereka',
+                        '14' => 'Mengesakan Allah swt dalam Rububiyyah dan Uluhiyyah',
+                        '15' => 'Tidak menyekutukan Allah swt, tidak dalam Asma-Nya, sifat-Nya dan Afal-Nya'
+                    )
+                ),
+                '2' => array(
+                    'name' => 'Ibadah Yang Benar',
+                    'indicator' => array(
+                        '21' => 'Melakukan qiyamul-Lail minimal satu kali dalam satu pekan',
+                        '22' => 'Bersedekah',
+                        '23' => 'Berpuasa sunnat minimal dua hari dalam satu bulan'
+                    )
+                ),
+                '3' => array(
+                    'name' => 'Kepribadian yang matang dan berakhlak mulia',
+                    'indicator' => array(
+                        '31' => 'Tidak Inad (membangkang)',
+                        '32' => 'Tidak banyak mengobrol',
+                        '33' => 'Sedikit bercanda'
+                    )
+                ),
+                '4' => array(
+                    'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
+                    'indicator' => array(
+                        '41' => 'Selalu menyertakan niat  jihad',
+                        '42' => 'Menjadikan dirinya bersama orang baik',
+                        '43' => 'Menyumbangkan sebagian hartanya untuk amal islami'
+                    )
+                ),
+                '5' => array(
+                    'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
+                    'indicator' => array(
+                        '51' => 'Khusyu saat membaca Alquran',
+                        '52' => 'Sekali Khatam Alquran setiap dua bulan',
+                        '53' => 'Mengaitkan antara Alquran dengan realita'
+                    )
+                ),
+                '6' => array(
+                    'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
+                    'indicator' => array(
+                        '61' => 'Mengkaji marhalah Madaniyyah dan menguasai karakteristiknya',
+                        '62' => 'Mengenal sirah 20 sahabat yang syahid',
+                        '63' => 'Mengetahui hukum Zakat'
+                    )
+                ),
+                '7' => array(
+                    'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
+                    'indicator' => array(
+                        '71' => 'Bekerja dan berpenghasilan',
+                        '72' => 'Berusaha memiliki spesialisasi',
+                        '73' => 'Sedang dalam nafkah'
+                    )
                 )
-            ),
-            '3' => array(
-                'name' => 'Kepribadian yang matang dan berakhlak mulia',
-                'indicator' => array(
-                    '31' => 'Tidak takabur',
-                    '32' => 'Tidak imma’ah (asal ikut, tidak punya prinsip)',
-                    '33' => 'Tidak dusta'
-                )
-            ),
-            '4' => array(
-                'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
-                'indicator' => array(
-                    '41' => 'Menjauhi segala yang haram',
-                    '42' => 'Menjauhi tempat-tempat maksiat',
-                    '43' => 'Menjauhi tempat-tempat bermain yang haram'
-                )
-            ),
-            '5' => array(
-                'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
-                'indicator' => array(
-                    '51' => 'Komitmen dengan adab tilawah',
-                    '52' => 'Khusyuk dalam membaca Al-Quran',
-                    '53' => 'Hafal satu juz Al-Qur’an'
-                )
-            ),
-            '6' => array(
-                'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
-                'indicator' => array(
-                    '61' => 'Baik dalam membaca dan menulis',
-                    '62' => 'Mengkaji marhalah Makkiyah dan menguasai karakteristiknya',
-                    '63' => 'Mengenal 10 shahabat yang dijamin masuk surga'
-                )
-            ),
-            '7' => array(
-                'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
-                'indicator' => array(
-                    '71' => 'Menjauhi sumber penghasilan haram',
-                    '72' => 'Menjauhi riba',
-                    '73' => 'Menjauhi judi dengan segala macamnya'
-                )
-            )
-        );
+            );
+        }
+        
 
         return $data_character;
     }

@@ -135,7 +135,9 @@ class Resultcardform extends MY_Controller {
 
         //check_permission(VIEW);
 
-        $data_character = get_character_indicator();
+        $levelchar = $_GET['l'];
+
+        $data_character = get_character_indicator($levelchar);
 
         $this->data['characters'] = $data_character;
         
@@ -161,7 +163,7 @@ class Resultcardform extends MY_Controller {
             }
             
             $school = $this->resultcardform->get_school_by_id($school_id);
-            $exam = get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id); 
+            $exam = get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $levelchar); 
             $totalsm1_1 = 0;
             $totalsm2_1 = 0;
             foreach($exam as $mex){
@@ -224,7 +226,8 @@ class Resultcardform extends MY_Controller {
             $semester = isset($_GET['s'])?$_GET['s']:1;
 
             // NILAI SEMESTER 1
-            
+            $levelof = array('1'=>'Dasar', '2'=>'Lanjut');
+            $table_character .= '<h4>Tingkat '.$levelof[$levelchar].'</h4>';
             $table_character .= '<h1>SEMESTER '.$semester.'</h1>';
             $table_character .= 
             '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">

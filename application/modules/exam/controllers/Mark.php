@@ -220,8 +220,9 @@ class Mark extends MY_Controller {
     public function form($type = null, $school_id = null, $academic_year_id = null, $class_id = null, $section_id = null, $student_id = null) {
 
         //check_permission(ADD);
+        $levelchar = $_GET['l'];
 
-        $data_character = get_character_indicator();
+        $data_character = get_character_indicator($levelchar);
 
         $this->data['characters'] = $data_character;
 
@@ -240,17 +241,24 @@ class Mark extends MY_Controller {
 
         $this->data['students'] = $data = $condition;
 
-        if(!empty($_GET['q'])){
+        if(!empty($_GET['q']) && !empty($_GET['l'])){
             $quarterlist = array('Q1','Q2','Q3','Q4');
             if(!in_array($_GET['q'], $quarterlist)){
                 redirect('dashboard');
             }
             $condition['quarter'] = $_GET['q'];
+
+            $levellist = array('1','2');
+            if(!in_array($_GET['l'], $levellist)){
+                redirect('dashboard');
+            }
+            $condition['level'] = $_GET['l'];
             
             $markforms = $this->markforms->get_single('mark_forms', $condition);
             if (empty($markforms)) {
                 $data['value'] = '';
                 $data['quarter'] = $_GET['q'];
+                $data['level'] = $_GET['l'];
                 $data['status'] = 1;
                 $data['created_at'] = date('Y-m-d H:i:s');
                 $data['created_by'] = logged_in_user_id();
@@ -276,13 +284,16 @@ class Mark extends MY_Controller {
             $class_id = $this->input->post('class_id');
             $section_id = $this->input->post('section_id');
             $student_id = $this->input->post('student_id');
+            $level = $this->input->post('level');
             $quarter = $this->input->post('quarter');
+            
             $condition = array(
                 'school_id' => $school_id,
                 'academic_year_id' => $academic_year_id,
                 'class_id' => $class_id,
                 'section_id' => $section_id,
                 'student_id' => $student_id,
+                'level' => $level,
                 'quarter' => $quarter
             );
 

@@ -114,6 +114,12 @@
             </div>
              <?php } ?>
             
+             <select id="level" name="level">
+                <option>Pilih Tingkatan</option>
+                <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
+                <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
+            </select>
+
             <select id="semester" name="semester">
                 <option>Pilih Semester</option>
                 <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">1</option>
@@ -406,9 +412,15 @@
     }
  
   $("#marksheet").validate();
+$('#level').change(function(){
+    var l = this.value;
+    window.location = "<?php echo $form_url; ?>?s=1&l="+l;
+    /*$('#addmarkform').submit();*/
+}); 
 $('#semester').change(function(){
     var s = this.value;
-    window.location = "<?php echo $form_url; ?>?s="+s;
+    var l = $("#level option:selected").val();
+    window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l;
     /*$('#addmarkform').submit();*/
 }); 
 $("#send").on("click", function(e){
