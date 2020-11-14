@@ -114,172 +114,71 @@
             </div>
              <?php } ?>
             
-             <select id="level" name="level">
-                <option>Pilih Tingkatan</option>
-                <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
-                <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
-            </select>
+             
+            <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="item form-group">
+                        <label for="level-choice">Pilih Level</label>
+                        <select class="form-control" id="level" name="level">
+                            <option value="0">-------</option>
+                            <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
+                            <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
+                        </select>
+                    </div>
+                    </div>
 
-            <select id="semester" name="semester">
-                <option>Pilih Semester</option>
-                <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">1</option>
-                <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">2</option>
-            </select>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="item form-group">
+                        <label for="semester-choice">Pilih Semester</label>
+                        <select class="form-control" id="semester" name="semester">
+                            <option value="0">-------</option>
+                            <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">1</option>
+                            <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">2</option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="item form-group">
+                        <label for="semester-choice">Pilih Quarter</label>
+                        <select class="form-control" id="quarter" name="quarter">
+                            <option value="0">-------</option>
+                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
+                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
+                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
+                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
+                        </select>
+                    </div>
+                    </div>
+            </div>
 
             <div class="x_content">
 
                 <?php echo $html_table_character; ?>
 
-                <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th rowspan="2"><?php echo $this->lang->line('sl_no'); ?></th>
-                            <th rowspan="2"  width="12%"><?php echo $this->lang->line('subject'); ?></th>
-                            <th rowspan="2">KKM</th>
-                            <th colspan="3">Pengetahuan</th>                                            
-                            <th colspan="3">Skill</th>                  
-                        </tr>
-                        <tr>                           
-                            <th>Nilai</th>
-                            <th>Predikat</th>                                            
-                            <th>Deskripsi</th>
-                            <th>Nilai</th>
-                            <th>Predikat</th>                                            
-                            <th>Deskripsi</th>         
-                        </tr>
-                    </thead>
-                    <tbody id="fn_mark"> 
-                       
-                        <?php if (isset($exams) && !empty($exams)) { ?>
-                        <?php foreach($exams as $ex){ ?>
-                        
-                            <tr style="background: #f9f9f9;">
-                                <th colspan="17"><?php echo $ex->title; ?></th>
-                            </tr>
-                        
-                            <?php
-                            $group_id = 2;
-                            $exam_subjects = get_subject_list($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id, $group_id);
-                            $count = 1;
-                            if (isset($exam_subjects) && !empty($exam_subjects)) {
-                            ?>
-                        
-                            <?php foreach ($exam_subjects as $obj) { ?>
-                            
-                                <?php $exam = get_exam_result($school_id, $ex->id, $student_id, $academic_year_id, $class_id, $section_id); ?>
-                                <?php if(@$exam->name == ''){ continue; } ?> 
-                                <tr>
-                                    <td><?php echo $count++;  ?></td>
-                                    <td><?php echo ucfirst($obj->subject); ?></td>
-                                    <td><?php echo $obj->subjectmark; ?></td>
-                                    <td><?php echo $obj->knowledge_obtain; ?></td>
-                                    <td><?php echo get_grades($obj->knowledge_obtain); ?></td>
-                                    <td><?php echo $obj->knowledge_note; ?></td>
-                                    <td><?php echo $obj->skill_obtain; ?></td>
-                                    <td><?php echo get_grades($obj->skill_obtain); ?></td>
-                                    <td><?php echo $obj->skill_note; ?></td>                         
-                                </tr>
-                            <?php } ?>
-                        <?php }else{ ?>
-                                <tr>
-                                    <td colspan="17" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
-                                </tr>
-                        <?php } ?>   
-                                
-                    <?php } ?>
-                    <?php }else{ ?>
-                            <tr>
-                                <td colspan="17" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
-                             </tr>    
-                     <?php } ?>            
-                    </tbody>
-                </table> 
-                
-                
-                              
-            </div>
+                <?php echo $html_table_character3; ?>
 
-            <div class="x_content">
-                <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th rowspan="2"><?php echo $this->lang->line('sl_no'); ?></th>
-                            <th rowspan="2"  width="12%"><?php echo $this->lang->line('subject'); ?></th>
-                            <th rowspan="2">KKM</th>
-                            <th colspan="3">Penilaian Tahsin dan Tahfizh</th>   
-                            <th rowspan="2">Total</th>
-                            <th rowspan="2">Predikat</th>
-                            <th rowspan="2">Catatan</th>
-                        </tr>
-                        <tr>                           
-                            <th>Fashohah</th>
-                            <th>Tajwid</th>                                            
-                            <th>Kelancaran Bacaan</th>
-                        </tr>
-                    </thead>
-                    <tbody id="fn_mark"> 
-                       
-                        <?php if (isset($exams_tahfizh) && !empty($exams_tahfizh)) { ?>
-                        <?php foreach($exams_tahfizh as $ex){ ?>
-                        
-                            <tr style="background: #f9f9f9;">
-                                <th colspan="17"><?php echo $ex->title; ?></th>
-                            </tr>
-                        
-                            <?php
-                            $group_id = 1; // tahfizh
-                            $exam_subjects = get_subject_list($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id, $group_id);
-                            $count = 1;
-                            if (isset($exam_subjects) && !empty($exam_subjects)) {
-                            ?>
-                        
-                            <?php foreach ($exam_subjects as $obj) { ?>
-                            
-                                <?php $exam = get_exam_result($school_id, $ex->id, $student_id, $academic_year_id, $class_id, $section_id); ?>
-                                <?php if(@$exam->name == ''){ continue; } ?> 
-                                <tr>
-                                    <td><?php echo $count++;  ?></td>
-                                    <td><?php echo ucfirst($obj->subject); ?></td>
-                                    <td><?php echo $obj->subjectmark; ?></td>
-                                    <td><?php echo $obj->fashohah; ?></td>
-                                    <td><?php echo $obj->tajwid; ?></td>
-                                    <td><?php echo $obj->fluency; ?></td>
-                                    <td><?php 
-                                        $values = array($obj->fashohah, $obj->tajwid, $obj->fluency);
-                                        $average_mark = get_average_total($values);
-                                        echo $average_mark;
-                                    ?></td>
-                                    <td><?php echo get_grade_tahfizh($average_mark); ?></td>
-                                    <td><?php echo $obj->tahfizh_note; ?></td>                         
-                                </tr>
-                            <?php } ?>
-                        <?php }else{ ?>
-                                <tr>
-                                    <td colspan="17" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
-                                </tr>
-                        <?php } ?>   
-                                
-                    <?php } ?>
-                    <?php }else{ ?>
-                            <tr>
-                                <td colspan="17" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
-                             </tr>    
-                     <?php } ?>            
-                    </tbody>
-                </table> 
-                
-            </div> 
+                <?php echo $html_table_character2; ?>
+    
+            </div>
+          
             
             <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
             <div class="rowt">
-                <div class="col-xs-4 text-center signature">
-                    <?php echo $this->lang->line('principal'); ?>
+                <div class="col-xs-3 text-center signature">
+                    Mudir
                 </div>
-                <div class="col-xs-2 text-center">
+                <div class="col-xs-1 text-center">
                     &nbsp;
                 </div>
-                <div class="col-xs-4 text-center signature">
-                    <?php echo $this->lang->line('class_teacher'); ?>
+                <div class="col-xs-3 text-center signature">
+                    Ketua BPI
+                </div>
+                <div class="col-xs-1 text-center">
+                    &nbsp;
+                </div>
+                <div class="col-xs-3 text-center signature">
+                    Guru Pembina BPI
                 </div>
             </div>
             
@@ -412,21 +311,34 @@
     }
  
   $("#marksheet").validate();
-$('#level').change(function(){
+$('#level').change(function(e){
+    e.preventDefault();
     var l = this.value;
-    window.location = "<?php echo $form_url; ?>?s=1&l="+l;
+    if(l == "1" || l == "2")
+        window.location = "<?php echo $form_url; ?>?s=1&l="+l;
     /*$('#addmarkform').submit();*/
 }); 
-$('#semester').change(function(){
+$('#semester').change(function(e){
+    e.preventDefault();
     var s = this.value;
     var l = $("#level option:selected").val();
-    window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l;
+    if(s == "1" || s == "2")
+        window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l;
+    /*$('#addmarkform').submit();*/
+}); 
+$('#quarter').change(function(e){
+    e.preventDefault();
+    var q = this.value;
+    var s = $("#semester option:selected").val();
+    var l = $("#level option:selected").val();
+    if(q == "Q1" || q == "Q2" || q == "Q3" || q == "Q4")
+        window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l+"&q="+q;
     /*$('#addmarkform').submit();*/
 }); 
 $("#send").on("click", function(e){
     e.preventDefault();
     var student_id = $("#student_id option:selected").val();
-    var fullurl = "<?php echo $form_url_s; ?>/"+student_id+".html?s=1";
+    var fullurl = "<?php echo $form_url_s; ?>/"+student_id+".html?s=1&l=1";
     $('#resultcard').attr('action', fullurl).submit();
 });
 </script>

@@ -345,7 +345,7 @@ if (!function_exists('get_exam_result')) {
 
 if (!function_exists('get_mark_form_results')) {
 
-    function get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $level) {
+    function get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $level, $quarter = null) {
         $ci = & get_instance();
         $ci->db->select('MF.*');
         $ci->db->from('mark_forms AS MF');  
@@ -355,17 +355,21 @@ if (!function_exists('get_mark_form_results')) {
         $ci->db->where('MF.class_id', $class_id);
         $ci->db->where('MF.section_id', $section_id);
         $ci->db->where('MF.level', $level);
+        if(!empty($quarter)){
+            $ci->db->where('MF.quarter', $quarter);
+        }
+        
         return  $ci->db->get()->result();
     }
 }
 
 function get_markform_score($score = null){
     $grade = '';
-    if($score >= 4){
+    if($score >= 3.5){
         $grade = 'A';
-    } else if($score >=3){
+    } else if($score >= 3){
         $grade = 'B';
-    } else if($score >=2){
+    } else if($score >=2.5){
         $grade = 'C';
     } else if($score >=1){
         $grade = 'D';
@@ -2096,6 +2100,91 @@ if (!function_exists('get_class_groups')) {
     }
 
 }
+
+if (!function_exists('get_muta_score')) {
+
+    function get_muta_score($name = null, $mark = null) {
+        $mutabaah = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir');
+        $presence = array('present', 'permit', 'sick', 'alpha');
+        switch($name){
+            case 'pray':
+                $smark = $mark/84;
+                $period = 'hari';
+            break;
+
+            case 'dhuha':
+                $smark = $mark/12;
+                $period = 'pekan';
+            break;
+
+            case 'tilawah':
+                $smark = $mark/240;
+                $period = 'pekan';
+            break;
+
+            case 'qiyam':
+                $smark = $mark/12;
+                $period = 'pekan';
+            break;
+
+            case 'rawatib':
+                $smark = $mark/84;
+                $period = 'hari';
+            break;
+
+            case 'dzikir':
+                $smark = $mark/84;
+                $period = 'hari';
+            break;
+
+            case 'present':
+                case 'sick':
+                    case 'permit':
+                        case 'alpha':
+                $smark = $mark;
+            break;
+
+            default:
+                $smark = $mark/84;
+            break;
+
+        }
+        if(in_array($name, $mutabaah)){
+            $hotfix = 'x';
+            if($name == 'tilawah'){
+                $hotfix = 'juz';
+            }
+            $getscore = round($smark,1) . $hotfix . " per " . $period;
+        } else if(in_array($name, $presence)){
+            $getscore = $smark . " kali";
+        }
+
+        return $getscore;
+    }
+}
+if (!function_exists('translate')) {
+    function translate($name = null) {
+        $dictionary = array(
+            'pray' => 'Shalat Berjamaah',
+            'dhuha' => 'Shalat Dhuha',
+            'rawatib' => 'Shalat Sunnah Rawatib',
+            'dzikir' => 'Dzikir Almatsurat',
+            'qiyam' => 'Shalat Sunnah Tahadjud/Qiyamullail',
+            'siyam' => 'Puasa Sunnah',
+            'tilawah' => 'Membaca/Murajaah Al Quran',
+            'sick' => 'Sakit',
+            'permit' => 'Izin',
+            'alpha' => 'Alpa',
+            'present' => 'Kehadiran'
+        );
+        $wordis = '';
+        if(!empty($dictionary[$name])){
+            $wordis = $dictionary[$name];
+        }
+
+        return $wordis;
+    }
+}
 if (!function_exists('get_character_indicator')) {
 
     function get_character_indicator($level = null) {
@@ -2104,11 +2193,21 @@ if (!function_exists('get_character_indicator')) {
                 '1' => array(
                     'name' => 'Akidah Yang Bersih',
                     'indicator' => array(
-                        '11' => 'Tidak berhubungan dengan jin',
-                        '12' => 'Tidak meminta tolong kepada orang yang berlindung kepada jin',
-                        '13' => 'Tidak meramal nasib dengan melihat telapak tangan',
-                        '14' => 'Tidak menghadiri majelis dukun dan peramal',
-                        '15' => 'Tidak meminta berkah dengan mengusap-usap kuburan'
+                        '101' => 'Tidak berhubungan dengan jin',
+                        '102' => 'Tidak meminta tolong kepada orang yang berlindung kepada jin',
+                        '103' => 'Tidak meramal nasib dengan melihat telapak tangan',
+                        '104' => 'Tidak menghadiri majelis dukun dan peramal',
+                        '105' => 'Tidak meminta berkah dengan mengusap-usap kuburan',
+                        '106' => 'Tidak meminta tolong kepada orang yang telah dikubur (mati)',
+                        '107' => 'Tidak bersumpah dengan selain Allah Swt',
+                        '108' => 'Tidak tasya’um (merasa sial karena melihat atau mendengar sesuatu)',
+                        '109' => 'Mengikhlaskan amal untuk Allah Swt',
+                        '110' => 'Mengimani rukun iman',
+                        '111' => 'Beriman kepada nikmat dan siksa kubur',
+                        '112' => 'Mensyukuri nikmat Allah Swt saat mendapatkan nikmat',
+                        '113' => 'Menjadikan setan sebagai musuh',
+                        '114' => 'Tidak mengikuti langkah-langkah setan',
+                        '115' => 'Menerima dan tunduk secara penuh kepada Allah Swt dan tidak bertahkim kepada selain yang diturunkan-Nya'  
                     )
                 ),
                 '2' => array(
@@ -2183,9 +2282,41 @@ if (!function_exists('get_character_indicator')) {
                 '3' => array(
                     'name' => 'Kepribadian yang matang dan berakhlak mulia',
                     'indicator' => array(
-                        '31' => 'Tidak Inad (membangkang)',
-                        '32' => 'Tidak banyak mengobrol',
-                        '33' => 'Sedikit bercanda'
+                        '301' => 'Tidak Inad (membangkang)',
+                        '302' => 'Tidak banyak mengobrol',
+                        '303' => 'Sedikit bercanda',
+                        '304' => 'Tidak berbisik dengan sesuatu yang bathil',
+                        '305' => 'Tidak Hiqd (menyimpan kemarahan)',
+                        '306' => 'Tidak Hasad',
+                        '307' => 'Memiliki rasa malu berbuat kesalahan',
+                        '308' => 'Menjalin hubungan baik dengan tetangga',
+                        '309' => 'Tawadhu tanpa merendahkan diri',
+                        '310' => 'Pemberani',
+                        '311' => 'Menjenguk orang sakit',
+                        '312' => 'Komitmen dengan adab meminta izin',
+                        '313' => 'Mensyukuri orang yang berbuat baik kepadanya',
+                        '314' => 'Menyambung silaturahim (shilatur-rahim)',
+                        '315' => 'Komitmen dengan tata krama sebagai pendengar',
+                        '316' => 'Komitmen dengan adab berbicara',
+                        '317' => 'Memuliakan tamu',
+                        '318' => 'Menjawab salam',
+                        '319' => 'Menebar senyum di depan orang lain',
+                        '320' => 'Berhati lembut',
+                        '321' => 'Merendahkan suara',
+                        '322' => 'Komitmen dengan adab Islam di rumah',
+                        '323' => 'Memberi hadiah kepada tetangga',
+                        '324' => 'Membantu yang membutuhkan',
+                        '325' => 'Menolong yang terzhalimi',
+                        '326' => 'Bersemangat mendakwahi istrinya, anak-anaknya, dan kerabatnya',
+                        '327' => 'Mendoakan yang bersin',
+                        '328' => 'Memberikan pelayanan umum karena Allah swt',
+                        '329' => 'Memberikan sesuatu dari yang dimiliki',
+                        '330' => 'Mendekati orang lain',
+                        '331' => 'Mendorong orang lain berbuat baik',
+                        '332' => 'Membantu yang kesulitan',
+                        '333' => 'Membantu yang terkena musibah',
+                        '334' => 'Berusaha memenuhi hajat orang lain',
+                        '335' => 'Memberi makan orang lain'
                     )
                 ),
                 '4' => array(

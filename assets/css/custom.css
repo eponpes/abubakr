@@ -3013,3 +3013,20 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     margin-bottom: 6px !important;
     margin-left: 0;
 }
+.indicator label {
+    width:  4%;
+}
+.wizard.vertical > .steps,
+.wizard > .content {
+    min-height: 31em !important;
+    height: 31em !important;
+    overflow-y: scroll  !important;
+    overflow-x: hidden  !important;
+}
+.tabcontrol > .content {
+    min-height: 35em !important;
+    height: auto !important;
+}
+.submit-mark-button .text-right {
+    margin-right: 100px;
+}

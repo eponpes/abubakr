@@ -131,8 +131,9 @@
                 <div class="row">
                     <div class="col-md-5 col-sm-5 col-xs-12">
                         <div class="item form-group">
-                        <select id="level" name="level">
-                            <option>Pilih Level</option>
+                        <label for="level-choice">Pilih Level</label>
+                        <select class="form-control" id="level" name="level">
+                            <option>------</option>
                             <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
                             <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
                         </select>
@@ -140,64 +141,254 @@
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-12">
                         <div class="item form-group">
-                        <select id="quarter" name="quarter">
-                            <option>Pilih Quarter</option>
-                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
-                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
-                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
-                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
-                        </select>
+                        <label for="level-choice">Pilih Quarter</label>
+                            <select class="form-control" id="quarter" name="quarter">
+                                <option>--------</option>
+                                <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
+                                <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
+                                <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
+                                <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
+                            </select>
                         </div>
                     </div>
                 </div>
+               
                 <?php 
-                if(!empty($_GET['q'])){
-                    if(!empty($characters)) {
-                        foreach ($characters as $chara){
-                            echo '<h4><strong>'.$chara['name'].'</strong></h4>';
-                            if(!empty($chara['indicator'])){
-                                $number = 1;
-                                foreach($chara['indicator'] as $indicator => $value){
-                                    echo '<div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form-group">';
-                                    echo '<h5>'. $number . '. ' . $value.'</h5>';
-                                    $onevalue = $twovalue = $threevalue = $fourvalue = '';
-                                    $selected = 'checked';
-                                    if(!empty($markvalues)){
-                                        if($markvalues[$indicator] == 1){
-                                            $onevalue = $selected;
-                                        } else if($markvalues[$indicator] == 2){
-                                            $twovalue = $selected;
-                                        } else if($markvalues[$indicator] == 3){
-                                            $threevalue = $selected;
-                                        } else if($markvalues[$indicator] == 4){
-                                            $fourvalue = $selected;
+                if(!empty($_GET['q'])){ 
+                ?>
+               <div id="bpi-form">
+                    <h3>Mutabaah</h3>
+                    <section>
+                        <?php
+                        // Kalkulasi Shalat Berjamaah 5 waktu
+                        // Target 5x per hari
+                        // atau 420x per Quarter (3bulan)
+                        $mutapray5i = '';
+                        if(isset($markvalues2['pray'])){
+                            $pray5 = $markvalues2['pray'];
+                            $mutapray5i = get_muta_score('pray', $pray5);
+                        }
+
+                        $mutadhuhai = '';
+                        if(isset($markvalues2['dhuha'])){
+                            $dhuha = $markvalues2['dhuha'];
+                            $mutadhuhai = get_muta_score('dhuha', $dhuha);
+                        }
+
+                        $mutatilawahi = '';
+                        if(isset($markvalues2['tilawah'])){
+                            $tilawah = $markvalues2['tilawah'];
+                            $mutatilawahi = get_muta_score('tilawah', $tilawah);
+                        }
+
+                        $mutaqiyami = '';
+                        if(isset($markvalues2['qiyam'])){
+                            $qiyam = $markvalues2['qiyam'];
+                            $mutaqiyami = get_muta_score('qiyam', $qiyam);
+                        }
+
+                        $mutarawatibi = '';
+                        if(isset($markvalues2['rawatib'])){
+                            $rawatib = $markvalues2['rawatib'];
+                            $mutarawatibi = get_muta_score('rawatib', $rawatib);
+                        }
+
+                        $mutadzikiri = '';
+                        if(isset($markvalues2['dzikir'])){
+                            $dzikir = $markvalues2['dzikir'];
+                            $mutadzikiri = get_muta_score('dzikir', $dzikir);
+                        }
+                        ?>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_pray">Shalat Berjamaah</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[pray]"  id="muta_pray" value="<?php echo isset($markvalues2['pray']) ?  $markvalues2['pray'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[pray]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutapray5i; ?>
+                                    <div class="help-block"><?php echo form_error('indicator2[pray]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_tilawah">Tilawah/Murajaah Al Qur'an</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tilawah]"  id="muta_tilawah" value="<?php echo isset($markvalues2['tilawah']) ?  $markvalues2['tilawah'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[tilawah]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutatilawahi; ?>
+                                    <div class="help-block"><?php echo form_error('indicator2[tilawah]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_qiyam">Shalat Tahadjud/Qiyamullail</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[qiyam]"  id="muta_qiyam" value="<?php echo isset($markvalues2['qiyam']) ?  $markvalues2['qiyam'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[qiyam]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutaqiyami;?>
+                                    <div class="help-block"><?php echo form_error('indicator2[qiyam]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_dhuha">Shalat Dhuha</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[dhuha]"  id="muta_dhuha" value="<?php echo isset($markvalues2['dhuha']) ?  $markvalues2['dhuha'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[dhuha]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutadhuhai;?>
+                                    <div class="help-block"><?php echo form_error('indicator2[dhuha]'); ?></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_rawatib">Shalat Rawatib</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[rawatib]"  id="muta_rawatib" value="<?php echo isset($markvalues2['rawatib']) ?  $markvalues2['rawatib'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[rawatib]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutarawatibi; ?>
+                                    <div class="help-block"><?php echo form_error('indicator2[rawatib]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_dzikir">Dzikir Almatsurat</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[dzikir]"  id="muta_dzikir" value="<?php echo isset($markvalues2['dzikir']) ?  $markvalues2['dzikir'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[dzikir]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutadzikiri;?>
+                                    <div class="help-block"><?php echo form_error('indicator2[dzikir]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_siyam">Puasa Sunnah</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[siyam]"  id="muta_siyam" value="<?php echo isset($markvalues2['siyam']) ?  $markvalues2['siyam'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[siyam]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[siyam]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_book">Membaca Buku Tematik</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[book]"  id="muta_book" value="<?php echo isset($markvalues2['book']) ?  $markvalues2['book'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[book]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[book]'); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_sedekah">Sedekat</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sedekah]"  id="muta_sedekah" value="<?php echo isset($markvalues2['sedekah']) ?  $markvalues2['sedekah'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sedekah]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[sedekah]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="meta_silat">Silaturrahim</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[silat]"  id="meta_silat" value="<?php echo isset($markvalues2['silat']) ?  $markvalues2['silat'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[silat]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[silat]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="muta_sport">Berolahraga</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sport]"  id="muta_sport" value="<?php echo isset($markvalues2['sport']) ?  $markvalues2['sport'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sport]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[sport]'); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <h3>Ketidakhadiran</h3>
+                    <section>
+                        <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="abs_present">Jumlah Pertemuan</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[present]"  id="abs_present" value="<?php echo isset($markvalues2['present']) ?  $markvalues2['present'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[present]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[present]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="abs_sick">Sakit</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sick]"  id="abs_sick" value="<?php echo isset($markvalues2['sick']) ?  $markvalues2['sick'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sick]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[sick]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="abs_permit">Izin</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[permit]"  id="abs_permit" value="<?php echo isset($markvalues2['permit']) ?  $markvalues2['permit'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[permit]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[permit]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="abs_alpha">Alpha</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[alpha]"  id="abs_alpha" value="<?php echo isset($markvalues2['alpha']) ?  $markvalues2['alpha'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[alpha]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[alpha]'); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <h3>Karakter</h3>
+                    <section>
+                        <div id="bpi-indicator">
+                            <?php 
+                            if(!empty($characters)) {
+                                foreach ($characters as $chara){
+                                    echo '<h3><strong>'.$chara['name'].'</strong></h3>';
+                                    if(!empty($chara['indicator'])){
+                                        echo '<navigation>';
+                                        $number = 1;
+                                        foreach($chara['indicator'] as $indicator => $value){
+                                            echo '<div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group indicator">';
+                                            echo '<h5>'. $number . '. ' . $value.'</h5>';
+                                            $onevalue = $twovalue = $threevalue = $fourvalue = '';
+                                            $selected = 'checked';
+                                            if(!empty($markvalues)){
+                                                if($markvalues[$indicator] == 1){
+                                                    $onevalue = $selected;
+                                                } else if($markvalues[$indicator] == 2){
+                                                    $twovalue = $selected;
+                                                } else if($markvalues[$indicator] == 3){
+                                                    $threevalue = $selected;
+                                                } else if($markvalues[$indicator] == 4){
+                                                    $fourvalue = $selected;
+                                                }
+                                            }
+                                            echo 
+                                            '<label class="radio-inline">
+                                                <input type="radio" '.$onevalue.' name="indicator['.$indicator.']" value="1">1</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" '.$twovalue.' name="indicator['.$indicator.']" value="2">2</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" '.$threevalue.' name="indicator['.$indicator.']" value="3">3</label>
+                                            <label class="radio-inline">
+                                            <input type="radio" '.$fourvalue.' name="indicator['.$indicator.']" value="4">4</label>';
+                                            
+                                            echo '</div></div></div>';
+                                            $number++;
                                         }
+                                        echo '</navigation>';
                                     }
-                                    echo 
-                                    '<input type="radio" '.$onevalue.' name="indicator['.$indicator.']" value="1"> 1
-                                    <input type="radio" '.$twovalue.' name="indicator['.$indicator.']" value="2"> 2
-                                    <input type="radio" '.$threevalue.' name="indicator['.$indicator.']" value="3"> 3
-                                    <input type="radio" '.$fourvalue.' name="indicator['.$indicator.']" value="4"> 4
-                                    ';
-                                    echo '</div></div></div>';
-                                    $number++;
+                                    
                                 }
                             }
-                        }
-                    }
-                    ?>
-                    <div class="col-md-5">
-                        <div class="form-group">
+                            ?>
+                        </div>
+                        
+                    </section>
+                </div> 
+
+                <div class="row submit-mark-button">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group text-right">
                             <input type="submit" id="submit" class="btn btn-custom" name="submit" value="Kirim Nilai">
                         </div>
                     </div>
-                    <?php
+                </div>
+
+                <?php
                 }
                 ?>
 
                  <?php echo form_close(); ?>
+
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="instructions"><strong><?php echo $this->lang->line('instruction'); ?>: </strong> <?php echo $this->lang->line('exam_mark_instruction'); ?></div>
                 </div>
@@ -212,10 +403,29 @@
 <!-- bootstrap-datetimepicker -->
 <link href="<?php echo VENDOR_URL; ?>datepicker/datepicker.css" rel="stylesheet">
 <script src="<?php echo VENDOR_URL; ?>datepicker/datepicker.js"></script>
+<link href="<?php echo CSS_URL; ?>jquery.steps.css" rel="stylesheet">
+<script src="<?php echo JS_URL; ?>jquery.steps.min.js"></script>
 
 <!-- Super admin js START  -->
 <script type="text/javascript">
-        
+        $("#bpi-form").steps({
+            headerTag: "h3",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            enableFinishButton: false,
+            enablePagination: false,
+            enableAllSteps: true,
+            cssClass: "tabcontrol"
+        });
+        $("#bpi-indicator").steps({
+            headerTag: "h3",
+            bodyTag: "navigation",
+            transitionEffect: "slideLeft",
+            stepsOrientation: "vertical",
+            enableAllSteps: true,
+            enableFinishButton: false,
+            enablePagination: false,
+        });
         $("document").ready(function() {
              <?php if(isset($school_id) && !empty($school_id) &&  $this->session->userdata('role_id') == SUPER_ADMIN){ ?>               
                 $(".fn_school_id").trigger('change');
@@ -346,3 +556,4 @@
         $('#resultcard').attr('action', fullurl).submit();
     });
 </script>
+

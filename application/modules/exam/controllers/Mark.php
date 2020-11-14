@@ -271,46 +271,70 @@ class Mark extends MY_Controller {
                     $id = $lo['id'];
                     $vlabo[$id] = $mark;                    
                 }
-                $this->data['markvalues'] = $vlabo;            
+                $this->data['markvalues'] = $vlabo; 
+                
+                $markvalues2 = json_decode($markforms->value2, true);
+                $vlabo2 = array();
+                foreach ($markvalues2 as $lo2){
+                    $mark2 = $lo2['mark'];
+                    $id2 = $lo2['name'];
+                    $vlabo2[$id2] = $mark2;                    
+                }
+                $this->data['markvalues2'] = $vlabo2; 
             }
 
             
         }
+        
 
         if (!empty($_POST)) {
-            $data = array();
-            $school_id = $this->input->post('school_id');
-            $academic_year_id = $this->input->post('academic_year_id');
-            $class_id = $this->input->post('class_id');
-            $section_id = $this->input->post('section_id');
-            $student_id = $this->input->post('student_id');
-            $level = $this->input->post('level');
-            $quarter = $this->input->post('quarter');
-            
-            $condition = array(
-                'school_id' => $school_id,
-                'academic_year_id' => $academic_year_id,
-                'class_id' => $class_id,
-                'section_id' => $section_id,
-                'student_id' => $student_id,
-                'level' => $level,
-                'quarter' => $quarter
-            );
-
-            $data = $condition;
-
-            if(!empty($_POST['indicator'])){
-                $vla = array();
-                foreach ($_POST['indicator'] as $ind => $val){
-                    $valin = array(
-                        'id' => $ind,
-                        'mark' => $val
-                    );
-                    array_push($vla, $valin);
-                }
-                $vlas = json_encode($vla);
+                $data = array();
+                $school_id = $this->input->post('school_id');
+                $academic_year_id = $this->input->post('academic_year_id');
+                $class_id = $this->input->post('class_id');
+                $section_id = $this->input->post('section_id');
+                $student_id = $this->input->post('student_id');
+                $level = $this->input->post('level');
+                $quarter = $this->input->post('quarter');
                 
-                $data['value'] = $vlas;
+                $condition = array(
+                    'school_id' => $school_id,
+                    'academic_year_id' => $academic_year_id,
+                    'class_id' => $class_id,
+                    'section_id' => $section_id,
+                    'student_id' => $student_id,
+                    'level' => $level,
+                    'quarter' => $quarter
+                );
+
+                $data = $condition;
+
+                if(!empty($_POST['indicator'])){
+                    $vla = array();
+                    foreach ($_POST['indicator'] as $ind => $val){
+                        $valin = array(
+                            'id' => $ind,
+                            'mark' => $val
+                        );
+                        array_push($vla, $valin);
+                    }
+                    $vlas = json_encode($vla);
+                    $data['value'] = $vlas;
+                }
+
+                if(!empty($_POST['indicator2'])){
+                    $vla2 = array();
+                    foreach ($_POST['indicator2'] as $ind2 => $val2){
+                        $valin2 = array(
+                            'name' => $ind2,
+                            'mark' => $val2
+                        );
+                        array_push($vla2, $valin2);
+                    }
+                    $vlas2 = json_encode($vla2);
+                    $data['value2'] = $vlas2;
+                }
+
                 $condition['school_id'] = $school_id;
                 $condition['academic_year_id'] = $academic_year_id;
                 $condition['class_id'] = $class_id;
@@ -323,7 +347,7 @@ class Mark extends MY_Controller {
                 //print_r($data);
                 //die();
                 $this->markforms->update('mark_forms', $data, $condition);
-            }
+        
             
 
             //print_r($_POST);die();

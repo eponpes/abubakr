@@ -136,8 +136,24 @@ class Resultcardform extends MY_Controller {
         //check_permission(VIEW);
 
         $levelchar = $_GET['l'];
+        $semesterchar = $_GET['s'];
+        $quarterchar = $_GET['q'];
 
         $data_character = get_character_indicator($levelchar);
+
+        $mutaarray = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'present', 'sick', 'permit', 'alpha');
+        $mutabaah = array('pray', 'duhua', 'tilawah', 'qiyam', 'rawatib', 'dzikir');
+        $targetmutabaah = array(
+            'pray' => '5x per hari',
+            'dhuha' => '7x per pekan',
+            'tilawah' => '7 juz per pekan',
+            'qiyam' => '7x per pekan',
+            'rawatib' => '4x per hari',
+            'dzikir' => '2x per hari',
+            'book' => '10hal per pekan',
+            'infaq' => '1x per pekan'
+        );
+        $presence = array('present', 'permit', 'sick', 'alpha');
 
         $this->data['characters'] = $data_character;
         
@@ -163,13 +179,25 @@ class Resultcardform extends MY_Controller {
             }
             
             $school = $this->resultcardform->get_school_by_id($school_id);
-            $exam = get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $levelchar); 
+            $exam = get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $levelchar, $quarterchar); 
+
             $totalsm1_1 = 0;
             $totalsm2_1 = 0;
+            foreach($mutaarray as $mut){ 
+                $total[1][$mut] = 0;
+                $total[2][$mut] = 0;
+            }
+
             foreach($exam as $mex){
+                
                 $add1 = $add2 = $add3 = $add4 = $add5 = $add6 = $add7 = 0;
+                foreach($mutaarray as $muto){ 
+                    ${"m" . $muto} = 0;
+                }
+                
                 $mark1 = $mark2 = $mark3 = $mark4 = $mark5 = $mark6 = $mark7 =  0;
                 $values = json_decode($mex->value, true);
+                $values2 = json_decode($mex->value2, true);
                 
                 foreach($values as $eval){
                     $get_first = substr($eval['id'], 0, 1);
@@ -204,6 +232,17 @@ class Resultcardform extends MY_Controller {
                         break;
                     }     
                 }
+
+                foreach($values2 as $eval2){
+                        foreach($mutaarray as $mute){ 
+                            if($eval2['name'] == $mute) {
+                                ${"m" . $mute} = $eval2['mark'];
+                            }
+                        }
+                }
+                
+
+                // Semester Data
                 if($mex->quarter == 'Q1' || $mex->quarter == 'Q2'){
                     $totalsm1_1 += $mark1/$add1;
                     $totalsm1_2 += $mark2/$add2;
@@ -212,6 +251,10 @@ class Resultcardform extends MY_Controller {
                     $totalsm1_5 += $mark5/$add5;
                     $totalsm1_6 += $mark6/$add6;
                     $totalsm1_7 += $mark7/$add7;
+                    foreach($mutaarray as $muti){ 
+                        $total[1][$muti] += ${"m" . $muti};
+                    }
+                    
                 } else if($mex->quarter == 'Q3' || $mex->quarter == 'Q4'){
                     $totalsm2_1 += $mark1/$add1;
                     $totalsm2_2 += $mark2/$add2;
@@ -220,15 +263,17 @@ class Resultcardform extends MY_Controller {
                     $totalsm2_5 += $mark5/$add5;
                     $totalsm2_6 += $mark6/$add6;
                     $totalsm2_7 += $mark7/$add7;
+                    foreach($mutaarray as $muti){ 
+                        $total[2][$muti] += ${"m" . $muti};
+                    }
                 }
             }
-
+               
             $semester = isset($_GET['s'])?$_GET['s']:1;
 
             // NILAI SEMESTER 1
             $levelof = array('1'=>'Dasar', '2'=>'Lanjut');
-            $table_character .= '<h4>Tingkat '.$levelof[$levelchar].'</h4>';
-            $table_character .= '<h1>SEMESTER '.$semester.'</h1>';
+            
             $table_character .= 
             '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead><tr><th>No</th><th>Karakter</th><th>Nilai</th></tr></thead>
@@ -236,13 +281,72 @@ class Resultcardform extends MY_Controller {
             ';
             $number = 1;
             foreach($data_character as $char7){
-                $totalmarksm = number_format(${"totalsm". $semester."_".$number}/2, 1);
-                $table_character .= '<tr><td>'.$number.'</td><td>'.$char7['name'].'</td><td>'.get_markform_score($totalmarksm).'</td></tr>';
+                if(empty($quarterchar)){
+                    $totalsmmark = number_format(${"totalsm". $semester."_".$number}/2, 1);
+                } else {
+                    $totalsmmark = number_format(${"totalsm". $semester."_".$number}, 1);
+                }
+
+                $table_character .= '<tr><td>'.$number.'</td><td>'.$char7['name'].'</td><td>'.get_markform_score($totalsmmark).'</td></tr>';
                 $number++;
             }
             $table_character .= '</tbody></table>';
 
             $this->data['html_table_character'] = $table_character;
+
+            $thadd = '';
+            if(!empty($quarterchar)){
+                $thadd = '<th>Pencapaian</th>';
+            }
+            $table_character2 = 
+            '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead><tr><th>No</th><th>Aktivitas Amal</th><th>Target</th>'.$thadd.'<th>Capaian</th></tr></thead>
+                <tbody>
+            ';
+            $table_character3 = 
+            '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead><tr><th>No</th><th>Ketidakhadiran</th><th>Deskripsi</th><th rowspan="4" style="text-align: center; vertical-align: middle; width: 40%">Jumlah pertemuan pembinaan dalam 1 semester ini</th></tr></thead>
+                <tbody>
+            ';
+
+            $number2 = 1;
+            $number3 = 1;
+            
+            foreach($mutaarray as $muta){
+                $tdadd = '';
+                $tdtarget = '';
+                $tdtarget = '<td>'.$targetmutabaah[$muta].'</td>';
+                if(in_array($muta, $mutabaah)){
+                    if(empty($quarterchar)){
+                        $totalsm = $total[$semester][$muta]/2;
+                    } else {
+                        $totalsm = $total[$semester][$muta];
+                        $tdadd = '<td>'.${"m" . $muta}.'</td>';
+                    }
+                    
+                    $table_character2 .= '<tr><td>'.$number2.'</td><td>'.translate($muta).'</td>'.$tdtarget.$tdadd.'<td>'.get_muta_score($muta, $totalsm).'</td></tr>';
+                    $number2++;
+                } else if(in_array($muta, $presence)){
+                    $totalsm = $total[$semester][$muta];
+                    if($muta != "present") {
+                        $gettd = '';
+                        if($number3 == 1) {
+                            $gettd = '<td rowspan="0" style="text-align: center; vertical-align: middle;">'.$total[$semester]['present'].' kali</td>';
+                        }
+                        $table_character3 .= '<tr><td>'.$number3.'</td><td>'.translate($muta).'</td><td>'.get_muta_score($muta, $totalsm).'</td>'.$gettd.'</tr>';
+                        $number3++;
+                    }
+                    
+                    
+                }
+                
+            }
+
+            $table_character2 .= '</tbody></table>';
+            $table_character3 .= '</tbody></table>';
+
+            $this->data['html_table_character2'] = $table_character2;
+            $this->data['html_table_character3'] = $table_character3;
             
             $this->data['school'] = $school;
             $this->data['school_id'] = $school_id;
