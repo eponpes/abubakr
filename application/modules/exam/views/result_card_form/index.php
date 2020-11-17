@@ -16,8 +16,8 @@
             <?php 
                 $url_bind = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id.'/'.$student_id; 
                 $url_bind_s = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id; 
-                $form_url = site_url('exam/resultcardform/view/'.$url_bind);
-                $form_url_s = substr(site_url('exam/resultcardform/view/'.$url_bind_s), 0, -5);
+                $form_url = site_url('exam/resultcardform/view/'.$formtype.'/'.$url_bind);
+                $form_url_s = substr(site_url('exam/resultcardform/view/'.$formtype.'/'.$url_bind_s), 0, -5);
             ?>
                
             <div class="x_content no-print"> 
@@ -140,13 +140,13 @@
 
                     <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="item form-group">
-                        <label for="semester-choice">Pilih Quarter</label>
-                        <select class="form-control" id="quarter" name="quarter">
+                        <label for="semester-choice">Pilih Period</label>
+                        <select class="form-control" id="period" name="period">
                             <option value="0">-------</option>
-                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
-                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
-                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
-                            <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
+                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
+                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
+                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
+                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
                         </select>
                     </div>
                     </div>
@@ -326,13 +326,13 @@ $('#semester').change(function(e){
         window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l;
     /*$('#addmarkform').submit();*/
 }); 
-$('#quarter').change(function(e){
+$('#period').change(function(e){
     e.preventDefault();
-    var q = this.value;
+    var p = this.value;
     var s = $("#semester option:selected").val();
     var l = $("#level option:selected").val();
-    if(q == "Q1" || q == "Q2" || q == "Q3" || q == "Q4")
-        window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l+"&q="+q;
+    if(p == "Q1" || p == "Q2" || p == "Q3" || p == "Q4")
+        window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l+"&p="+p;
     /*$('#addmarkform').submit();*/
 }); 
 $("#send").on("click", function(e){

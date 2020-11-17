@@ -345,7 +345,7 @@ if (!function_exists('get_exam_result')) {
 
 if (!function_exists('get_mark_form_results')) {
 
-    function get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $level, $quarter = null) {
+    function get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $level, $period = null) {
         $ci = & get_instance();
         $ci->db->select('MF.*');
         $ci->db->from('mark_forms AS MF');  
@@ -355,8 +355,8 @@ if (!function_exists('get_mark_form_results')) {
         $ci->db->where('MF.class_id', $class_id);
         $ci->db->where('MF.section_id', $section_id);
         $ci->db->where('MF.level', $level);
-        if(!empty($quarter)){
-            $ci->db->where('MF.quarter', $quarter);
+        if(!empty($period)){
+            $ci->db->where('MF.period', $period);
         }
         
         return  $ci->db->get()->result();
@@ -2183,6 +2183,129 @@ if (!function_exists('translate')) {
         }
 
         return $wordis;
+    }
+}
+
+if (!function_exists('get_quran_chapter_list')){
+    function get_quran_chapter_list() {
+        $ayat = array(
+            1 => array('AL-FATIHAH', 'PEMBUKAAN'),
+            2 => array('AL-BAQARAH', 'SAPI BETINA'),
+            3 => array('ALI IMRAN', 'KELUARGA IMRAN'),
+            4 => array('ANNISA', 'WANITA'),
+            5 => array('AL-MA`IDAH', 'HIDANGAN'),
+            6 => array('AL-AN`AM', 'BINATANG TERNAK'),
+            7 => array('AL-A`RAF', 'TEMPAT TERTINGGI'),
+            8 => array('AL-ANFAL', 'RAMPASAN PERANG'),
+            9 => array('ATTAUBAH', 'PENGAMPUNAN'),
+            10 => array('YUNUS', 'NABI YUNUS'),
+            11 => array('HUD', 'NABI HUD'),
+            12 => array('YUSUF', 'NABI YUSUF'),
+            13 => array('ARRA`DU', 'GURUH'),
+            14 => array('IBRAHIM', 'NABI IBRAHIM'),
+            15 => array('AL-HIJRU', 'DAERAH HIJIR'),
+            16 => array('ANNAHLU', 'LEBAH'),
+            17 => array('AL-ISRA', 'PERJALANAN DI MALAM HARI'),
+            18 => array('AL-KAHFI', 'GUA'),
+            19 => array('MARYAM', 'SITI MARYAM'),
+            20 => array('TOHA', 'TOHA'),
+            21 => array('AL-ANBIYA', 'NABI-NABI'),
+            22 => array('AL-HAJJ', 'HAJI'),
+            23 => array('AL-MU`MINUN', 'ORANG-ORANG YANG BERIMAN'),
+            24 => array('ANNUR', 'CAHAYA'),
+            25 => array('AL-FURQAN', 'PEMBEDA'),
+            26 => array('ASY-SYU`ARA', 'PENYAIR-PENYAIR'),
+            27 => array('ANNAMLU', 'SEMUT'),
+            28 => array('AL-QASHASH', 'KISAH-KISAH'),
+            29 => array('AL-`ANKABUT', 'LABA-LABA'),
+            30 => array('ARRUM', 'BANGSA RUM'),
+            31 => array('LUQMAN', 'LUQMAN'),
+            32 => array('ASSAJDAH', 'SUJUD'),
+            33 => array('AL-AHZAB', 'GOLONGAN YANG BERSEKUTU'),
+            34 => array('SABA`', 'NEGERI SABA'),
+            35 => array('FATHIR', 'PENCIPTA'),
+            36 => array('YASIN', 'YASIN'),
+            37 => array('ASH-SHAFFAT', 'YANG BERBARIS'),
+            38 => array('SHAD', 'SHAD'),
+            39 => array('AZZUMAR', 'ROMBONGAN-ROMBONGAN'),
+            40 => array('AL-MU`MIN', 'ORANG BERIMAN'),
+            41 => array('FUSHSHILAT', 'YANG DIJELASKAN'),
+            42 => array('ASY-SYURA', 'MUSYAWARAH'),
+            43 => array('AZZUKHRUF', 'PERHIASAN'),
+            44 => array('ADDUKHAN', 'KABUT'),
+            45 => array('AL-JATSIYAH', 'YANG BERLUTUT'),
+            46 => array('AL-AHQAF', 'BUKIT-BUKIT PASIR'),
+            47 => array('MUHAMMAD', 'NABI MUHAMMAD'),
+            48 => array('AL-FATHU', 'KEMENANGAN'),
+            49 => array('AL-HUJURAT', 'KAMAR-KAMAR'),
+            50 => array('QAF', 'QAF'),
+            51 => array('ADZ-DZARIYAT', 'ANGIN YANG MENERBANGKAN'),
+            52 => array('ATH-THUR', 'BUKIT THUR'),
+            53 => array('ANNAJMU', 'BINTANG'),
+            54 => array('AL-QAMAR', 'BULAN'),
+            55 => array('ARRAHMAN', 'MAHA PEMURAH'),
+            56 => array('AL-WAQI`AH', 'HARI KIAMAT'),
+            57 => array('AL-HADID', 'BESI'),
+            58 => array('AL-MUJADILAH', 'WANITA YANG MENGAJUKAN GUGATAN'),
+            59 => array('AL-HASYR', 'PENGUSIRAN'),
+            60 => array('AL-MUMTAHANAH', 'PEREMPUAN YANG DIUJI'),
+            61 => array('ASH-SHAF', 'BARISAN'),
+            62 => array('AL-JUMUAH', 'HARI JUMAT'),
+            63 => array('AL-MUNAFIQUN', 'ORANG-ORANG MUNAFIK'),
+            64 => array('ATTAGHABUN', 'HARI DITAMPAKKAN'),
+            65 => array('ATH-THALAQ', 'TALAQ'),
+            66 => array('ATTAHRIM', 'MENGAHARAMKAN'),
+            67 => array('AL-MULKU', 'KERAJAAN'),
+            68 => array('AL-QALAM', 'QOLAM'),
+            69 => array('AL-HAQQAH', 'HARI KIAMAT'),
+            70 => array('AL-MA`ARIJ', 'TEMPAT-TEMPAT NAIK'),
+            71 => array('NUH', 'NABI NUH'),
+            72 => array('AL-JINN', 'JIN'),
+            73 => array('AL-MUZAMMIL', 'ORANG-ORANG BERSELIMUT'),
+            74 => array('AL-MUDDATS-TSIR', 'ORANG YANG BERKEMUL'),
+            75 => array('AL-QIYAMAH', 'HARI KIAMAT'),
+            76 => array('AL-INSAN', 'MANUSIA'),
+            77 => array('AL-MURSALAT', 'MALAIKAT YANG DIUTUS'),
+            78 => array('ANNABA`', 'BERITA'),
+            79 => array('ANNAZI`AT', 'MALAIKAT YANG MENCABUT'),
+            80 => array('ABASA', 'BERMUKA MASAM'),
+            81 => array('ATTAKWIR', 'MENGGULUNG'),
+            82 => array('AL-INFITHAR', 'TERBELAH'),
+            83 => array('ATTATHFIF', 'KECURANGAN'),
+            84 => array('AL-INSYIQAQ', 'TERBELAH'),
+            85 => array('AL-BURUJ', 'GUGUSAN BINTANG'),
+            86 => array('ATH-THARIQ', 'YANG DATANG DI MALAM HARI'),
+            87 => array('AL-A`LA', 'YANG PALING TINGGI'),
+            88 => array('AL-GHASYIYAH', 'HARI PEMBALASAN'),
+            89 => array('AL-FAJR', 'FAJAR'),
+            90 => array('AL-BALAD', 'NEGERI'),
+            91 => array('ASY-SYAMSU', 'MATAHARI'),
+            92 => array('AL-LAIL', 'MALAM'),
+            93 => array('ADH-DHUHA', 'WAKTU DUHA'),
+            94 => array('AL-INSYIRAH', 'KELAPANGAN'),
+            95 => array('ATTIN', 'BUAH TIN'),
+            96 => array('AL-`ALAQ', 'SEGUMPAL DARAH'),
+            97 => array('AL-QADAR', 'KEMULIAAN'),
+            98 => array('AL-BAYYINAH', 'BUKTI'),
+            99 => array('AZZILZAL', 'KEGONCANGAN'),
+            100 => array('AL-`ADIYAT', 'KUDA PERANG YANG BERLARI KENCANG'),
+            101 => array('AL-QARI`AH', 'HARI KIAMAT'),
+            102 => array('ATTAKATSUR', 'BERMEGAH-MEGAHAN'),
+            103 => array('AL-`ASHR', 'WAKTU'),
+            104 => array('AL-HUMAZAH', 'PENGUMPAT'),
+            105 => array('AL-FIL', 'GAJAH'),
+            106 => array('QURAISY', 'SUKU QURAISY'),
+            107 => array('AL-MA`UN', 'BARANG-BARANG YANG BERGUNA'),
+            108 => array('AL-KAUTSAR', 'NIKMAT YANG BESAR'),
+            109 => array('AL-KAFIRUN', 'ORANG-ORANG KAFIR'),
+            110 => array('ANNASHRU', 'PERTOLONGAN'),
+            111 => array('ALLAHAB', 'GEJOLAK API'),
+            112 => array('AL-IKHLASH', 'PEMURNIAN KEESAAN ALLAH'),
+            113 => array('AL-FALAQ', 'WAKTU SHUBUH'),
+            114 => array('ANNAS', 'MANUSIA'),
+        );
+
+        return $ayat;
     }
 }
 if (!function_exists('get_character_indicator')) {

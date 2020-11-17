@@ -16,8 +16,8 @@
             <?php 
                 $url_bind = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id.'/'.$student_id; 
                 $url_bind_s = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id; 
-                $form_url = site_url('exam/mark/form/bpi/'.$url_bind);
-                $form_url_s = substr(site_url('exam/mark/form/bpi/'.$url_bind_s), 0, -5);
+                $form_url = site_url('exam/mark/form/'.$formtype.'/'.$url_bind);
+                $form_url_s = substr(site_url('exam/mark/form/'.$formtype.'/'.$url_bind_s), 0, -5);
             ?>
                
             <div class="x_content no-print"> 
@@ -101,7 +101,7 @@
             
             <div class="x_content">
             <?php $url_bind = $students['school_id'].'/'.$students['academic_year_id'].'/'.$students['class_id'].'/'.$students['section_id'].'/'.$students['student_id']; 
-            $form_url = site_url('exam/mark/form/bpi/'.$url_bind);
+            $form_url = site_url('exam/mark/form/'.$formtype.'/'.$url_bind);
             ?>
                  <?php echo form_open($form_url, array('name' => 'addmarkform', 'id' => 'addmarkform', 'class'=>'form-horizontal form-label-left'), ''); ?>
                  <input type="hidden" name="school_id" value="<?php echo $students['school_id']; ?>">
@@ -128,6 +128,7 @@
                         </div>
                     </div>
                 </div> */ ?>
+                <?php if($formtype == 'bpi') { ?>
                 <div class="row">
                     <div class="col-md-5 col-sm-5 col-xs-12">
                         <div class="item form-group">
@@ -141,28 +142,43 @@
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-12">
                         <div class="item form-group">
-                        <label for="level-choice">Pilih Quarter</label>
-                            <select class="form-control" id="quarter" name="quarter">
+                        <label for="period-choice">Pilih Period</label>
+                            <select class="form-control" id="period" name="period">
                                 <option>--------</option>
-                                <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
-                                <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
-                                <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
-                                <option <?php if(isset($_GET['q']) && $_GET['q'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
                             </select>
                         </div>
                     </div>
                 </div>
+                <?php } else if ($formtype == 'tahfizh') { ?>
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="item form-group">
+                        <label for="period-choice">Pilih Semester</label>
+                        <select class="form-control" id="period2" name="period">
+                            <option>------</option>
+                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">Semester 1</option>
+                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">Semester 2</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
                
                 <?php 
-                if(!empty($_GET['q'])){ 
+                if(!empty($_GET['p'])){ 
                 ?>
-               <div id="bpi-form">
+                <?php if($formtype == 'bpi') { ?>
+                <div id="bpi-form">
                     <h3>Mutabaah</h3>
                     <section>
                         <?php
                         // Kalkulasi Shalat Berjamaah 5 waktu
                         // Target 5x per hari
-                        // atau 420x per Quarter (3bulan)
+                        // atau 420x per Period (3bulan)
                         $mutapray5i = '';
                         if(isset($markvalues2['pray'])){
                             $pray5 = $markvalues2['pray'];
@@ -293,7 +309,7 @@
                     <h3>Ketidakhadiran</h3>
                     <section>
                         <div class="row">
-                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
                                 <div class="item form-group">
                                     <label for="abs_present">Jumlah Pertemuan</label>
                                     <input  class="form-control col-md-2 col-xs-4"  name="indicator2[present]"  id="abs_present" value="<?php echo isset($markvalues2['present']) ?  $markvalues2['present'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[present]'); ?>" type="text" autocomplete="off">
@@ -371,14 +387,127 @@
                             }
                             ?>
                         </div>
-                        
+
+                        <div class="row char-note">
+                            <div class="col-md-2">
+                                <label for="char_note">Saran Perkembangan</label>  
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="item form-group">
+                                    <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[charnote]"  id="char_note" placeholder="<?php echo $this->lang->line('indicator2[charnote]'); ?>"  rows="3"><?php echo isset($markvalues2['charnote']) ?  $markvalues2['charnote'] : ''; ?></textarea>
+                                    <div class="help-block"><?php echo form_error('indicator2[charnote]'); ?></div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 </div> 
+                <?php } else if($formtype == 'tahfizh') { ?>
+                <div id="tahfizh-form">
+                    <h3>Ujian Tahfizh</h3>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-12">
+                                Pilih Surat, Ayat dan Isi Nilai dengan Angka
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <fieldset id="buildyourform">
+                                    <?php echo $tahfizhvalues; ?>
+                                </fieldset>
+                                <input type="button" value="Tambah Materi Ujian" class="btn btn-dark" id="add" />
+                            </div>
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="tahfizh_note">Catatan Tahfizh</label>
+                                    <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[tfnote]"  id="tahfizh_note" placeholder="<?php echo $this->lang->line('indicator2[tfnote]'); ?>"  rows="10"><?php echo isset($markvalues2['tfnote']) ?  $markvalues2['tfnote'] : ''; ?></textarea>
+                                    <div class="help-block"><?php echo form_error('indicator2[tfnote]'); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <h3>Ujian Tahsin</h3>
+                    <section>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahsin_fluent">Kelancaran</label>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[fluent]"  id="tahsin_fluent" value="<?php echo isset($markvalues2['fluent']) ?  $markvalues2['fluent'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[fluent]'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[fluent]'); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahsin_makhraj">Makhorijul Huruf</label>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[makhraj]"  id="tahsin_makhraj" value="<?php echo isset($markvalues2['makhraj']) ?  $markvalues2['makhraj'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[makhraj]'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[makhraj]'); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahsin_tajwid">Tajwid</label>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tajwid]"  id="tahsin_tajwid" value="<?php echo isset($markvalues2['tajwid']) ?  $markvalues2['tajwid'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[tajwid]'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[tajwid]'); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahsin_lastread">Bacaan Terakhir</label>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[lastread]"  id="tahsin_lastread" value="<?php echo isset($markvalues2['lastread']) ?  $markvalues2['lastread'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[lastread]'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[lastread]'); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahsin_note">Catatan Tahsin</label>
+                                <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[note]"  id="tahsin_note" placeholder="<?php echo $this->lang->line('indicator2[note]'); ?>"  rows="10"><?php echo isset($markvalues2['note']) ?  $markvalues2['note'] : ''; ?></textarea>
+                                <div class="help-block"><?php echo form_error('indicator2[note]'); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    </section>
+                    <h3>Ketidakhadiran</h3>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="abs_present">Jumlah Pertemuan</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[present]"  id="abs_present" value="<?php echo isset($markvalues2['present']) ?  $markvalues2['present'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[present]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[present]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="abs_sick">Sakit</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sick]"  id="abs_sick" value="<?php echo isset($markvalues2['sick']) ?  $markvalues2['sick'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sick]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[sick]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="abs_permit">Izin</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[permit]"  id="abs_permit" value="<?php echo isset($markvalues2['permit']) ?  $markvalues2['permit'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[permit]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[permit]'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="abs_alpha">Alpha</label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[alpha]"  id="abs_alpha" value="<?php echo isset($markvalues2['alpha']) ?  $markvalues2['alpha'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[alpha]'); ?>" type="text" autocomplete="off">
+                                    <div class="help-block"><?php echo form_error('indicator2[alpha]'); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div> 
+                <?php } ?>
 
                 <div class="row submit-mark-button">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group text-right">
-                            <input type="submit" id="submit" class="btn btn-custom" name="submit" value="Kirim Nilai">
+                            <input type="submit" id="submit" class="btn btn-custom btn-success btn-lg" name="submit" value="Kirim Nilai">
                         </div>
                     </div>
                 </div>
@@ -408,6 +537,70 @@
 
 <!-- Super admin js START  -->
 <script type="text/javascript">
+$(document).ready(function() {
+    var fOption = "<?php echo $thesurat; ?>";
+    
+    <?php if(!empty($tahfizhvalues)) {?>
+        $(".remove").click(function() {
+            $(this).parent().remove();
+        });
+        $('select[id^="thesurat"]').select2({
+            placeholder: 'Pilih Surat',
+            language: 'id',
+            width: 'resolve'
+        }); 
+        var lastField = $("#buildyourform div:last");
+        lastField.data("idx", <?php echo $tahfizhlastfields; ?>);
+    <?php } ?>
+    $("#add").click(function() {
+    	var lastField = $("#buildyourform div:last");
+        var intId = (lastField && lastField.length && lastField.data("idx") + 1 ) || 1;
+        var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + intId + "\"/>");
+        fieldWrapper.data("idx", intId);
+        var fCol = $("<div class='col-md-3' />");
+        var fName = $("<input name=\"ayat["+intId+"][]\" type=\"text\" class=\"fieldname form-control\" placeholder=\"Ayat\" />");
+        var fType = $("<select id=\"thesurat"+intId+"\" name=\"thesurat["+intId+"][]\" class=\"fieldtype form-control\">"+fOption+"</select>");
+        var fMark = $("<input name=\"mark["+intId+"][]\" type=\"text\" class=\"fieldname form-control\" placeholder=\"Nilai\" />");
+        var removeButton = $("<input type=\"button\" class=\"remove\" value=\"-\" />");
+        removeButton.click(function() {
+            $(this).parent().remove();
+        });
+        fieldWrapper.append(fType);
+        fieldWrapper.append(fName);
+        fieldWrapper.append(fMark);
+        fieldWrapper.append(removeButton);
+        $("#buildyourform").append(fieldWrapper);
+        $('select[id^="thesurat"]').select2({
+            placeholder: 'Pilih Surat',
+            language: 'id',
+            width: 'resolve'
+        }); 
+    });
+    $("#preview").click(function() {
+        $("#yourform").remove();
+        var fieldSet = $("<fieldset id=\"yourform\"><legend>Your Form</legend></fieldset>");
+        $("#buildyourform div").each(function() {
+            var id = "input" + $(this).attr("id").replace("field","");
+            var label = $("<label for=\"" + id + "\">" + $(this).find("input.fieldname").first().val() + "</label>");
+            var input;
+            switch ($(this).find("select.fieldtype").first().val()) {
+                case "checkbox":
+                    input = $("<input type=\"checkbox\" id=\"" + id + "\" name=\"" + id + "\" />");
+                    break;
+                case "textbox":
+                    input = $("<input type=\"text\" id=\"" + id + "\" name=\"" + id + "\" />");
+                    break;
+                case "textarea":
+                    input = $("<textarea id=\"" + id + "\" name=\"" + id + "\" ></textarea>");
+                    break;    
+            }
+            fieldSet.append(label);
+            fieldSet.append(input);
+        });
+        $("body").append(fieldSet);
+    });
+});
+
         $("#bpi-form").steps({
             headerTag: "h3",
             bodyTag: "section",
@@ -417,6 +610,17 @@
             enableAllSteps: true,
             cssClass: "tabcontrol"
         });
+
+        $("#tahfizh-form").steps({
+            headerTag: "h3",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            enableFinishButton: false,
+            enablePagination: false,
+            enableAllSteps: true,
+            cssClass: "tabcontrol"
+        });
+
         $("#bpi-indicator").steps({
             headerTag: "h3",
             bodyTag: "navigation",
@@ -538,22 +742,96 @@
         }
      
       $("#marksheet").validate();
-    $('#level').change(function(){
-        var l = this.value;
-        window.location = "<?php echo $form_url; ?>?q=Q1&l="+l;
+    $('#period2').change(function(){
+        var p = this.value;
+        window.location = "<?php echo $form_url; ?>?p="+p;
         /*$('#addmarkform').submit();*/
     });
-    $('#quarter').change(function(){
+    $('#level').change(function(){
+        var l = this.value;
+        window.location = "<?php echo $form_url; ?>?p=Q1&l="+l;
+        /*$('#addmarkform').submit();*/
+    });
+    $('#period').change(function(){
         var l = $("#level option:selected").val();
-        var q = this.value;
-        window.location = "<?php echo $form_url; ?>?q="+q+"&l="+l;
+        var p = this.value;
+        window.location = "<?php echo $form_url; ?>?p="+p+"&l="+l;
         /*$('#addmarkform').submit();*/
     });
     $("#send").on("click", function(e){
         e.preventDefault();
         var student_id = $("#student_id option:selected").val();
-        var fullurl = "<?php echo $form_url_s; ?>/"+student_id+".html?q=Q1&l=1";
+        var fullurl = "<?php echo $form_url_s; ?>/"+student_id+".html?p=Q1&l=1";
         $('#resultcard').attr('action', fullurl).submit();
     });
+    
 </script>
+<style>
+.select2-container {
+    float: left; 
+    width: 50% !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px;
+    margin-top: 5px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    margin-top: 6px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 32px;
+}
 
+fieldset
+{
+    padding:10px;
+    display:block;
+    clear:both;
+    margin:5px 0px;
+}
+legend
+{
+    padding:0px 10px;
+    background:black;
+    color:#FFF;
+}
+input.add
+{
+    float:right;
+}
+.fieldwrapper {
+    clear: left;
+}
+input.fieldname
+{
+    float:left;
+    display:block;
+    margin:5px;
+    width: 80px;
+}
+select.fieldtype
+{
+    float:left;
+    display:block;
+    margin:5px;
+}
+input.remove
+{
+    float:left;
+    display:block;
+    margin:5px;
+}
+#yourform label
+{
+    float:left;
+    clear:left;
+    display:block;
+    margin:5px;
+}
+#yourform input, #yourform textarea
+{
+    float:left;
+    display:block;
+    margin:5px;
+}
+</style>

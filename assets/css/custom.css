@@ -3024,9 +3024,15 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     overflow-x: hidden  !important;
 }
 .tabcontrol > .content {
-    min-height: 35em !important;
+    min-height: 42em !important;
     height: auto !important;
 }
 .submit-mark-button .text-right {
     margin-right: 100px;
+}
+.char-note {
+    margin-top: 40px;
+}
+.char-note .form-group textarea {
+    height: 50px;
 }

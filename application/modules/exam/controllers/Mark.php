@@ -224,6 +224,13 @@ class Mark extends MY_Controller {
 
         $data_character = get_character_indicator($levelchar);
 
+        $getsurat = get_quran_chapter_list();
+        $thesurat = '';
+        foreach($getsurat as $ids => $srt){
+            $thesurat .= '<option value=\"'.$ids.'\">'.$ids.' '.$srt[0].'</option>';
+        }
+        $this->data['thesurat'] = $thesurat;
+
         $this->data['characters'] = $data_character;
 
         $condition = array(
@@ -241,12 +248,12 @@ class Mark extends MY_Controller {
 
         $this->data['students'] = $data = $condition;
 
-        if(!empty($_GET['q']) && !empty($_GET['l'])){
-            $quarterlist = array('Q1','Q2','Q3','Q4');
-            if(!in_array($_GET['q'], $quarterlist)){
+        if(!empty($_GET['p']) && !empty($_GET['l']) && $type == 'bpi'){
+            $periodlist = array('Q1','Q2','Q3','Q4');
+            if(!in_array($_GET['p'], $periodlist)){
                 redirect('dashboard');
             }
-            $condition['quarter'] = $_GET['q'];
+            $condition['period'] = $_GET['p'];
 
             $levellist = array('1','2');
             if(!in_array($_GET['l'], $levellist)){
@@ -257,7 +264,7 @@ class Mark extends MY_Controller {
             $markforms = $this->markforms->get_single('mark_forms', $condition);
             if (empty($markforms)) {
                 $data['value'] = '';
-                $data['quarter'] = $_GET['q'];
+                $data['period'] = $_GET['p'];
                 $data['level'] = $_GET['l'];
                 $data['status'] = 1;
                 $data['created_at'] = date('Y-m-d H:i:s');
@@ -281,9 +288,73 @@ class Mark extends MY_Controller {
                     $vlabo2[$id2] = $mark2;                    
                 }
                 $this->data['markvalues2'] = $vlabo2; 
+                
             }
+        }
 
-            
+        if(!empty($_GET['p']) && $type == 'tahfizh'){
+            $periodlist = array('SM1','SM2');
+            if(!in_array($_GET['p'], $periodlist)){
+                redirect('dashboard');
+            }
+            $condition['period'] = $_GET['p'];
+
+            $markforms = $this->markforms->get_single('mark_forms', $condition);
+            if (empty($markforms)) {
+                $data['type'] = $type;
+                $data['value'] = '';
+                $data['period'] = $_GET['p'];
+                $data['level'] = 10;
+                $data['status'] = 1;
+                $data['created_at'] = date('Y-m-d H:i:s');
+                $data['created_by'] = logged_in_user_id();
+                $this->markforms->insert('mark_forms', $data);
+            } else {
+                $markvalues3 = json_decode($markforms->value, true);
+                $vlabo3 = array();
+
+                $field = 1;
+                $valopt = '';
+                foreach ($markvalues3 as $lo3){
+                    $msurat = $lo3['surat'];
+                    $mayat = $lo3['ayat'];
+                    $mmark = $lo3['mark'];
+
+                    $thesurat5 = '';
+                    foreach($getsurat as $ids => $srt){
+                        if($ids == $msurat){
+                            $selected = 'selected';
+                        } else {
+                            $selected = '';
+                        }
+                        $thesurat5 .= '<option value="'.$ids.'" '.$selected.'>'.$ids.' '.$srt[0].'</option>';
+                    }
+
+                    $valopt .= '
+                    <div class="fieldwrapper" id="field'.$field.'">
+                    <select id="thesurat'.$field.'" name="thesurat['.$field.'][]" class="fieldtype form-control">'.$thesurat5.'</select>
+                    <input name="ayat['.$field.'][]" type="text" class="fieldname form-control" placeholder="Ayat" value="'.$mayat.'">
+                    <input name="mark['.$field.'][]" type="text" class="fieldname form-control" placeholder="Nilai" value="'.$mmark.'">
+                    <input type="button" class="remove" value="-">
+                    </div>
+                    ';
+                    
+                    $field++;              
+                }
+                $this->data['markvalues3'] = $vlabo2; 
+                $this->data['tahfizhvalues'] = $valopt;
+                $this->data['tahfizhlastfields'] = $field;
+
+                $markvalues4 = json_decode($markforms->value2, true);
+                $vlabo4 = array();
+                foreach ($markvalues4 as $lo4){
+                    $mark4 = $lo4['mark'];
+                    $id4 = $lo4['name'];
+                    $vlabo4[$id4] = $mark4;                    
+                }
+                $this->data['markvalues2'] = $vlabo4; 
+            }
+                
         }
         
 
@@ -294,8 +365,10 @@ class Mark extends MY_Controller {
                 $class_id = $this->input->post('class_id');
                 $section_id = $this->input->post('section_id');
                 $student_id = $this->input->post('student_id');
+
+                /* Form BPI */
                 $level = $this->input->post('level');
-                $quarter = $this->input->post('quarter');
+                $period = $this->input->post('period');
                 
                 $condition = array(
                     'school_id' => $school_id,
@@ -304,10 +377,34 @@ class Mark extends MY_Controller {
                     'section_id' => $section_id,
                     'student_id' => $student_id,
                     'level' => $level,
-                    'quarter' => $quarter
+                    'period' => $period
                 );
 
                 $data = $condition;
+
+                if($type == 'tahfizh'){
+                    $data['level'] = $condition['level'] = 10;
+                    $data['period'] = $condition['period'] = $this->input->post('period');
+                }
+
+                if(!empty($_POST['thesurat']) && $type == 'tahfizh'){
+                    // indicator
+                    $postsurat = $_POST['thesurat']; 
+                    $vlay = array();
+                    foreach($postsurat as $theids => $srt){
+                        $surat = $srt[0];
+                        $ayat = $_POST['ayat'][$theids][0];
+                        $mark = $_POST['mark'][$theids][0];
+                        $valiny = array(
+                            'surat' => $surat,
+                            'ayat' => $ayat,
+                            'mark' => $mark
+                        );
+                        array_push($vlay, $valiny);
+                    }
+                    $vlasy = json_encode($vlay);
+                    $data['value'] = $vlasy;
+                }
 
                 if(!empty($_POST['indicator'])){
                     $vla = array();
@@ -371,7 +468,7 @@ class Mark extends MY_Controller {
             redirect('exam/mark');
             */
         }
-
+        $this->data['formtype'] = $type;
         $this->layout->title($this->lang->line('add')  . ' | ' . SMS);
         $this->layout->view('mark/indexform', $this->data);
     }
