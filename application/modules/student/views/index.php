@@ -149,6 +149,23 @@
                                                <?php if(has_permission(VIEW, 'student', 'student')){ ?>
                                                         <a href="javascript:void(0);" onclick="get_student_modal(<?php echo $obj->id; ?>);"  data-toggle="modal" data-target=".bs-student-modal-lg" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
                                                     <?php } ?>
+                                                
+                                 <?php echo '<a href="'.site_url('exam/resultcardform/view/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                    <i class="fa fa-user"> </i> Rapot BPI
+                                  </a>
+                                  <a href="'.site_url('exam/resultcardform/view/character/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                    <i class="fa fa-user"> </i> Rapot Karakter
+                                  </a>
+                                  <a href="'.site_url('exam/mark/form/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                    <i class="fa fa-user"> </i> Input Nilai BPI
+                                  </a>
+                                  <a href="'.site_url('exam/resultcardform/view/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                    <i class="fa fa-user"> </i> Raport Tahfizh
+                                  </a>
+                                  <a href="'.site_url('exam/mark/form/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                    <i class="fa fa-user"> </i> Input Nilai Tahfizh
+                                  </a>' ?>
+
                                                 <?php if(has_permission(DELETE, 'student', 'student') && $obj->status_type == 'regular'){ ?>
                                                         <br/><a href="<?php echo site_url('student/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
                                                 <?php } ?>
@@ -1159,11 +1176,11 @@
                                 <div class="row">
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_mahad_id" id="edit_class_mahad_id" required="required"  onchange="get_section_mahad_by_class(this.value, '');">
+                                            <label for="class_id">Guru Tahfizh <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_tahfizh_id" id="edit_class_tahfizh_id" required="required" >
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <?php foreach($classesm as $objm){ ?>
-                                                    <option value="<?php echo $objm->id; ?>" <?php if($student->class_mahad_id == $objm->id){ echo 'selected="selected"';} ?>><?php echo $objm->name; ?></option>
+                                                <?php foreach($teachers as $objt){ ?>
+                                                    <option value="<?php echo $objt->id; ?>" <?php if($student->class_tahfizh_id == $objt->id){ echo 'selected="selected"';} ?>><?php echo $objt->name; ?></option>
                                                 <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('class_id'); ?></div>
@@ -1171,11 +1188,14 @@
                                      </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_mahad_id" id="edit_section_mahad_id" required="required">
+                                            <label for="class_id">Guru BPI <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_bpi_id" id="edit_class_bpi_id" required="required" >
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php foreach($teachers as $objb){ ?>
+                                                    <option value="<?php echo $objb->id; ?>" <?php if($student->class_bpi_id == $objb->id){ echo 'selected="selected"';} ?>><?php echo $objb->name; ?></option>
+                                                <?php } ?>
                                             </select>
-                                            <div class="help-block"><?php echo form_error('section_id'); ?></div>
+                                            <div class="help-block"><?php echo form_error('class_id'); ?></div>
                                          </div>
                                      </div>
                                                                           

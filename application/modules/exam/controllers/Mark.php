@@ -468,6 +468,7 @@ class Mark extends MY_Controller {
             redirect('exam/mark');
             */
         }
+        
         $this->data['formtype'] = $type;
         $this->layout->title($this->lang->line('add')  . ' | ' . SMS);
         $this->layout->view('mark/indexform', $this->data);

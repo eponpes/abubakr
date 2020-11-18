@@ -239,7 +239,7 @@ class Student extends MY_Controller {
         //$conditionm = $condition;
         $this->data['discounts'] = $this->student->get_list('discounts', $condition, '','', '', 'id', 'ASC');
         $this->data['classes'] = $this->student->get_list('classes', $conditionclass, '','', '', 'id', 'ASC');
-        $this->data['classesm'] = $this->student->get_list('classes', $conditionclassm, '','', '', 'id', 'ASC');
+        $this->data['teachers'] = $this->student->get_list('teachers', array(), '','', '', 'id', 'ASC');
         $this->data['guardians'] = $this->student->get_list('guardians', $condition, '','', '', 'id', 'ASC');
         $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
         $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC');
@@ -281,8 +281,8 @@ class Student extends MY_Controller {
         $this->data['academic_year_id'] = $school->academic_year_id;
         $this->data['class_id'] = $this->data['student']->class_id;
         $this->data['section_id'] = $this->data['student']->section_id;
-        $this->data['class_mahad_id'] = $this->data['student']->class_mahad_id;
-        $this->data['section_mahad_id'] = $this->data['student']->section_mahad_id;
+        $this->data['class_tahfizh_id'] = $this->data['student']->class_tahfizh_id;
+        $this->data['class_bpi_id'] = $this->data['student']->class_bpi_id;
         $this->data['student_id'] = $student_id;
         $this->data['school_id'] = $student->school_id;
         
@@ -920,8 +920,8 @@ class Student extends MY_Controller {
         $data['school_id'] = $this->input->post('school_id');
         $data['class_id'] = $this->input->post('class_id');
         $data['section_id'] = $this->input->post('section_id');
-        $data['class_mahad_id'] = $this->input->post('class_mahad_id');
-        $data['section_mahad_id'] = $this->input->post('section_mahad_id');
+        $data['class_tahfizh_id'] = $this->input->post('class_tahfizh_id');
+        $data['class_bpi_id'] = $this->input->post('class_bpi_id');
         $data['academic_year_id'] = $school->academic_year_id;
         $data['roll_no'] = $this->input->post('roll_no');
         $data['created_at'] = date('Y-m-d H:i:s');
@@ -945,6 +945,8 @@ class Student extends MY_Controller {
         $data['school_id'] = $this->input->post('school_id');
         $data['class_id'] = $this->input->post('class_id');
         $data['section_id'] = $this->input->post('section_id');
+        $data['class_tahfizh_id'] = $this->input->post('class_tahfizh_id');
+        $data['class_bpi_id'] = $this->input->post('class_bpi_id');
         $data['roll_no'] = $this->input->post('roll_no');
         $data['modified_at'] = date('Y-m-d H:i:s');
         $data['modified_by'] = logged_in_user_id();

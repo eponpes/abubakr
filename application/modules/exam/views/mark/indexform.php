@@ -14,10 +14,8 @@
             </div>      
             
             <?php 
-                $url_bind = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id.'/'.$student_id; 
-                $url_bind_s = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id; 
-                $form_url = site_url('exam/mark/form/'.$formtype.'/'.$url_bind);
-                $form_url_s = substr(site_url('exam/mark/form/'.$formtype.'/'.$url_bind_s), 0, -5);
+                $form_url = site_url('exam/mark/form/'.$formtype);
+                $form_url_s = substr(site_url('exam/mark/form/'.$formtype), 0, -5);
             ?>
                
             <div class="x_content no-print"> 
@@ -431,30 +429,30 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group">
-                                <label for="tahsin_fluent">Kelancaran</label>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[fluent]"  id="tahsin_fluent" value="<?php echo isset($markvalues2['fluent']) ?  $markvalues2['fluent'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[fluent]'); ?>" type="text" autocomplete="off">
-                                <div class="help-block"><?php echo form_error('indicator2[fluent]'); ?></div>
+                                <label for="tahsin_tapan">Konsistensi Tanda Panjang</label>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tapan]"  id="tahsin_tapan" value="<?php echo isset($markvalues2['tapan']) ?  $markvalues2['tapan'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[tapan]'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[tapan]'); ?></div>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group">
-                                <label for="tahsin_makhraj">Makhorijul Huruf</label>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[makhraj]"  id="tahsin_makhraj" value="<?php echo isset($markvalues2['makhraj']) ?  $markvalues2['makhraj'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[makhraj]'); ?>" type="text" autocomplete="off">
-                                <div class="help-block"><?php echo form_error('indicator2[makhraj]'); ?></div>
+                                <label for="tahsin_gunnah">Keseimbangan Tanda Gunnah</label>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[gunnah]"  id="tahsin_gunnah" value="<?php echo isset($markvalues2['gunnah']) ?  $markvalues2['gunnah'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[gunnah]'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[gunnah]'); ?></div>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group">
-                                <label for="tahsin_tajwid">Tajwid</label>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tajwid]"  id="tahsin_tajwid" value="<?php echo isset($markvalues2['tajwid']) ?  $markvalues2['tajwid'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[tajwid]'); ?>" type="text" autocomplete="off">
-                                <div class="help-block"><?php echo form_error('indicator2[tajwid]'); ?></div>
+                                <label for="tahsin_vokal">Tuntutan Kesempurnaan Vokal</label>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[vokal]"  id="tahsin_vokal" value="<?php echo isset($markvalues2['vokal']) ?  $markvalues2['vokal'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[vokal]'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[vokal]'); ?></div>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group">
-                                <label for="tahsin_lastread">Bacaan Terakhir</label>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[lastread]"  id="tahsin_lastread" value="<?php echo isset($markvalues2['lastread']) ?  $markvalues2['lastread'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[lastread]'); ?>" type="text" autocomplete="off">
-                                <div class="help-block"><?php echo form_error('indicator2[lastread]'); ?></div>
+                                <label for="tahsin_sukun">Pengucapan Huruf Sukun</label>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sukun]"  id="tahsin_sukun" value="<?php echo isset($markvalues2['sukun']) ?  $markvalues2['sukun'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sukun]'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[sukun]'); ?></div>
                             </div>
                         </div>
                     </div>
@@ -462,8 +460,8 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="item form-group">
                                 <label for="tahsin_note">Catatan Tahsin</label>
-                                <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[note]"  id="tahsin_note" placeholder="<?php echo $this->lang->line('indicator2[note]'); ?>"  rows="10"><?php echo isset($markvalues2['note']) ?  $markvalues2['note'] : ''; ?></textarea>
-                                <div class="help-block"><?php echo form_error('indicator2[note]'); ?></div>
+                                <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[tahsinnote]"  id="tahsin_note" placeholder="<?php echo $this->lang->line('indicator2[tahsinnote]'); ?>"  rows="10"><?php echo isset($markvalues2['tahsinnote']) ?  $markvalues2['tahsinnote'] : ''; ?></textarea>
+                                <div class="help-block"><?php echo form_error('indicator2[tahsinnote]'); ?></div>
                             </div>
                         </div>
                     </div>
@@ -760,8 +758,12 @@ $(document).ready(function() {
     });
     $("#send").on("click", function(e){
         e.preventDefault();
+        var school_id = $("#school_id option:selected").val();
+        var academic_year_id = $("#academic_year_id option:selected").val();
+        var class_id = $("#class_id option:selected").val();
+        var section_id = $("#section_id option:selected").val();
         var student_id = $("#student_id option:selected").val();
-        var fullurl = "<?php echo $form_url_s; ?>/"+student_id+".html?p=Q1&l=1";
+        var fullurl = "<?php echo $form_url_s; ?>/"+school_id+"/"+academic_year_id+"/"+class_id+"/"+section_id+"/"+student_id+".html";
         $('#resultcard').attr('action', fullurl).submit();
     });
     

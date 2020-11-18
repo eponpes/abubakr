@@ -14,10 +14,8 @@
             </div>      
 
             <?php 
-                $url_bind = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id.'/'.$student_id; 
-                $url_bind_s = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id; 
-                $form_url = site_url('exam/resultcardform/view/'.$formtype.'/'.$url_bind);
-                $form_url_s = substr(site_url('exam/resultcardform/view/'.$formtype.'/'.$url_bind_s), 0, -5);
+                $form_url = site_url('exam/resultcardform/view/'.$formtype);
+                $form_url_s = substr(site_url('exam/resultcardform/view/'.$formtype), 0, -5);
             ?>
                
             <div class="x_content no-print"> 
@@ -315,7 +313,7 @@ $('#level').change(function(e){
     e.preventDefault();
     var l = this.value;
     if(l == "1" || l == "2")
-        window.location = "<?php echo $form_url; ?>?s=1&l="+l;
+        window.location = "?s=1&l="+l;
     /*$('#addmarkform').submit();*/
 }); 
 $('#semester').change(function(e){
@@ -323,7 +321,7 @@ $('#semester').change(function(e){
     var s = this.value;
     var l = $("#level option:selected").val();
     if(s == "1" || s == "2")
-        window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l;
+        window.location = "?s="+s+"&l="+l;
     /*$('#addmarkform').submit();*/
 }); 
 $('#period').change(function(e){
@@ -331,14 +329,24 @@ $('#period').change(function(e){
     var p = this.value;
     var s = $("#semester option:selected").val();
     var l = $("#level option:selected").val();
-    if(p == "Q1" || p == "Q2" || p == "Q3" || p == "Q4")
-        window.location = "<?php echo $form_url; ?>?s="+s+"&l="+l+"&p="+p;
+    if(p == "Q1" || p == "Q2"){
+        s = 1;
+        window.location = "?s="+s+"&l="+l+"&p="+p;
+    } else if(p == "Q3" || p == "Q4") {
+        s = 2;
+        window.location = "?s="+s+"&l="+l+"&p="+p;
+    }
+    
     /*$('#addmarkform').submit();*/
 }); 
 $("#send").on("click", function(e){
     e.preventDefault();
+    var school_id = $("#school_id option:selected").val();
+    var academic_year_id = $("#academic_year_id option:selected").val();
+    var class_id = $("#class_id option:selected").val();
+    var section_id = $("#section_id option:selected").val();
     var student_id = $("#student_id option:selected").val();
-    var fullurl = "<?php echo $form_url_s; ?>/"+student_id+".html?s=1&l=1";
+    var fullurl = "<?php echo $form_url_s; ?>/"+school_id+"/"+academic_year_id+"/"+class_id+"/"+section_id+"/"+student_id+".html";
     $('#resultcard').attr('action', fullurl).submit();
 });
 </script>
