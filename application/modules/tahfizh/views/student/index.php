@@ -31,6 +31,7 @@
                             <div class="help-block"><?php echo form_error('class_id'); ?></div>
                         </div>
                     </div>
+                    <?php /*
                     <div class="col-md-2 col-sm-2 col-xs-12">
                         <div class="item form-group"> 
                             <div><?php echo $this->lang->line('section'); ?></div>
@@ -39,7 +40,7 @@
                             </select>
                             <div class="help-block"><?php echo form_error('section_id'); ?></div>
                         </div>
-                    </div>
+                    </div> */ ?>
                     <div class="col-md-2 col-sm-2 col-xs-12">
                         <div class="item form-group">  
                             <div><?php echo $this->lang->line('date'); ?> <span class="required">*</span></div>
@@ -309,7 +310,7 @@
        $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
-            data   : { school_id:school_id, class_id:class_id, group_id:2},               
+            data   : { school_id:school_id, class_id:class_id},               
             async  : false,
             success: function(response){                                                   
                if(response)

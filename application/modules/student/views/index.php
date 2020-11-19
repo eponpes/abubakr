@@ -150,21 +150,29 @@
                                                         <a href="javascript:void(0);" onclick="get_student_modal(<?php echo $obj->id; ?>);"  data-toggle="modal" data-target=".bs-student-modal-lg" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
                                                     <?php } ?>
                                                 
-                                 <?php echo '<a href="'.site_url('exam/resultcardform/view/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                 <?php 
+                                 if ($this->session->userdata['responsibility'] == 'bpi' || $this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {
+                                 echo '<a href="'.site_url('exam/resultcardform/view/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Rapot BPI
                                   </a>
-                                  <a href="'.site_url('exam/resultcardform/view/character/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                  <a href="'.site_url('exam/resultcardform/view/character/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Rapot Karakter
                                   </a>
-                                  <a href="'.site_url('exam/mark/form/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                  <a href="'.site_url('exam/mark/form/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Input Nilai BPI
-                                  </a>
-                                  <a href="'.site_url('exam/resultcardform/view/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                  </a>';
+                                 } 
+                                 if ($this->session->userdata['responsibility'] == 'tahfidz' || $this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {
+                                    echo '
+                                  <a href="'.site_url('exam/resultcardform/view/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Raport Tahfizh
                                   </a>
-                                  <a href="'.site_url('exam/mark/form/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
+                                  <a href="'.site_url('exam/mark/form/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Input Nilai Tahfizh
-                                  </a>' ?>
+                                  </a>';
+                                 }
+                                  
+                                  ?>
 
                                                 <?php if(has_permission(DELETE, 'student', 'student') && $obj->status_type == 'regular'){ ?>
                                                         <br/><a href="<?php echo site_url('student/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>

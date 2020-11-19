@@ -217,12 +217,29 @@ class Mark extends MY_Controller {
         $this->layout->view('mark/index', $this->data);
     }
 
-    public function form($type = null, $school_id = null, $academic_year_id = null, $class_id = null, $section_id = null, $student_id = null) {
+    public function form($type = null, $school_id = null, $academic_year_id = null, $class_id = null, $student_id = null) {
 
         //check_permission(ADD);
         $levelchar = $_GET['l'];
 
+        if(empty($school_id)){
+            $school_id = $this->session->userdata('school_id'); 
+        }
+        
+        $this->data['responsibility'] = 'reguler';
+       
+        $this->data['responsibility'] = $this->session->userdata('responsibility');
+        
         $data_character = get_character_indicator($levelchar);
+
+        $academic_years = $this->markforms->get_list('academic_years', array('school_id'=>$school_id,'status' => 1), '','', '', 'id', 'ASC');
+        $this->data['classes'] = $this->markforms->get_list('classes', $condition, '','', '', 'id', 'ASC');
+        $this->data['school_id'] = $school_id;
+        $this->data['academic_years'] = $academic_years;
+        $this->data['academic_year_id'] = $academic_year_id;
+        $this->data['class_id'] = $class_id;
+        //$this->data['section_id'] = $section_id;
+        $this->data['student_id'] = $student_id;
 
         $getsurat = get_quran_chapter_list();
         $thesurat = '';
@@ -237,15 +254,10 @@ class Mark extends MY_Controller {
             'school_id' => $school_id,
             'academic_year_id' => $academic_year_id,
             'class_id' => $class_id,
-            'section_id' => $section_id,
+            //'section_id' => $section_id,
             'student_id' => $student_id
         );
-        $this->data['school_id'] = $school_id;
-        $this->data['academic_year_id'] = $academic_year_id;
-        $this->data['class_id'] = $class_id;
-        $this->data['section_id'] = $section_id;
-        $this->data['student_id'] = $student_id;
-
+        
         $this->data['students'] = $data = $condition;
 
         if(!empty($_GET['p']) && !empty($_GET['l']) && $type == 'bpi'){
@@ -363,7 +375,7 @@ class Mark extends MY_Controller {
                 $school_id = $this->input->post('school_id');
                 $academic_year_id = $this->input->post('academic_year_id');
                 $class_id = $this->input->post('class_id');
-                $section_id = $this->input->post('section_id');
+                //$section_id = $this->input->post('section_id');
                 $student_id = $this->input->post('student_id');
 
                 /* Form BPI */
@@ -374,7 +386,7 @@ class Mark extends MY_Controller {
                     'school_id' => $school_id,
                     'academic_year_id' => $academic_year_id,
                     'class_id' => $class_id,
-                    'section_id' => $section_id,
+                    //'section_id' => $section_id,
                     'student_id' => $student_id,
                     'level' => $level,
                     'period' => $period
@@ -435,7 +447,7 @@ class Mark extends MY_Controller {
                 $condition['school_id'] = $school_id;
                 $condition['academic_year_id'] = $academic_year_id;
                 $condition['class_id'] = $class_id;
-                $condition['section_id'] = $section_id;
+                //$condition['section_id'] = $section_id;
                 $condition['student_id'] = $student_id;
                 $data['status'] = 1;
                 $data['created_at'] = date('Y-m-d H:i:s');

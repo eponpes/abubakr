@@ -12,6 +12,7 @@
                 <div class="row home-row">
                     <div class="tile_button">
                     <?php if(has_permission(VIEW, 'attendance', 'student')){ ?>
+                    <?php if($responsibility != 'bpi' && $responsibility != 'tahfidz' ) { ?>
                     <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                         <a href="<?php echo site_url('attendance/student/index'); ?>" class="button">
                             <figure><img src="<?php echo IMG_URL; ?>icon/attendances.png"></figure>
@@ -19,6 +20,8 @@
                             <?php echo $this->lang->line('student_attendance'); ?>
                             </div>
                         </a></div>
+                    <?php } ?>
+                    <?php if($responsibility != 'bpi' ) { ?>
                     <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                         <a href="<?php echo site_url('tahfizh/student/index'); ?>" class="button">
                             <figure><img src="<?php echo IMG_URL; ?>icon/tahfizh.png"></figure>
@@ -26,6 +29,7 @@
                             <?php echo $this->lang->line('student_tahfizh'); ?>
                             </div>
                         </a></div>
+                    <?php } ?>
                     <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                         <a href="<?php echo site_url('userleave/index'); ?>" class="button">
                             <figure><img src="<?php echo IMG_URL; ?>icon/leave.png"></figure>
@@ -141,7 +145,8 @@
             <div class="x_content">
                 <div class="row home-row">
                     <div class="tile_button">
-                        <?php if(has_permission(VIEW, 'exam', 'mark')){ ?>
+                        <?php if(has_permission(VIEW, 'exam', 'mark') && has_permission(VIEW, 'exam', 'resultcard')){ ?>
+                            <?php if($responsibility != 'bpi' ) { ?>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/mark/form/tahfizh'); ?>" class="button">
                                 <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
@@ -150,28 +155,6 @@
                                 </div>
                             </a>    
                         </div>
-                        <?php } ?>
-                        <?php if(has_permission(VIEW, 'exam', 'mark')){ ?>
-                        <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
-                            <a href="<?php echo site_url('exam/mark/form/bpi'); ?>" class="button">
-                                <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
-                                <div class="text">
-                                Input Nilai BPI
-                                </div>
-                            </a>    
-                        </div>
-                        <?php } ?>
-                        <?php if(has_permission(VIEW, 'exam', 'resultcard')){ ?>
-                        <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
-                            <a href="<?php echo site_url('exam/resultcardform/view/bpi'); ?>" class="button">
-                                <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
-                                <div class="text">
-                                Rapot BPI
-                                </div>
-                            </a>    
-                        </div>
-                        <?php } ?>
-                        <?php if(has_permission(VIEW, 'exam', 'resultcard')){ ?>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/resultcardform/view/tahfizh'); ?>" class="button">
                                 <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
@@ -180,12 +163,33 @@
                                 </div>
                             </a>
                         </div>
+                            <?php } ?>
+                            
                         <?php } ?>
+                      
                     </div>
                 </div>
                 <div class="row home-row">
                     <div class="tile_button">
-                    <?php if(has_permission(VIEW, 'exam', 'resultcard')){ ?>
+                    
+                    <?php if(has_permission(VIEW, 'exam', 'resultcard') && has_permission(VIEW, 'exam', 'mark')){ ?>
+                        <?php if($responsibility != 'tahfidz' ) { ?>
+                        <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                            <a href="<?php echo site_url('exam/mark/form/bpi'); ?>" class="button">
+                                <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
+                                <div class="text">
+                                Input Nilai BPI
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                            <a href="<?php echo site_url('exam/resultcardform/view/bpi'); ?>" class="button">
+                                <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
+                                <div class="text">
+                                Rapot BPI
+                                </div>
+                            </a>    
+                        </div>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/resultcardform/view/character'); ?>" class="button">
                                 <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
@@ -194,6 +198,8 @@
                                 </div>
                             </a>    
                         </div>
+                            <?php } ?>
+                       
                         <?php } ?>
                     </div>
                 </div>  

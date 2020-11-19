@@ -100,6 +100,7 @@ class Auth extends CI_Controller {
                 } else {
                     $profile = $this->auth->get_single('employees', array('user_id' => $login->id));
                 } 
+
             
                 if (isset($profile->name)) {
                    $this->session->set_userdata('name', $profile->name);
@@ -118,7 +119,16 @@ class Auth extends CI_Controller {
                 }
                 if (isset($profile->id)) {
                     $this->session->set_userdata('profile_id', $profile->id);
-                }              
+                }   
+                if (isset($profile->responsibility)) {
+                    if (stripos($profile->responsibility, "guru bpi") !== false) {
+                        $this->session->set_userdata('responsibility', 'bpi');
+                    } else if (stripos($profile->responsibility, "guru tahfidz") !== false) {
+                        $this->session->set_userdata('responsibility', 'tahfidz');
+                    } else {
+                        $this->session->set_userdata('responsibility', $profile->responsibility);
+                    }
+                 }           
 
                 // set appliction setting
                 if($login->role_id != SUPER_ADMIN){ 

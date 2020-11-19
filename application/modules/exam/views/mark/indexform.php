@@ -14,7 +14,11 @@
             </div>      
             
             <?php 
-                $form_url = site_url('exam/mark/form/'.$formtype);
+                $url_bind = '';
+                if(!empty($school_id)){
+                    $url_bind = '/'.$students['school_id'].'/'.$students['academic_year_id'].'/'.$students['class_id'].'/'.$students['student_id'];
+                }
+                $form_url = site_url('exam/mark/form/'.$formtype.$url_bind);
                 $form_url_s = substr(site_url('exam/mark/form/'.$formtype), 0, -5);
             ?>
                
@@ -44,7 +48,7 @@
                             <?php $teacher_student_data = get_teacher_access_data('student'); ?>
                             <?php $guardian_class_data = get_guardian_access_data('class'); ?>
                             <div><?php echo $this->lang->line('class'); ?>  <span class="required">*</span></div>
-                            <select  class="form-control col-md-7 col-xs-12" name="class_id" id="class_id"  required="required" onchange="get_section_by_class(this.value,'');">
+                            <select  class="form-control col-md-7 col-xs-12" name="class_id" id="class_id"  required="required" onchange="get_student_by_class(this.value,'');">
                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                 <?php foreach ($classes as $obj) { ?>
                                     <?php if($this->session->userdata('role_id') == TEACHER && !in_array($obj->id, $teacher_student_data)){ continue;  ?>
@@ -55,7 +59,7 @@
                             <div class="help-block"><?php echo form_error('class_id'); ?></div>
                         </div>
                     </div>
-                    
+                    <?php /*
                     <div class="col-md-2 col-sm-2 col-xs-12">
                         <div class="item form-group"> 
                             <div><?php echo $this->lang->line('section'); ?>  <span class="required">*</span></div>
@@ -64,8 +68,8 @@
                             </select>
                             <div class="help-block"><?php echo form_error('section_id'); ?></div>
                         </div>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
+                    </div> */ ?>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="item form-group"> 
                             <div><?php echo $this->lang->line('student'); ?>  <span class="required">*</span></div>
                             <select  class="form-control col-md-7 col-xs-12" name="student_id" id="student_id" required="required">                                
@@ -98,7 +102,7 @@
              <?php } ?>
             
             <div class="x_content">
-            <?php $url_bind = $students['school_id'].'/'.$students['academic_year_id'].'/'.$students['class_id'].'/'.$students['section_id'].'/'.$students['student_id']; 
+            <?php $url_bind = $students['school_id'].'/'.$students['academic_year_id'].'/'.$students['class_id'].'/'.$students['student_id']; 
             $form_url = site_url('exam/mark/form/'.$formtype.'/'.$url_bind);
             ?>
                  <?php echo form_open($form_url, array('name' => 'addmarkform', 'id' => 'addmarkform', 'class'=>'form-horizontal form-label-left'), ''); ?>
@@ -536,6 +540,10 @@
 <!-- Super admin js START  -->
 <script type="text/javascript">
 $(document).ready(function() {
+    $('#student_id').select2({
+        placeholder: 'Pilih Siswa',
+        language: 'id',
+    }); 
     var fOption = "<?php echo $thesurat; ?>";
     
     <?php if(!empty($tahfizhvalues)) {?>
@@ -713,9 +721,34 @@ $(document).ready(function() {
                 }
             });         
         }
+
+        <?php if(isset($class_id)){ ?>
+            get_student_by_class('<?php echo $class_id; ?>', '<?php echo $student_id; ?>');
+        <?php } ?>
+        
+        function get_student_by_class(class_id, student_id){       
+            
+            var school_id = $('#school_id').val();  
+            if(!school_id){
+               toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+               return false;
+            } 
+            $.ajax({       
+                type   : "POST",
+                url    : "<?php echo site_url('ajax/get_student_by_class'); ?>",
+                data   : {school_id:school_id, class_id: class_id, student_id: student_id},               
+                async  : false,
+                success: function(response){                                                   
+                   if(response)
+                   {
+                      $('#student_id').html(response);
+                   }
+                }
+            });         
+        }
      
         <?php if(isset($class_id) && isset($section_id)){ ?>
-            get_student_by_section('<?php echo $section_id; ?>', '<?php echo $student_id; ?>');
+            <?php /*get_student_by_section('<?php echo $section_id; ?>', '<?php echo $student_id; ?>'); */ ?>
         <?php } ?>
         
         function get_student_by_section(section_id, student_id){       
@@ -758,12 +791,16 @@ $(document).ready(function() {
     });
     $("#send").on("click", function(e){
         e.preventDefault();
-        var school_id = $("#school_id option:selected").val();
+        <?php if(!empty($school_id)) { ?>
+            var school_id = <?php echo $school_id; ?>;
+        <?php } else { ?>
+            var school_id = $("#school_id option:selected").val();
+        <?php } ?>
+        
         var academic_year_id = $("#academic_year_id option:selected").val();
         var class_id = $("#class_id option:selected").val();
-        var section_id = $("#section_id option:selected").val();
         var student_id = $("#student_id option:selected").val();
-        var fullurl = "<?php echo $form_url_s; ?>/"+school_id+"/"+academic_year_id+"/"+class_id+"/"+section_id+"/"+student_id+".html";
+        var fullurl = "<?php echo $form_url_s; ?>/"+school_id+"/"+academic_year_id+"/"+class_id+"/"+student_id+".html";
         $('#resultcard').attr('action', fullurl).submit();
     });
     

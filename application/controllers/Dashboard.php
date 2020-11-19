@@ -38,6 +38,8 @@ class Dashboard extends MY_Controller {
         $this->data['school'] = array();
         $school_id = $this->session->userdata('school_id');   
         $theme = $this->session->userdata('theme');
+
+        $this->data['responsibility'] = $this->session->userdata['responsibility'];
         
         $this->data['theme'] = $this->dashboard->get_single('themes', array('status' => 1, 'slug' => $theme));    
         

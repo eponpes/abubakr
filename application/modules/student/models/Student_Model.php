@@ -14,7 +14,7 @@ class Student_Model extends MY_Model {
         if(!$class_id){
             return;
         }
-        
+
         $this->db->select('S.*, SC.school_name, E.roll_no, E.class_id, E.section_id, E.academic_year_id, E.class_tahfizh_id, E.class_bpi_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section');
         $this->db->from('enrollments AS E');
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
@@ -22,6 +22,21 @@ class Student_Model extends MY_Model {
         $this->db->join('classes AS C', 'C.id = E.class_id', 'left');
         $this->db->join('sections AS SE', 'SE.id = E.section_id', 'left');
         $this->db->join('schools AS SC', 'SC.id = S.school_id', 'left');
+
+        $class_bpi_id = $class_tahfizh_id = '';
+        if ($this->session->userdata['responsibility'] == 'bpi') {
+            $class_bpi_id = $this->session->userdata['profile_id'];
+        } else if ($this->session->userdata['responsibility'] == 'tahfidz') {
+            $class_tahfizh_id = $this->session->userdata['profile_id'];
+        }
+        
+        if(!empty($class_tahfizh_id)){
+            $this->db->where('E.class_tahfizh_id', $class_tahfizh_id); 
+        }
+
+        if(!empty($class_bpi_id)){
+            $this->db->where('E.class_bpi_id', $class_bpi_id); 
+        }
         
         if($academic_year_id){
             $this->db->where('E.academic_year_id', $academic_year_id); 

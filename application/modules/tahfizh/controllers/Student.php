@@ -22,7 +22,7 @@ class Student extends MY_Controller {
         
         $this->load->helper('report');
         $this->load->model('Student_Model', 'student', true);
-        $this->data['classes'] = $this->student->get_list('classes', array('status' => 1, 'group_id' => 2), '', '', '', 'id', 'ASC');
+        $this->data['classes'] = $this->student->get_list('classes', array('status' => 1), '', '', '', 'id', 'ASC');
         
     }
 
@@ -42,6 +42,10 @@ class Student extends MY_Controller {
         if ($_POST) {
 
             $school_id  = $this->input->post('school_id');
+            if(empty($school_id)){
+                $school_id = $this->session->userdata('school_id'); 
+            }
+
             $class_id = $this->input->post('class_id');
             $section_id = $this->input->post('section_id');
             $date = $this->input->post('date');
@@ -56,7 +60,7 @@ class Student extends MY_Controller {
             }
 
             $this->data['students'] = $this->student->get_student_list($school_id, $class_id, $section_id, $school->academic_year_id, 'regular');
-
+            
             $condition = array(
                 'school_id' => $school_id,
                 'class_id' => $class_id,

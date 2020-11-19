@@ -16,13 +16,29 @@ class Ajax_Model extends MY_Model {
         if($academic_year_id){
             $this->db->where('E.academic_year_id', $academic_year_id);
         }
+
+        $class_bpi_id = $class_tahfizh_id = '';
+        if ($this->session->userdata['responsibility'] == 'bpi') {
+            $class_bpi_id = $this->session->userdata['profile_id'];
+        } else if ($this->session->userdata['responsibility'] == 'tahfidz') {
+            $class_tahfizh_id = $this->session->userdata['profile_id'];
+        }
+        
+        if(!empty($class_tahfizh_id)){
+            $this->db->where('E.class_tahfizh_id', $class_tahfizh_id); 
+        }
+
+        if(!empty($class_bpi_id)){
+            $this->db->where('E.class_bpi_id', $class_bpi_id); 
+        }
+        
         $this->db->where('E.class_id', $class_id);       
         $this->db->where('E.school_id', $school_id);       
         $this->db->where('S.status_type', 'regular');       
         return $this->db->get()->result();       
     }
     
-    public function get_student_list_by_section($school_id = null, $section_id = null, $status_type = null){
+    public function get_student_list_by_section($school_id = null, $section_id = null, $status_type = null, $condition = null){
         
         $school = $this->get_school_by_id($school_id);
         
@@ -34,6 +50,16 @@ class Ajax_Model extends MY_Model {
              $this->db->where('E.academic_year_id', $school->academic_year_id); 
              $this->db->where('E.school_id', $school_id); 
         } 
+
+        if(!empty($condition)){
+            if(!empty($condition['class_tahfizh_id'])){
+                $this->db->where('E.class_tahfizh_id', $condition['class_tahfizh_id']); 
+            }
+
+            if(!empty($condition['class_bpi_id'])){
+                $this->db->where('E.class_bpi_id', $condition['class_bpi_id']); 
+            }
+        }
         
         $this->db->where('E.section_id', $section_id);
        

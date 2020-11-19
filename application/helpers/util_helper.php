@@ -345,7 +345,7 @@ if (!function_exists('get_exam_result')) {
 
 if (!function_exists('get_mark_form_results')) {
 
-    function get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $level, $period = null) {
+    function get_mark_form_results($school_id, $academic_year_id, $class_id, $student_id, $level, $period = null) {
         $ci = & get_instance();
         $ci->db->select('MF.*');
         $ci->db->from('mark_forms AS MF');  
@@ -353,7 +353,7 @@ if (!function_exists('get_mark_form_results')) {
         $ci->db->where('MF.academic_year_id', $academic_year_id);
         $ci->db->where('MF.student_id', $student_id);
         $ci->db->where('MF.class_id', $class_id);
-        $ci->db->where('MF.section_id', $section_id);
+       // $ci->db->where('MF.section_id', $section_id);
         $ci->db->where('MF.level', $level);
         if(!empty($period)){
             $ci->db->where('MF.period', $period);
@@ -1926,12 +1926,22 @@ if (!function_exists('get_teacher_access_data')) {
         $ci->db->where('C.school_id', $school_id); 
         $ci->db->order_by("C.id", "ASC");
         $result = $ci->db->get()->result();
-
+        
+        // checking by responsibility
+        $ci->db->select('C.class_id AS class_id');
+        $ci->db->from('enrollments AS C');                
+        if($ci->session->userdata('responsibility') == 'bpi'){
+            $ci->db->where('C.class_bpi_id', $ci->session->userdata('profile_id')); 
+        } else if($ci->session->userdata('responsibility') == 'tahfidz'){
+            $ci->db->where('C.class_tahfizh_id', $ci->session->userdata('profile_id')); 
+        }
+        $ci->db->where('C.school_id', $school_id); 
+        $ci->db->order_by("C.class_id", "ASC");
+        $result = $ci->db->get()->result();
 
         foreach($result as $obj){
             $data[] = $obj->class_id;
-        }     
-        
+        }    
        
        return array_unique($data);        
    }   

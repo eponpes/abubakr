@@ -131,7 +131,7 @@ class Resultcardform extends MY_Controller {
         
     }
 
-    public function view($type = null, $school_id = null, $academic_year_id = null, $class_id = null, $section_id = null, $student_id = null) {
+    public function view($type = null, $school_id = null, $academic_year_id = null, $class_id = null, $student_id = null) {
 
         //check_permission(VIEW);
 
@@ -159,21 +159,21 @@ class Resultcardform extends MY_Controller {
 
         $this->data['characters'] = $data_character;
         
-        if (!empty($school_id) && !empty($class_id) && !empty($section_id) && !empty($student_id) && !empty($academic_year_id)) {
+        if (!empty($school_id) && !empty($class_id) && !empty($student_id) && !empty($academic_year_id)) {
 
             if($this->session->userdata('role_id') == STUDENT){
                 
                 $student = get_user_by_role($this->session->userdata('role_id'), $this->session->userdata('id'));
                 $school_id = $student->school_id;
                 $class_id = $student->class_id;
-                $section_id = $student->section_id;
+                //$section_id = $student->section_id;
                 $student_id = $student->id;
                 
             }else{
                 
                 $school_id = $school_id;
                 $class_id = $class_id;
-                $section_id = $section_id;
+                //$section_id = $section_id;
                 $student_id = $student_id;
                 
                 $std = $this->resultcardform->get_single('students', array('id'=>$student_id));
@@ -181,7 +181,7 @@ class Resultcardform extends MY_Controller {
             }
             
             $school = $this->resultcardform->get_school_by_id($school_id);
-            $exam = get_mark_form_results($school_id, $academic_year_id, $class_id, $section_id, $student_id, $levelchar, $periodchar); 
+            $exam = get_mark_form_results($school_id, $academic_year_id, $class_id, $student_id, $levelchar, $periodchar); 
 
             if($type == 'bpi'){
                 $totalsm1_1 = 0;
@@ -419,14 +419,18 @@ class Resultcardform extends MY_Controller {
             $this->data['academic_year_id'] = $academic_year_id;
             $this->data['student'] = $student;
             $this->data['class_id'] = $class_id;
-            $this->data['section_id'] = $section_id;
+            //  $this->data['section_id'] = $section_id;
             $this->data['student_id'] = $student_id;
             
             $class = $this->resultcardform->get_single('classes', array('id'=>$class_id));
             create_log('Has been filter result card for class: '. $class->name. ', '. $this->data['student']->name );
         }
         
-        
+        if(empty($school_id)){
+            $school_id = $this->session->userdata('school_id'); 
+            $this->data['school_id'] = $school_id;
+        }
+
         $condition = array();
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){ 

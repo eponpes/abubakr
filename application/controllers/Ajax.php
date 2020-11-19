@@ -328,9 +328,22 @@ class Ajax extends My_Controller {
         $student_id = $this->input->post('student_id');
         $section_id = $this->input->post('section_id');
         $school_id = $this->input->post('school_id');
+
+        $class_bpi_id = $class_tahfizh_id = '';
+        if ($this->session->userdata('responsibility') == 'bpi') {
+            $class_bpi_id = $this->session->userdata['profile_id'];
+        } else  if ($this->session->userdata('responsibility') == 'tahfidz') {
+            $class_tahfizh_id = $this->session->userdata['profile_id'];
+        }
+        
         $is_all = $this->input->post('is_all');
 
-        $students = $this->ajax->get_student_list_by_section($school_id, $section_id, 'regular');
+        $condition = array(
+            'class_tahfizh_id' => $class_tahfizh_id,
+            'class_bpi_id' => $class_bpi_id
+        );
+
+        $students = $this->ajax->get_student_list_by_section($school_id, $section_id, 'regular', $condition);
         
         if($is_all){
             $str = '<option value="0">' . $this->lang->line('all_student') . '</option>';    
@@ -726,12 +739,9 @@ class Ajax extends My_Controller {
         
          $school_id  = $this->input->post('school_id');
          $class_id  = $this->input->post('class_id');
-         $group_id  = !empty($this->input->post('group_id'))?$this->input->post('group_id'):'';
         $condition['status'] = 1;
         $condition['school_id'] = $school_id;
-        if(!empty($group_id)){
-             $condition['group_id'] = $group_id;
-        }
+        
         $classes = $this->ajax->get_list('classes', $condition, '','', '', 'id', 'ASC'); 
          
         $str = '<option value="">--' . $this->lang->line('select') . '--</option>';

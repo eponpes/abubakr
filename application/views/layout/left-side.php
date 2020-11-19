@@ -364,7 +364,7 @@
                             </ul>
                         </li> 
                     <?php } ?>    
-                        
+                      <?php /*  
                     <?php if(has_permission(VIEW, 'exam', 'grade') || has_permission(VIEW, 'exam', 'exam')){ ?>    
                         <li><a><i class="fa fa-graduation-cap"></i> <?php echo $this->lang->line('manage_exam'); ?> <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
@@ -388,7 +388,9 @@
              
                     <?php if(has_permission(VIEW, 'exam', 'attendance')){ ?>
                         <li><a  href="<?php echo site_url('exam/attendance/index'); ?>"><i class="fa fa-check"></i> <?php echo $this->lang->line('exam_attendance'); ?></a></li>
-                    <?php } ?>    
+                    <?php } ?> 
+
+                    
                         
                        <?php if(has_permission(VIEW, 'exam', 'mark') || 
                                has_permission(VIEW, 'exam', 'examresult') || 
@@ -437,7 +439,7 @@
                                 <?php } ?>    
                             </ul>
                         </li>
-                    <?php } ?>
+                    <?php } ?> */ ?>
                     
                     <?php if(has_permission(VIEW, 'academic', 'promotion')){ ?>
                         <li><a href="<?php echo site_url('academic/promotion'); ?>"><i class="fa fa-mail-forward"></i><?php echo $this->lang->line('promotion'); ?></a></li>                   
@@ -455,7 +457,7 @@
                         </ul>
                     </li>
                     <?php } ?>
-                    
+                    <?php /*
                     <?php if(has_permission(VIEW, 'library', 'book') || 
                             has_permission(VIEW, 'library', 'member') || 
                             has_permission(VIEW, 'library', 'issue') ||   
@@ -512,7 +514,7 @@
                                 <?php } ?>
                             </ul>
                         </li>
-                   <?php } ?>
+                   <?php } ?> */ ?>
                     
                     <?php if(has_permission(VIEW, 'message', 'message')){ ?>    
                         <li><a href="<?php echo site_url('message/inbox'); ?>"><i class="fa fa-comments-o"></i> <?php echo $this->lang->line('message'); ?></a></li>                   
