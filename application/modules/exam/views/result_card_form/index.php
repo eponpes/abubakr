@@ -85,6 +85,61 @@
                 <?php echo form_close(); ?>
             </div>
 
+            <div class="x_content no-print">  
+            <?php if($formtype == 'bpi' || $formtype == 'character') { ?>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="item form-group">
+                            <label for="level-choice">Pilih Level</label>
+                            <select class="form-control" id="level" name="level">
+                                <option value="0">-------</option>
+                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
+                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="item form-group">
+                            <label for="semester-choice">Pilih Semester</label>
+                            <select class="form-control" id="semester" name="semester">
+                                <option value="0">-------</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">1</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="item form-group">
+                            <label for="semester-choice">Pilih Period</label>
+                            <select class="form-control" id="period" name="period">
+                                <option value="0">-------</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            <?php } else { ?> 
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="item form-group">
+                            <label for="semester-choice">Pilih Semester</label>
+                            <select class="form-control" id="semester" name="semester">
+                                <option value="0">-------</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">1</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+            </div>
+
+            <?php  if ($formtype == 'other') { ?>
             <?php  if (isset($student) && !empty($student)) { ?>
             <div class="x_content">             
                 <div class="row">
@@ -111,74 +166,188 @@
                 </div>            
             </div>
              <?php } ?>
-            
-             
-            <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="item form-group">
-                        <label for="level-choice">Pilih Level</label>
-                        <select class="form-control" id="level" name="level">
-                            <option value="0">-------</option>
-                            <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
-                            <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
-                        </select>
-                    </div>
-                    </div>
+             <?php } ?>
 
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="item form-group">
-                        <label for="semester-choice">Pilih Semester</label>
-                        <select class="form-control" id="semester" name="semester">
-                            <option value="0">-------</option>
-                            <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">1</option>
-                            <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">2</option>
-                        </select>
-                    </div>
-                    </div>
+             <?php  if ($formtype == 'tahfizh') { ?>
+            <div class="x_content">             
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="text-center align-middle">
+                            <div class="row">
+                                <div class="school-logo col-md-1">
+                                    <?php if($school->logo){ ?>
+                                        <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
+                                    <?php } ?>
+                                </div>
+                                <div class="school-info col-md-11">
+                                    <div class="top-school">Yayasan Ibadurrohman</div>
+                                    <?php if(isset($school)){ ?>
+                                    <div class="name-school"><?php echo $school->school_name; ?></div>
+                                    <p> <?php echo $school->address; ?></p>
+                                <?php } ?>
+                                </div>
+                            </div>
 
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="item form-group">
-                        <label for="semester-choice">Pilih Period</label>
-                        <select class="form-control" id="period" name="period">
-                            <option value="0">-------</option>
-                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
-                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
-                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
-                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
-                        </select>
+                            <hr class="style8" />
+
+                            <h4><strong>تقريروتائج االمتحان الىهائي في تحسيه القرآن و تحفيظه</strong><h4>
+                            <h5><strong>LAPORAN PENILAIAN UJIAN AKHIR SEMESTER TAHSIN DAN TAHFIDZ AL-QUR’AN</strong></h5>
+                        </div>
+                        <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="text-align:left; width: 150px">Nama</td>
+                                <td style="text-align:left; width: 30%">: <?php echo $student->name; ?></td>
+                                <td style="text-align:left; width: 10%"></td>
+                                <td style="text-align:left; width: 20%">Tahun Pelajaran</td>
+                                <td>2020/2021</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left; width: 150px">NIS/NISN</td>
+                                <td style="text-align:left; width: 30%">: <?php echo $student->roll_no; ?></td>
+                                <td style="text-align:left; width: 10%"></td>
+                                <td style="text-align:left; width: 20%">Kelas/Semester</td>
+                                <td><?php echo $student->class_name . ' ' . $student->section; ?> </td>
+                            </tr>
+                        </table>
+                        
                     </div>
-                    </div>
+                </div>            
             </div>
+             <?php } else if ($formtype == 'bpi' || $formtype == 'character') { ?>
+            <div class="x_content">             
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="text-center align-middle">
+                            <div class="row">
+                                <div class="school-logo col-md-1">
+                                    <?php if($school->logo){ ?>
+                                        <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
+                                    <?php } ?>
+                                </div>
+                                <div class="school-info col-md-11">
+                                    <div class="top-school">Yayasan Ibadurrohman</div>
+                                    <?php if(isset($school)){ ?>
+                                    <div class="name-school"><?php echo $school->school_name; ?></div>
+                                    <p> <?php echo $school->address; ?></p>
+                                <?php } ?>
+                                </div>
+                            </div>
+
+                            <hr class="style8" />
+
+                            <h5><strong>LAPORAN PENCAPAIAN BPI (BINA PRIBADI ISLAM)</strong></h5>
+                        </div>
+                        <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="text-align:left; width: 150px">Nama</td>
+                                <td style="text-align:left; width: 30%">: <?php echo $student->name; ?></td>
+                                <td style="text-align:left; width: 10%"></td>
+                                <td style="text-align:left; width: 20%">Tahun Pelajaran</td>
+                                <td>2020/2021</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left; width: 150px">NIS/NISN</td>
+                                <td style="text-align:left; width: 30%">: <?php echo $student->roll_no; ?></td>
+                                <td style="text-align:left; width: 10%"></td>
+                                <td style="text-align:left; width: 20%">Kelas/Semester</td>
+                                <td><?php echo $student->class_name . ' ' . $student->section; ?> </td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                </div>            
+            </div>
+             <?php } ?>
 
             <div class="x_content">
+                <div class="row justify-content-center">
 
                 <?php echo $html_table_character; ?>
 
                 <?php echo $html_table_character3; ?>
 
                 <?php echo $html_table_character2; ?>
+
+                <?php echo $html_table_tahfizh; ?>
+
+                </div>
     
             </div>
           
-            
+            <?php if($formtype == 'bpi' || $formtype == 'character') { ?>
+                <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
+                <div class="rowt">
+                    <div class="col-xs-3 text-center">
+                        <div class="knowing">
+                            <p><br>Mengetahui<p>
+                            <p>Mudir PPTQ Ibadurrohman</p>
+                        </div>
+                        <div class="signature">
+                            KH. Didi M.Turmudzi, Lc., MA.
+                        </div>
+                    </div>
+                    <div class="col-xs-1 text-center">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-3 text-center">
+                        <div class="knowing">
+                            <p><br/><br>Ketua BPI</p>
+                        </div>
+                        <div class="signature">
+                            Angga Permana
+                        </div>
+                    </div>
+                    <div class="col-xs-1 text-center">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <div class="knowing">
+                            <?php
+                            $day = date("d");
+                            $month = get_sign_date(date("m"));
+                            $year = date("Y");
+                            $signdate = $day . ' ' . $month . ' ' . $year;
+                            ?>
+                            <p><span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span><p>
+                            <p>Guru Pembina BPI</p>
+                        </div>
+                        <div class="signature">
+                            Ust. Ihsan Fauzi, S.Pd.I, Al Hafidz
+                        </div>
+                    </div>
+                </div>
+            <?php } else if($formtype == 'tahfizh') { ?>
             <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
             <div class="rowt">
-                <div class="col-xs-3 text-center signature">
-                    Mudir
+                <div class="col-xs-4 text-center">
+                    <div class="knowing">
+                        <p>Mengetahui<p>
+                        <p>Mudir PPTQ Ibadurrohman</p>
+                    </div>
+                    <div class="signature">
+                        KH. Didi M.Turmudzi, Lc., MA.
+                    </div>
                 </div>
-                <div class="col-xs-1 text-center">
+                <div class="col-xs-2 text-center">
                     &nbsp;
                 </div>
-                <div class="col-xs-3 text-center signature">
-                    Ketua BPI
-                </div>
-                <div class="col-xs-1 text-center">
-                    &nbsp;
-                </div>
-                <div class="col-xs-3 text-center signature">
-                    Guru Pembina BPI
+                <div class="col-xs-4 text-center">
+                    <div class="knowing">
+                        <?php
+                        $day = date("d");
+                        $month = get_sign_date(date("m"));
+                        $year = date("Y");
+                        $signdate = $day . ' ' . $month . ' ' . $year;
+                        ?>
+                        <p><span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span><p>
+                        <p>Kasie Tahfidz</p>
+                    </div>
+                    <div class="signature">
+                        Ust. Ihsan Fauzi, S.Pd.I, Al Hafidz
+                    </div>
                 </div>
             </div>
+            <?php } ?>
             
             <div class="row no-print">
                 <div class="col-xs-12 text-right">
@@ -348,9 +517,15 @@ $('#level').change(function(e){
 $('#semester').change(function(e){
     e.preventDefault();
     var s = this.value;
-    var l = $("#level option:selected").val();
-    if(s == "1" || s == "2")
-        window.location = "?s="+s+"&l="+l;
+    if(s == "1" || s == "2") {
+        <?php if($formtype == 'tahfizh') { ?>
+            window.location = "?s="+s+"&p=SM"+s;
+        <?php } else { ?>
+            var l = $("#level option:selected").val();
+            window.location = "?s="+s+"&l="+l;
+        <?php } ?>
+    }
+    
     /*$('#addmarkform').submit();*/
 }); 
 $('#period').change(function(e){
@@ -387,6 +562,51 @@ $("#send").on("click", function(e){
 <style>
 .table>thead>tr>th,.table>tbody>tr>td {
     padding: 2px;
+}
+.mgtop100 {
+    margin-top: 100px;
+    float: left; 
+    width: 100%;
+}
+hr.style8 {
+    height: auto;
+	border-top: 5px solid #000;
+	border-bottom: 1px solid #fff;
+}
+hr.style8:after {
+	content: '';
+	display: block;
+	margin-top: 2px;
+	border-top: 2px solid #000;
+	border-bottom: 1px solid #fff;
+}
+.name-school,
+.top-school {
+    font-weight: bold;
+}
+.name-school {
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.top-school {
+    font-size: 14px;
+}
+.noborder td {
+    border: 0px !important;
+}
+table tr td,
+table th {
+    text-align: center;
+}
+@media print {
+  @page { margin: 0; }
+  body { margin: 0cm; }
+}
+.knowing p {
+    margin: 0;
+}
+.knowing {
+    margin-bottom: 50px;
 }
 
 </style>

@@ -248,6 +248,13 @@ class Mark extends MY_Controller {
         }
         $this->data['thesurat'] = $thesurat;
 
+        $getjuz = get_quran_juz_list();
+        $thejuz = '';
+        foreach($getjuz as $idz => $jz){
+            $thejuz .= '<option value=\"'.$idz.'\">'.$idz.' '.$jz[0].'</option>';
+        }
+        $this->data['thejuz'] = $thejuz;
+
         $this->data['characters'] = $data_character;
 
         $condition = array(
@@ -326,6 +333,8 @@ class Mark extends MY_Controller {
                 $vlabo3 = array();
 
                 $field = 1;
+
+                /* Surat
                 $valopt = '';
                 foreach ($markvalues3 as $lo3){
                     $msurat = $lo3['surat'];
@@ -352,6 +361,32 @@ class Mark extends MY_Controller {
                     ';
                     
                     $field++;              
+                } */ 
+
+                $valopt = '';
+                foreach ($markvalues3 as $lo3){
+                    $mjuz = $lo3['juz'];
+                    $mmarkjuz = $lo3['mark'];
+
+                    $thejuz5 = '';
+                    foreach($getjuz as $ids => $srt){
+                        if($ids == $mjuz){
+                            $selected = 'selected';
+                        } else {
+                            $selected = '';
+                        }
+                        $thejuz5 .= '<option value="'.$ids.'" '.$selected.'>JUZ '.$srt[0].'</option>';
+                    }
+
+                    $valopt .= '
+                    <div class="fieldwrapper" id="field'.$field.'">
+                    <select id="thejuz'.$field.'" name="thejuz['.$field.'][]" class="fieldtype form-control">'.$thejuz5.'</select>
+                    <input name="markjuz['.$field.'][]" type="text" class="fieldname form-control" placeholder="Nilai" value="'.$mmarkjuz.'">
+                    <input type="button" class="remove" value="-">
+                    </div>
+                    ';
+                    
+                    $field++;              
                 }
                 $this->data['markvalues3'] = $vlabo2; 
                 $this->data['tahfizhvalues'] = $valopt;
@@ -360,7 +395,13 @@ class Mark extends MY_Controller {
                 $markvalues4 = json_decode($markforms->value2, true);
                 $vlabo4 = array();
                 foreach ($markvalues4 as $lo4){
-                    $mark4 = $lo4['mark'];
+                    if($lo4['name'] == 'targettahfizh'){
+                        $mark4 = json_decode($lo4['mark']);
+                        $this->data['tahfizhtarget'] = $mark4;
+                    } else {
+                        $mark4 = $lo4['mark'];
+                    }
+                    
                     $id4 = $lo4['name'];
                     $vlabo4[$id4] = $mark4;                    
                 }
@@ -399,7 +440,7 @@ class Mark extends MY_Controller {
                     $data['period'] = $condition['period'] = $this->input->post('period');
                 }
 
-                if(!empty($_POST['thesurat']) && $type == 'tahfizh'){
+                /*if(!empty($_POST['thesurat']) && $type == 'tahfizh'){
                     // indicator
                     $postsurat = $_POST['thesurat']; 
                     $vlay = array();
@@ -410,6 +451,23 @@ class Mark extends MY_Controller {
                         $valiny = array(
                             'surat' => $surat,
                             'ayat' => $ayat,
+                            'mark' => $mark
+                        );
+                        array_push($vlay, $valiny);
+                    }
+                    $vlasy = json_encode($vlay);
+                    $data['value'] = $vlasy;
+                }*/
+
+                if(!empty($_POST['thejuz']) && $type == 'tahfizh'){
+                    // indicator
+                    $postjuz = $_POST['thejuz']; 
+                    $vlay = array();
+                    foreach($postjuz as $theids => $srt){
+                        $myjuz = $srt[0];
+                        $mark = $_POST['markjuz'][$theids][0];
+                        $valiny = array(
+                            'juz' => $myjuz,
                             'mark' => $mark
                         );
                         array_push($vlay, $valiny);
@@ -434,6 +492,10 @@ class Mark extends MY_Controller {
                 if(!empty($_POST['indicator2'])){
                     $vla2 = array();
                     foreach ($_POST['indicator2'] as $ind2 => $val2){
+
+                        if(is_array($val2)){
+                            $val2 = json_encode($val2);
+                        }
                         $valin2 = array(
                             'name' => $ind2,
                             'mark' => $val2

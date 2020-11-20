@@ -411,6 +411,144 @@ class Resultcardform extends MY_Controller {
 
                 $this->data['markvalues2'] = $markvalues2;
 
+            } else if ($type == 'tahfizh') {
+
+                $penilaian = [
+                    'adab' => ['Adab di Dalam Halaqoh', 'adabnote'],
+                    'murajaah' => ['Murajaah Mengulang Hafalan', 'murajaahnote'],
+                    'tahsin' => ['Tahsin', 'tahsindesk'],
+                    'target' => ['Pencapaian Target Hafalan', 'targetnote'],
+                ];
+                
+                foreach($exam as $mex){
+                    $totalmarkjuz = 0;
+                    $totaladd = 0;
+                    $gamma = array();
+                    $values = json_decode($mex->value, true);
+                    $values2 = json_decode($mex->value2, true);
+
+                    foreach($values as $eval){
+                        $totalmarkjuz += $eval['mark'];
+                        $totaladd++;
+                    }
+
+                    foreach($values2 as $eval2){
+                        if($eval2['name'] == 'targettahfizh'){
+                            $gamma[$eval2['name']] = json_decode($eval2['mark']);
+                        } else {
+                            $gamma[$eval2['name']] = $eval2['mark'];
+                        }
+                        
+                    }
+                }
+
+                $pembagi = 0;
+                if(!empty($gamma['tapan'])){
+                    $totalnilaimark += $gamma['tapan'];
+                    $pembagi++;
+                }
+                if(!empty($gamma['gunnah'])){
+                    $totalnilaimark += $gamma['gunnah'];
+                    $pembagi++;
+                }
+                if(!empty($gamma['vokal'])){
+                    $totalnilaimark += $gamma['vokal'];
+                    $pembagi++;
+                }
+                if(!empty($markvalues2['sukun'])){
+                    $totalnilaimark += $gamma['sukun'];
+                    $pembagi++;
+                }
+                $totaltahsin = round($totalnilaimark / $pembagi, 1);
+                
+                $totaltahfizh = round($totalmarkjuz / $totaladd, 1);
+
+                //print_r($gamma);die();
+
+                $table_character .= 
+                '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Aspek</th>
+                            <th>Predikat</th>
+                            <th>Deskripsi Kemajuan Belajar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                ';
+                $a=1;
+                foreach($penilaian as $pen => $getpen){
+                    $labelin = $getpen[0];
+                    $labelval = get_predicate($pen, $gamma[$pen]);
+                    $labeldesk = $gamma[$getpen[1]];
+                    $table_character .= '<tr><td class="text-left">'.$a.'. '.$labelin.'</td><td>'.$labelval.'</td><td>'.$labeldesk.'</td></tr>';
+                    $a++;
+                }
+
+                $table_character .= '</tbody></table>';
+
+                $table_character .= 
+                '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Pencapaian Semester</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                ';
+                $table_character .= '<thead><tr><th>Juz</th><th>Surat dan Ayat</th></tr></thead>';
+                $table_character .= '<tr><td>'.$gamma['lastjuz'].'</td><td>'.$gamma['lastsuratayat'].'</td></tr>';
+                $table_character .= '<tr><td colspan="2" style="background:#f5f5f5;font-weight:bold">Total Hafalan</td></tr>';
+                $table_character .= '<tr><td colspan="2">'.$gamma['totaljuz'].' juz</td></tr>';
+                $table_character .= '</tbody></table>';
+
+                $table_character .= 
+                '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="3">Nilai Akhir Semester Tahfizh dan Tahsin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                ';
+                $table_character .= '<thead><tr><th>Ujian</th><th>Nilai</th><th>Predikat</th></tr></thead>';
+                $table_character .= '<tr><td>Tahfizh</td><td>'.$totaltahfizh.'</td><td>'.get_grade_tahfizh($totaltahfizh).'</td></tr>';
+                $table_character .= '<tr><td>Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin).'</td></tr>';
+
+                $table_character .= '</tbody></table>';
+
+                $table_character .= 
+                '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="4">Target Semester</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                ';
+                $table_character .= '<thead><tr><th colspan="2">Tahfidzul Quran</th><th colspan="2">Tahsinul Quran</th></tr></thead>';
+                $totaltarget = count($gamma['targettahfizh']) + 1;
+                $table_tahsin .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%"><tbody>';
+                $table_tahsin .= '<tr><td>Grade</td><td>Keterangan</td></tr>';
+                $table_tahsin .= '<tr><td rowspan="5">Basic '.$gamma['tahsintarget'].'</td></tr>';
+                $table_tahsin .= '<tr><td>Tepat dalam konsistensi tanda panjang</td></tr>';
+                $table_tahsin .= '<tr><td>Tepat dalam keseimbangan tanda gunnah</td></tr>';
+                $table_tahsin .= '<tr><td>Tepat dalam pengucapan huruf sukun</td></tr>';
+                $table_tahsin .= '<tr><td>Tepat dalam tuntutan kesempurnaan vokal</td></tr>';
+                $table_tahsin .= '</tbody></table>';
+                $table_character .= '<tr><td>Juz</td><td>Surat</td><td colspan="2" rowspan="'.$totaltarget.'">'.$table_tahsin.'</td></tr>';
+                $get_juz = get_quran_juz_list();
+                if(!empty($gamma['targettahfizh'])) {
+                    foreach($gamma['targettahfizh'] as $gam){
+                        $table_character .= '<tr><td>'.$gam.'</td><td class="text-left">'.$get_juz[$gam][0].'</td></tr>';
+                    }
+                }
+
+                $table_character .= '</tbody></table>';
+
+                $this->data['html_table_tahfizh'] = $table_character;
+
+                $this->data['markvalues2'] = $markvalues2;
             }
             
             

@@ -345,7 +345,7 @@ if (!function_exists('get_exam_result')) {
 
 if (!function_exists('get_mark_form_results')) {
 
-    function get_mark_form_results($school_id, $academic_year_id, $class_id, $student_id, $level, $period = null) {
+    function get_mark_form_results($school_id, $academic_year_id, $class_id, $student_id, $level = null, $period = null) {
         $ci = & get_instance();
         $ci->db->select('MF.*');
         $ci->db->from('mark_forms AS MF');  
@@ -354,13 +354,61 @@ if (!function_exists('get_mark_form_results')) {
         $ci->db->where('MF.student_id', $student_id);
         $ci->db->where('MF.class_id', $class_id);
        // $ci->db->where('MF.section_id', $section_id);
-        $ci->db->where('MF.level', $level);
+        if(!empty($level)){
+            $ci->db->where('MF.level', $level);
+        }
+        
         if(!empty($period)){
             $ci->db->where('MF.period', $period);
         }
         
         return  $ci->db->get()->result();
     }
+}
+
+function get_predicate($type = null, $score) {
+    if($type == 'adab' || $type == 'murajaah'){
+        switch($score){
+            case '1':
+                $label = 'Jayyid Jiddan';
+            break;
+            case '2':
+                $label = 'Jayyid';
+            break;
+            case '3':
+                $label = 'Maqbul';
+            break;
+        }
+    } else if($type == 'tahsin'){
+        switch($score){
+            case '1':
+                $label = 'Basic 1';
+            break;
+            case '2':
+                $label = 'Basic 2';
+            break;
+            case '3':
+                $label = 'Basic 3';
+            break;
+        }
+    } else if($type == 'target'){
+        switch($score){
+            case '1':
+                $label = '25%';
+            break;
+            case '2':
+                $label = '50%';
+            break;
+            case '3':
+                $label = '75%';
+            break;
+            case '4':
+                $label = '100%';
+            break;
+        }
+    }
+    
+    return $label;
 }
 
 function get_markform_score($score = null){
@@ -2196,6 +2244,13 @@ if (!function_exists('translate')) {
     }
 }
 
+if (!function_exists('is_JSON')){
+    function is_JSON(...$args) {
+        json_decode(...$args);
+        return (json_last_error()===JSON_ERROR_NONE);
+    }
+}
+
 if (!function_exists('get_quran_chapter_list')){
     function get_quran_chapter_list() {
         $ayat = array(
@@ -2316,6 +2371,45 @@ if (!function_exists('get_quran_chapter_list')){
         );
 
         return $ayat;
+    }
+}
+
+if (!function_exists('get_quran_juz_list')){
+    function get_quran_juz_list() {
+        $juz = array(
+            1 => array('01 AL FATIHAH 1 - AL BAQARAH 141', 'JUZ 1'),
+            2 => array('02 AL BAQARAH 142 - AL BAQARAH 252', 'JUZ 2'),
+            3 => array('03 AL BAQARAH 253 - ALI IMRAN 92', 'JUZ 3'),
+            4 => array('04 ALI IMRAN 93 - AN NISA 23', 'JUZ 4'),
+            5 => array('05 AN NISA 24 - AN NISA 147', 'JUZ 5'),
+            6 => array('06 AN NISA 148 - AL MAIDAH 82', 'JUZ 6'),
+            7 => array('07 AL MAIDAH 83 - AL ANAM 110', 'JUZ 7'),
+            8 => array('08 AL ANAM 111 - AL ARAF 87', 'JUZ 8'),
+            9 => array('09 AL ARAF 88 - AL ANFAL 40', 'JUZ 9'),
+            10 => array('10 AL ANFAL 41 - AT TAUBAH 92', 'JUZ 10'),
+            11 => array('11 AT TAUBAH 93 - HUD 5', 'JUZ 11'),
+            12 => array('12 HUD 6 - YUSUF 52', 'JUZ 12'),
+            13 => array('13 YUSUF 53 - IBRAHIM 52', 'JUZ 13'),
+            14 => array('14 AL HIJR 1 - AN NAHL 128', 'JUZ 14'),
+            15 => array('15 AL ISRA 1 - AL KAHFI 74', 'JUZ 15'),
+            16 => array('16 AL KAHFI 75 - TAHA 135', 'JUZ 16'),
+            17 => array('17 AL ANBIYA 1 - AL HAJJ 78', 'JUZ 17'),
+            18 => array('18 AL MUMINUN 1 - AL FURQON 20', 'JUZ 18'),
+            19 => array('19 AL FURQON 21 - AN NAML 55', 'JUZ 19'),
+            20 => array('20 AN NAML 56 - AL ANKABUT 45', 'JUZ 20'),
+            21 => array('21 AL ANKABUT 46 - AL AHZAB 30', 'JUZ 21'),
+            22 => array('22 AL AHZAB 31 - YASIN 27', 'JUZ 22'),
+            23 => array('23 YASIN 28 - AZ ZUMAR 31', 'JUZ 23'),
+            24 => array('24 AZ ZUMAR 32 - FUSSILAT 46', 'JUZ 24'),
+            25 => array('25 FUSSILAT 47 - AL JATSIYAH 37', 'JUZ 25'),
+            26 => array('26 AL AHQAF 1 - AD DZARIYAT 30', 'JUZ 26'),
+            27 => array('27 AD DZARIYAT 31 - AL HADID 29', 'JUZ 27'),
+            28 => array('28 AL-MUJADILAH 1 - AT TAHRIM 12', 'JUZ 28'),
+            29 => array('29 AL-MULK 1 - AL MURSALAT 50', 'JUZ 29'),
+            30 => array('30 AN-NABA 1 - AN NAAS 6', 'JUZ 30')
+        );
+
+        return $juz;
     }
 }
 if (!function_exists('get_character_indicator')) {
@@ -2489,6 +2583,26 @@ if (!function_exists('get_character_indicator')) {
         
 
         return $data_character;
+    }
+}
+if (!function_exists('get_sign_date')) {
+    function get_sign_date($date) {
+        $month = array(
+            '1' => 'Januari',
+            '2' => 'Februari',
+            '3' => 'Maret',
+            '4' => 'April',
+            '5' => 'Mei',
+            '6' => 'Juni',
+            '7' => 'Juli',
+            '8' => 'Agustus',
+            '9' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember',
+        );
+
+        return $month[$date];
     }
 }
 /*STRICT DATA ACCESS END*/

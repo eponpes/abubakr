@@ -409,7 +409,7 @@
                     <section>
                         <div class="row">
                             <div class="col-md-12">
-                                Pilih Surat, Ayat dan Isi Nilai dengan Angka
+                                Pilih Juz dan Isi Nilai dengan Angka
                             </div>
                         </div>
                         <div class="row">
@@ -417,16 +417,109 @@
                                 <fieldset id="buildyourform">
                                     <?php echo $tahfizhvalues; ?>
                                 </fieldset>
-                                <input type="button" value="Tambah Materi Ujian" class="btn btn-dark" id="add" />
+                                <input type="button" value="Tambah Materi Ujian" class="btn btn-dark" id="addjuz" />
                             </div>
                             <div class="col-md-5 col-sm-6 col-xs-12">
                                 <div class="item form-group">
+                                    <label for="target_tahfizh">Target Ujian Tahfizh</label>
+                                    <select class="form-control" id="target_tahfizh" name="indicator2[targettahfizh][]" multiple="multiple">
+                                        <option>Target Tahfizh (Juz)<option>
+                                        <?php for($i=1;$i<=30;$i++) { ?>
+                                            <option <?php if(in_array($i, $tahfizhtarget)){echo 'selected';} ?> value="<?php echo $i; ?>">Juz <?php echo $i; ?></option>
+                                        <?php } ?>
+                                    </select> 
                                     <label for="tahfizh_note">Catatan Tahfizh</label>
                                     <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[tfnote]"  id="tahfizh_note" placeholder="<?php echo $this->lang->line('indicator2[tfnote]'); ?>"  rows="10"><?php echo isset($markvalues2['tfnote']) ?  $markvalues2['tfnote'] : ''; ?></textarea>
                                     <div class="help-block"><?php echo form_error('indicator2[tfnote]'); ?></div>
                                 </div>
                             </div>
                         </div>
+                    </section>
+                    <h3>Penilaian Ziyadah</h3>
+                    <section>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahfizh_adab">Adab di Dalam Halaqoh</label>
+                                <select class="form-control" id="tahfizh_adab" name="indicator2[adab]">
+                                    <option>--------</option>
+                                    <option <?php if(isset($markvalues2['adab']) && $markvalues2['adab'] == '1'){echo 'selected';} ?> value="1">Jayyid Jiddan</option>
+                                    <option <?php if(isset($markvalues2['adab']) && $markvalues2['adab'] == '2'){echo 'selected';} ?> value="2">Jayyid</option>
+                                    <option <?php if(isset($markvalues2['adab']) && $markvalues2['adab'] == '3'){echo 'selected';} ?> value="3">Maqbul</option>
+                                </select>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[adabnote]"  id="adab_note" value="<?php echo isset($markvalues2['adabnote']) ?  $markvalues2['adabnote'] : ''; ?>" placeholder="Catatan Adab" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[adabnote]'); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahfizh_murajaah">Murajaah (Mengulang Hafalan)</label>
+                                <select class="form-control" id="tahfizh_murajaah" name="indicator2[murajaah]">
+                                    <option>--------</option>
+                                    <option <?php if(isset($markvalues2['murajaah']) && $markvalues2['murajaah'] == '1'){echo 'selected';} ?> value="1">Jayyid Jiddan</option>
+                                    <option <?php if(isset($markvalues2['murajaah']) && $markvalues2['murajaah'] == '2'){echo 'selected';} ?> value="2">Jayyid</option>
+                                    <option <?php if(isset($markvalues2['murajaah']) && $markvalues2['murajaah'] == '3'){echo 'selected';} ?> value="3">Maqbul</option>
+                                </select>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[murajaahnote]"  id="murajaah_note" value="<?php echo isset($markvalues2['murajaahnote']) ?  $markvalues2['adabnote'] : ''; ?>" placeholder="Catatan Murajaah" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[murajaahnote]'); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahfizh_tahsin">Tahsin</label>
+                                <select class="form-control" id="tahfizh_tahsin" name="indicator2[tahsin]">
+                                    <option>--------</option>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '1'){echo 'selected';} ?> value="1">Basic 1</option>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Basic 2</option>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '3'){echo 'selected';} ?> value="3">Basic 3</option>
+                                </select>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tahsindesk]"  id="tahsin_desk" value="<?php echo isset($markvalues2['tahsindesk']) ?  $markvalues2['tahsindesk'] : ''; ?>" placeholder="Catatan Tahsin" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[tahsindesk]'); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahfizh_target">Pencapaian Target Hafalan</label>
+                                <select class="form-control" id="tahfizh_target" name="indicator2[target]">
+                                    <option>--------</option>
+                                    <option <?php if(isset($markvalues2['target']) && $markvalues2['target'] == '1'){echo 'selected';} ?> value="1">25%</option>
+                                    <option <?php if(isset($markvalues2['target']) && $markvalues2['target'] == '2'){echo 'selected';} ?> value="2">50%</option>
+                                    <option <?php if(isset($markvalues2['target']) && $markvalues2['target'] == '3'){echo 'selected';} ?> value="3">75%</option>
+                                    <option <?php if(isset($markvalues2['target']) && $markvalues2['target'] == '4'){echo 'selected';} ?> value="4">100%</option>
+                                </select>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[targetnote]"  id="target_note" value="<?php echo isset($markvalues2['targetnote']) ?  $markvalues2['targetnote'] : ''; ?>" placeholder="Catatan Target" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[targetnote]'); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="last_juz">Juz Terakhir</label>
+                                <select class="form-control" id="last_juz" name="indicator2[lastjuz]">
+                                    <option>--------</option>
+                                    <?php for($i=1;$i<=30;$i++) { ?>
+                                        <option <?php if(isset($markvalues2['lastjuz']) && $markvalues2['lastjuz'] == $i){echo 'selected';} ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[lastsuratayat]"  id="last_suratayat" value="<?php echo isset($markvalues2['lastsuratayat']) ?  $markvalues2['lastsuratayat'] : ''; ?>" placeholder="Surat dan Ayat Terakhir" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('indicator2[last_suratayat]'); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="total_juz">Total Hafalan</label>
+                                <select class="form-control" id="total_juz" name="indicator2[totaljuz]">
+                                    <option>--------</option>
+                                    <?php for($i=1;$i<=30;$i++) { ?>
+                                        <option <?php if(isset($markvalues2['totaljuz']) && $markvalues2['totaljuz'] == $i){echo 'selected';} ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                    <?php } ?>
+                                </select>
+                                Juz
+                                <div class="help-block"><?php echo form_error('indicator2[totaljuz]'); ?></div>
+                            </div>
+                        </div>
+                    </div>
                     </section>
                     <h3>Ujian Tahsin</h3>
                     <section>
@@ -435,6 +528,11 @@
                             <div class="item form-group">
                                 <label for="tahsin_tapan">Konsistensi Tanda Panjang</label>
                                 <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tapan]"  id="tahsin_tapan" value="<?php echo isset($markvalues2['tapan']) ?  $markvalues2['tapan'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[tapan]'); ?>" type="text" autocomplete="off">
+                                <select class="form-control" id="tahsin_tapan_skill" name="indicator2[tapanskill]">
+                                    <option>Nilai Keterampilan</option>
+                                    <option <?php if(isset($markvalues2['tapanskill']) && $markvalues2['tapanskill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
+                                    <option <?php if(isset($markvalues2['tapanskill']) && $markvalues2['tapanskill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
+                                </select>
                                 <div class="help-block"><?php echo form_error('indicator2[tapan]'); ?></div>
                             </div>
                         </div>
@@ -442,6 +540,11 @@
                             <div class="item form-group">
                                 <label for="tahsin_gunnah">Keseimbangan Tanda Gunnah</label>
                                 <input  class="form-control col-md-2 col-xs-4"  name="indicator2[gunnah]"  id="tahsin_gunnah" value="<?php echo isset($markvalues2['gunnah']) ?  $markvalues2['gunnah'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[gunnah]'); ?>" type="text" autocomplete="off">
+                                <select class="form-control" id="tahsin_gunnah_skill" name="indicator2[gunnahskill]">
+                                    <option>Nilai Keterampilan</option>
+                                    <option <?php if(isset($markvalues2['gunnahskill']) && $markvalues2['gunnahskill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
+                                    <option <?php if(isset($markvalues2['gunnahskill']) && $markvalues2['gunnahskill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
+                                </select>
                                 <div class="help-block"><?php echo form_error('indicator2[gunnah]'); ?></div>
                             </div>
                         </div>
@@ -449,6 +552,11 @@
                             <div class="item form-group">
                                 <label for="tahsin_vokal">Tuntutan Kesempurnaan Vokal</label>
                                 <input  class="form-control col-md-2 col-xs-4"  name="indicator2[vokal]"  id="tahsin_vokal" value="<?php echo isset($markvalues2['vokal']) ?  $markvalues2['vokal'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[vokal]'); ?>" type="text" autocomplete="off">
+                                <select class="form-control" id="tahsin_vokal_skill" name="indicator2[vokalskill]">
+                                    <option>Nilai Keterampilan</option>
+                                    <option <?php if(isset($markvalues2['vokalskill']) && $markvalues2['vokalskill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
+                                    <option <?php if(isset($markvalues2['vokalskill']) && $markvalues2['vokalskill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
+                                </select>
                                 <div class="help-block"><?php echo form_error('indicator2[vokal]'); ?></div>
                             </div>
                         </div>
@@ -456,16 +564,91 @@
                             <div class="item form-group">
                                 <label for="tahsin_sukun">Pengucapan Huruf Sukun</label>
                                 <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sukun]"  id="tahsin_sukun" value="<?php echo isset($markvalues2['sukun']) ?  $markvalues2['sukun'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sukun]'); ?>" type="text" autocomplete="off">
+                                <select class="form-control" id="tahsin_sukun_skill" name="indicator2[sukunskill]">
+                                    <option>Nilai Keterampilan</option>
+                                    <option <?php if(isset($markvalues2['sukunskill']) && $markvalues2['sukunskill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
+                                    <option <?php if(isset($markvalues2['sukunskill']) && $markvalues2['sukunskill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
+                                </select>
                                 <div class="help-block"><?php echo form_error('indicator2[sukun]'); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahsin_note">Catatan Tahsin</label>
+                                <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[tahsinnote]"  id="tahsin_note" placeholder="<?php echo $this->lang->line('indicator2[tahsinnote]'); ?>"  rows="10"><?php echo isset($markvalues2['tahsinnote']) ?  $markvalues2['tahsinnote'] : ''; ?></textarea>
+                                <div class="help-block"><?php echo form_error('indicator2[tahsinnote]'); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="item form-group">
+                                <label for="tahsin_target">Target Tahsin</label>
+                                <select class="form-control" id="tahsin_target" name="indicator2[tahsintarget]">
+                                    <option>--------</option>
+                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '1'){echo 'selected';} ?> value="1">Basic 1</option>
+                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '2'){echo 'selected';} ?> value="2">Basic 2</option>
+                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '3'){echo 'selected';} ?> value="3">Basic 3</option>
+                                </select>
+                                <div class="help-block"><?php echo form_error('indicator2[tahsintarget]'); ?></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="item form-group">
-                                <label for="tahsin_note">Catatan Tahsin</label>
-                                <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[tahsinnote]"  id="tahsin_note" placeholder="<?php echo $this->lang->line('indicator2[tahsinnote]'); ?>"  rows="10"><?php echo isset($markvalues2['tahsinnote']) ?  $markvalues2['tahsinnote'] : ''; ?></textarea>
-                                <div class="help-block"><?php echo form_error('indicator2[tahsinnote]'); ?></div>
+                                <label for="tahsin_note">Preview Rapot</label>
+                                <?php 
+                                    $pembagi = 0;
+                                    if(!empty($markvalues2['tapan'])){
+                                        $totalnilaimark += $markvalues2['tapan'];
+                                        $pembagi++;
+                                    }
+                                    if(!empty($markvalues2['gunnah'])){
+                                        $totalnilaimark += $markvalues2['gunnah'];
+                                        $pembagi++;
+                                    }
+                                    if(!empty($markvalues2['vokal'])){
+                                        $totalnilaimark += $markvalues2['vokal'];
+                                        $pembagi++;
+                                    }
+                                    if(!empty($markvalues2['sukun'])){
+                                        $totalnilaimark += $markvalues2['sukun'];
+                                        $pembagi++;
+                                    }
+
+                                    $alltotal = $totalnilaimark / $pembagi;
+                                    $labelpredikat = "Belum Terlampaui";
+                                    if ($alltotal > 80){
+                                        $labelpredikat = "Terlampaui";
+                                    }
+
+                                    // Nilai Keterampilan
+                                    if(!empty($markvalues2['tapanskill'])){
+                                        $totalnilaimark2 += $markvalues2['tapanskill'];
+                                    }
+                                    if(!empty($markvalues2['gunnahskill'])){
+                                        $totalnilaimark2 += $markvalues2['gunnahskill'];
+                                    }
+                                    if(!empty($markvalues2['vokalskill'])){
+                                        $totalnilaimark2 += $markvalues2['vokalskill'];
+                                    }
+                                    if(!empty($markvalues2['sukunskill'])){
+                                        $totalnilaimark2 += $markvalues2['sukunskill'];
+                                    }
+
+                                    $alltotal2 = $totalnilaimark2;
+                                    $labelpredikat2 = "Belum Terlampaui";
+                                    if ($alltotal2 == 8){
+                                        $labelpredikat2 = "Basic 3";
+                                    } else if($alltotal2 >= 6){
+                                        $labelpredikat2 = "Basic 2";
+                                    }  else if($alltotal2 >= 4){
+                                        $labelpredikat2 = "Basic 1";
+                                    }
+                                ?>
+                                Pengetahuan <?php echo $labelpredikat . '(' . $alltotal . ')'; ?><br/>
+                                Keterampilan <?php echo $labelpredikat2 . '(' . $alltotal2 . ')'; ?><br/>
                             </div>
                         </div>
                     </div>
@@ -544,20 +727,35 @@ $(document).ready(function() {
         placeholder: 'Pilih Siswa',
         language: 'id',
     }); 
+    $('#target_tahfizh').select2({
+        placeholder: 'Pilih Juz',
+        language: 'id',
+    });
+
+    // Per Surat
     var fOption = "<?php echo $thesurat; ?>";
+    var fOptionJuz = "<?php echo $thejuz; ?>";
     
     <?php if(!empty($tahfizhvalues)) {?>
         $(".remove").click(function() {
             $(this).parent().remove();
         });
-        $('select[id^="thesurat"]').select2({
+        <?php /*$('select[id^="thesurat"]').select2({
             placeholder: 'Pilih Surat',
+            language: 'id',
+            width: 'resolve'
+        }); */ ?>
+
+        $('select[id^="thejuz"]').select2({
+            placeholder: 'Pilih Juz',
             language: 'id',
             width: 'resolve'
         }); 
         var lastField = $("#buildyourform div:last");
         lastField.data("idx", <?php echo $tahfizhlastfields; ?>);
     <?php } ?>
+
+    // Per Surat
     $("#add").click(function() {
     	var lastField = $("#buildyourform div:last");
         var intId = (lastField && lastField.length && lastField.data("idx") + 1 ) || 1;
@@ -578,6 +776,28 @@ $(document).ready(function() {
         $("#buildyourform").append(fieldWrapper);
         $('select[id^="thesurat"]').select2({
             placeholder: 'Pilih Surat',
+            language: 'id',
+            width: 'resolve'
+        }); 
+    });
+    // Per Juz
+    $("#addjuz").click(function() {
+    	var lastField = $("#buildyourform div:last");
+        var intId = (lastField && lastField.length && lastField.data("idx") + 1 ) || 1;
+        var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + intId + "\"/>");
+        fieldWrapper.data("idx", intId);
+        var fType = $("<select id=\"thejuz"+intId+"\" name=\"thejuz["+intId+"][]\" class=\"fieldtype form-control\">"+fOptionJuz+"</select>");
+        var fMark = $("<input name=\"markjuz["+intId+"][]\" type=\"text\" class=\"fieldname form-control\" placeholder=\"Nilai\" />");
+        var removeButton = $("<input type=\"button\" class=\"remove\" value=\"-\" />");
+        removeButton.click(function() {
+            $(this).parent().remove();
+        });
+        fieldWrapper.append(fType);
+        fieldWrapper.append(fMark);
+        fieldWrapper.append(removeButton);
+        $("#buildyourform").append(fieldWrapper);
+        $('select[id^="thejuz"]').select2({
+            placeholder: 'Pilih Juz',
             language: 'id',
             width: 'resolve'
         }); 
