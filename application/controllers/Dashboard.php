@@ -134,6 +134,8 @@ class Dashboard extends MY_Controller {
         $guardians = $this->dashboard->get_search_guardian($school_id, $keyword);
         $teachers = $this->dashboard->get_search_teacher($school_id, $keyword);
         $employees = $this->dashboard->get_search_employee($school_id, $keyword);
+
+        $responsibility = $this->session->userdata['responsibility'];
         
         $result_str = '';
             
@@ -149,6 +151,8 @@ class Dashboard extends MY_Controller {
                             <div class="clearfix"></div>';
             
             foreach($students as $obj){
+              $belongs = ($this->session->userdata['profile_id'] == $obj->class_tahfizh_id) ? TRUE : FALSE;
+              $belongs2 = ($this->session->userdata['profile_id'] == $obj->class_bpi_id) ? TRUE : FALSE;
                $result_str .= '<div class="col-md-4 col-sm-4 col-xs-12 profile_details">
                             <div class="well profile_view">
                               <div class="col-sm-12">
@@ -173,26 +177,32 @@ class Dashboard extends MY_Controller {
                                     </ul>
                                 </div>
                               </div>
-                              <div class="col-xs-12 col-sm-12 bottom text-center">
+                              <div class="col-xs-12 col-sm-12 bottom text-center">';
+                              $result_str .= '
                                   <a href="'.site_url('student/view/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> '.$this->lang->line('view_profile').'
-                                  </a>
-                                  <a href="'.site_url('exam/resultcardform/view/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
+                                  </a>';
+                                  if (($belongs2 && $responsibility == 'bpi') || ($belongs2 && $responsibility == 'tbi') || $this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {
+                                    $result_str .= '<a href="'.site_url('exam/resultcardform/view/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Rapot BPI
                                   </a>
-                                  <a href="'.site_url('exam/resultcardform/view/character/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
+                                  <a href="'.site_url('exam/resultcardform/view/character/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Rapot Karakter
                                   </a>
-                                  <a href="'.site_url('exam/mark/form/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
+                                  <a href="'.site_url('exam/mark/form/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Input Nilai BPI
-                                  </a>
-                                  <a href="'.site_url('exam/mark/resultcardform/view/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
+                                  </a>';
+                                  }
+                                  if (($belongs && $responsibility == 'tahfidz') || ($belongs && $responsibility == 'tbi')  || $this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {
+                                    $result_str .= '<a href="'.site_url('exam/mark/resultcardform/view/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Raport Tahfizh
                                   </a>
-                                  <a href="'.site_url('exam/mark/form/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->section_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
+                                  <a href="'.site_url('exam/mark/form/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->student_id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Input Nilai Tahfizh
-                                  </a>                       
-                              </div>
+                                  </a>';
+                                  }
+                                            
+                              $result_str .=  '</div>
                             </div>
                           </div>'; 
             }

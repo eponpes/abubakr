@@ -24,7 +24,15 @@ class Student_Model extends MY_Model {
         $this->db->join('schools AS SC', 'SC.id = S.school_id', 'left');
 
         $class_bpi_id = $class_tahfizh_id = '';
-        if ($this->session->userdata['responsibility'] == 'bpi') {
+        if($this->session->userdata['responsibility'] == 'tbi'){
+                $profile_id = $this->session->userdata['profile_id'];
+                $field = "E.class_tahfizh_id";
+                $field2 = "E.class_bpi_id";
+                $this->db->group_start();
+                $this->db->or_where('E.class_tahfizh_id',$profile_id);
+                $this->db->or_where('E.class_bpi_id',$profile_id);
+                $this->db->group_end();
+        } else if ($this->session->userdata['responsibility'] == 'bpi') {
             $class_bpi_id = $this->session->userdata['profile_id'];
         } else if ($this->session->userdata['responsibility'] == 'tahfidz') {
             $class_tahfizh_id = $this->session->userdata['profile_id'];
@@ -41,6 +49,7 @@ class Student_Model extends MY_Model {
         if($academic_year_id){
             $this->db->where('E.academic_year_id', $academic_year_id); 
         }
+        
         if($class_id){
             $this->db->where('E.class_id', $class_id);
         }

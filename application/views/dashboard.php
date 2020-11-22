@@ -136,7 +136,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">            
         <div class="x_panel tile overflow_hidden">
             <div class="x_title">
-                <h4 class="head-title">Tahfizh, Tahsin dan BPI</h4>
+                <h4 class="head-title">Pengisian Nilai dan Rapot</h4>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>                                
                 </ul>
@@ -146,7 +146,7 @@
                 <div class="row home-row">
                     <div class="tile_button">
                         <?php if(has_permission(VIEW, 'exam', 'mark') && has_permission(VIEW, 'exam', 'resultcard')){ ?>
-                            <?php if($responsibility != 'bpi' ) { ?>
+                            <?php if($responsibility != 'bpi' || $responsibility == 'tbi') { ?>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/mark/form/tahfizh'); ?>" class="button">
                                 <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
@@ -173,7 +173,7 @@
                     <div class="tile_button">
                     
                     <?php if(has_permission(VIEW, 'exam', 'resultcard') && has_permission(VIEW, 'exam', 'mark')){ ?>
-                        <?php if($responsibility != 'tahfidz' ) { ?>
+                        <?php if($responsibility != 'tahfidz' || $responsibility == 'tbi') { ?>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/mark/form/bpi'); ?>" class="button">
                                 <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>

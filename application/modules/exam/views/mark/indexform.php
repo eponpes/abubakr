@@ -48,7 +48,7 @@
                             <?php $teacher_student_data = get_teacher_access_data('student'); ?>
                             <?php $guardian_class_data = get_guardian_access_data('class'); ?>
                             <div><?php echo $this->lang->line('class'); ?>  <span class="required">*</span></div>
-                            <select  class="form-control col-md-7 col-xs-12" name="class_id" id="class_id"  required="required" onchange="get_student_by_class(this.value,'');">
+                            <select  class="form-control col-md-7 col-xs-12" name="class_id" id="class_id"  required="required" onchange="get_student_by_class(this.value,'', '<?php echo $formtype; ?>');">
                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                 <?php foreach ($classes as $obj) { ?>
                                     <?php if($this->session->userdata('role_id') == TEACHER && !in_array($obj->id, $teacher_student_data)){ continue;  ?>
@@ -893,12 +893,12 @@ $(document).ready(function() {
             });
         }); 
     
-       function get_class_by_school(school_id, class_id){       
+       function get_class_by_school(school_id, class_id, formtype){       
              
             $.ajax({       
                 type   : "POST",
                 url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
-                data   : { school_id:school_id, class_id:class_id},               
+                data   : { school_id:school_id, class_id:class_id, formtype: <?php echo $formtype;?>},               
                 async  : false,
                 success: function(response){                                                   
                    if(response)
@@ -943,10 +943,10 @@ $(document).ready(function() {
         }
 
         <?php if(isset($class_id)){ ?>
-            get_student_by_class('<?php echo $class_id; ?>', '<?php echo $student_id; ?>');
+            get_student_by_class('<?php echo $class_id; ?>', '<?php echo $student_id; ?>', '<?php echo $formtype; ?>');
         <?php } ?>
         
-        function get_student_by_class(class_id, student_id){       
+        function get_student_by_class(class_id, student_id, formtype){       
             
             var school_id = $('#school_id').val();  
             if(!school_id){
@@ -956,7 +956,7 @@ $(document).ready(function() {
             $.ajax({       
                 type   : "POST",
                 url    : "<?php echo site_url('ajax/get_student_by_class'); ?>",
-                data   : {school_id:school_id, class_id: class_id, student_id: student_id},               
+                data   : {school_id:school_id, class_id: class_id, student_id: student_id, formtype: formtype},               
                 async  : false,
                 success: function(response){                                                   
                    if(response)

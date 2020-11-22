@@ -134,10 +134,11 @@ class Ajax extends My_Controller {
         $school_id = $this->input->post('school_id');
         $class_id = $this->input->post('class_id');
         $student_id = $this->input->post('student_id');
+        $formtype = $this->input->post('formtype');
         $is_bulk = $this->input->post('is_bulk');
          
         $school = $this->ajax->get_school_by_id($school_id);
-        $students = $this->ajax->get_student_list($class_id, $school_id, $school->academic_year_id);
+        $students = $this->ajax->get_student_list($class_id, $school_id, $school->academic_year_id, $formtype);
 
         $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
         if($is_bulk){

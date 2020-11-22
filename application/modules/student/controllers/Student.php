@@ -41,7 +41,8 @@ class Student extends MY_Controller {
             error($this->lang->line('unexpected_error'));
             redirect('academic/classes/index');
         }
-        
+
+        $this->data['responsibility'] = $this->session->userdata['responsibility'];
         // for super admin 
         $school_id = '';
         if($_POST){

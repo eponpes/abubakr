@@ -304,6 +304,13 @@ class School extends MY_Controller {
         $items[] = 'youtube_url';
         $items[] = 'instagram_url';
         $items[] = 'pinterest_url';
+        $items[] = 'adm_director';
+        $items[] = 'adm_principal';
+        $items[] = 'adm_secretary';
+        $items[] = 'adm_finance';
+        $items[] = 'adm_sietahfizh';
+        $items[] = 'adm_siebpi';
+        $items[] = 'adm_academic';
         
         $data = elements($items, $_POST); 
         

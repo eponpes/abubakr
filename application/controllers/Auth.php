@@ -125,6 +125,8 @@ class Auth extends CI_Controller {
                         $this->session->set_userdata('responsibility', 'bpi');
                     } else if (stripos($profile->responsibility, "guru tahfidz") !== false) {
                         $this->session->set_userdata('responsibility', 'tahfidz');
+                    } else if (stripos($profile->responsibility, "guru tbi") !== false) {
+                        $this->session->set_userdata('responsibility', 'tbi');
                     } else {
                         $this->session->set_userdata('responsibility', $profile->responsibility);
                     }

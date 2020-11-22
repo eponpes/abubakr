@@ -151,7 +151,10 @@
                                                     <?php } ?>
                                                 
                                  <?php 
-                                 if ($this->session->userdata['responsibility'] == 'bpi' || $this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {
+                                 $belongs = ($this->session->userdata['profile_id'] == $obj->class_tahfizh_id) ? TRUE : FALSE;
+                                 $belongs2 = ($this->session->userdata['profile_id'] == $obj->class_bpi_id) ? TRUE : FALSE;
+
+                                 if (($belongs2 && $responsibility == 'bpi') || ($belongs2 && $responsibility == 'tbi') || $this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {
                                  echo '<a href="'.site_url('exam/resultcardform/view/bpi/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Rapot BPI
                                   </a>
@@ -162,7 +165,7 @@
                                     <i class="fa fa-user"> </i> Input Nilai BPI
                                   </a>';
                                  } 
-                                 if ($this->session->userdata['responsibility'] == 'tahfidz' || $this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {
+                                 if (($belongs && $responsibility == 'tahfidz') || ($belongs && $responsibility == 'tbi')  || $this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {
                                     echo '
                                   <a href="'.site_url('exam/resultcardform/view/tahfizh/'.$obj->school_id.'/'.$obj->academic_year_id.'/'.$obj->class_id.'/'.$obj->id).'" type="button" class="btn btn-success btn-xs">
                                     <i class="fa fa-user"> </i> Raport Tahfizh

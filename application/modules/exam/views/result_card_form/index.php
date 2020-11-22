@@ -44,7 +44,7 @@
                             <?php $teacher_student_data = get_teacher_access_data('student'); ?>
                             <?php $guardian_class_data = get_guardian_access_data('class'); ?>
                             <div><?php echo $this->lang->line('class'); ?>  <span class="required">*</span></div>
-                            <select  class="form-control col-md-7 col-xs-12" name="class_id" id="class_id"  required="required" onchange="get_student_by_class(this.value,'');">
+                            <select  class="form-control col-md-7 col-xs-12" name="class_id" id="class_id"  required="required" onchange="get_student_by_class(this.value,'', '<?php echo $formtype; ?>');">
                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                 <?php foreach ($classes as $obj) { ?>
                                     <?php if($this->session->userdata('role_id') == TEACHER && !in_array($obj->id, $teacher_student_data)){ continue;  ?>
@@ -199,14 +199,14 @@
                                 <td style="text-align:left; width: 30%">: <?php echo $student->name; ?></td>
                                 <td style="text-align:left; width: 10%"></td>
                                 <td style="text-align:left; width: 20%">Tahun Pelajaran</td>
-                                <td>2020/2021</td>
+                                <td style="text-align:left; width: 150px"><?php echo $session; ?></td>
                             </tr>
                             <tr>
                                 <td style="text-align:left; width: 150px">NIS/NISN</td>
                                 <td style="text-align:left; width: 30%">: <?php echo $student->roll_no; ?></td>
                                 <td style="text-align:left; width: 10%"></td>
                                 <td style="text-align:left; width: 20%">Kelas/Semester</td>
-                                <td><?php echo $student->class_name . ' ' . $student->section; ?> </td>
+                                <td style="text-align:left; width: 150px"><?php echo $student->class_name . ' ' . $student->section; ?> </td>
                             </tr>
                         </table>
                         
@@ -283,7 +283,9 @@
                             <p>Mudir PPTQ Ibadurrohman</p>
                         </div>
                         <div class="signature">
-                            KH. Didi M.Turmudzi, Lc., MA.
+                            <?php if(isset($school->adm_principal)) {
+                                echo $school->adm_principal;
+                            } ?>
                         </div>
                     </div>
                     <div class="col-xs-1 text-center">
@@ -294,7 +296,9 @@
                             <p><br/><br>Ketua BPI</p>
                         </div>
                         <div class="signature">
-                            Angga Permana
+                            <?php if(isset($school->adm_siebpi)) {
+                                echo $school->adm_siebpi;
+                            } ?>
                         </div>
                     </div>
                     <div class="col-xs-1 text-center">
@@ -312,7 +316,10 @@
                             <p>Guru Pembina BPI</p>
                         </div>
                         <div class="signature">
-                            Ust. Ihsan Fauzi, S.Pd.I, Al Hafidz
+                            <?php if(isset($school->adm_siebpi)) {
+                                    echo $school->adm_siebpi;
+                                } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -325,7 +332,10 @@
                         <p>Mudir PPTQ Ibadurrohman</p>
                     </div>
                     <div class="signature">
-                        KH. Didi M.Turmudzi, Lc., MA.
+                            <?php if(isset($school->adm_principal)) {
+                                echo $school->adm_principal;
+                            } ?>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-2 text-center">
@@ -343,7 +353,9 @@
                         <p>Kasie Tahfidz</p>
                     </div>
                     <div class="signature">
-                        Ust. Ihsan Fauzi, S.Pd.I, Al Hafidz
+                            <?php if(isset($school->adm_sietahfizh)) {
+                                echo $school->adm_sietahfizh;
+                            } ?>
                     </div>
                 </div>
             </div>
@@ -430,10 +442,10 @@
  <script type="text/javascript">     
     
     <?php if(isset($class_id)){ ?>
-            get_student_by_class('<?php echo $class_id; ?>', '<?php echo $student_id; ?>');
+            get_student_by_class('<?php echo $class_id; ?>', '<?php echo $student_id; ?>', '<?php echo $formtype; ?>');
         <?php } ?>
         
-        function get_student_by_class(class_id, student_id){       
+        function get_student_by_class(class_id, student_id, formtype){       
             
             var school_id = $('#school_id').val();  
             if(!school_id){
@@ -443,7 +455,7 @@
             $.ajax({       
                 type   : "POST",
                 url    : "<?php echo site_url('ajax/get_student_by_class'); ?>",
-                data   : {school_id:school_id, class_id: class_id, student_id: student_id},               
+                data   : {school_id:school_id, class_id: class_id, student_id: student_id, formtype: formtype},               
                 async  : false,
                 success: function(response){                                                   
                    if(response)
@@ -545,7 +557,7 @@ $('#period').change(function(e){
 }); 
 $("#send").on("click", function(e){
     e.preventDefault();
-    <?php if($this->session->userdata('role_id') == 'SUPER_ADMIN'){ ?>
+    <?php if($this->session->userdata('role_id') == '1'){ ?>
         var school_id = $("#school_id option:selected").val();
     <?php } else if(isset($school_id)) { ?>
         var school_id = <?php echo $school_id; ?>;

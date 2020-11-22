@@ -8,7 +8,7 @@ class Ajax_Model extends MY_Model {
         parent::__construct();
     }
     
-    public function get_student_list($class_id, $school_id, $academic_year_id){
+    public function get_student_list($class_id, $school_id, $academic_year_id, $formtype = null){
         $this->db->select('E.roll_no,  S.id, S.user_id, S.name');
         $this->db->from('enrollments AS E');        
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
@@ -18,7 +18,13 @@ class Ajax_Model extends MY_Model {
         }
 
         $class_bpi_id = $class_tahfizh_id = '';
-        if ($this->session->userdata['responsibility'] == 'bpi') {
+        if($this->session->userdata['responsibility'] == 'tbi'){
+            if($formtype == 'tahfizh'){
+                $class_tahfizh_id = $this->session->userdata['profile_id'];
+            } else if($formtype == 'bpi'){
+                $class_bpi_id = $this->session->userdata['profile_id'];
+            }
+        } else if ($this->session->userdata['responsibility'] == 'bpi') {
             $class_bpi_id = $this->session->userdata['profile_id'];
         } else if ($this->session->userdata['responsibility'] == 'tahfidz') {
             $class_tahfizh_id = $this->session->userdata['profile_id'];

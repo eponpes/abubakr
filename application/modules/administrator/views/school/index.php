@@ -369,6 +369,67 @@
 
                                 <div class="row">                  
                                     <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h5  class="column-title"><strong>Informasi Administrasi:</strong></h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_director">Ketua Yayasan</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_director"  id="adm_director" value="<?php echo isset($post['adm_director']) ?  $post['facebook_url'] : ''; ?>" placeholder="<?php echo $this->lang->line('adm_director'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_director'); ?></div> 
+                                        </div>
+                                    </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_principal">Kepala Sekolah / Mudir </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_principal"  id="adm_principal" value="<?php echo isset($post['adm_principal']) ?  $post['adm_principal'] : ''; ?>" placeholder="<?php echo $this->lang->line('adm_principal'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_principal'); ?></div> 
+                                        </div>
+                                    </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_sietahfizh">Kepala Tahfizh </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_sietahfizh"  id="adm_sietahfizh" value="<?php echo isset($post['adm_sietahfizh']) ?  $post['adm_sietahfizh'] : ''; ?>" placeholder="<?php echo $this->lang->line('adm_sietahfizh'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_sietahfizh'); ?></div> 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_siebpi">Kepala BPI </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_siebpi"  id="adm_siebpi" value="<?php echo isset($post['adm_siebpi']) ?  $post['adm_siebpi'] : ''; ?>" placeholder="<?php echo $this->lang->line('adm_siebpi'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_siebpi'); ?></div> 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_secretary">Sekretaris </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_secretary"  id="adm_secretary" value="<?php echo isset($post['adm_secretary']) ?  $post['adm_secretary'] : ''; ?>" placeholder="<?php echo $this->lang->line('adm_secretary'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_secretary'); ?></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_finance">Bendahara </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_finance"  id="adm_finance" value="<?php echo isset($post['adm_finance']) ?  $post['adm_finance'] : ''; ?>" placeholder="<?php echo $this->lang->line('adm_finance'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_finance'); ?></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_academic">Bag. Akademik </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_academic"  id="adm_academic" value="<?php echo isset($post['adm_academic']) ?  $post['adm_academic'] : ''; ?>" placeholder="<?php echo $this->lang->line('adm_academic'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_academic'); ?></div> 
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row">                  
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <h5  class="column-title"><strong><?php echo $this->lang->line('other_information'); ?>:</strong></h5>
                                     </div>
                                 </div>
@@ -683,6 +744,67 @@
                                             <label for="pinterest_url"><?php echo $this->lang->line('pinterest_url'); ?> </label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="pinterest_url"  id="pinterest_url" value="<?php echo isset($school) ? $school->pinterest_url : ''; ?>" placeholder="<?php echo $this->lang->line('pinterest_url'); ?> " type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('pinterest_url'); ?></div> 
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row">                  
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h5  class="column-title"><strong>Informasi Administrasi:</strong></h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_director">Ketua Yayasan</label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_director"  id="adm_director" value="<?php echo isset($school) ? $school->adm_director : ''; ?>" placeholder="<?php echo $this->lang->line('adm_director'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_director'); ?></div> 
+                                        </div>
+                                    </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_principal">Kepala Sekolah / Mudir </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_principal"  id="adm_principal" value="<?php echo isset($school) ? $school->adm_principal : ''; ?>" placeholder="<?php echo $this->lang->line('adm_principal'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_principal'); ?></div> 
+                                        </div>
+                                    </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_sietahfizh">Kepala Tahfizh </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_sietahfizh"  id="adm_sietahfizh" value="<?php echo isset($school) ? $school->adm_sietahfizh : ''; ?>" placeholder="<?php echo $this->lang->line('adm_sietahfizh'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_sietahfizh'); ?></div> 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_siebpi">Kepala BPI </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_siebpi"  id="adm_siebpi" value="<?php echo isset($school) ? $school->adm_siebpi : ''; ?>" placeholder="<?php echo $this->lang->line('adm_siebpi'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_siebpi'); ?></div> 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_secretary">Sekretaris </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_secretary"  id="adm_secretary" value="<?php echo isset($school) ? $school->adm_secretary : ''; ?>" placeholder="<?php echo $this->lang->line('adm_secretary'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_secretary'); ?></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_finance">Bendahara </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_finance"  id="adm_finance" value="<?php echo isset($school) ? $school->adm_finance : ''; ?>" placeholder="<?php echo $this->lang->line('adm_finance'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_finance'); ?></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="adm_academic">Bag. Akademik </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="adm_academic"  id="adm_academic" value="<?php echo isset($school) ? $school->adm_academic : ''; ?>" placeholder="<?php echo $this->lang->line('adm_academic'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('adm_academic'); ?></div> 
                                         </div>
                                     </div>
                                     
