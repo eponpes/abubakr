@@ -46,7 +46,14 @@
                                 <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($post['name']) ?  $post['name'] : ''; ?>" placeholder="<?php echo $this->lang->line('name'); ?>" required="required" type="text" autocomplete="off">
                                 <div class="help-block"><?php echo form_error('name'); ?></div> 
                             </div>
-                        </div>                     
+                        </div>   
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="pob">Tempat <span class="required">*</span></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="pob"  id="pob" value="<?php echo isset($post['pob']) ?  $post['pob'] : ''; ?>" placeholder="<?php echo $this->lang->line('pob'); ?>" required="required" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('pob'); ?></div> 
+                            </div>
+                        </div>                   
                         <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
                                 <label  for="dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
@@ -112,11 +119,72 @@
                          </div>
                      </div>
 
-                     <div class="col-md-3 col-sm-3 col-xs-12">
+                     <!--div class="col-md-3 col-sm-3 col-xs-12">
                          <div class="item form-group">
                              <label for="national_id"><?php echo $this->lang->line('national_id'); ?> </label>
                              <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($post['national_id']) ?  $post['national_id'] : ''; ?>" placeholder="<?php echo $this->lang->line('national_id'); ?>" type="text" autocomplete="off">
                              <div class="help-block"><?php echo form_error('national_id'); ?></div>
+                         </div>
+                     </div-->
+
+                     <div class="col-md-2 col-sm-2 col-xs-12">
+                         <div class="item form-group">
+                             <label for="weight">Berat Badan </label>
+                             <input  class="form-control col-md-7 col-xs-12"  name="weight"  id="weight" value="<?php echo isset($post['weight']) ?  $post['weight'] : ''; ?>" placeholder="<?php echo $this->lang->line('weight'); ?>" type="text" autocomplete="off">
+                             <div class="help-block"><?php echo form_error('weight'); ?></div>
+                         </div>
+                     </div>
+
+                     <div class="col-md-2 col-sm-2 col-xs-12">
+                         <div class="item form-group">
+                             <label for="height">Tinggi Badan </label>
+                             <input  class="form-control col-md-7 col-xs-12"  name="height"  id="height" value="<?php echo isset($post['height']) ?  $post['height'] : ''; ?>" placeholder="<?php echo $this->lang->line('height'); ?>" type="text" autocomplete="off">
+                             <div class="help-block"><?php echo form_error('height'); ?></div>
+                         </div>
+                     </div>
+
+                     <div class="col-md-2 col-sm-2 col-xs-12">
+                         <div class="item form-group">
+                             <label for="child_no">Anak ke </label>
+                             <input  class="form-control col-md-7 col-xs-12"  name="child_no"  id="child_no" value="<?php echo isset($post['child_no']) ?  $post['child_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('child_no'); ?>" type="text" autocomplete="off">
+                             <div class="help-block"><?php echo form_error('child_no'); ?></div>
+                         </div>
+                     </div>
+
+                     <div class="col-md-2 col-sm-2 col-xs-12">
+                         <div class="item form-group">
+                             <label for="child_from">Dari </label>
+                             <input  class="form-control col-md-7 col-xs-12"  name="child_from"  id="child_from" value="<?php echo isset($post['child_from']) ?  $post['child_from'] : ''; ?>" placeholder="<?php echo $this->lang->line('child_from'); ?>" type="text" autocomplete="off"> 
+                             <div class="help-block"><?php echo form_error('child_from'); ?></div>
+                         </div>
+                     </div>
+
+                     <div class="col-md-1 col-sm-1 col-xs-12">
+                     <label for="child_from">&nbsp; </label>
+                     Bersaudara
+                     </div>
+
+                     <div class="col-md-3 col-sm-3 col-xs-12">
+                         <div class="item form-group">
+                             <label for="nisn_no">No. NISN </label>
+                             <input  class="form-control col-md-7 col-xs-12"  name="nisn_no"  id="national_id" value="<?php echo isset($post['nisn_no']) ?  $post['nisn_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('nisn_no'); ?>" type="text" autocomplete="off">
+                             <div class="help-block"><?php echo form_error('nisn_no'); ?></div>
+                         </div>
+                     </div>
+
+                     <div class="col-md-3 col-sm-3 col-xs-12">
+                         <div class="item form-group">
+                             <label for="skhun_no">No. SKHUN </label>
+                             <input  class="form-control col-md-7 col-xs-12"  name="skhun_no"  id="skhun_no" value="<?php echo isset($post['skhun_no']) ?  $post['skhun_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('skhun_no'); ?>" type="text" autocomplete="off">
+                             <div class="help-block"><?php echo form_error('skhun_no'); ?></div>
+                         </div>
+                     </div>
+
+                     <div class="col-md-3 col-sm-3 col-xs-12">
+                         <div class="item form-group">
+                             <label for="ijazah_no">No. Ijasah </label>
+                             <input  class="form-control col-md-7 col-xs-12"  name="ijazah_no"  id="ijazah_no" value="<?php echo isset($post['ijazah_no']) ?  $post['ijazah_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('ijazah_no'); ?>" type="text" autocomplete="off">
+                             <div class="help-block"><?php echo form_error('ijazah_no'); ?></div>
                          </div>
                      </div>
                         <div class="col-md-3 col-sm-3 col-xs-12">
@@ -224,7 +292,28 @@
                                <input  class="form-control col-md-7 col-xs-12"  name="father_designation"  id="father_designation" value="<?php echo isset($post['father_designation']) ?  $post['father_designation'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_designation'); ?>"  type="text" autocomplete="off">
                                <div class="help-block"><?php echo form_error('father_designation'); ?></div>
                             </div>
-                        </div>                        
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                               <label for="father_religion">Agama Ayah </label>
+                               <input  class="form-control col-md-7 col-xs-12"  name="father_religion"  id="father_religion" value="<?php echo isset($post['father_religion']) ?  $post['father_religion'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_religion'); ?>"  type="text" autocomplete="off">
+                               <div class="help-block"><?php echo form_error('father_religion'); ?></div>
+                            </div>
+                        </div>       
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="father_pob">Tempat <span class="required">*</span></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="father_pob"  id="father_pob" value="<?php echo isset($post['father_pob']) ?  $post['father_pob'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_pob'); ?>" required="required" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('father_pob'); ?></div> 
+                            </div>
+                        </div>                   
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                <label  for="father_dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="father_dob"  id="father_dob" value="<?php echo isset($post['father_dob']) ?  $post['father_dob'] : ''; ?>" placeholder="<?php echo $this->lang->line('birth_date'); ?>" required="required" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('father_dob'); ?></div>
+                             </div>
+                        </div>              
                    </div>
                                             
                     <div class="row">
@@ -265,7 +354,28 @@
                                <input  class="form-control col-md-7 col-xs-12"  name="mother_designation"  id="mother_designation" value="<?php echo isset($post['mother_designation']) ?  $post['mother_designation'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_designation'); ?>"  type="text" autocomplete="off">
                                <div class="help-block"><?php echo form_error('mother_designation'); ?></div>
                             </div>
-                        </div>                        
+                        </div>   
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                               <label for="mother_religion">Agama Ibu </label>
+                               <input  class="form-control col-md-7 col-xs-12"  name="mother_religion"  id="mother_religion" value="<?php echo isset($post['mother_religion']) ?  $post['mother_religion'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_religion'); ?>"  type="text" autocomplete="off">
+                               <div class="help-block"><?php echo form_error('mother_religion'); ?></div>
+                            </div>
+                        </div>        
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="item form-group">
+                                <label for="mother_pob">Tempat <span class="required">*</span></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="mother_pob"  id="mother_pob" value="<?php echo isset($post['mother_pob']) ?  $post['mother_pob'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_pob'); ?>" required="required" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('mother_pob'); ?></div> 
+                            </div>
+                        </div>                   
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                <label  for="mother_dob"><?php echo $this->lang->line('birth_date'); ?> <span class="required">*</span></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="mother_dob"  id="mother_dob" value="<?php echo isset($post['mother_dob']) ?  $post['mother_dob'] : ''; ?>" placeholder="<?php echo $this->lang->line('birth_date'); ?>" required="required" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('mother_dob'); ?></div>
+                             </div>
+                        </div>                  
                    </div>
                     
                     
@@ -350,7 +460,20 @@
                                 <input  class="form-control col-md-7 col-xs-12"  name="gud_religion"  id="gud_religion" value="<?php echo isset($post['gud_religion']) ?  $post['gud_religion'] : ''; ?>" placeholder="<?php echo $this->lang->line('religion'); ?>" type="text" autocomplete="off">
                                 <div class="help-block"><?php echo form_error('gud_religion'); ?></div>
                             </div>
-                        </div>                        
+                        </div>      
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                 <label for="gud_earning">Penghasilan Wali <span class="required">*</span></label>
+                                  <select  class="form-control col-md-7 col-xs-12"  name="gud_earning_id"  id="gud_earning_id" required="required">
+                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                    <?php $gudearnings = get_guardian_earning(); ?>
+                                    <?php foreach($gudearnings as $key=>$value){ ?>
+                                        <option value="<?php echo $key; ?>" <?php echo isset($post['gud_earning_id']) && $post['gud_earning_id'] == $key ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <div class="help-block"><?php echo form_error('gud_earning'); ?></div>
+                             </div>
+                         </div>                  
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group">
                                 <label for="other_info"><?php echo $this->lang->line('other_info'); ?> </label>
@@ -401,6 +524,55 @@
                                <div class="help-block"><?php echo form_error('permanent_address'); ?></div>
                             </div>
                         </div>
+
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <div class="item form-group">
+                            <label for="prov">Provinsi <span class="required">*</span></label>
+                            <select  class="form-control col-md-12 col-xs-12"  name="province_id"  id="add_province_id" required="required" onchange="get_cities_by_prov(this.value, '');">
+                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                            <?php foreach($provinces as $prov){ ?>
+                                <option value="<?php echo $prov->id; ?>" <?php echo isset($post['prov']) && $post['prov'] == $prov->id ?  'selected="selected"' : ''; ?>><?php echo $prov->name; ?></option>
+                            <?php } ?>
+                        </select>
+                        <div class="help-block"><?php echo form_error('prov'); ?></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="item form-group">
+                        <label for="regency_id">Kota <span class="required">*</span></label>
+                        <select  class="form-control col-md-7 col-xs-12 quick-field" name="regency_id" id="add_regency_id" required="required"  onchange="get_district_by_city(this.value, '');">
+                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                        </select>
+                        <div class="help-block"><?php echo form_error('regency_id'); ?></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="item form-group">
+                        <label for="district_id">Kecamatan <span class="required">*</span></label>
+                        <select  class="form-control col-md-7 col-xs-12 quick-field" name="district_id" id="add_district_id" required="required"  onchange="get_villages_by_district(this.value, '');">
+                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                        </select>
+                        <div class="help-block"><?php echo form_error('district_id'); ?></div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <div class="item form-group">
+                        <label for="district_id">Kelurahan <span class="required">*</span></label>
+                        <select  class="form-control col-md-7 col-xs-12 quick-field" name="villages_id" id="add_villages_id" required="required" onchange="get_postal_code(this.value, '');">
+                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                        </select>
+                        <div class="help-block"><?php echo form_error('villages_id'); ?></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <div class="item form-group">
+                        <label for="postal_code">Kode Pos <span class="required">*</span></label>
+                        <input  class="form-control col-md-7 col-xs-12"  name="postal_code"  id="add_postal_code" value="<?php echo isset($post['postal_code']) ?  $post['postal_code'] : ''; ?>" placeholder="<?php echo $this->lang->line('postal_code'); ?>"  type="text" autocomplete="off">
+                        <div class="help-block"><?php echo form_error('postal_code'); ?></div>
+                        </div>
+                    </div>        
                    </div>
 
                     
@@ -420,6 +592,27 @@
                                 <label for="previous_class"><?php echo $this->lang->line('class'); ?></label>
                                 <input  class="form-control col-md-7 col-xs-12"  name="previous_class"  id="previous_class" value="<?php echo isset($post['previous_class']) ?  $post['previous_class'] : ''; ?>" placeholder="<?php echo $this->lang->line('class'); ?>"  type="text" autocomplete="off">
                                 <div class="help-block"><?php echo form_error('previous_class'); ?></div>
+                             </div>
+                         </div>
+                         <div class="col-md-2 col-sm-2 col-xs-12">
+                             <div class="item form-group">
+                                <label for="previous_school_address">Alamat</label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="previous_school_address"  id="previous_school_address" value="<?php echo isset($post['previous_school_address']) ?  $post['previous_school_address'] : ''; ?>" placeholder="<?php echo $this->lang->line('previous_school_address'); ?>"  type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('previous_school_address'); ?></div>
+                             </div>
+                         </div>
+                         <div class="col-md-2 col-sm-2 col-xs-12">
+                             <div class="item form-group">
+                                <label for="previous_school_city">Kota Asal</label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="previous_school_city"  id="previous_school_city" value="<?php echo isset($post['previous_school_city']) ?  $post['previous_school_city'] : ''; ?>" placeholder="<?php echo $this->lang->line('previous_school_city'); ?>"  type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('previous_school_city'); ?></div>
+                             </div>
+                         </div>
+                         <div class="col-md-2 col-sm-2 col-xs-12">
+                             <div class="item form-group">
+                                <label for="graduate_year">Tahun Kelulusan</label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="graduate_year"  id="graduate_year" value="<?php echo isset($post['graduate_year']) ?  $post['graduate_year'] : ''; ?>" placeholder="<?php echo $this->lang->line('graduate_year'); ?>"  type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('graduate_year'); ?></div>
                              </div>
                          </div>
                     </div>

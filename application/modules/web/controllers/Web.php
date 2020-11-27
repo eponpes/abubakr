@@ -70,11 +70,11 @@ class Web extends CI_Controller {
             break;
 
             case 'EP1NRMVUNVVXQF4EHZR':
-            $this->data['theme'] = 'pptq';
+            $this->data['theme'] = 'default';
             break;
 
             case 'EP1CABCVVDTTNO4ROFY':
-            $this->data['theme'] = 'rtq';
+            $this->data['theme'] = 'default';
             break;
 
             default:
