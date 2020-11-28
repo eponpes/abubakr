@@ -132,7 +132,7 @@ class Resultcardform extends MY_Controller {
     }
 
     public function view($type = null, $school_id = null, $academic_year_id = null, $class_id = null, $student_id = null) {
-
+        $this->data['clientcode'] = $this->global_setting->client_code;
         //check_permission(VIEW);
 
         $levelchar = $_GET['l'];
@@ -464,7 +464,7 @@ class Resultcardform extends MY_Controller {
                 $totaltahfizh = round($totalmarkjuz / $totaladd, 1);
 
                 //print_r($gamma);die();
-
+                
                 $table_character .= 
                 '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
@@ -506,14 +506,25 @@ class Resultcardform extends MY_Controller {
                 '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th colspan="3">Nilai Akhir Semester Tahfizh dan Tahsin</th>
+                            <th colspan="4">Nilai Akhir Semester Tahfizh dan Tahsin</th>
                         </tr>
                     </thead>
                     <tbody>
                 ';
-                $table_character .= '<thead><tr><th>Ujian</th><th>Nilai</th><th>Predikat</th></tr></thead>';
+                $table_character .= '<tr><th>Ujian</th><th>Nilai</th><th>Predikat</th><th rowspan="3">Catatan Tahfizh <br/> <span style="font-weight: normal">'.$gamma['tfnote'].'</span> <br/><br/> Catatan Tahsin </br> <span style="font-weight: normal">'.$gamma['tahsinnote'].'</span></th></tr>';
                 $table_character .= '<tr><td>Tahfizh</td><td>'.$totaltahfizh.'</td><td>'.get_grade_tahfizh($totaltahfizh).'</td></tr>';
                 $table_character .= '<tr><td>Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin).'</td></tr>';
+
+                $table_character .= '</tbody></table>';
+                $table_character .= 
+                '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead><tr><th>No</th><th>Ketidakhadiran</th><th>Deskripsi</th><th rowspan="4" style="text-align: center; vertical-align: middle; width: 40%">Jumlah pertemuan pembinaan dalam 1 semester ini</th></tr></thead>
+                    <tbody>
+                ';
+                
+                $table_character .= '<tr><td>1</td><td>Sakit</td><td>'.get_muta_score('sick', $gamma['sick']).'</td><td rowspan="3" style="vertical-align: middle">'.$gamma['present'].' kali pertemuan</td></tr>';
+                $table_character .= '<tr><td>2</td><td>Izin</td><td>'.get_muta_score('permit', $gamma['permit']).'</td></tr>';
+                $table_character .= '<tr><td>3</td><td>Alpha</td><td>'.get_muta_score('alpha', $gamma['alpha']).'</td></tr>';
 
                 $table_character .= '</tbody></table>';
 
@@ -528,14 +539,33 @@ class Resultcardform extends MY_Controller {
                 ';
                 $table_character .= '<thead><tr><th colspan="2">Tahfidzul Quran</th><th colspan="2">Tahsinul Quran</th></tr></thead>';
                 $totaltarget = count($gamma['targettahfizh']) + 1;
-                $table_tahsin .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%"><tbody>';
-                $table_tahsin .= '<tr><td>Grade</td><td>Keterangan</td></tr>';
-                $table_tahsin .= '<tr><td rowspan="5">Basic '.$gamma['tahsintarget'].'</td></tr>';
-                $table_tahsin .= '<tr><td>Tepat dalam konsistensi tanda panjang</td></tr>';
-                $table_tahsin .= '<tr><td>Tepat dalam keseimbangan tanda gunnah</td></tr>';
-                $table_tahsin .= '<tr><td>Tepat dalam pengucapan huruf sukun</td></tr>';
-                $table_tahsin .= '<tr><td>Tepat dalam tuntutan kesempurnaan vokal</td></tr>';
-                $table_tahsin .= '</tbody></table>';
+                if($this->data['clientcode'] == 'ymk'){
+                    $gradetahsin = array(
+                        '1' => 'Maqbul (C)',
+                        '2' => 'Jayyid (B)',
+                        '3' => 'Jayyid Jiddan (A)'
+                    );
+                    $table_tahsin .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%"><tbody>';
+                    $table_tahsin .= '<tr><td>Grade</td><td>Keterangan</td></tr>';
+                    $table_tahsin .= '<tr><td rowspan="5">'.$gradetahsin[$gamma['tahsintarget']].'</td></tr>';
+                    $table_tahsin .= '<tr><td rowspan="4">
+                    Tepat dalam konsistensi tanda panjang<br>
+                    Tepat dalam keseimbangan tanda gunnah<br>
+                    Tepat dalam pengucapan huruf sukun<br>
+                    Tepat dalam tuntutan kesempurnaan vokal<br>
+                    </td></tr>';
+                    $table_tahsin .= '</tbody></table>';
+                } else {
+                    $table_tahsin .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%"><tbody>';
+                    $table_tahsin .= '<tr><td>Grade</td><td>Keterangan</td></tr>';
+                    $table_tahsin .= '<tr><td rowspan="5">Basic '.$gamma['tahsintarget'].'</td></tr>';
+                    $table_tahsin .= '<tr><td>Tepat dalam konsistensi tanda panjang</td></tr>';
+                    $table_tahsin .= '<tr><td>Tepat dalam keseimbangan tanda gunnah</td></tr>';
+                    $table_tahsin .= '<tr><td>Tepat dalam pengucapan huruf sukun</td></tr>';
+                    $table_tahsin .= '<tr><td>Tepat dalam tuntutan kesempurnaan vokal</td></tr>';
+                    $table_tahsin .= '</tbody></table>';
+                    
+                }
                 $table_character .= '<tr><td>Juz</td><td>Surat</td><td colspan="2" rowspan="'.$totaltarget.'">'.$table_tahsin.'</td></tr>';
                 $get_juz = get_quran_juz_list();
                 if(!empty($gamma['targettahfizh'])) {

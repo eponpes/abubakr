@@ -284,6 +284,7 @@ class School extends MY_Controller {
         $items[] = 'currency';
         $items[] = 'currency_symbol';
         $items[] = 'school_fax';
+        $items[] = 'school_parent';
         $items[] = 'school_lat'; 
         $items[] = 'school_lng'; 
         $items[] = 'map_api_key'; 

@@ -148,13 +148,20 @@
                                     </div>
                                     
                                     
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <!--div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="school_fax"><?php echo $this->lang->line('school_fax'); ?> </label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="school_fax"  id="school_fax" value="<?php echo isset($post['school_fax']) ?  $post['school_fax'] : ''; ?>" placeholder="<?php echo $this->lang->line('school_fax'); ?> " type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('school_fax'); ?></div> 
                                         </div>
-                                    </div>                                   
+                                    </div-->     
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="school_fax">Nama Yayasan / Induk </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="school_parent"  id="school_parent" value="<?php echo isset($post['school_parent']) ?  $post['school_parent'] : ''; ?>" placeholder="Nama Yayasan Induk " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('school_parent'); ?></div> 
+                                        </div>
+                                    </div>                                
                                     
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
@@ -530,11 +537,19 @@
                                     </div>
                                     
                                     
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <!--div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="school_fax"><?php echo $this->lang->line('school_fax'); ?> </label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="school_fax"  id="school_fax" value="<?php echo isset($school) ? $school->school_fax : ''; ?>" placeholder="<?php echo $this->lang->line('school_fax'); ?> " type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('school_fax'); ?></div> 
+                                        </div>
+                                    </div-->
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="school_parent">Nama Yayasan / Induk </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="school_parent"  id="school_parent" value="<?php echo isset($school) ? $school->school_parent : ''; ?>" placeholder="<?php echo $this->lang->line('school_parent'); ?> " type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('school_parent'); ?></div> 
                                         </div>
                                     </div>
                                     

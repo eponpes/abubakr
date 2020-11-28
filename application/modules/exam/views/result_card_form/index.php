@@ -180,7 +180,7 @@
                                     <?php } ?>
                                 </div>
                                 <div class="school-info col-md-11">
-                                    <div class="top-school">Yayasan Ibadurrohman</div>
+                                    <div class="top-school"><?php echo $school->school_parent; ?></div>
                                     <?php if(isset($school)){ ?>
                                     <div class="name-school"><?php echo $school->school_name; ?></div>
                                     <p> <?php echo $school->address; ?></p>
@@ -280,7 +280,7 @@
                     <div class="col-xs-3 text-center">
                         <div class="knowing">
                             <p><br>Mengetahui<p>
-                            <p>Mudir PPTQ Ibadurrohman</p>
+                            <p>Mudir <?php echo $school->school_name; ?></p>
                         </div>
                         <div class="signature">
                             <?php if(isset($school->adm_principal)) {
@@ -325,40 +325,50 @@
                 </div>
             <?php } else if($formtype == 'tahfizh') { ?>
             <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
-            <div class="rowt">
-                <div class="col-xs-4 text-center">
-                    <div class="knowing">
-                        <p>Mengetahui<p>
-                        <p>Mudir PPTQ Ibadurrohman</p>
+                <div class="rowt">
+                    <div class="col-xs-3 text-center">
+                        <div class="knowing">
+                            <p>Orang Tua / Wali Santri</p>
+                        </div>
+                        <div class="signature">
+                            ( .............................. )
+                        </div>
                     </div>
-                    <div class="signature">
+                    <div class="col-xs-1 text-center">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-3 text-center">
+                        <div class="knowing">
+                        <p><br>Mudir <?php echo $school->school_name; ?></p>
+                        </div>
+                        <div class="signature">
                             <?php if(isset($school->adm_principal)) {
                                 echo $school->adm_principal;
                             } ?>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-2 text-center">
-                    &nbsp;
-                </div>
-                <div class="col-xs-4 text-center">
-                    <div class="knowing">
-                        <?php
-                        $day = date("d");
-                        $month = get_sign_date(date("m"));
-                        $year = date("Y");
-                        $signdate = $day . ' ' . $month . ' ' . $year;
-                        ?>
-                        <p><span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span><p>
-                        <p>Kasie Tahfidz</p>
+                    <div class="col-xs-1 text-center">
+                        &nbsp;
                     </div>
-                    <div class="signature">
+                    <div class="col-xs-4 text-center">
+                        <div class="knowing">
+                            <?php
+                            $day = date("d");
+                            $month = get_sign_date(date("m"));
+                            $year = date("Y");
+                            $signdate = $day . ' ' . $month . ' ' . $year;
+                            ?>
+                            <p><span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span><p>
+                            <p>Muhafizh</p>
+                        </div>
+                        <div class="signature">
                             <?php if(isset($school->adm_sietahfizh)) {
-                                echo $school->adm_sietahfizh;
-                            } ?>
+                                    echo $school->adm_sietahfizh;
+                                } ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php } ?>
             
             <div class="row no-print">

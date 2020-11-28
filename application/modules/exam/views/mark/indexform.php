@@ -417,7 +417,13 @@
                                 <fieldset id="buildyourform">
                                     <?php echo $tahfizhvalues; ?>
                                 </fieldset>
-                                <input type="button" value="Tambah Materi Ujian" class="btn btn-dark" id="addjuz" />
+                                <?php if(isset($_GET['format']) && $_GET['format'] == 'surat') { ?>
+                                    <input type="hidden" name="format" value="<?php echo $_GET['format']; ?>">
+                                    <input type="button" value="Tambah Materi Ujian" class="btn btn-dark" id="add" />
+                                <?php } else { ?> 
+                                    <input type="button" value="Tambah Materi Ujian" class="btn btn-dark" id="addjuz" />
+                                <?php } ?>
+                               
                             </div>
                             <div class="col-md-5 col-sm-6 col-xs-12">
                                 <div class="item form-group">
@@ -469,9 +475,15 @@
                                 <label for="tahfizh_tahsin">Tahsin</label>
                                 <select class="form-control" id="tahfizh_tahsin" name="indicator2[tahsin]">
                                     <option>--------</option>
+                                    <?php if($clientcode == 'ymk'){ ?>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '1'){echo 'selected';} ?> value="1">Maqbul (C)</option>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Jayyid (B)</option>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '3'){echo 'selected';} ?> value="3">Jayyid Jiddan (A)</option>
+                                    <?php } else { ?>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '1'){echo 'selected';} ?> value="1">Basic 1</option>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Basic 2</option>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '3'){echo 'selected';} ?> value="3">Basic 3</option>
+                                    <?php } ?>
                                 </select>
                                 <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tahsindesk]"  id="tahsin_desk" value="<?php echo isset($markvalues2['tahsindesk']) ?  $markvalues2['tahsindesk'] : ''; ?>" placeholder="Catatan Tahsin" type="text" autocomplete="off">
                                 <div class="help-block"><?php echo form_error('indicator2[tahsindesk]'); ?></div>
@@ -586,9 +598,15 @@
                                 <label for="tahsin_target">Target Tahsin</label>
                                 <select class="form-control" id="tahsin_target" name="indicator2[tahsintarget]">
                                     <option>--------</option>
+                                    <?php if($clientcode == 'ymk'){ ?>
+                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '1'){echo 'selected';} ?> value="1">Maqbul (C)</option>
+                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '2'){echo 'selected';} ?> value="2">Jayyid (B)</option>
+                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '3'){echo 'selected';} ?> value="3">Jayyid Jiddan (A)</option>
+                                    <?php } else { ?>
                                     <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '1'){echo 'selected';} ?> value="1">Basic 1</option>
                                     <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '2'){echo 'selected';} ?> value="2">Basic 2</option>
                                     <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '3'){echo 'selected';} ?> value="3">Basic 3</option>
+                                    <?php } ?>
                                 </select>
                                 <div class="help-block"><?php echo form_error('indicator2[tahsintarget]'); ?></div>
                             </div>
@@ -740,11 +758,11 @@ $(document).ready(function() {
         $(".remove").click(function() {
             $(this).parent().remove();
         });
-        <?php /*$('select[id^="thesurat"]').select2({
+        $('select[id^="thesurat"]').select2({
             placeholder: 'Pilih Surat',
             language: 'id',
             width: 'resolve'
-        }); */ ?>
+        });
 
         $('select[id^="thejuz"]').select2({
             placeholder: 'Pilih Juz',
@@ -995,7 +1013,11 @@ $(document).ready(function() {
       $("#marksheet").validate();
     $('#period2').change(function(){
         var p = this.value;
-        window.location = "<?php echo $form_url; ?>?p="+p;
+        <?php if($clientcode == 'ymk') { ?>
+            window.location = "<?php echo $form_url; ?>?p="+p+"&format=surat";
+        <?php } else { ?>
+            window.location = "<?php echo $form_url; ?>?p="+p;
+        <?php } ?>
         /*$('#addmarkform').submit();*/
     });
     $('#level').change(function(){

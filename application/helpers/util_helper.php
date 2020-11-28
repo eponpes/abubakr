@@ -367,6 +367,7 @@ if (!function_exists('get_mark_form_results')) {
 }
 
 function get_predicate($type = null, $score) {
+    $clientcode = 'ymk';
     if($type == 'adab' || $type == 'murajaah'){
         switch($score){
             case '1':
@@ -380,17 +381,32 @@ function get_predicate($type = null, $score) {
             break;
         }
     } else if($type == 'tahsin'){
-        switch($score){
-            case '1':
-                $label = 'Basic 1';
-            break;
-            case '2':
-                $label = 'Basic 2';
-            break;
-            case '3':
-                $label = 'Basic 3';
-            break;
+        if($clientcode == 'ymk'){
+            switch($score){
+                case '1':
+                    $label = 'Maqbul (C)';
+                break;
+                case '2':
+                    $label = 'Jayyid (B)';
+                break;
+                case '3':
+                    $label = 'Jayyid Jiddan (A)';
+                break;
+            }
+        } else {
+            switch($score){
+                case '1':
+                    $label = 'Basic 1';
+                break;
+                case '2':
+                    $label = 'Basic 2';
+                break;
+                case '3':
+                    $label = 'Basic 3';
+                break;
+            }
         }
+        
     } else if($type == 'target'){
         switch($score){
             case '1':

@@ -218,7 +218,8 @@ class Mark extends MY_Controller {
     }
 
     public function form($type = null, $school_id = null, $academic_year_id = null, $class_id = null, $student_id = null) {
-
+        $this->data['clientcode'] = $this->global_setting->client_code;
+        
         //check_permission(ADD);
         $levelchar = $_GET['l'];
 
@@ -334,59 +335,61 @@ class Mark extends MY_Controller {
 
                 $field = 1;
 
-                /* Surat
-                $valopt = '';
-                foreach ($markvalues3 as $lo3){
-                    $msurat = $lo3['surat'];
-                    $mayat = $lo3['ayat'];
-                    $mmark = $lo3['mark'];
+                if(isset($_GET['format']) && $_GET['format'] == 'surat') {
+                    $valopt = '';
+                    foreach ($markvalues3 as $lo3){
+                        $msurat = $lo3['surat'];
+                        $mayat = $lo3['ayat'];
+                        $mmark = $lo3['mark'];
 
-                    $thesurat5 = '';
-                    foreach($getsurat as $ids => $srt){
-                        if($ids == $msurat){
-                            $selected = 'selected';
-                        } else {
-                            $selected = '';
+                        $thesurat5 = '';
+                        foreach($getsurat as $ids => $srt){
+                            if($ids == $msurat){
+                                $selected = 'selected';
+                            } else {
+                                $selected = '';
+                            }
+                            $thesurat5 .= '<option value="'.$ids.'" '.$selected.'>'.$ids.' '.$srt[0].'</option>';
                         }
-                        $thesurat5 .= '<option value="'.$ids.'" '.$selected.'>'.$ids.' '.$srt[0].'</option>';
+
+                        $valopt .= '
+                        <div class="fieldwrapper" id="field'.$field.'">
+                        <select id="thesurat'.$field.'" name="thesurat['.$field.'][]" class="fieldtype form-control">'.$thesurat5.'</select>
+                        <input name="ayat['.$field.'][]" type="text" class="fieldname form-control" placeholder="Ayat" value="'.$mayat.'">
+                        <input name="mark['.$field.'][]" type="text" class="fieldname form-control" placeholder="Nilai" value="'.$mmark.'">
+                        <input type="button" class="remove" value="-">
+                        </div>
+                        ';
+                        
+                        $field++;              
                     }
+                } else {
+                    $valopt = '';
+                    foreach ($markvalues3 as $lo3){
+                        $mjuz = $lo3['juz'];
+                        $mmarkjuz = $lo3['mark'];
 
-                    $valopt .= '
-                    <div class="fieldwrapper" id="field'.$field.'">
-                    <select id="thesurat'.$field.'" name="thesurat['.$field.'][]" class="fieldtype form-control">'.$thesurat5.'</select>
-                    <input name="ayat['.$field.'][]" type="text" class="fieldname form-control" placeholder="Ayat" value="'.$mayat.'">
-                    <input name="mark['.$field.'][]" type="text" class="fieldname form-control" placeholder="Nilai" value="'.$mmark.'">
-                    <input type="button" class="remove" value="-">
-                    </div>
-                    ';
-                    
-                    $field++;              
-                } */ 
-
-                $valopt = '';
-                foreach ($markvalues3 as $lo3){
-                    $mjuz = $lo3['juz'];
-                    $mmarkjuz = $lo3['mark'];
-
-                    $thejuz5 = '';
-                    foreach($getjuz as $ids => $srt){
-                        if($ids == $mjuz){
-                            $selected = 'selected';
-                        } else {
-                            $selected = '';
+                        $thejuz5 = '';
+                        foreach($getjuz as $ids => $srt){
+                            if($ids == $mjuz){
+                                $selected = 'selected';
+                            } else {
+                                $selected = '';
+                            }
+                            $thejuz5 .= '<option value="'.$ids.'" '.$selected.'>JUZ '.$srt[0].'</option>';
                         }
-                        $thejuz5 .= '<option value="'.$ids.'" '.$selected.'>JUZ '.$srt[0].'</option>';
-                    }
 
-                    $valopt .= '
-                    <div class="fieldwrapper" id="field'.$field.'">
-                    <select id="thejuz'.$field.'" name="thejuz['.$field.'][]" class="fieldtype form-control">'.$thejuz5.'</select>
-                    <input name="markjuz['.$field.'][]" type="text" class="fieldname form-control" placeholder="Nilai" value="'.$mmarkjuz.'">
-                    <input type="button" class="remove" value="-">
-                    </div>
-                    ';
+                        $valopt .= '
+                        <div class="fieldwrapper" id="field'.$field.'">
+                        <select id="thejuz'.$field.'" name="thejuz['.$field.'][]" class="fieldtype form-control">'.$thejuz5.'</select>
+                        <input name="markjuz['.$field.'][]" type="text" class="fieldname form-control" placeholder="Nilai" value="'.$mmarkjuz.'">
+                        <input type="button" class="remove" value="-">
+                        </div>
+                        ';
+                        
+                        $field++;              
+                    }
                     
-                    $field++;              
                 }
                 $this->data['markvalues3'] = $vlabo2; 
                 $this->data['tahfizhvalues'] = $valopt;
@@ -407,6 +410,8 @@ class Mark extends MY_Controller {
                 }
                 $this->data['markvalues2'] = $vlabo4; 
             }
+
+                
                 
         }
         
@@ -440,42 +445,44 @@ class Mark extends MY_Controller {
                     $data['period'] = $condition['period'] = $this->input->post('period');
                 }
 
-                /*if(!empty($_POST['thesurat']) && $type == 'tahfizh'){
-                    // indicator
-                    $postsurat = $_POST['thesurat']; 
-                    $vlay = array();
-                    foreach($postsurat as $theids => $srt){
-                        $surat = $srt[0];
-                        $ayat = $_POST['ayat'][$theids][0];
-                        $mark = $_POST['mark'][$theids][0];
-                        $valiny = array(
-                            'surat' => $surat,
-                            'ayat' => $ayat,
-                            'mark' => $mark
-                        );
-                        array_push($vlay, $valiny);
+                if(isset($_POST['format']) && $_POST['format'] == 'surat') {
+                    if(!empty($_POST['thesurat']) && $type == 'tahfizh'){
+                        // indicator
+                        $postsurat = $_POST['thesurat']; 
+                        $vlay = array();
+                        foreach($postsurat as $theids => $srt){
+                            $surat = $srt[0];
+                            $ayat = $_POST['ayat'][$theids][0];
+                            $mark = $_POST['mark'][$theids][0];
+                            $valiny = array(
+                                'surat' => $surat,
+                                'ayat' => $ayat,
+                                'mark' => $mark
+                            );
+                            array_push($vlay, $valiny);
+                        }
+                        $vlasy = json_encode($vlay);
+                        $data['value'] = $vlasy;
                     }
-                    $vlasy = json_encode($vlay);
-                    $data['value'] = $vlasy;
-                }*/
-
-                if(!empty($_POST['thejuz']) && $type == 'tahfizh'){
-                    // indicator
-                    $postjuz = $_POST['thejuz']; 
-                    $vlay = array();
-                    foreach($postjuz as $theids => $srt){
-                        $myjuz = $srt[0];
-                        $mark = $_POST['markjuz'][$theids][0];
-                        $valiny = array(
-                            'juz' => $myjuz,
-                            'mark' => $mark
-                        );
-                        array_push($vlay, $valiny);
+                } else {
+                    if(!empty($_POST['thejuz']) && $type == 'tahfizh'){
+                        // indicator
+                        $postjuz = $_POST['thejuz']; 
+                        $vlay = array();
+                        foreach($postjuz as $theids => $srt){
+                            $myjuz = $srt[0];
+                            $mark = $_POST['markjuz'][$theids][0];
+                            $valiny = array(
+                                'juz' => $myjuz,
+                                'mark' => $mark
+                            );
+                            array_push($vlay, $valiny);
+                        }
+                        $vlasy = json_encode($vlay);
+                        $data['value'] = $vlasy;
                     }
-                    $vlasy = json_encode($vlay);
-                    $data['value'] = $vlasy;
                 }
-
+                
                 if(!empty($_POST['indicator'])){
                     $vla = array();
                     foreach ($_POST['indicator'] as $ind => $val){
