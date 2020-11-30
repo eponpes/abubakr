@@ -322,8 +322,8 @@
                             <p>Guru Pembina BPI</p>
                         </div>
                         <div class="signature">
-                            <?php if(isset($school->adm_siebpi)) {
-                                    echo $school->adm_siebpi;
+                            <?php if(isset($myteacher)) {
+                                    echo $myteacher;
                                 } ?>
                             </div>
                         </div>
@@ -365,12 +365,20 @@
                             $signdate = $day . ' ' . $month . ' ' . $year;
                             ?>
                             <p><span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span><p>
-                            <p>Muhafizh</p>
+                            <p>Kasie Tahfizh</p>
                         </div>
                         <div class="signature">
-                            <?php if(isset($school->adm_sietahfizh)) {
+                            <?php 
+                            if($clientcode == 'ymk') {
+                                if(isset($myteacher)) {
+                                    echo ucwords(strtolower($myteacher));
+                                }    
+                            } else {
+                                if(isset($school->adm_sietahfizh)) {
                                     echo $school->adm_sietahfizh;
-                                } ?>
+                                }
+                            }
+                            ?>
                             </div>
                         </div>
                     </div>
@@ -379,6 +387,7 @@
             
             <div class="row no-print">
                 <div class="col-xs-12 text-right">
+                    <button class="btn btn-default " onclick="editmyraport();"><i class="fa fa-pencil-square-o" style="color: black"></i> Edit Raport</button>
                     <button class="btn btn-default " onclick="window.print();"><i class="fa fa-print"></i> <?php echo $this->lang->line('print'); ?></button>
                 </div>
             </div>
@@ -393,7 +402,45 @@
 
 <!-- Super admin js START  -->
  <script type="text/javascript">
-        
+        function editmyraport(){
+            var type = "<?php echo $formtype; ?>";
+            var code = "<?php echo $clientcode; ?>";
+            var param = '?';
+            
+            var paramformat = '';
+            if(code == 'ymk'){
+                var paramformat = '&format=surat';
+            }
+            
+            if(type == 'tahfizh' || type == 'tahsin'){
+                var p = $("#semester option:selected").val();
+                param += 'p=SM'+p;
+            } else {
+                var l = $("#level option:selected").val();
+                if(l != 0){
+                    param += 'l='+l;
+                } else {
+                    param += 'l=1';
+                }
+                var p = $("#period option:selected").val();
+                if(p != 0){
+                    param += '&p='+p;
+                } else {
+                    param += '&p=Q1';
+                }
+            }
+
+            var params = param + paramformat;
+            <?php 
+            $mytype = $formtype;
+            if($formtype == 'tahsin'){
+                $mytype = 'tahfizh';
+            }
+            ?>
+            <?php $identity = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$student_id; ?>
+            var loc = "<?php echo site_url('exam/mark/form/'.$mytype.'/'.$identity); ?>";
+            window.location = loc+params;
+        }
     $("document").ready(function() {
         $('#student_id').select2({
             placeholder: 'Pilih Siswa',

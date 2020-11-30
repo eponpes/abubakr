@@ -810,7 +810,7 @@ if (!function_exists('get_user_by_role')) {
 
         }elseif ($role_id == STUDENT) {
 
-            $ci->db->select('S.*, T.type,  D.amount, D.title AS discount, G.name AS guardian, E.roll_no, E.section_id, E.class_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section');
+            $ci->db->select('S.*, T.type,  D.amount, D.title AS discount, G.name AS guardian, E.roll_no, E.section_id, E.class_id, E.class_tahfizh_id, E.class_bpi_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section');
             $ci->db->from('enrollments AS E');
             $ci->db->join('students AS S', 'S.id = E.student_id', 'left');
             $ci->db->join('student_types AS T', 'T.id = S.type_id', 'left');

@@ -111,6 +111,7 @@
                   <input type="hidden" name="class_id" value="<?php echo $students['class_id']; ?>">
                   <input type="hidden" name="section_id" value="<?php echo $students['section_id']; ?>">
                   <input type="hidden" name="student_id" value="<?php echo $students['student_id']; ?>">
+                  <input type="hidden" name="postformat" value="<?php echo isset($_GET['format'])?$_GET['format']:''; ?>">
                 <?php /*
                 <div class="row">
                     <div class="col-md-5 col-sm-5 col-xs-12">
@@ -710,6 +711,7 @@
                 <div class="row submit-mark-button">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group text-right">
+                            <div class="btn btn-default btn-lg" onclick="viewmyraport();"><i class="fa fa-pencil-square-o" style="color: black"></i> View Raport</div>
                             <input type="submit" id="submit" class="btn btn-custom btn-success btn-lg" name="submit" value="Kirim Nilai">
                         </div>
                     </div>
@@ -740,6 +742,42 @@
 
 <!-- Super admin js START  -->
 <script type="text/javascript">
+    function viewmyraport(){
+            var type = "<?php echo $formtype; ?>";
+            var code = "<?php echo $clientcode; ?>";
+            var param = '?';
+            
+            if(type == 'tahfizh' || type == 'tahsin'){
+                var p = $("#period2 option:selected").val();
+                var s = p.substring(2);
+                param += 's='+s+'&p='+p;
+            } else {
+                var l = $("#level option:selected").val();
+                if(l != 0){
+                    param += 'l='+l;
+                } else {
+                    param += 'l=1';
+                }
+                var p = $("#period option:selected").val();
+                if(p != 0){
+                    param += '&p='+p;
+                } else {
+                    param += '&p=Q1';
+                }
+            }
+
+            var params = param;
+            <?php 
+            $mytype = $formtype;
+            if($formtype == 'tahsin'){
+                $mytype = 'tahfizh';
+            }
+            ?>
+            <?php $identity = $school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$student_id; ?>
+            var loc = "<?php echo site_url('exam/resultcardform/view/'.$mytype.'/'.$identity); ?>";
+
+            window.location = loc+params;
+        }
 $(document).ready(function() {
     $('#student_id').select2({
         placeholder: 'Pilih Siswa',

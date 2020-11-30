@@ -179,7 +179,19 @@ class Resultcardform extends MY_Controller {
                 $std = $this->resultcardform->get_single('students', array('id'=>$student_id));
                 $student = get_user_by_role(STUDENT, $std->user_id);
             }
-            
+
+            $teacher_id = '';
+            if($type == 'tahfizh' || $type == 'tahsin'){
+                $teacher_id = $student->class_tahfizh_id;
+            } else if($type == 'bpi' || $type == 'character'){
+                $teacher_id = $student->class_bpi_id;
+            }
+            $this->data['myteacher'] = '..............';
+            $myteacher = $this->resultcardform->get_single('teachers', array('id'=>$teacher_id));
+            if(!empty($myteacher)){
+                $this->data['myteacher'] = $myteacher->name;
+            }
+           
             $school = $this->resultcardform->get_school_by_id($school_id);
             $exam = get_mark_form_results($school_id, $academic_year_id, $class_id, $student_id, $levelchar, $periodchar); 
 

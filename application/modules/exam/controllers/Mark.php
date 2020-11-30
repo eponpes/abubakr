@@ -415,7 +415,6 @@ class Mark extends MY_Controller {
                 
         }
         
-
         if (!empty($_POST)) {
                 $data = array();
                 $school_id = $this->input->post('school_id');
@@ -443,6 +442,7 @@ class Mark extends MY_Controller {
                 if($type == 'tahfizh'){
                     $data['level'] = $condition['level'] = 10;
                     $data['period'] = $condition['period'] = $this->input->post('period');
+                    $postformat = $this->input->post('postformat');
                 }
 
                 if(isset($_POST['format']) && $_POST['format'] == 'surat') {
@@ -525,6 +525,17 @@ class Mark extends MY_Controller {
                 //print_r($data);
                 //die();
                 $this->markforms->update('mark_forms', $data, $condition);
+                success($this->lang->line('insert_success'));
+                $param_bind = '';
+                if($type == 'tahfizh' || $type == 'tahsin'){
+                    $param_bind = (isset($period)?'?p='.$period:'');
+                    if(isset($postformat) && !empty($postformat)){
+                        $param_bind .= '&format='.$postformat;
+                    }
+                } else {
+                    $param_bind = (isset($period)?'?p='.$period:'') . (isset($level)?'&l='.$level:'');
+                }
+                redirect(current_url().$param_bind);
         
             
 
