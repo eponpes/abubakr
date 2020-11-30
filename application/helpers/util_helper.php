@@ -422,6 +422,15 @@ function get_predicate($type = null, $score) {
                 $label = '100%';
             break;
         }
+    } else if($type == 'skill'){
+        switch($score){
+            case '1':
+                $label = 'Belum Terlampaui';
+            break;
+            case '2':
+                $label = 'Terlampaui';
+            break;
+        }
     }
     
     return $label;

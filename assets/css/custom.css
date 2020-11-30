@@ -3036,3 +3036,7 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 .char-note .form-group textarea {
     height: 50px;
 }
+.widget {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

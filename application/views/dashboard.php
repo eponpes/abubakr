@@ -149,7 +149,7 @@
                             <?php if($responsibility != 'bpi' || $responsibility == 'tbi') { ?>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/mark/form/tahfizh'); ?>" class="button">
-                                <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
+                                <figure><img src="<?php echo IMG_URL; ?>icon/input-tahfizh.png"></figure>
                                 <div class="text">
                                 Input Nilai Tahfizh
                                 </div>
@@ -157,9 +157,17 @@
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/resultcardform/view/tahfizh'); ?>" class="button">
-                                <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
+                                <figure><img src="<?php echo IMG_URL; ?>icon/report-4.png"></figure>
                                 <div class="text">
                                 Rapot Tahfizh
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                            <a href="<?php echo site_url('exam/resultcardform/view/tahsin'); ?>" class="button">
+                                <figure><img src="<?php echo IMG_URL; ?>icon/report-2.png"></figure>
+                                <div class="text">
+                                Rapot Tahsin
                                 </div>
                             </a>
                         </div>
@@ -176,7 +184,7 @@
                         <?php if($responsibility != 'tahfidz' || $responsibility == 'tbi') { ?>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/mark/form/bpi'); ?>" class="button">
-                                <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
+                                <figure><img src="<?php echo IMG_URL; ?>icon/input-bpi.png"></figure>
                                 <div class="text">
                                 Input Nilai BPI
                                 </div>
@@ -184,12 +192,13 @@
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/resultcardform/view/bpi'); ?>" class="button">
-                                <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
+                                <figure><img src="<?php echo IMG_URL; ?>icon/report-3.png"></figure>
                                 <div class="text">
                                 Rapot BPI
                                 </div>
                             </a>    
                         </div>
+                        <?php /*
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
                             <a href="<?php echo site_url('exam/resultcardform/view/character'); ?>" class="button">
                                 <figure><img src="<?php echo IMG_URL; ?>icon/lock.png"></figure>
@@ -197,7 +206,7 @@
                                 Rapot Karakter BPI
                                 </div>
                             </a>    
-                        </div>
+                        </div>*/ ?>
                             <?php } ?>
                        
                         <?php } ?>

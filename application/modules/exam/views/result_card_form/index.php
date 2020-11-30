@@ -168,7 +168,7 @@
              <?php } ?>
              <?php } ?>
 
-             <?php  if ($formtype == 'tahfizh') { ?>
+             <?php  if ($formtype == 'tahfizh' || $formtype == 'tahsin') { ?>
             <div class="x_content">             
                 <div class="row">
                     <div class="col-sm-12 col-xs-12">
@@ -189,9 +189,15 @@
                             </div>
 
                             <hr class="style8" />
-
-                            <h4><strong>تقريروتائج االمتحان الىهائي في تحسيه القرآن و تحفيظه</strong><h4>
+                            <?php if($formtype == 'tahfizh') { ?>
+                                <h4><strong>تقريروتائج االمتحان الىهائي في تحسيه القرآن و تحفيظه</strong><h4>
                             <h5><strong>LAPORAN PENILAIAN UJIAN AKHIR SEMESTER TAHSIN DAN TAHFIDZ AL-QUR’AN</strong></h5>
+                            <?php } else if($formtype == 'tahsin') { ?>
+                                <h4><strong>تقريروتائج االمتحان الىهائي في تحسيه القرآن </strong><h4>
+                            <h5><strong>LAPORAN PENILAIAN TAHSIN</strong></h5>
+                            <?php } ?>
+
+                            
                         </div>
                         <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
                             <tr>
@@ -225,7 +231,7 @@
                                     <?php } ?>
                                 </div>
                                 <div class="school-info col-md-11">
-                                    <div class="top-school">Yayasan Ibadurrohman</div>
+                                    <div class="top-school"><?php echo $school->school_parent; ?></div>
                                     <?php if(isset($school)){ ?>
                                     <div class="name-school"><?php echo $school->school_name; ?></div>
                                     <p> <?php echo $school->address; ?></p>
@@ -323,7 +329,7 @@
                         </div>
                     </div>
                 </div>
-            <?php } else if($formtype == 'tahfizh') { ?>
+            <?php } else if($formtype == 'tahfizh' || $formtype == 'tahsin') { ?>
             <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
                 <div class="rowt">
                     <div class="col-xs-3 text-center">
@@ -540,7 +546,7 @@ $('#semester').change(function(e){
     e.preventDefault();
     var s = this.value;
     if(s == "1" || s == "2") {
-        <?php if($formtype == 'tahfizh') { ?>
+        <?php if($formtype == 'tahfizh' || $formtype == 'tahsin') { ?>
             window.location = "?s="+s+"&p=SM"+s;
         <?php } else { ?>
             var l = $("#level option:selected").val();
