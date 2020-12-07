@@ -86,6 +86,7 @@
             </div>
 
             <div class="x_content no-print">  
+            <?php  if (isset($student) && !empty($student)) { ?>
             <?php if($formtype == 'bpi' || $formtype == 'character') { ?>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12">
@@ -138,6 +139,7 @@
                 </div>
             <?php } ?>
             </div>
+            <?php } ?>
 
             <?php  if ($formtype == 'other') { ?>
             <?php  if (isset($student) && !empty($student)) { ?>
@@ -365,7 +367,11 @@
                             $signdate = $day . ' ' . $month . ' ' . $year;
                             ?>
                             <p><span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span><p>
-                            <p>Kasie Tahfizh</p>
+                            <?php if($clientcode == 'ymk') { ?>
+                            <p>Muhafizh/ah</p>
+                            <?php } else { ?>
+                            <p>Kasie Tahfidz</p>
+                            <?php } ?>
                         </div>
                         <div class="signature">
                             <?php 

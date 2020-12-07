@@ -371,26 +371,26 @@ function get_predicate($type = null, $score) {
     if($type == 'adab' || $type == 'murajaah'){
         switch($score){
             case '1':
-                $label = 'Jayyid Jiddan';
+                $label = 'Jayyid Jiddan/Baik Sekali';
             break;
             case '2':
-                $label = 'Jayyid';
+                $label = 'Jayyid/Baik';
             break;
             case '3':
-                $label = 'Maqbul';
+                $label = 'Maqbul/Cukup';
             break;
         }
     } else if($type == 'tahsin'){
         if($clientcode == 'ymk'){
             switch($score){
                 case '1':
-                    $label = 'Maqbul (C)';
+                    $label = 'Maqbul/Cukup (C)';
                 break;
                 case '2':
-                    $label = 'Jayyid (B)';
+                    $label = 'Jayyid/Baik (B)';
                 break;
                 case '3':
-                    $label = 'Jayyid Jiddan (A)';
+                    $label = 'Jayyid Jiddan/Baik Sekali (A)';
                 break;
             }
         } else {
@@ -2125,19 +2125,55 @@ if (!function_exists('get_grades')){
 }
 
 if (!function_exists('get_grade_tahfizh')){
-    function get_grade_tahfizh($value = null) {
+    function get_grade_tahfizh($value = null, $type = null, $format = null) {
         $predicate = '';
-        if($value >= 90){
-            $predicate = 'Mumtaz';
-        } else if($value >= 80 && $value < 90) {
-            $predicate = 'Jayyid Jiddan';
-        } else if($value >= 65 && $value < 80) {
-            $predicate = 'Jayyid';
-        } else if($value >= 55 && $value < 65) {
-            $predicate = 'Maqbul';
+        if($type == 'VII' || $type == 'X'){
+            if($value >= 95){
+                $predicate = 'Mumtaz';
+            } else if($value >= 86 && $value < 95) {
+                $predicate = 'Jayyid Jiddan';
+            } else if($value >= 75 && $value < 86) {
+                $predicate = 'Jayyid';
+            } else {
+                $predicate = '-';
+            }
+        } else  if($type == 'VIII' || $type == 'XI') {
+            if($value >= 97){
+                $predicate = 'Mumtaz';
+            } else if($value >= 87 && $value < 97) {
+                $predicate = 'Jayyid Jiddan';
+            } else if($value >= 77 && $value < 87) {
+                $predicate = 'Jayyid';
+            } else {
+                $predicate = '-';
+            }
+        } else  if($type == 'IX' || $type == 'XII') {
+            if($value >= 98){
+                $predicate = 'Mumtaz';
+            } else if($value >= 89 && $value < 98) {
+                $predicate = 'Jayyid Jiddan';
+            } else if($value >= 79 && $value < 89) {
+                $predicate = 'Jayyid';
+            } else {
+                $predicate = '-';
+            }
         } else {
-            $predicate = 'Naqis';
+            if($value >= 90){
+                $predicate = 'Mumtaz';
+            } else if($value >= 80 && $value < 90) {
+                $predicate = 'Jayyid Jiddan';
+            } else if($value >= 65 && $value < 80) {
+                $predicate = 'Jayyid';
+            } else if($value >= 55 && $value < 65) {
+                $predicate = 'Maqbul';
+            } else {
+                $predicate = 'Naqis';
+            }
         }
+
+        
+        
+        
         return $predicate;
     }
 }
@@ -2294,46 +2330,46 @@ if (!function_exists('get_quran_chapter_list')){
             13 => array('ARRA`DU', 'GURUH'),
             14 => array('IBRAHIM', 'NABI IBRAHIM'),
             15 => array('AL-HIJRU', 'DAERAH HIJIR'),
-            16 => array('ANNAHLU', 'LEBAH'),
+            16 => array('AN-NAHL', 'LEBAH'),
             17 => array('AL-ISRA', 'PERJALANAN DI MALAM HARI'),
             18 => array('AL-KAHFI', 'GUA'),
             19 => array('MARYAM', 'SITI MARYAM'),
-            20 => array('TOHA', 'TOHA'),
+            20 => array('THOHA', 'TOHA'),
             21 => array('AL-ANBIYA', 'NABI-NABI'),
             22 => array('AL-HAJJ', 'HAJI'),
             23 => array('AL-MU`MINUN', 'ORANG-ORANG YANG BERIMAN'),
-            24 => array('ANNUR', 'CAHAYA'),
+            24 => array('AN-NUR', 'CAHAYA'),
             25 => array('AL-FURQAN', 'PEMBEDA'),
             26 => array('ASY-SYU`ARA', 'PENYAIR-PENYAIR'),
-            27 => array('ANNAMLU', 'SEMUT'),
+            27 => array('AN-NAML', 'SEMUT'),
             28 => array('AL-QASHASH', 'KISAH-KISAH'),
             29 => array('AL-`ANKABUT', 'LABA-LABA'),
-            30 => array('ARRUM', 'BANGSA RUM'),
+            30 => array('AR-RUM', 'BANGSA RUM'),
             31 => array('LUQMAN', 'LUQMAN'),
-            32 => array('ASSAJDAH', 'SUJUD'),
+            32 => array('AS-SAJDAH', 'SUJUD'),
             33 => array('AL-AHZAB', 'GOLONGAN YANG BERSEKUTU'),
             34 => array('SABA`', 'NEGERI SABA'),
             35 => array('FATHIR', 'PENCIPTA'),
             36 => array('YASIN', 'YASIN'),
             37 => array('ASH-SHAFFAT', 'YANG BERBARIS'),
             38 => array('SHAD', 'SHAD'),
-            39 => array('AZZUMAR', 'ROMBONGAN-ROMBONGAN'),
+            39 => array('AZ-ZUMAR', 'ROMBONGAN-ROMBONGAN'),
             40 => array('AL-MU`MIN', 'ORANG BERIMAN'),
             41 => array('FUSHSHILAT', 'YANG DIJELASKAN'),
             42 => array('ASY-SYURA', 'MUSYAWARAH'),
-            43 => array('AZZUKHRUF', 'PERHIASAN'),
-            44 => array('ADDUKHAN', 'KABUT'),
+            43 => array('AZ-ZUKHRUF', 'PERHIASAN'),
+            44 => array('AD-DUKHAN', 'KABUT'),
             45 => array('AL-JATSIYAH', 'YANG BERLUTUT'),
             46 => array('AL-AHQAF', 'BUKIT-BUKIT PASIR'),
             47 => array('MUHAMMAD', 'NABI MUHAMMAD'),
-            48 => array('AL-FATHU', 'KEMENANGAN'),
+            48 => array('AL-FATH', 'KEMENANGAN'),
             49 => array('AL-HUJURAT', 'KAMAR-KAMAR'),
             50 => array('QAF', 'QAF'),
             51 => array('ADZ-DZARIYAT', 'ANGIN YANG MENERBANGKAN'),
             52 => array('ATH-THUR', 'BUKIT THUR'),
-            53 => array('ANNAJMU', 'BINTANG'),
+            53 => array('AN-NAJM', 'BINTANG'),
             54 => array('AL-QAMAR', 'BULAN'),
-            55 => array('ARRAHMAN', 'MAHA PEMURAH'),
+            55 => array('AR-RAHMAN', 'MAHA PEMURAH'),
             56 => array('AL-WAQI`AH', 'HARI KIAMAT'),
             57 => array('AL-HADID', 'BESI'),
             58 => array('AL-MUJADILAH', 'WANITA YANG MENGAJUKAN GUGATAN'),
@@ -2342,10 +2378,10 @@ if (!function_exists('get_quran_chapter_list')){
             61 => array('ASH-SHAF', 'BARISAN'),
             62 => array('AL-JUMUAH', 'HARI JUMAT'),
             63 => array('AL-MUNAFIQUN', 'ORANG-ORANG MUNAFIK'),
-            64 => array('ATTAGHABUN', 'HARI DITAMPAKKAN'),
+            64 => array('AT-TAGHABUN', 'HARI DITAMPAKKAN'),
             65 => array('ATH-THALAQ', 'TALAQ'),
-            66 => array('ATTAHRIM', 'MENGAHARAMKAN'),
-            67 => array('AL-MULKU', 'KERAJAAN'),
+            66 => array('AT-TAHRIM', 'MENGAHARAMKAN'),
+            67 => array('AL-MULK', 'KERAJAAN'),
             68 => array('AL-QALAM', 'QOLAM'),
             69 => array('AL-HAQQAH', 'HARI KIAMAT'),
             70 => array('AL-MA`ARIJ', 'TEMPAT-TEMPAT NAIK'),
@@ -2356,12 +2392,12 @@ if (!function_exists('get_quran_chapter_list')){
             75 => array('AL-QIYAMAH', 'HARI KIAMAT'),
             76 => array('AL-INSAN', 'MANUSIA'),
             77 => array('AL-MURSALAT', 'MALAIKAT YANG DIUTUS'),
-            78 => array('ANNABA`', 'BERITA'),
-            79 => array('ANNAZI`AT', 'MALAIKAT YANG MENCABUT'),
+            78 => array('AN-NABA`', 'BERITA'),
+            79 => array('AN-NAZI`AT', 'MALAIKAT YANG MENCABUT'),
             80 => array('ABASA', 'BERMUKA MASAM'),
-            81 => array('ATTAKWIR', 'MENGGULUNG'),
+            81 => array('AT-TAKWIR', 'MENGGULUNG'),
             82 => array('AL-INFITHAR', 'TERBELAH'),
-            83 => array('ATTATHFIF', 'KECURANGAN'),
+            83 => array('AL-MUTHAFIFIN', 'KECURANGAN'),
             84 => array('AL-INSYIQAQ', 'TERBELAH'),
             85 => array('AL-BURUJ', 'GUGUSAN BINTANG'),
             86 => array('ATH-THARIQ', 'YANG DATANG DI MALAM HARI'),
@@ -2369,18 +2405,18 @@ if (!function_exists('get_quran_chapter_list')){
             88 => array('AL-GHASYIYAH', 'HARI PEMBALASAN'),
             89 => array('AL-FAJR', 'FAJAR'),
             90 => array('AL-BALAD', 'NEGERI'),
-            91 => array('ASY-SYAMSU', 'MATAHARI'),
+            91 => array('ASY-SYAMS', 'MATAHARI'),
             92 => array('AL-LAIL', 'MALAM'),
             93 => array('ADH-DHUHA', 'WAKTU DUHA'),
             94 => array('AL-INSYIRAH', 'KELAPANGAN'),
-            95 => array('ATTIN', 'BUAH TIN'),
+            95 => array('AT-TIN', 'BUAH TIN'),
             96 => array('AL-`ALAQ', 'SEGUMPAL DARAH'),
             97 => array('AL-QADAR', 'KEMULIAAN'),
             98 => array('AL-BAYYINAH', 'BUKTI'),
-            99 => array('AZZILZAL', 'KEGONCANGAN'),
+            99 => array('AZ-ZALZALAH', 'KEGONCANGAN'),
             100 => array('AL-`ADIYAT', 'KUDA PERANG YANG BERLARI KENCANG'),
             101 => array('AL-QARI`AH', 'HARI KIAMAT'),
-            102 => array('ATTAKATSUR', 'BERMEGAH-MEGAHAN'),
+            102 => array('AT-TAKATSUR', 'BERMEGAH-MEGAHAN'),
             103 => array('AL-`ASHR', 'WAKTU'),
             104 => array('AL-HUMAZAH', 'PENGUMPAT'),
             105 => array('AL-FIL', 'GAJAH'),
@@ -2388,11 +2424,11 @@ if (!function_exists('get_quran_chapter_list')){
             107 => array('AL-MA`UN', 'BARANG-BARANG YANG BERGUNA'),
             108 => array('AL-KAUTSAR', 'NIKMAT YANG BESAR'),
             109 => array('AL-KAFIRUN', 'ORANG-ORANG KAFIR'),
-            110 => array('ANNASHRU', 'PERTOLONGAN'),
-            111 => array('ALLAHAB', 'GEJOLAK API'),
+            110 => array('AN-NASHR', 'PERTOLONGAN'),
+            111 => array('AL-LAHAB', 'GEJOLAK API'),
             112 => array('AL-IKHLASH', 'PEMURNIAN KEESAAN ALLAH'),
             113 => array('AL-FALAQ', 'WAKTU SHUBUH'),
-            114 => array('ANNAS', 'MANUSIA'),
+            114 => array('AN-NAS', 'MANUSIA'),
         );
 
         return $ayat;
@@ -2402,36 +2438,36 @@ if (!function_exists('get_quran_chapter_list')){
 if (!function_exists('get_quran_juz_list')){
     function get_quran_juz_list() {
         $juz = array(
-            1 => array('01 AL FATIHAH 1 - AL BAQARAH 141', 'JUZ 1'),
-            2 => array('02 AL BAQARAH 142 - AL BAQARAH 252', 'JUZ 2'),
-            3 => array('03 AL BAQARAH 253 - ALI IMRAN 92', 'JUZ 3'),
-            4 => array('04 ALI IMRAN 93 - AN NISA 23', 'JUZ 4'),
-            5 => array('05 AN NISA 24 - AN NISA 147', 'JUZ 5'),
-            6 => array('06 AN NISA 148 - AL MAIDAH 82', 'JUZ 6'),
-            7 => array('07 AL MAIDAH 83 - AL ANAM 110', 'JUZ 7'),
-            8 => array('08 AL ANAM 111 - AL ARAF 87', 'JUZ 8'),
-            9 => array('09 AL ARAF 88 - AL ANFAL 40', 'JUZ 9'),
-            10 => array('10 AL ANFAL 41 - AT TAUBAH 92', 'JUZ 10'),
-            11 => array('11 AT TAUBAH 93 - HUD 5', 'JUZ 11'),
-            12 => array('12 HUD 6 - YUSUF 52', 'JUZ 12'),
-            13 => array('13 YUSUF 53 - IBRAHIM 52', 'JUZ 13'),
-            14 => array('14 AL HIJR 1 - AN NAHL 128', 'JUZ 14'),
-            15 => array('15 AL ISRA 1 - AL KAHFI 74', 'JUZ 15'),
-            16 => array('16 AL KAHFI 75 - TAHA 135', 'JUZ 16'),
-            17 => array('17 AL ANBIYA 1 - AL HAJJ 78', 'JUZ 17'),
-            18 => array('18 AL MUMINUN 1 - AL FURQON 20', 'JUZ 18'),
-            19 => array('19 AL FURQON 21 - AN NAML 55', 'JUZ 19'),
-            20 => array('20 AN NAML 56 - AL ANKABUT 45', 'JUZ 20'),
-            21 => array('21 AL ANKABUT 46 - AL AHZAB 30', 'JUZ 21'),
-            22 => array('22 AL AHZAB 31 - YASIN 27', 'JUZ 22'),
-            23 => array('23 YASIN 28 - AZ ZUMAR 31', 'JUZ 23'),
-            24 => array('24 AZ ZUMAR 32 - FUSSILAT 46', 'JUZ 24'),
-            25 => array('25 FUSSILAT 47 - AL JATSIYAH 37', 'JUZ 25'),
-            26 => array('26 AL AHQAF 1 - AD DZARIYAT 30', 'JUZ 26'),
-            27 => array('27 AD DZARIYAT 31 - AL HADID 29', 'JUZ 27'),
-            28 => array('28 AL-MUJADILAH 1 - AT TAHRIM 12', 'JUZ 28'),
-            29 => array('29 AL-MULK 1 - AL MURSALAT 50', 'JUZ 29'),
-            30 => array('30 AN-NABA 1 - AN NAAS 6', 'JUZ 30')
+            1 => array('JUZ 1 AL FATIHAH 1 - AL BAQARAH 141', 'JUZ 1'),
+            2 => array('JUZ 2 AL BAQARAH 142 - AL BAQARAH 252', 'JUZ 2'),
+            3 => array('JUZ 3 AL BAQARAH 253 - ALI IMRAN 92', 'JUZ 3'),
+            4 => array('JUZ 4 ALI IMRAN 93 - AN NISA 23', 'JUZ 4'),
+            5 => array('JUZ 5 AN NISA 24 - AN NISA 147', 'JUZ 5'),
+            6 => array('JUZ 6 AN NISA 148 - AL MAIDAH 82', 'JUZ 6'),
+            7 => array('JUZ 7 AL MAIDAH 83 - AL ANAM 110', 'JUZ 7'),
+            8 => array('JUZ 8 AL ANAM 111 - AL ARAF 87', 'JUZ 8'),
+            9 => array('JUZ 9 AL ARAF 88 - AL ANFAL 40', 'JUZ 9'),
+            10 => array('JUZ 10 AL ANFAL 41 - AT TAUBAH 92', 'JUZ 10'),
+            11 => array('JUZ 11 TAUBAH 93 - HUD 5', 'JUZ 11'),
+            12 => array('JUZ 12 HUD 6 - YUSUF 52', 'JUZ 12'),
+            13 => array('JUZ 13 YUSUF 53 - IBRAHIM 52', 'JUZ 13'),
+            14 => array('JUZ 14 AL HIJR 1 - AN NAHL 128', 'JUZ 14'),
+            15 => array('JUZ 15 AL ISRA 1 - AL KAHFI 74', 'JUZ 15'),
+            16 => array('JUZ 16 AL KAHFI 75 - TAHA 135', 'JUZ 16'),
+            17 => array('JUZ 17 AL ANBIYA 1 - AL HAJJ 78', 'JUZ 17'),
+            18 => array('JUZ 18 AL MUMINUN 1 - AL FURQON 20', 'JUZ 18'),
+            19 => array('JUZ 19 AL FURQON 21 - AN NAML 55', 'JUZ 19'),
+            20 => array('JUZ 20 AN NAML 56 - AL ANKABUT 45', 'JUZ 20'),
+            21 => array('JUZ 21 AL ANKABUT 46 - AL AHZAB 30', 'JUZ 21'),
+            22 => array('JUZ 22 AL AHZAB 31 - YASIN 27', 'JUZ 22'),
+            23 => array('JUZ 23 YASIN 28 - AZ ZUMAR 31', 'JUZ 23'),
+            24 => array('JUZ 24 AZ ZUMAR 32 - FUSSILAT 46', 'JUZ 24'),
+            25 => array('JUZ 25 FUSSILAT 47 - AL JATSIYAH 37', 'JUZ 25'),
+            26 => array('JUZ 26 AL AHQAF 1 - AD DZARIYAT 30', 'JUZ 26'),
+            27 => array('JUZ 27 AD DZARIYAT 31 - AL HADID 29', 'JUZ 27'),
+            28 => array('JUZ 28 AL-MUJADILAH 1 - AT TAHRIM 12', 'JUZ 28'),
+            29 => array('JUZ 29 AL-MULK 1 - AL MURSALAT 50', 'JUZ 29'),
+            30 => array('JUZ 30 AN-NABA 1 - AN NAAS 6', 'JUZ 30')
         );
 
         return $juz;
@@ -2465,49 +2501,132 @@ if (!function_exists('get_character_indicator')) {
                 '2' => array(
                     'name' => 'Ibadah Yang Benar',
                     'indicator' => array(
-                        '21' => 'Tidak sungkan Adzan',
-                        '22' => 'Ihsan dalam Thaharah',
-                        '23' => 'Bersemangat untuk shalat'
+                        '201' => 'Tidak sungkan Adzan',
+                        '202' => 'Ihsan dalam Thaharah',
+                        '203' => 'Bersemangat untuk shalat',
+                        '204' => 'Ihsan dalam shalat',
+                        '205' => 'Qiyamul-Lail minimal sekali sepekan',
+                        '206' => 'Membayar zakat',
+                        '207' => 'Berpuasa fardlu',
+                        '208' => 'Berpuasa sunat minimal sehari dalam sebulan',
+                        '209' => 'Niat melaksanakan haji',
+                        '210' => 'Berdoa pada waktu-waktu utama',
+                        '211' => 'Menutup hari-harinya dengan bertaubat dan beristighfar',
+                        '212' => 'Berniat pada setiap melakukan perbuatan',
+                        '213' => 'Menjauhi dosa besar',
+                        '214' => 'Merutinkan dzikir pagi hari',
+                        '215' => 'Merutinkan dzikir sore hari',
+                        '216' => 'Dzikir kepada Allah dalam setiap keadaan',
+                        '217' => 'Memenuhi nadzar',
+                        '218' => 'Menyebarluaskan salam',
+                        '219' => 'Menahan anggota tubuh dari segala yang haram',
+                        '220' => 'Beri’tikaf pada bulan Ramadhan, jika mungkin',
+                        '221' => 'Mempergunakan siwak',
+                        '222' => 'Senantiasa menjaga kondisi Thaharah, jika mungkin'
+
                     )
                 ),
                 '3' => array(
                     'name' => 'Kepribadian yang matang dan berakhlak mulia',
                     'indicator' => array(
-                        '31' => 'Tidak takabur',
-                        '32' => 'Tidak imma’ah (asal ikut, tidak punya prinsip)',
-                        '33' => 'Tidak dusta'
+                        '301' => 'Tidak takabur',
+                        '302' => 'Tidak imma’ah (asal ikut, tidak punya prinsip)',
+                        '303' => 'Tidak dusta',
+                        '304' => 'Tidak mencaci maki',
+                        '305' => 'Tidak mengadu domba',
+                        '306' => 'Tidak ghibah',
+                        '307' => 'Tidak menjadikan orang buruk sebagai teman/sahabat',
+                        '308' => 'Memenuhi janji',
+                        '309' => 'Birrul walidain',
+                        '310' => 'Memiliki ghirah (rasa cemburu) pada keluarganya',
+                        '311' => 'Memiliki ghirah (rasa cemburu) pada agamanya',
+                        '312' => 'Tidak memotong pembicaraan orang lain',
+                        '313' => 'Tidak mencibir dengan isyarat apapun',
+                        '314' => 'Tidak menghina dan meremehkan orang lain',
+                        '315' => 'Menyayangi yang kecil',
+                        '316' => 'Menghormati yang besar',
+                        '317' => 'Menundukkan pandangan',
+                        '318' => 'Menyimpan rahasia',
+                        '319' => 'Menutupi dosa orang lain',
+                        '320' => 'Melaksanakan hak kedua orang tua',
+                        '321' => 'Membantu yang membutuhkan',
+                        '322' => 'Memberi petunjuk orang tersesat',
+                        '323' => 'Ikut berpartisipasi dalam kegembiraan'
                     )
                 ),
                 '4' => array(
                     'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
                     'indicator' => array(
-                        '41' => 'Menjauhi segala yang haram',
-                        '42' => 'Menjauhi tempat-tempat maksiat',
-                        '43' => 'Menjauhi tempat-tempat bermain yang haram'
+                        '401' => 'Menjauhi segala yang haram',
+                        '402' => 'Menjauhi tempat-tempat maksiat',
+                        '403' => 'Menjauhi tempat-tempat bermain yang haram',
+                        '404' => 'Tidak menjalin hubungan dengan lembaga-lembaga yang menentang Islam',
+                        '405' => 'Memperbaiki penampilannya (performennya)',
+                        '406' => 'Bangun pagi',
+                        '407' => 'Menghabiskan waktu untuk belajar'
                     )
                 ),
                 '5' => array(
                     'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
                     'indicator' => array(
-                        '51' => 'Komitmen dengan adab tilawah',
-                        '52' => 'Khusyuk dalam membaca Al-Quran',
-                        '53' => 'Hafal satu juz Al-Qur’an'
+                        '501' => 'Komitmen dengan adab tilawah',
+                        '502' => 'Khusyuk dalam membaca Al-Quran',
+                        '503' => 'Hafal satu juz Al-Qur’an',
+                        '504' => 'Komitmen dengan wirid tilawah harian',
+                        '505' => 'Memperhatikan hukum-hukum tilawah',
+                        '506' => 'Membaca satu juz tafsir Al-Qur’an (juz 30)'
+
                     )
                 ),
                 '6' => array(
                     'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
                     'indicator' => array(
-                        '61' => 'Baik dalam membaca dan menulis',
-                        '62' => 'Mengkaji marhalah Makkiyah dan menguasai karakteristiknya',
-                        '63' => 'Mengenal 10 shahabat yang dijamin masuk surga'
+                        '601' => 'Baik dalam membaca dan menulis',
+                        '602' => 'Mengkaji marhalah Makkiyah dan menguasai karakteristiknya',
+                        '603' => 'Mengenal 10 shahabat yang dijamin masuk surga',
+                        '604' => 'Mengetahui hukum thaharah',
+                        '605' => 'Mengetahui hukum shalat',
+                        '606' => 'Mengetahui hukum puasa',
+                        '607' => 'Menyadari adanya peperangan Zionisme terhadap Islam',
+                        '608' => 'Mengetahui Ghozwul Fikri',
+                        '609' => 'Mengetahui organisasi-organisasi terselubung',
+                        '610' => 'Mengetahui bahaya pembatasan kelahiran',
+                        '611' => 'Berpartisipasi dalam kerja-kerja jama’i',
+                        '612' => 'Tidak menerima suara-suara miring tentang pendakwah Islam',
+                        '613' => 'Menghafalkan separuh Arba’in (1-20)',
+                        '614' => 'Menghafalkan 20 hadits pilihan dari Riyadush-sholihin',
+                        '615' => 'Membaca sesuatu yang di luar spesialisasinya 4 jam setiap pekan',
+                        '616' => 'Memperluas wawasan diri dengan sarana-sarana baru',
+                        '617' => 'Menjadi pendengar yang baik',
+                        '618' => 'Mengemukakan pendapatnya',
+                        '619' => 'Mencapai 80% kompetensi kognitif PAI dan mawad'
+
                     )
                 ),
                 '7' => array(
                     'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
                     'indicator' => array(
-                        '71' => 'Menjauhi sumber penghasilan haram',
-                        '72' => 'Menjauhi riba',
-                        '73' => 'Menjauhi judi dengan segala macamnya'
+                        '701' => 'Menjauhi sumber penghasilan haram',
+                        '702' => 'Menjauhi riba',
+                        '703' => 'Menjauhi judi dengan segala macamnya',
+                        '704' => 'Menjauhi tindak penipuan',
+                        '705' => 'Membayar zakat',
+                        '706' => 'Menabung, meskipun sedikit',
+                        '707' => 'Tidak menunda dalam melaksanakan hak orang lain',
+                        '708' => 'Menjaga fasilitas umum',
+                        '709' => 'Menjaga fasilitas khusus',
+                        '710' => 'Bersih badan',
+                        '711' => 'Bersih pakaian',
+                        '712' => 'Bersih tempat tinggal',
+                        '713' => 'Komitmen dengan olah raga 2 jam setiap pekan',
+                        '714' => 'Bangun sebelum fajar',
+                        '715' => 'Memperhatikan tata cara baca yang sehat',
+                        '716' => 'Mencabut diri dari merokok',
+                        '717' => 'Komitmen dengan adab makan dan minum sesuai dengan sunah',
+                        '718' => 'Tidak berlebihan dalam begadang',
+                        '719' => 'Menghindari tempat-tempat kotor dan polusi',
+                        '720' => 'Menghindari tempat-tempat bencana (bila masih di luar area)'
+
                     )
                 )
             );
@@ -2516,19 +2635,45 @@ if (!function_exists('get_character_indicator')) {
                 '1' => array(
                     'name' => 'Akidah Yang Bersih',
                     'indicator' => array(
-                        '11' => 'Tidak mengafirkan seorang muslim',
-                        '12' => 'Tidak mendahulukan makhluk atas Khaliq',
-                        '13' => 'Mengingkari orang-orang yang memperolok-olokkan ayat-ayat Allah swt dan tidak bergabung dalam majelis mereka',
-                        '14' => 'Mengesakan Allah swt dalam Rububiyyah dan Uluhiyyah',
-                        '15' => 'Tidak menyekutukan Allah swt, tidak dalam Asma-Nya, sifat-Nya dan Afal-Nya'
+                        '101' => 'Tidak mengafirkan seorang muslim',
+                        '102' => 'Tidak mendahulukan makhluk atas Khaliq',
+                        '103' => 'Mengingkari orang-orang yang memperolok-olokkan ayat-ayat Allah swt dan tidak bergabung dalam majelis mereka',
+                        '104' => 'Mengesakan Allah swt dalam Rububiyyah dan Uluhiyyah',
+                        '105' => 'Tidak menyekutukan Allah swt, tidak dalam Asma-Nya, sifat-Nya dan Afal-Nya',
+                        '106' => 'Tidak meminta berkah dengan mengusap-usap kuburan',
+                        '107' => 'Mempelajari madzhab-madzhab Islam yang berkaitan dengan Asma dan Sifat dan mengikuti madzhab salaf',
+                        '108' => 'Mengetahui batasan berwala dan berbara',
+                        '109' => 'Bersemangat untuk berteman dengan orang-orang shalih dari sisi-sisi kedekatan dan peneladanan',
+                        '110' => 'Meyakini terhapusnya dosa dengan taubat Nashuha',
+                        '111' => 'Memprediksikan datangnya kematian kapan saja',
+                        '112' => 'Meyakini bahwa masa depan ada di tangan Islam',
+                        '113' => 'Berusaha meraih rasa manisnya iman',
+                        '114' => 'Berusaha meraih rasa manisnya ibadah',
+                        '115' => 'Merasakan adanya para malaikat mulia yang mencatat amalnya',
+                        '116' => 'Merasakan adanya istighfar para malaikat dan doa mereka'
+                        
                     )
                 ),
                 '2' => array(
                     'name' => 'Ibadah Yang Benar',
                     'indicator' => array(
-                        '21' => 'Melakukan qiyamul-Lail minimal satu kali dalam satu pekan',
-                        '22' => 'Bersedekah',
-                        '23' => 'Berpuasa sunnat minimal dua hari dalam satu bulan'
+                        '201' => 'Melakukan qiyamul-Lail minimal satu kali dalam satu pekan',
+                        '202' => 'Bersedekah',
+                        '203' => 'Berpuasa sunnat minimal dua hari dalam satu bulan',
+                        '204' => 'Haji jika mampu',
+                        '205' => 'Banyak bertaubat',
+                        '206' => 'Memerintahkan yang maruf',
+                        '207' => 'Mencegah yang Munkar',
+                        '208' => 'Ziarah kubur untuk mengambil Ibrah',
+                        '209' => 'Merutinkan ibadah-ibadah sunnah Rawatib',
+                        '210' => 'Khusyu dalam shalat',
+                        '211' => 'Selalu memperbaharui niat dan meluruskannya',
+                        '212' => 'Menjaga organ tubuh (dari dosa)',
+                        '213' => 'Banyak dzikir kepada Allah swt disertai hafalan terhadap yang mudah-mudah',
+                        '214' => 'Banyak berdoa dengan memperhatikan syarat-syarat dan tata kramanya',
+                        '215' => 'Senantiasa bertafakkur',
+                        '216' => 'Beritikaf satu malam pada setiap bulannya'
+
                     )
                 ),
                 '3' => array(
@@ -2574,33 +2719,92 @@ if (!function_exists('get_character_indicator')) {
                 '4' => array(
                     'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
                     'indicator' => array(
-                        '41' => 'Selalu menyertakan niat  jihad',
-                        '42' => 'Menjadikan dirinya bersama orang baik',
-                        '43' => 'Menyumbangkan sebagian hartanya untuk amal islami'
+                        '401' => 'Selalu menyertakan niat  jihad',
+                        '402' => 'Menjadikan dirinya bersama orang baik',
+                        '403' => 'Menyumbangkan sebagian hartanya untuk amal islami',
+                        '404' => 'Sabar atas bencana',
+                        '405' => 'Menyesuaikan perbuatan dengan ucapan',
+                        '406' => 'Menerima dan memikul beban dakwah',
+                        '407' => 'Memerangi dorongan-dorongan nafsu',
+                        '408' => 'Tidak berlebihan mengkonsumsi yang mubah',
+                        '409' => 'Memakan apa yang disuguhkan dengan penuh keridhaan',
+                        '410' => 'Shalat menjadi barometer manajemen waktunya',
+                        '411' => 'Teratur di dalam rumah dan kerjanya',
+                        '412' => 'Menertibkan ide-ide dan pikiran-pikirannya',
+                        '413' => 'Bersemangat memenuhi janji-janji kerja',
+                        '414' => 'Memberitahukan gurunya problematika-problematika yang muncul',
+                        '415' => 'Menjaga janji-janji umum dan khusus',
+                        '416' => 'Mengisi waktunya dengan hal-hal yang berfaedah dan bermanfaat',
+                        '417' => 'Memperhatikan adab Islam dalam berkunjung dan mempersingkat pemenuhan hajatnya'
+
                     )
                 ),
                 '5' => array(
                     'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
                     'indicator' => array(
-                        '51' => 'Khusyu saat membaca Alquran',
-                        '52' => 'Sekali Khatam Alquran setiap dua bulan',
-                        '53' => 'Mengaitkan antara Alquran dengan realita'
+                        '501' => 'Khusyu saat membaca Alquran',
+                        '502' => 'Sekali Khatam Alquran setiap dua bulan',
+                        '503' => 'Mengaitkan antara Alquran dengan realita',
+                        '504' => 'Membaca tafsir dua juz Al quran (28-29)',
+                        '505' => 'Hafal dan bertajwid tiga juz Al quran (28-30)'
                     )
                 ),
                 '6' => array(
                     'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
                     'indicator' => array(
-                        '61' => 'Mengkaji marhalah Madaniyyah dan menguasai karakteristiknya',
-                        '62' => 'Mengenal sirah 20 sahabat yang syahid',
-                        '63' => 'Mengetahui hukum Zakat'
+                        '601' => 'Mengkaji marhalah Madaniyyah dan menguasai karakteristiknya',
+                        '602' => 'Mengenal sirah 20 sahabat yang syahid',
+                        '603' => 'Mengetahui hukum Zakat',
+                        '604' => 'Mengetahui fiqih Haji',
+                        '605' => 'Mengetahui sisi-sisi Syumuliyatul Islam',
+                        '606' => 'Mengetahui problematika kaum muslimin internal dan eksternal',
+                        '607' => 'Mengetahui apa kerugian dunia akibat kemunduran kaum muslimin',
+                        '608' => 'Mengetahui urgensi Khilafah dan kesatuan kaum muslimin',
+                        '609' => 'Mengetahui dan mengulas “tiga risalah”, yaitu: Dawatuna, Ila Ayyi Syaiin Nadun-Naas dan Ilasy-Syabab.',
+                        '610' => 'Mengetahui dan mengulas risalah Aqaid',
+                        '611' => 'Memahami amal jamai dan taat',
+                        '612' => 'Membantah suara-suara miring yang dilontarkan kepada kita',
+                        '613' => 'Mengetahui bagaimana proses berdirinya negara Israel',
+                        '614' => 'Mengetahui arah-arah pemikiran Islam kontemporer',
+                        '615' => 'Memiliki kemampuan mengulas apa yang ia baca',
+                        '616' => 'Menghafal seluruh hadits Arbain (20 + 20)',
+                        '617' => 'Menghafal 50 hadits Riyadhush-Shalihin (20 + 30)',
+                        '618' => 'Membaca tujuh jam setiap pekan di luar spesialisasinya',
+                        '619' => 'Menghadiri konferensi dan seminar kita',
+                        '620' => 'Mengenali hal-hal baru dari problematika kekinian',
+                        '621' => 'Menyebarluaskan apa saja yang diterbitkan oleh koran dan terbitan kita',
+                        '622' => 'Berpartisipasi dalam melontarkan dan memecahkan masalah',
+                        '623' => 'Mencapai 80% kompetensi kognitif PAI dan mawad'
+
                     )
                 ),
                 '7' => array(
                     'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
                     'indicator' => array(
-                        '71' => 'Bekerja dan berpenghasilan',
-                        '72' => 'Berusaha memiliki spesialisasi',
-                        '73' => 'Sedang dalam nafkah'
+                        '701' => 'Bekerja dan berpenghasilan',
+                        '702' => 'Berusaha memiliki spesialisasi',
+                        '703' => 'Sedang dalam nafkah',
+                        '704' => 'Mengutamakan produk-produk Islam',
+                        '705' => 'Menjaga kepemilikan khusus',
+                        '706' => 'Tidak berambisi menjadi pegawai negeri',
+                        '707' => 'Mengutamakan spesialisasil angka yang penting dan dinamis',
+                        '708' => 'Hartanya tidak pergi ke pihak non Muslim',
+                        '709' => 'Berusaha untuk memperbaiki kualitas produk dengan harga sesuai',
+                        '710' => 'Membersihkan peralatan makan dan minumnya',
+                        '711' => 'Mampu mempersiapkan makanan',
+                        '712' => 'Mengikuti petunjuk-petunjuk kesehatan dalam tidur dan bangun tidur semampunya',
+                        '713' => 'Mengobati diri sendiri',
+                        '714' => 'Tidak mempergunakan obat tanpa meminta petunjuk',
+                        '715' => 'Menjauhi makanan-makanan yang diawetkan dan mempergunakan minuman-minuman alami',
+                        '716' => 'Mengatur waktu-waktu makan',
+                        '717' => 'Tidak berlebihan mengkonsumsi lemak',
+                        '718' => 'Tidak berlebihan mengkonsumsi garam',
+                        '719' => 'Tidak berlebihan mengkonsumsi gula',
+                        '720' => 'Memilih produsen-produsen makanan',
+                        '721' => 'Tidur 6 - 8 jam dan bangun sebelum fajar',
+                        '722' => 'Berlatih 10 - 15 menit setiap hari',
+                        '723' => 'Berjalan 2 - 3 jam setiap pekan'
+
                     )
                 )
             );

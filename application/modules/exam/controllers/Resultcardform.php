@@ -612,14 +612,28 @@ class Resultcardform extends MY_Controller {
                         '2' => 'Tahsin 2',
                         '3' => 'Tahsin 3'
                     );
+                    $tahsintargetdetail = '';
+                    switch($gamma['tahsintarget']){
+                        case '1':
+                            $tahsintargetdetail = 'Kriteria Bacaan Masih Terbata-bata<br>Predikat Belum Terlampaui';
+                        break;
+
+                        case '2':
+                            $tahsintargetdetail = 'Kriteria Belum Sempurna di Salah Satu Kriteria<br> meliputi (Konsistensi Tanda Panjang, Keseimbangan Tanda Gunnah,<br> Pengucapan Huruf Sukun dan Tuntutan Kesempurnaan Vokal)';
+                        break;
+
+                        case '3':
+                            $tahsintargetdetail = 'Tepat dalam konsistensi tanda panjang<br>
+                            Tepat dalam keseimbangan tanda gunnah<br>
+                            Tepat dalam pengucapan huruf sukun<br>
+                            Tepat dalam tuntutan kesempurnaan vokal<br>';
+                        break; 
+                    }
                     $table_tahsin .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%"><tbody>';
                     $table_tahsin .= '<tr><td>Grade</td><td>Keterangan</td></tr>';
                     $table_tahsin .= '<tr><td rowspan="5">'.$gradetahsin[$gamma['tahsintarget']].'</td></tr>';
                     $table_tahsin .= '<tr><td rowspan="4">
-                    Tepat dalam konsistensi tanda panjang<br>
-                    Tepat dalam keseimbangan tanda gunnah<br>
-                    Tepat dalam pengucapan huruf sukun<br>
-                    Tepat dalam tuntutan kesempurnaan vokal<br>
+                    '.$tahsintargetdetail.'
                     </td></tr>';
                     $table_tahsin .= '</tbody></table>';
                     
@@ -768,9 +782,10 @@ class Resultcardform extends MY_Controller {
                         </thead>
                         <tbody>
                     ';
+                    $class = $student->class_name;
                     $table_character .= '<tr><th>Ujian</th><th>Nilai</th><th>Predikat</th><th rowspan="3">Catatan Tahfizh <br/> <span style="font-weight: normal">'.$gamma['tfnote'].'</span> <br/><br/> Catatan Tahsin </br> <span style="font-weight: normal">'.$gamma['tahsinnote'].'</span></th></tr>';
-                    $table_character .= '<tr><td>Tahfizh</td><td>'.$totaltahfizh.'</td><td>'.get_grade_tahfizh($totaltahfizh).'</td></tr>';
-                    $table_character .= '<tr><td>Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin).'</td></tr>';
+                    $table_character .= '<tr><td>Tahfizh</td><td>'.$totaltahfizh.'</td><td>'.get_grade_tahfizh($totaltahfizh, $class).'</td></tr>';
+                    $table_character .= '<tr><td>Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin, $class).'</td></tr>';
     
                     $table_character .= '</tbody></table>';
                     $table_character .= 
@@ -794,16 +809,31 @@ class Resultcardform extends MY_Controller {
                         </thead>
                         <tbody>
                     ';
-                    $table_character .= '<thead><tr><th colspan="2">Tahfidzul Quran</th><th colspan="2">Tahsinul Quran</th></tr></thead>';
+                    $table_character .= '<thead><tr><th colspan="2" width="50%">Tahfidzul Quran</th><th colspan="2" width="50%">Tahsinul Quran</th></tr></thead>';
                     $totaltarget = count($gamma['targettahfizh']) + 1;
                     
+                    $tahsintargetdetail = '';
+                    switch($gamma['tahsintarget']){
+                        case '1':
+                            $tahsintargetdetail = 'Kriteria Bacaan Masih Terbata-bata<br>Predikat Belum Terlampaui';
+                        break;
+
+                        case '2':
+                            $tahsintargetdetail = 'Kriteria Belum Sempurna di Salah Satu Kriteria<br> meliputi (Konsistensi Tanda Panjang, Keseimbangan Tanda Gunnah,<br> Pengucapan Huruf Sukun dan Tuntutan Kesempurnaan Vokal)';
+                        break;
+
+                        case '3':
+                            $tahsintargetdetail = 'Tepat dalam konsistensi tanda panjang<br>
+                            Tepat dalam keseimbangan tanda gunnah<br>
+                            Tepat dalam pengucapan huruf sukun<br>
+                            Tepat dalam tuntutan kesempurnaan vokal<br>';
+                        break; 
+                    }
+
                     $table_tahsin .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%"><tbody>';
                     $table_tahsin .= '<tr><td>Grade</td><td>Keterangan</td></tr>';
                     $table_tahsin .= '<tr><td rowspan="5">Basic '.$gamma['tahsintarget'].'</td></tr>';
-                    $table_tahsin .= '<tr><td>Tepat dalam konsistensi tanda panjang</td></tr>';
-                    $table_tahsin .= '<tr><td>Tepat dalam keseimbangan tanda gunnah</td></tr>';
-                    $table_tahsin .= '<tr><td>Tepat dalam pengucapan huruf sukun</td></tr>';
-                    $table_tahsin .= '<tr><td>Tepat dalam tuntutan kesempurnaan vokal</td></tr>';
+                    $table_tahsin .= '<tr><td>'.$tahsintargetdetail.'</td></tr>';
                     $table_tahsin .= '</tbody></table>';
                     
                     $table_character .= '<tr><td>Juz</td><td>Surat</td><td colspan="2" rowspan="'.$totaltarget.'">'.$table_tahsin.'</td></tr>';

@@ -131,44 +131,46 @@
                         </div>
                     </div>
                 </div> */ ?>
-                <?php if($formtype == 'bpi') { ?>
-                <div class="row">
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                        <div class="item form-group">
-                        <label for="level-choice">Pilih Level</label>
-                        <select class="form-control" id="level" name="level">
-                            <option>------</option>
-                            <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
-                            <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
-                        </select>
-                        </div>
-                    </div>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                        <div class="item form-group">
-                        <label for="period-choice">Pilih Period</label>
-                            <select class="form-control" id="period" name="period">
-                                <option>--------</option>
-                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
-                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
-                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
-                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
+                <?php if(!empty($student_id)) { ?>
+                    <?php if($formtype == 'bpi') { ?>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <div class="item form-group">
+                            <label for="level-choice">Pilih Level</label>
+                            <select class="form-control" id="level" name="level">
+                                <option>------</option>
+                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
+                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
                             </select>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <div class="item form-group">
+                            <label for="period-choice">Pilih Period</label>
+                                <select class="form-control" id="period" name="period">
+                                    <option>--------</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <?php } else if ($formtype == 'tahfizh') { ?>
-                <div class="row">
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                        <div class="item form-group">
-                        <label for="period-choice">Pilih Semester</label>
-                        <select class="form-control" id="period2" name="period">
-                            <option>------</option>
-                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">Semester 1</option>
-                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">Semester 2</option>
-                        </select>
+                    <?php } else if ($formtype == 'tahfizh') { ?>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <div class="item form-group">
+                            <label for="period-choice">Pilih Semester</label>
+                            <select class="form-control" id="period2" name="period">
+                                <option>------</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">Semester 1</option>
+                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">Semester 2</option>
+                            </select>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <?php } ?>
                 <?php } ?>
                
                 <?php 
@@ -414,8 +416,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-7">
-                                <fieldset id="buildyourform">
+                            <div class="col-md-7 scroll-block">
+                                <fieldset id="buildyourform" class="scroll-fieldset">
                                     <?php echo $tahfizhvalues; ?>
                                 </fieldset>
                                 <?php if(isset($_GET['format']) && $_GET['format'] == 'surat') { ?>
@@ -477,9 +479,9 @@
                                 <select class="form-control" id="tahfizh_tahsin" name="indicator2[tahsin]">
                                     <option>--------</option>
                                     <?php if($clientcode == 'ymk'){ ?>
-                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '1'){echo 'selected';} ?> value="1">Maqbul (C)</option>
-                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Jayyid (B)</option>
-                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '3'){echo 'selected';} ?> value="3">Jayyid Jiddan (A)</option>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '1'){echo 'selected';} ?> value="1">Maqbul/Cukup</option>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Jayyid/Baik</option>
+                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '3'){echo 'selected';} ?> value="3">Jayyid Jiddan/Baik Sekali</option>
                                     <?php } else { ?>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '1'){echo 'selected';} ?> value="1">Basic 1</option>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Basic 2</option>
@@ -1086,6 +1088,13 @@ $(document).ready(function() {
     
 </script>
 <style>
+.scroll-block {
+    height: 400px; 
+    overflow-y: auto;
+}
+.scroll-fieldset {
+    overflow: auto;
+}
 .select2-container {
     float: left; 
     width: 50% !important;
