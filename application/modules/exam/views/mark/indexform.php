@@ -1095,6 +1095,9 @@ $(document).ready(function() {
     overflow-y: auto;
 }
 @media (max-width: 720px) and (min-width: 320px) {
+    #tahfizh-form .content {
+        overflow: auto;
+    }
     .top-space {
         margin-top: 8px;
     }
