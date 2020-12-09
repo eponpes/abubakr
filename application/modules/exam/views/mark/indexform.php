@@ -471,7 +471,7 @@
                                     <option <?php if(isset($markvalues2['murajaah']) && $markvalues2['murajaah'] == '2'){echo 'selected';} ?> value="2">Jayyid</option>
                                     <option <?php if(isset($markvalues2['murajaah']) && $markvalues2['murajaah'] == '3'){echo 'selected';} ?> value="3">Maqbul</option>
                                 </select>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[murajaahnote]"  id="murajaah_note" value="<?php echo isset($markvalues2['murajaahnote']) ?  $markvalues2['adabnote'] : ''; ?>" placeholder="Catatan Murajaah" type="text" autocomplete="off">
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[murajaahnote]"  id="murajaah_note" value="<?php echo isset($markvalues2['murajaahnote']) ?  $markvalues2['murajaahnote'] : ''; ?>" placeholder="Catatan Murajaah" type="text" autocomplete="off">
                                 <div class="help-block"><?php echo form_error('indicator2[murajaahnote]'); ?></div>
                             </div>
                         </div>
