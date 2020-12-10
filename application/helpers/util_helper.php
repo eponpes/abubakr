@@ -371,26 +371,26 @@ function get_predicate($type = null, $score) {
     if($type == 'adab' || $type == 'murajaah'){
         switch($score){
             case '1':
-                $label = 'Jayyid Jiddan/Baik Sekali';
+                $label = 'Jayyid Jiddan';
             break;
             case '2':
-                $label = 'Jayyid/Baik';
+                $label = 'Jayyid';
             break;
             case '3':
-                $label = 'Maqbul/Cukup';
+                $label = 'Maqbul';
             break;
         }
     } else if($type == 'tahsin'){
         if($clientcode == 'ymk'){
             switch($score){
                 case '1':
-                    $label = 'Maqbul/Cukup (C)';
+                    $label = 'Maqbul';
                 break;
                 case '2':
-                    $label = 'Jayyid/Baik (B)';
+                    $label = 'Jayyid';
                 break;
                 case '3':
-                    $label = 'Jayyid Jiddan/Baik Sekali (A)';
+                    $label = 'Jayyid Jiddan';
                 break;
             }
         } else {

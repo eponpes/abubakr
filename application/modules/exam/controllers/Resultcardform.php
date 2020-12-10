@@ -429,7 +429,7 @@ class Resultcardform extends MY_Controller {
                         'adab' => ['Adab', 'adabnote'],
                         'murajaah' => ['Murajaah', 'murajaahnote'],
                         'tahsin' => ['Tahsin', 'tahsindesk'],
-                        'target' => ['Pencapaian', 'targetnote'],
+                        'target' => ['Pencapaian Target Hafalan', 'targetnote'],
                     ];
                     
                     foreach($exam as $mex){
@@ -650,35 +650,28 @@ class Resultcardform extends MY_Controller {
 
                     $table_character = '
                     <div class="row">
-                        <div class="col-md-7" style="width: 70%">
+                        <div class="col-md-7" style="width: 60%">
                             <h4>Evaluasi Ziyadah</h3>
                             <div class="mod-ziyadah">
                                 '.$table_ziyadah.'
                             </div>
-                        </div>
-                        <div class="col-md-4" style="width: 30%">
-                            <h4>&nbsp;</h3>
-                            <div class="mod-note-ziyadah" style="height: 90px">
-                                '.$table_tahsin_note.'
+                            <div class="mod-character">
+                                 '.$table_character.'
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-7" style="width: 70%">
-                            <h4>Hasil Evaluasi Tahfizh</h3>
                             <div class="mod-ziyadah">
                                 '.$table_tahfizh.'
-                            </div>
-                            <div class="widget mod-ziyadah">
-                                '.$target_tahfizh.'
+                                <p><i>Catatan: <b>Mumtaz</b> (Sempurna), <b>Jayyid Jiddan</b> (Baik Sekali), <b>Jayyid</b> (Baik)</i></p>
                             </div>
                         </div>
-                        <div class="col-md-4" style="width: 30%">
+                        <div class="col-md-4" style="width: 40%">
                             <h4>&nbsp;</h3>
-                            <div class="mod-note-ziyadah" style="height: 90px">
+                            <div class="mod-note-ziyadah">
+                                '.$table_tahsin_note.'
+                            </div>
+                            <div class="mod-note-ziyadah">
                                 '.$table_tahfizh_note.'
                             </div>
-                            <div class="widget mod-present" style="height: 90px">
+                            <div class="widget mod-present">
                                 '.$table_present.'
                             </div>
                         </div>
