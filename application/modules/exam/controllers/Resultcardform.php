@@ -771,13 +771,13 @@ class Resultcardform extends MY_Controller {
                     '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th colspan="4">Nilai Akhir Semester Tahfizh dan Tahsin</th>
+                                <th colspan="3">Nilai Akhir Semester Tahfizh dan Tahsin</th>
                             </tr>
                         </thead>
                         <tbody>
                     ';
                     $class = $student->class_name;
-                    $table_character .= '<tr><th>Ujian</th><th>Nilai</th><th>Predikat</th><th rowspan="3">Catatan Tahfizh <br/> <span style="font-weight: normal">'.$gamma['tfnote'].'</span> <br/><br/> Catatan Tahsin </br> <span style="font-weight: normal">'.$gamma['tahsinnote'].'</span></th></tr>';
+                    $table_character .= '<tr><th>Ujian</th><th>Nilai</th><th>Predikat</th></tr>';
                     $table_character .= '<tr><td>Tahfizh</td><td>'.$totaltahfizh.'</td><td>'.get_grade_tahfizh($totaltahfizh, $class).'</td></tr>';
                     $table_character .= '<tr><td>Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin, $class).'</td></tr>';
     

@@ -1,3 +1,6 @@
+<?php /*
+<div class="bgimage"><img src="<?php echo IMG_URL; ?>signature/stamp.png"></div>
+*/ ?>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -284,25 +287,62 @@
             </div>
           
             <?php if($formtype == 'bpi' || $formtype == 'character') { ?>
-                <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
+                <div class="rowt with-top-space"><div class="col-lg-12">&nbsp;</div></div>
                 <div class="rowt">
-                    <div class="col-xs-3 text-center">
+                    <div class="col-xs-7">&nbsp;</div>
+                    <div class="col-xs-4 text-right">
+                        <?php
+                        $day = date("d");
+                        $month = get_sign_date(date("m"));
+                        $year = date("Y");
+                        $signdate = $day . ' ' . $month . ' ' . $year;
+                        ?>
+                        <span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span>
+                    </div>
+                </div>
+                <div class="rowt">
+                    <div class="col-xs-1 text-center" style="width: 6%">&nbsp;</div>
+                    <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
-                            <p><br>Mengetahui<p>
-                            <p>Mudir <?php echo $school->school_name; ?></p>
+                            <?php
+                                $imagepath1 = IMG_URL . 'signature/1.png';
+                                $defaultpath1 = IMG_URL . 'signature/default.png';
+                                if(remote_file_exists($imagepath1))
+                                {
+                                    echo "<img class=\"sign-teacher middle\" src=\"$imagepath1\"/>\n";
+                                }
+                                else
+                                {
+                                    echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
+                                } 
+                            ?>
+                            <p>Mudir PPTQ</p>
                         </div>
                         <div class="signature">
                             <?php if(isset($school->adm_principal)) {
                                 echo $school->adm_principal;
                             } ?>
                         </div>
+                        <div class="stamp"><img src="<?php echo IMG_URL; ?>signature/stamp.png"></div>
                     </div>
-                    <div class="col-xs-1 text-center">
+                    <div class="col-xs-1 text-center" style="width: 4.15%">
                         &nbsp;
                     </div>
-                    <div class="col-xs-3 text-center">
+                    <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
-                            <p><br/><br>Ketua BPI</p>
+                            <?php
+                                $imagepath = IMG_URL . 'signature/2.png';
+                                $defaultpath = IMG_URL . 'signature/default.png';
+                                if(remote_file_exists($imagepath))
+                                {
+                                    echo "<img class=\"sign-teacher middle\" src=\"$imagepath\"/>\n";
+                                }
+                                else
+                                {
+                                    echo "<img class=\"sign-teacher default\" src=\"$defaultpath\"/>\n";
+                                } 
+                            ?>
+                            <p>Ketua BPI</p>
                         </div>
                         <div class="signature">
                             <?php if(isset($school->adm_siebpi)) {
@@ -310,18 +350,23 @@
                             } ?>
                         </div>
                     </div>
-                    <div class="col-xs-1 text-center">
+                    <div class="col-xs-1 text-center" style="width: 4.15%">
                         &nbsp;
                     </div>
-                    <div class="col-xs-4 text-center">
+                    <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
                             <?php
-                            $day = date("d");
-                            $month = get_sign_date(date("m"));
-                            $year = date("Y");
-                            $signdate = $day . ' ' . $month . ' ' . $year;
+                                $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
+                                $defaultpath1 = IMG_URL . 'signature/default.png';
+                                if(remote_file_exists($imagepath1))
+                                {
+                                    echo "<img class=\"sign-teacher middle\" src=\"$imagepath1\"/>\n";
+                                }
+                                else
+                                {
+                                    echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
+                                } 
                             ?>
-                            <p><span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span><p>
                             <p>Guru Pembina BPI</p>
                         </div>
                         <div class="signature">
@@ -336,7 +381,7 @@
                 <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
                 <div class="rowt">
                     <div class="col-xs-7">&nbsp;</div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-4 text-right">
                         <?php
                         $day = date("d");
                         $month = get_sign_date(date("m"));
@@ -347,7 +392,8 @@
                     </div>
                 </div>
                 <div class="rowt">
-                    <div class="col-xs-3 text-center">
+                    <div class="col-xs-1 text-center" style="width: 3%">&nbsp;</div>
+                    <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
                             <p>Orang Tua / Wali Santri</p>
                         </div>
@@ -355,10 +401,10 @@
                             ( .............................. )
                         </div>
                     </div>
-                    <div class="col-xs-1 text-center">
+                    <div class="col-xs-1 text-center" style="width: 5.15%">
                         &nbsp;
                     </div>
-                    <div class="col-xs-3 text-center">
+                    <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
                         <?php
                             $imagepath = IMG_URL . 'signature/1.png';
@@ -381,11 +427,12 @@
                         </div>
                         <div class="stamp"><img src="<?php echo IMG_URL; ?>signature/stamp.png"></div>
                     </div>
-                    <div class="col-xs-1 text-center">
+                    <div class="col-xs-1 text-center" style="width: 5.15%">
                         &nbsp;
                     </div>
-                    <div class="col-xs-3 text-center">
+                    <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
+                            <?php if($clientcode == 'ymk') { ?>
                             <?php
                             $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
                             $defaultpath1 = IMG_URL . 'signature/default.png';
@@ -398,9 +445,20 @@
                                 echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
                             } 
                             ?>
-                            <?php if($clientcode == 'ymk') { ?>
                             <p>Muhafizh/ah</p>
                             <?php } else { ?>
+                            <?php
+                            $imagepath1 = IMG_URL . 'signature/3.png';
+                            $defaultpath1 = IMG_URL . 'signature/default.png';
+                            if(remote_file_exists($imagepath1))
+                            {
+                                echo "<img class=\"sign-teacher middle\" src=\"$imagepath1\"/>\n";
+                            }
+                            else
+                            {
+                                echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
+                            } 
+                            ?>
                             <p>Kasie Tahfidz</p>
                             <?php } ?>
                         </div>
@@ -681,6 +739,7 @@ $("#send").on("click", function(e){
     width: 100%;
 }
 hr.style8 {
+    margin-top: 2px;
     height: auto;
 	border-top: 5px solid #000;
 	border-bottom: 1px solid #fff;
@@ -701,6 +760,7 @@ hr.style8:after {
     font-size: 18px;
 }
 .top-school {
+    padding-top: 10px;
     font-size: 14px;
 }
 .noborder td {
@@ -712,7 +772,18 @@ table th {
 }
 @media print {
   @page { margin: 0; }
-  body { margin: 0cm; }
+  body { margin-top: -1.5cm; margin-bottom: 0cm; margin-left: 0cm; margin-right: 0cm }
+}
+.bgimage {
+    top: 120px;
+    left: 40px;
+    position:absolute;
+    z-index: 99;
+    opacity: 0.1;
+    width: 100%;
+}
+.bgimage img {
+    width: 90%;
 }
 .knowing p {
     margin: 0;
@@ -743,7 +814,7 @@ table th {
     position:absolute;
     top:-20px;
     z-index:0;
-    right:-60px;
+    left:-20px;
 }
 .stamp img {
     width: 150px;
@@ -752,5 +823,13 @@ table th {
 .no-margin {
     margin-left: 0 !important;
     margin-right: 0 !important;
+}
+.with-top-space {
+    margin-top: 40px;
+}
+.rowt {
+    float: left;
+    width: 100%;
+    position: relative;
 }
 </style>
