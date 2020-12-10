@@ -176,18 +176,19 @@
                     <div class="col-sm-12 col-xs-12">
                         <div class="text-center align-middle">
                             <div class="row">
-                                <div class="school-logo col-md-1">
+                                <div class="school-logo col-sm-1 col-xs-2">
                                     <?php if($school->logo){ ?>
                                         <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
                                     <?php } ?>
                                 </div>
-                                <div class="school-info col-md-11">
+                                <div class="school-info col-sm-10 col-xs-9">
                                     <div class="top-school"><?php echo $school->school_parent; ?></div>
                                     <?php if(isset($school)){ ?>
                                     <div class="name-school"><?php echo $school->school_name; ?></div>
                                     <p> <?php echo $school->address; ?></p>
                                 <?php } ?>
                                 </div>
+                                <div class="col-sm-1 col-xs-1">&nbsp;</div>
                             </div>
 
                             <hr class="style8" />
@@ -268,7 +269,7 @@
              <?php } ?>
 
             <div class="x_content">
-                <div class="row justify-content-center">
+                <div class="row justify-content-center no-margin">
 
                 <?php echo $html_table_character; ?>
 
@@ -325,14 +326,26 @@
                         </div>
                         <div class="signature">
                             <?php if(isset($myteacher)) {
-                                    echo $myteacher;
+                                    echo $myteacher->name;
                                 } ?>
                             </div>
                         </div>
                     </div>
                 </div>
             <?php } else if($formtype == 'tahfizh' || $formtype == 'tahsin') { ?>
-            <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
+                <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
+                <div class="rowt">
+                    <div class="col-xs-7">&nbsp;</div>
+                    <div class="col-xs-4">
+                        <?php
+                        $day = date("d");
+                        $month = get_sign_date(date("m"));
+                        $year = date("Y");
+                        $signdate = $day . ' ' . $month . ' ' . $year;
+                        ?>
+                        <span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span>
+                    </div>
+                </div>
                 <div class="rowt">
                     <div class="col-xs-3 text-center">
                         <div class="knowing">
@@ -347,26 +360,44 @@
                     </div>
                     <div class="col-xs-3 text-center">
                         <div class="knowing">
-                        <p><br>Mudir <?php echo $school->school_name; ?></p>
+                        <?php
+                            $imagepath = IMG_URL . 'signature/1.png';
+                            $defaultpath = IMG_URL . 'signature/default.png';
+                            if(remote_file_exists($imagepath))
+                            {
+                                echo "<img class=\"sign-teacher middle\" src=\"$imagepath\"/>\n";
+                            }
+                            else
+                            {
+                                echo "<img class=\"sign-teacher default\" src=\"$defaultpath\"/>\n";
+                            } 
+                        ?>
+                        <p>Mudir PPTQ</p>
                         </div>
                         <div class="signature">
                             <?php if(isset($school->adm_principal)) {
                                 echo $school->adm_principal;
                             } ?>
                         </div>
+                        <div class="stamp"><img src="<?php echo IMG_URL; ?>signature/stamp.png"></div>
                     </div>
                     <div class="col-xs-1 text-center">
                         &nbsp;
                     </div>
-                    <div class="col-xs-4 text-center">
+                    <div class="col-xs-3 text-center">
                         <div class="knowing">
                             <?php
-                            $day = date("d");
-                            $month = get_sign_date(date("m"));
-                            $year = date("Y");
-                            $signdate = $day . ' ' . $month . ' ' . $year;
+                            $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
+                            $defaultpath1 = IMG_URL . 'signature/default.png';
+                            if(remote_file_exists($imagepath1))
+                            {
+                                echo "<img class=\"sign-teacher middle\" src=\"$imagepath1\"/>\n";
+                            }
+                            else
+                            {
+                                echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
+                            } 
                             ?>
-                            <p><span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span><p>
                             <?php if($clientcode == 'ymk') { ?>
                             <p>Muhafizh/ah</p>
                             <?php } else { ?>
@@ -377,7 +408,7 @@
                             <?php 
                             if($clientcode == 'ymk') {
                                 if(isset($myteacher)) {
-                                    echo ucwords(strtolower($myteacher));
+                                    echo ucwords(strtolower($myteacher->name));
                                 }    
                             } else {
                                 if(isset($school->adm_sietahfizh)) {
@@ -687,7 +718,39 @@ table th {
     margin: 0;
 }
 .knowing {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
-
+.knowing,
+.signature {
+    z-index: 2;
+    position: relative;
+}
+.sign-teacher {
+    max-height: 100px;
+    position: absolute;
+    top: 10px;
+    z-index: 2;
+}
+.sign-teacher.middle {
+    top: 0px;
+    right: 30px;
+}
+.sign-teacher.default{
+    top: 20px;
+    right: 35px;    
+}
+.stamp {
+    position:absolute;
+    top:-20px;
+    z-index:0;
+    right:-60px;
+}
+.stamp img {
+    width: 150px;
+    height: 150px;
+}
+.no-margin {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
 </style>

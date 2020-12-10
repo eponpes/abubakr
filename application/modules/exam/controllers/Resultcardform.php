@@ -189,9 +189,9 @@ class Resultcardform extends MY_Controller {
             $this->data['myteacher'] = '..............';
             $myteacher = $this->resultcardform->get_single('teachers', array('id'=>$teacher_id));
             if(!empty($myteacher)){
-                $this->data['myteacher'] = $myteacher->name;
+                $this->data['myteacher'] = $myteacher;
             }
-           
+
             $school = $this->resultcardform->get_school_by_id($school_id);
             $exam = get_mark_form_results($school_id, $academic_year_id, $class_id, $student_id, $levelchar, $periodchar); 
 
@@ -426,10 +426,10 @@ class Resultcardform extends MY_Controller {
             } else if ($type == 'tahfizh') {
                 if($this->data['clientcode'] == 'ymk'){
                     $penilaian = [
-                        'adab' => ['Adab di Dalam Halaqoh', 'adabnote'],
-                        'murajaah' => ['Murajaah Mengulang Hafalan', 'murajaahnote'],
+                        'adab' => ['Adab', 'adabnote'],
+                        'murajaah' => ['Murajaah', 'murajaahnote'],
                         'tahsin' => ['Tahsin', 'tahsindesk'],
-                        'target' => ['Pencapaian Target Hafalan', 'targetnote'],
+                        'target' => ['Pencapaian', 'targetnote'],
                     ];
                     
                     foreach($exam as $mex){
@@ -629,6 +629,7 @@ class Resultcardform extends MY_Controller {
                             Tepat dalam tuntutan kesempurnaan vokal<br>';
                         break; 
                     }
+                    $tahsintargetdetail = '';
                     $table_tahsin .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%"><tbody>';
                     $table_tahsin .= '<tr><td>Grade</td><td>Keterangan</td></tr>';
                     $table_tahsin .= '<tr><td rowspan="5">'.$gradetahsin[$gamma['tahsintarget']].'</td></tr>';
