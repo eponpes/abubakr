@@ -297,7 +297,7 @@ class Resultcardform extends MY_Controller {
                 $number = 1;
                 foreach($data_character as $char7){
                     if(empty($periodchar)){
-                        $totalsmmark = number_format(${"totalsm". $semester."_".$number}/2, 1);
+                        $totalsmmark = number_format(${"totalsm". $semester."_".$number}, 1);
                     } else {
                         $totalsmmark = number_format(${"totalsm". $semester."_".$number}, 1);
                     }
@@ -333,7 +333,7 @@ class Resultcardform extends MY_Controller {
                     $tdtarget = '<td>'.$targetmutabaah[$muta].'</td>';
                     if(in_array($muta, $mutabaah)){
                         if(empty($periodchar)){
-                            $totalsm = $total[$semester][$muta]/2;
+                            $totalsm = $total[$semester][$muta];
                         } else {
                             $totalsm = $total[$semester][$muta];
                             $tdadd = '<td>'.${"m" . $muta}.'</td>';
