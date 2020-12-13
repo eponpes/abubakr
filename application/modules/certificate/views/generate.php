@@ -10,8 +10,8 @@
             <link rel="icon" href="<?php echo IMG_URL; ?>favicon.ico" type="image/x-icon" />
         <?php } ?>    
         
-         <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet"> 
-        <link href="https://fonts.googleapis.com/css?family=Allerta+Stencil" rel="stylesheet"> 
+         <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> 
         <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet">  
         <link href="https://fonts.googleapis.com/css?family=Michroma" rel="stylesheet"> 
@@ -27,9 +27,9 @@
             @media print {
                 .certificate {                   
                     background: url("<?php echo UPLOAD_PATH; ?>certificate/<?php echo $certificate->background; ?>") no-repeat !important;    
-                    min-height: 550px;
+                    width: 1200px;
+                    height: 810px;
                     padding: 10%;
-                    width: 100%;
                     margin-left: auto;
                     margin-right: auto;
                     background-size: 100% 100% !important;
@@ -38,7 +38,7 @@
                     text-align: center;
                 }
                 .name-text {               
-                    text-align: center !important;                   
+                    text-align: center !important;  
                 }  
             } 
    
@@ -53,6 +53,15 @@
                 color-adjust: exact !important;
                 text-align: center;
             }
+            .main-text {
+                font-family: 'Oswald', 'EB Garamond', serif;
+                padding-top: 320px; 
+                font-size: 35px;
+                padding-left: 0px;
+            }
+            .main-text span {
+                text-decoration: auto;
+            }
             
 
     </style>
@@ -63,7 +72,7 @@
              <div class="row">
                  <div class="col-sm-12">                 
                     <div class="certificate">
-
+                        <?php /*
                         <div class="certificate-top">
                             <h2 class="top-heading-title"><?php echo $certificate->top_title; ?></h2>                              
                            <div class="row">
@@ -77,13 +86,14 @@
                                  <?php } ?>
                                 </span> 
                            </div>                            
-                        </div>
+                        </div> */ ?>
                        <div class="clear"></div>
+                       <?php /*
                         <div class="name-section">                           
                             <div style="text-align:center;">
                                 <h3 class="name-text"><?php echo $certificate->name; ?></h3>
                             </div>                           
-                        </div>
+                        </div> */ ?>
                         <div class="clear"></div>
                         <div class="main-text-block">
                             <p class="main-text">

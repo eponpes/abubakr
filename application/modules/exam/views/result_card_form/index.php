@@ -196,10 +196,10 @@
 
                             <hr class="style8" />
                             <?php if($formtype == 'tahfizh') { ?>
-                                <h4><strong>تقريروتائج االمتحان الىهائي في تحسيه القرآن و تحفيظه</strong><h4>
+                                <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
                             <h5><strong>LAPORAN PENILAIAN UJIAN AKHIR SEMESTER TAHSIN DAN TAHFIDZ AL-QUR’AN</strong></h5>
                             <?php } else if($formtype == 'tahsin') { ?>
-                                <h4><strong>تقريروتائج االمتحان الىهائي في تحسيه القرآن </strong><h4>
+                                <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
                             <h5><strong>LAPORAN PENILAIAN TAHSIN</strong></h5>
                             <?php } ?>
 
