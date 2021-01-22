@@ -38,8 +38,7 @@
                         </li>      
                             
                     </ul>
-                    <br/>                    
-                    
+                    <br/>  
                     <div class="tab-content">
                         <div  class="tab-pane fade in <?php if(isset($list)){ echo 'active'; }?>" id="tab_invoice_list" >
                             <div class="x_content">
@@ -53,14 +52,14 @@
                                         <th><?php echo $this->lang->line('invoice_number'); ?></th>
                                         <th><?php echo $this->lang->line('student'); ?></th>
                                         <th><?php echo $this->lang->line('class'); ?></th>
+                                        <th><?php echo $this->lang->line('month'); ?></th>
                                         <th><?php echo $this->lang->line('gross_amount'); ?></th>
                                         <th><?php echo $this->lang->line('discount'); ?></th>
                                         <th><?php echo $this->lang->line('net_amount'); ?></th>
-                                        <th><?php echo $this->lang->line('status'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
                                 </thead>
-                                <tbody>   
+                                <tbody class="list-inv">   
                                     <?php $count = 1; if(isset($invoices) && !empty($invoices)){ ?>
                                         <?php foreach($invoices as $obj){ ?>
                                         <tr>
@@ -68,24 +67,36 @@
                                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
-                                            <td><?php echo $obj->custom_invoice_id; ?></td>
+                                            <?php 
+                                                if($obj->paid_status == 'paid') { 
+                                                    $class_inv = 'inv-paid'; 
+                                                } else { 
+                                                    $class_inv = 'inv-unpaid';
+                                                }
+                                            ?>
+                                            <td>
+                                                <span id="<?php echo $obj->id; ?>" class="<?php echo $class_inv; ?>"><?php echo $obj->custom_invoice_id; ?></span>
+                                                <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
+                                                    <?php if($obj->paid_status != 'paid'){ ?>
+                                                        <a href="#" periode="<?php echo $obj->month; ?>" name="<?php echo $obj->student_name; ?>" school_id="<?php echo $obj->school_id; ?>" invoice_id="<?php echo $obj->id; ?>" amount="<?php echo $obj->net_amount; ?>" class="btn btn-success btn-xs fn_single_pay fnid-<?php echo $obj->id; ?>"><i class="fa fa-credit-card"></i> Cek Lunas</a>
+                                                        <?php /*<a href="<?php echo site_url('accounting/payment/index/'.$obj->id); ?>" class="btn btn-success btn-xs btn-pay-now payid-<?php echo $obj->id; ?>"><i class="fa fa-credit-card"></i> <?php echo $this->lang->line('pay_now'); ?></a>*/ ?>
+                                                    <?php } ?>  
+                                                <?php } ?> /
+                                                <span class="stid-<?php echo $obj->id; ?>"><?php echo get_paid_status($obj->paid_status); ?></span>
+                                            </td>
                                             <td><?php echo $obj->student_name; ?></td>
                                             <td><?php echo $obj->class_name; ?></td>
+                                            <td><?php echo $obj->month; ?></td>
                                             <td><?php echo $obj->gross_amount; ?></td>
-                                            <td><?php echo $obj->discount; ?></td>
+                                            <td><?php echo $obj->discount; ?></ptd>
                                             <td><?php echo $obj->net_amount; ?></td>
-                                            <td><?php echo get_paid_status($obj->paid_status); ?></td>
                                             <td>
                                                 <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
                                                     <a href="<?php echo site_url('accounting/invoice/view/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
-                                                    <?php if($obj->paid_status != 'paid'){ ?>
-                                                        <a href="<?php echo site_url('accounting/payment/index/'.$obj->id); ?>" class="btn btn-success btn-xs"><i class="fa fa-credit-card"></i> <?php echo $this->lang->line('pay_now'); ?></a>
-                                                    <?php } ?>  
-                                                    
                                                 <?php } ?> 
                                                 <?php if(has_permission(DELETE, 'accounting', 'invoice')){ ?>
                                                     <?php //if($obj->paid_status == 'unpaid'){ ?>
-                                                        <a href="<?php echo site_url('accounting/invoice/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
+                                                        <a href="<?php echo site_url('accounting/invoice/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs btn-delete-now"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
                                                     <?php //} ?>
                                                 <?php } ?>                                                       
                                             </td>
@@ -432,7 +443,7 @@
 <!-- bootstrap-datetimepicker -->
 <link href="<?php echo VENDOR_URL; ?>datepicker/datepicker.css" rel="stylesheet">
 <script src="<?php echo VENDOR_URL; ?>datepicker/datepicker.js"></script>
- 
+
 <script type="text/javascript"> 
     
     $("#month").datepicker( {
@@ -613,19 +624,19 @@
  /* Bulk invoice */ 
     function get_bulk_fee_type_by_school(school_id){
    
-    $.ajax({       
-            type   : "POST",
-            url    : "<?php echo site_url('accounting/invoice/get_bulk_fee_type_by_school'); ?>",
-            data   : { school_id:school_id},               
-            async  : false,
-            success: function(response){                                                   
-               if(response)
-               {  
-                    $('.fn_bulk_fee_item').html(response);
-               }
-            }
-        });   
-   }
+        $.ajax({       
+                type   : "POST",
+                url    : "<?php echo site_url('accounting/invoice/get_bulk_fee_type_by_school'); ?>",
+                data   : { school_id:school_id},               
+                async  : false,
+                success: function(response){                                                   
+                if(response)
+                {  
+                        $('.fn_bulk_fee_item').html(response);
+                }
+                }
+            });   
+    }
    
     function get_bulk_fee_amount(income_head_id){
             
@@ -678,6 +689,53 @@
    $('#uncheck_all').on('click', function(){
         $('#fn_student_container').children().find('input[type="checkbox"]').prop('checked', false);;
    });
+
+   $("#datatable-responsive").on('click','.fn_single_pay', function (node) { 
+        var school_id   = $(this).attr('school_id');
+        var invoice_id     = $(this).attr('invoice_id');
+        var amount = $(this).attr('amount');
+        var student_name = $(this).attr('name');
+        var periode = $(this).attr('periode');
+        
+        var contents = "Apakah Anda Yakin Bahwa Invoice "+invoice_id+" a/n "+student_name+" Periode "+periode+" Sebesar "+amount+" Sudah Lunas?";
+        $.confirm({
+            title: 'Konfirmasi!',
+            content: contents,
+            buttons: {
+                cancel: {
+                    text: 'Batal',
+                    action: function(){
+                        
+                    }
+                },
+                confirm: {
+                    text: 'Lunas',
+                    btnClass: 'btn-blue',
+                    keys: ['enter', 'shift'],
+                    action: function(){
+                        $.ajax({       
+                            type   : "POST",
+                            url    : "<?php echo site_url('accounting/payment/update_single_paid'); ?>",
+                            data   : {school_id:school_id,  invoice_id : invoice_id , amount:amount},               
+                            async  : false,
+                            success: function(response){ 
+                                if(response == 1){
+                                    $('.fnid-'+invoice_id).remove();
+                                    $('.payid-'+invoice_id).remove();
+                                    $('span#'+invoice_id).toggleClass('inv-paid');
+                                    $('.stid-'+invoice_id).html('Dibayar');
+                                    
+                                    toastr.success('<?php echo $this->lang->line('update_success'); ?>'); 
+                                }else{
+                                    toastr.error('<?php echo $this->lang->line('update_failed'); ?>'); 
+                                }             
+                            }
+                        }); 
+                    }
+                }
+            }
+        });      
+    });
   
  </script>
  
@@ -712,3 +770,5 @@
     }  
     
 </script>
+<link href="<?php echo CSS_URL; ?>jquery-confirm.css" rel="stylesheet">
+<script src="<?php echo JS_URL; ?>jquery-confirm.js"></script>

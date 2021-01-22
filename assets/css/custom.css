@@ -3040,3 +3040,14 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     margin-top: 50px;
     margin-bottom: 50px;
 }
+.inv-unpaid {
+    background: red;
+}
+.inv-paid {
+    background: limegreen;
+}
+.inv-unpaid,
+.inv-paid {
+    padding: 3px;
+    color: white;
+}

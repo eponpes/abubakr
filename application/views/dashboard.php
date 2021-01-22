@@ -273,6 +273,34 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">            
+        <div class="x_panel tile overflow_hidden">
+            <div class="x_title">
+                <h4 class="head-title">Keuangan</h4>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>                                
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row home-row">
+                    <div class="tile_button">
+                        <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
+                        <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                            <a href="<?php echo site_url('accounting/invoice/index'); ?>" class="button">
+                                <figure><img src="<?php echo IMG_URL; ?>icon/check.png"></figure>
+                                <div class="text">
+                                <?php echo $this->lang->line('manage_invoice'); ?>
+                                </div>
+                            </a></div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php if(has_permission(VIEW, 'report', 'report')){ ?>
 <div class="row">

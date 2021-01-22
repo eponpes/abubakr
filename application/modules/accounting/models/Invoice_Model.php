@@ -99,12 +99,35 @@ class Invoice_Model extends MY_Model {
         $this->db->join('students AS S', 'S.id = I.student_id', 'left');
         $this->db->join('academic_years AS AY', 'AY.id = I.academic_year_id', 'left');
         $this->db->join('schools AS SC', 'SC.id = I.school_id', 'left');
+        $this->db->join('enrollments AS E', 'E.student_id = I.student_id', 'left');
         
         $this->db->where('I.invoice_type !=', 'income');  
         
         if($due){
             $this->db->where('I.paid_status !=', 'paid');  
         }  
+
+        $class_bpi_id = $class_tahfizh_id = '';
+        if($this->session->userdata['responsibility'] == 'tbi'){
+                $profile_id = $this->session->userdata['profile_id'];
+                $field = "E.class_tahfizh_id";
+                $field2 = "E.class_bpi_id";
+                $this->db->group_start();
+                $this->db->or_where('E.class_tahfizh_id',$profile_id);
+                $this->db->or_where('E.class_bpi_id',$profile_id);
+                $this->db->group_end();
+        } else if ($this->session->userdata['responsibility'] == 'bpi') {
+            $class_bpi_id = $this->session->userdata['profile_id'];
+        } else if ($this->session->userdata['responsibility'] == 'tahfidz') {
+            $class_tahfizh_id = $this->session->userdata['profile_id'];
+        }
+        if(!empty($class_tahfizh_id)){
+            $this->db->where('E.class_tahfizh_id', $class_tahfizh_id); 
+        }
+
+        if(!empty($class_bpi_id)){
+            $this->db->where('E.class_bpi_id', $class_bpi_id); 
+        }
         
         if($this->session->userdata('role_id') == GUARDIAN){
             $this->db->where('S.guardian_id', $this->session->userdata('profile_id'));  

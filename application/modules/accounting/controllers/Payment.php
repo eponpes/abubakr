@@ -137,6 +137,45 @@ class Payment extends My_Controller {
         
     }
 
+    /*****************Function update_single_paid**********************************
+    * @type            : Function
+    * @function name   : update_single_paid
+    * @description     : Process to update single student paid status               
+    *                        
+    * @param           : null
+    * @return          : null 
+    * ********************************************************** */ 
+    public function update_single_paid() {
+
+        
+        $data['school_id'] = $this->input->post('school_id');
+        $data['amount'] = $this->input->post('amount');
+        $data['invoice_id'] = $this->input->post('invoice_id');
+        $data['payment_method'] = 'cash';
+        $data['note'] = '';
+        $data['status'] = '1';
+        
+        $school = $this->payment->get_school_by_id($data['school_id']);
+        if(!$school->academic_year_id){
+            echo FALSE;
+            return false;
+        }        
+        $data['academic_year_id'] = $school->academic_year_id;  
+        
+        $data['payment_date'] = date('Y-m-d');
+        $data['created_at'] = date('Y-m-d H:i:s');
+        $data['created_by'] = logged_in_user_id(); 
+        
+        
+        $insert_id = $this->payment->insert('transactions', $data);
+        $update = array('paid_status'=> 'paid', 'modified_at'=>date('Y-m-d H:i:s'));
+        if ($this->payment->update('invoices', $update, array('id'=>$data['invoice_id']))) {
+            echo TRUE;
+        } else {
+            echo FALSE;
+        }
+    }
+
     /*****************Function _prepare_payment_validation**********************************
     * @type            : Function
     * @function name   : _prepare_payment_validation

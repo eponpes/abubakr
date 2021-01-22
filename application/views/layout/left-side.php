@@ -457,7 +457,7 @@
                         </ul>
                     </li>
                     <?php } ?>
-                    <?php /*
+                    
                     <?php if(has_permission(VIEW, 'library', 'book') || 
                             has_permission(VIEW, 'library', 'member') || 
                             has_permission(VIEW, 'library', 'issue') ||   
@@ -480,7 +480,7 @@
                         </li> 
                     <?php } ?>
                     
-                    <?php if(has_permission(VIEW, 'transport', 'vehicle') || 
+                    <?php /* if(has_permission(VIEW, 'transport', 'vehicle') || 
                             has_permission(VIEW, 'transport', 'route') || 
                             has_permission(VIEW, 'transport', 'member')){ ?>        
                         <li><a><i class="fa fa-bus"></i> <?php echo $this->lang->line('transport'); ?> <span class="fa fa-chevron-down"></span></a>
