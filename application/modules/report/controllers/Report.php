@@ -1112,41 +1112,52 @@ class Report extends My_Controller {
     * @param           : null
     * @return          : null 
     * ********************************************************** */
-    public function stahfizh() {
+    public function stahfizh($school_id = null, $academic_year_id = null, $class_id = null, $month = null) {
 
-        check_permission(VIEW);
+        //check_permission(VIEW);
 
         $this->data['month_number'] = 1;       
         $this->data['days'] = 31;
-        
-        if ($_POST) {
+        $this->data['clientcode'] = $this->global_setting->client_code;
 
+        if(isset($month)){
+            $month = strtolower(date("F", mktime(0, 0, 0, $month, 10))); 
+        }
+
+        if ($_POST) {
             $school_id = $this->input->post('school_id');
             $academic_year_id = $this->input->post('academic_year_id');
             $class_id = $this->input->post('class_id');
-            $section_id = $this->input->post('section_id');
+            //$section_id = $this->input->post('section_id');
             $month = $this->input->post('month');
-
-
-            $this->data['school_id'] = $school_id;
-            $this->data['academic_year_id'] = $academic_year_id;
-            $this->data['class_id'] = $class_id;
-            $this->data['section_id'] = $section_id;
-            $this->data['month'] = $month;
-            $this->data['month_number'] = date('m', strtotime($this->data['month']));
-            
-            $session = $this->report->get_single('academic_years', array('id' => $academic_year_id, 'school_id'=>$school_id));            
-            $this->data['school'] = $this->report->get_school_by_id($school_id);
-
-            $this->data['students'] = $this->report->get_student_list($school_id, $academic_year_id, $class_id, $section_id);
-            
-            $this->data['year'] = substr($session->session_year, 7);
-            $this->data['days'] =  @date('t', mktime(0, 0, 0, $this->data['month_number'], 1, $this->data['year']));
-            //$this->data['days'] = cal_days_in_month(CAL_GREGORIAN, $this->data['month_number'], $this->data['year']);
+            $month = date('m', strtotime($month));
+            $buildredirect = $school_id .'/'. $academic_year_id .'/'. $class_id . '/' . $month;
+            redirect('report/stahfizh/' . $buildredirect);
         }
 
 
+        $this->data['school_id'] = $school_id;
+        $this->data['academic_year_id'] = $academic_year_id;
+        $this->data['class_id'] = $class_id;
+        //$this->data['section_id'] = $section_id;
+        $this->data['month'] = $month;
+        $this->data['month_number'] = date('m', strtotime($this->data['month']));
+        
+        $classes = $this->report->get_single('classes', array('id' => $class_id));            
+        //$sections = $this->report->get_single('sections', array('id' => $section_id));            
+        $this->data['class_section_name'] = $classes->name;
+        
+        $session = $this->report->get_single('academic_years', array('id' => $academic_year_id, 'school_id'=>$school_id));            
+        $this->data['school'] = $this->report->get_school_by_id($school_id);
 
+        $this->data['session'] = (isset($session->start_year)?$session->start_year:'') . '/' . (isset($session->end_year)?$session->end_year:'');
+
+        $this->data['students'] = $this->report->get_student_list($school_id, $academic_year_id, $class_id);
+        
+        $this->data['year'] = substr($session->session_year, 7);
+        $this->data['days'] =  @date('t', mktime(0, 0, 0, $this->data['month_number'], 1, $this->data['year']));
+        //$this->data['days'] = cal_days_in_month(CAL_GREGORIAN, $this->data['month_number'], $this->data['year']);
+        
         $condition = array();
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){ 
@@ -1162,7 +1173,7 @@ class Report extends My_Controller {
         
     }
 
-    public function srecord($student_id = null, $school_id = null, $academic_year_id = null, $class_id = null, $section_id = null, $month = null) {
+    public function srecord($student_id = null, $school_id = null, $academic_year_id = null, $class_id = null, $month = null) {
         
         //check_permission(EDIT);
 
@@ -1174,16 +1185,28 @@ class Report extends My_Controller {
         $this->data['school_id'] = $school_id;
         $this->data['academic_year_id'] = $academic_year_id;
         $this->data['class_id'] = $class_id;
-        $this->data['section_id'] = $section_id;
+        //$this->data['section_id'] = $section_id;
         $this->data['month'] = $month;
         $this->data['student_id'] = $student_id;
+
+        $this->data['clientcode'] = $this->global_setting->client_code;
         
         $session = $this->report->get_single('academic_years', array('id' => $academic_year_id, 'school_id'=>$school_id));            
         $this->data['year'] = $year = substr($session->session_year, 7);
         $this->data['days'] =  @date('t', mktime(0, 0, 0, $month, 1, $this->data['year']));
+
+        $this->data['session'] = (isset($session->start_year)?$session->start_year:'') . '/' . (isset($session->end_year)?$session->end_year:'');
+
         $school = $this->report->get_school_by_id($school_id);
         $student_record = get_student_monthly_tahfizh($school_id, $student_id, $academic_year_id, $class_id, $section_id, $month ,$this->data['days']);
         $student_detail = get_student_tahfizh_record($school_id, $student_id, $academic_year_id, $class_id, $section_id, $month, $year);
+        
+        $teacher_id = $student_detail->class_tahfizh_id;
+        $this->data['myteacher'] = '..............';
+        $myteacher = $this->report->get_single('teachers', array('id'=>$teacher_id));
+        if(!empty($myteacher)){
+            $this->data['myteacher'] = $myteacher;
+        }
         
         $this->data['school'] = $school;
         $this->data['student_record'] = $student_record;

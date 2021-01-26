@@ -431,6 +431,24 @@ function get_predicate($type = null, $score) {
                 $label = 'Terlampaui';
             break;
         }
+    }  else if($type == 'Z' || $type == 'M'){
+        switch($score){
+            case 'A':
+                $label = 'Mumtaz';
+            break;
+            case 'B':
+                $label = 'Jayyid Jiddan';
+            break;
+            case 'C':
+                $label = 'Jayyid';
+            break;
+            case 'D':
+                $label = 'Maqbul';
+            break;
+            default:
+            $label = 'Jayyid';
+            break;
+        }
     }
     
     return $label;

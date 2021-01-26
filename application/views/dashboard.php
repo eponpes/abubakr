@@ -26,7 +26,7 @@
                         <a href="<?php echo site_url('tahfizh/student/index'); ?>" class="button">
                             <figure><img src="<?php echo IMG_URL; ?>icon/tahfizh.png"></figure>
                             <div class="text">
-                            <?php echo $this->lang->line('student_tahfizh'); ?>
+                            Mutabaah Tahfizh
                             </div>
                         </a></div>
                     <?php } ?>
@@ -302,7 +302,7 @@
     </div>
 </div>
 
-<?php if(has_permission(VIEW, 'report', 'report')){ ?>
+<?php //if(has_permission(VIEW, 'report', 'report')){ ?>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">            
         <div class="x_panel tile overflow_hidden">
@@ -352,4 +352,4 @@
         </div>
     </div>
 </div>
-<?php } ?>
+<?php //} ?>

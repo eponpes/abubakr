@@ -738,8 +738,8 @@ class Ajax extends My_Controller {
     
     public function get_class_by_school() {
         
-         $school_id  = $this->input->post('school_id');
-         $class_id  = $this->input->post('class_id');
+        $school_id  = $this->input->post('school_id');
+        $class_id  = $this->input->post('class_id');
         $condition['status'] = 1;
         $condition['school_id'] = $school_id;
         

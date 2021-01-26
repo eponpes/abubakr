@@ -242,7 +242,16 @@ class Report_Model extends MY_Model {
             $this->db->where('E.section_id', $section_id); 
         }
         $this->db->where('E.school_id', $school_id);       
-        $this->db->where('S.status_type', 'regular');       
+        $this->db->where('S.status_type', 'regular');      
+        
+        $class_tahfizh_id = '';
+        if ($this->session->userdata['responsibility'] == 'tahfidz') {
+            $class_tahfizh_id = $this->session->userdata['profile_id'];
+        }
+        if(!empty($class_tahfizh_id)){
+            $this->db->where('E.class_tahfizh_id', $class_tahfizh_id); 
+        }
+
         return $this->db->get()->result();    
     } 
     

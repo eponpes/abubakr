@@ -642,7 +642,7 @@
                         </li> 
                     <?php } ?>
                     
-                    <?php if(has_permission(VIEW, 'report', 'report')){ ?>
+                    <?php if(has_permission(VIEW, 'report', 'report') || $this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                         <li><a><i class="fa fa-bar-chart"></i> <?php echo $this->lang->line('report'); ?> <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
                                 <li><a href="<?php echo site_url('report/income'); ?>"><?php echo $this->lang->line('income_report'); ?></a></li>

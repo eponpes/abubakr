@@ -9,8 +9,6 @@
                 <div class="clearfix"></div>
             </div>
             
-            <?php $this->load->view('quick_report'); ?>   
-            
              <div class="x_content filter-box no-print"> 
                 <?php echo form_open_multipart(site_url('report/stahfizh'), array('name' => 'stahfizh', 'id' => 'stahfizh', 'class' => 'form-horizontal form-label-left'), ''); ?>
                 <div class="row">                    
@@ -43,6 +41,7 @@
                                 </select>
                             </div>
                         </div>
+                        <?php /*
                         <div class="col-md-2 col-sm-2 col-xs-12">
                             <div class="item form-group"> 
                                 <div><?php echo $this->lang->line('section'); ?> </div>
@@ -50,7 +49,7 @@
                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                    
                                 </select>
                             </div>
-                        </div>
+                        </div> */ ?>
 
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group"> 
@@ -79,7 +78,7 @@
                 <div class="" data-example-id="togglable-tabs">
                     
                     <?php if(isset($school) && !empty($school)){ ?>
-                    <div class="x_content">             
+                    <?php /*<div class="x_content">             
                        <div class="row">
                            <div class="col-sm-3  col-xs-3">&nbsp;</div>
                            <div class="col-sm-6  col-xs-6 layout-box">
@@ -100,6 +99,49 @@
                            </div>
                             <div class="col-sm-3  col-xs-3">&nbsp;</div>
                        </div>            
+                    </div> */ ?>
+
+                    <div class="x_content">             
+                        <div class="row">
+                            <div class="col-sm-3  col-xs-3">&nbsp;</div>
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="text-center align-middle">
+                                    <div class="row">
+                                        <div class="school-logo col-sm-1 col-xs-2">
+                                            <?php if($school->logo){ ?>
+                                                <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
+                                            <?php } ?>
+                                        </div>
+                                        <div class="school-info col-sm-10 col-xs-9">
+                                            <div class="top-school"><?php echo $school->school_parent; ?></div>
+                                            <?php if(isset($school)){ ?>
+                                            <div class="name-school"><?php echo $school->school_name; ?></div>
+                                            <p> <?php echo $school->address; ?></p>
+                                        <?php } ?>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-1">&nbsp;</div>
+                                    </div>
+
+                                    <hr class="style8" />
+                                    <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
+                                    <h5><strong>LAPORAN ABSENSI & PENCAPAIAN TAHFIDZ</strong></h5>
+                                                                
+                                </div>
+                                <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td style="text-align:left; width: 100px">Periode</td>
+                                        <td style="text-align:left; width: 10%">: <?php echo $this->lang->line($month); ?></td>
+                                        <td style="text-align:left; width: 10%"></td>
+                                        <td style="text-align:left; width: 150px">Tahun Akademik</td>
+                                        <td style="text-align:left; width: 10%">: <?php echo $session ?></td>
+                                        <td style="text-align:left; width: 10%"></td>
+                                        <td style="text-align:left; width: 150px">Kelas / Bagian</td>
+                                        <td style="text-align:left; width: 15%">: <?php echo $class_section_name; ?></td>
+                                    </tr>
+                                </table>
+                                
+                            </div>
+                        </div>            
                     </div>
                     <?php } ?>
                     
@@ -124,10 +166,12 @@
                                 <tbody>   
                                     <?php  $count = 1; if(isset($students) && !empty($students)){ ?>
                                         <?php foreach($students as $obj){ 
-                                        $buildid = 'report/srecord/'.$obj->id.'/'.$school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$section_id.'/'.$month_number;
+                                        $buildid = 'report/srecord/'.$obj->id.'/'.$school_id.'/'.$academic_year_id.'/'.$class_id.'/'.$month_number;
                                             ?>
                                         <tr>
-                                            <td><a href="<?php echo site_url($buildid); ?>"><?php echo $obj->name; ?></a></td>
+                                            <td class="text-left">
+                                                <?php echo $obj->name; ?> <a class="no-print btn btn-xs btn-success" href="<?php echo site_url($buildid); ?>">View</a>
+                                            </td>
                                             <?php $attendance = get_student_monthly_tahfizh($school_id, $obj->id, $academic_year_id, $class_id, $section_id, $month_number ,$days); ?>
                                             <?php if(!empty($attendance)){ ?>
                                                 <?php foreach($attendance AS $key ){ ?>
@@ -178,9 +222,6 @@
                                                             $datatitle = "";
                                                         }
                                                         
-
-                                                       
-                                                        
                                                     ?>
 
                                                     <td data-toggle="tooltip" data-html="true" title="<?php echo $datatitle; ?>"> <?php echo $label ? $label : '<i style="color:red;">--</i>'; ?></td>
@@ -193,6 +234,82 @@
                                     <?php } ?>
                                 </tbody>
                             </table>
+
+                            <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
+                                <div class="rowt">
+                                    <div class="col-xs-7">&nbsp;</div>
+                                    <div class="col-xs-4 text-right">
+                                        <?php
+                                        $day = date("d");
+                                        $month = get_sign_date(date("m"));
+                                        $year = date("Y");
+                                        $signdate = $day . ' ' . $month . ' ' . $year;
+                                        ?>
+                                        <span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span>
+                                    </div>
+                                </div>
+                                <div class="rowt">
+                                    <div class="col-xs-1 text-center" style="width: 3%">&nbsp;</div>
+                                    <div class="col-xs-3 text-center" style="width: 28%">
+                                       &nbsp;
+                                    </div>
+                                    <div class="col-xs-1 text-center" style="width: 5.15%">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-xs-3 text-center" style="width: 28%">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-xs-1 text-center" style="width: 5.15%">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-xs-3 text-center" style="width: 28%">
+                                        <div class="knowing">
+                                            <?php if($clientcode == 'ymk') { ?>
+                                            <?php
+                                            $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
+                                            $defaultpath1 = IMG_URL . 'signature/default.png';
+                                            if(remote_file_exists($imagepath1))
+                                            {
+                                                echo "<img class=\"sign-teacher middle\" src=\"$imagepath1\"/>\n";
+                                            }
+                                            else
+                                            {
+                                                echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
+                                            } 
+                                            ?>
+                                            <p>Muhafizh/ah</p>
+                                            <?php } else { ?>
+                                            <?php
+                                            $imagepath1 = IMG_URL . 'signature/3.png';
+                                            $defaultpath1 = IMG_URL . 'signature/default.png';
+                                            if(remote_file_exists($imagepath1))
+                                            {
+                                                echo "<img class=\"sign-teacher middle\" src=\"$imagepath1\"/>\n";
+                                            }
+                                            else
+                                            {
+                                                echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
+                                            } 
+                                            ?>
+                                            <p>Kasie Tahfidz</p>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="signature">
+                                            <?php 
+                                            if($clientcode == 'ymk') {
+                                                if(isset($myteacher)) {
+                                                    echo ucwords(strtolower($myteacher->name));
+                                                }    
+                                            } else {
+                                                if(isset($school->adm_sietahfizh)) {
+                                                    echo $school->adm_sietahfizh;
+                                                }
+                                            }
+                                            ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>                        
                       
@@ -303,3 +420,4 @@
     
     $("#sattendance").validate();  
 </script>
+<link href="<?php echo CSS_URL; ?>print.css" rel="stylesheet">

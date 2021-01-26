@@ -10,7 +10,7 @@
             </div>
                
             <?php  if (isset($student) && !empty($student)) { ?>
-            <div class="x_content">             
+            <?php /*<div class="x_content">             
                 <div class="row">
                     <div class="col-sm-6 col-xs-6  col-sm-offset-3 col-xs-offset-3  layout-box">
                         <p>
@@ -29,8 +29,54 @@
                             <?php echo $this->lang->line('name'); ?> : <?php echo $student->name; ?><br/>
                             <?php echo $this->lang->line('class'); ?> : <?php echo $student->class_name; ?>,
                             <?php echo $this->lang->line('section'); ?> : <?php echo $student->section; ?>,
-                            <?php echo $this->lang->line('roll_no'); ?> : <?php echo $student->roll_no; ?>
+                            <?php echo $this->lang->line('roll_no'); ?> : <?php echo !empty($student->roll_no)?$student->roll_no:''; ?>
                         </p>
+                    </div>
+                </div>            
+            </div> */ ?>
+
+            <div class="x_content">             
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="text-center align-middle">
+                            <div class="row">
+                                <div class="school-logo col-sm-1 col-xs-2">
+                                    <?php if($school->logo){ ?>
+                                        <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
+                                    <?php } ?>
+                                </div>
+                                <div class="school-info col-sm-10 col-xs-9">
+                                    <div class="top-school"><?php echo $school->school_parent; ?></div>
+                                    <?php if(isset($school)){ ?>
+                                    <div class="name-school"><?php echo $school->school_name; ?></div>
+                                    <p> <?php echo $school->address; ?></p>
+                                <?php } ?>
+                                </div>
+                                <div class="col-sm-1 col-xs-1">&nbsp;</div>
+                            </div>
+
+                            <hr class="style8" />
+                            <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
+                            <h5><strong>LAPORAN PENCAPAIAN TAHFIDZ AL-QUR’AN DAN MUTABAAH YAUMIYAH</strong></h5>
+                                                        
+                        </div>
+                        <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="text-align:left; width: 150px">Nama</td>
+                                <td style="text-align:left; width: 30%">: <?php echo $student->name; ?> ( <?php echo $student->roll_no; ?> )</td>
+                                <td style="text-align:left; width: 10%"></td>
+                                <td style="text-align:left; width: 20%">Kelas/Semester</td>
+                                <td style="text-align:left; width: 150px"><?php echo $student->class_name . ' ' . $student->section; ?> </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left; width: 150px">Periode</td>
+                                <td style="text-align:left; width: 30%">: <?php echo get_sign_date($month); ?></td>
+                                <td style="text-align:left; width: 10%"></td>
+                                <td style="text-align:left; width: 20%">Tahun Pelajaran</td>
+                                <td style="text-align:left; width: 150px"><?php echo $session; ?></td>
+                            </tr>
+                        </table>
+                        
                     </div>
                 </div>            
             </div>
@@ -61,14 +107,14 @@
                     <tbody id="fn_mark"> 
                        
                         <?php if (isset($student_record) && !empty($student_record)) { ?>
-                        <?php foreach($student_record as $st){ ?>
+                        <?php $no=1; foreach($student_record as $st){ ?>
                         <?php $gd = json_decode($st);
                             if(!empty($gd)){
                               $filltable = '';
                               foreach ($gd as $gda) {
                                 $date = $gda->date;
                                 $type = $gda->type;
-                                $val = $gda->val;
+                                $val = !empty($gda->val)?$gda->val:'';
                                 $myday = date("l",$date);
                                 $mydate = date("d-m-Y", $date);
                                 $fz_catatan = ""; 
@@ -77,15 +123,15 @@
                                 $fm_val = "";
                                                                   
                                  if($type == 'Z'){
-                                      $valZ = $gda->shaff . $gda->shaffo . ' hal / ' . $gda->shaffn;
-                                      $fz_catatan = $valZ;
-                                      $fz_val     = $gda->shaffs . ' (' .get_predicate($gda->shaffs) . ')';
+                                      $totalziyadah = $gda->shaff . $gda->shaffo . ' hal / ' . $gda->shaffn;
+                                      $fz_catatan = $totalziyadah;
+                                      $fz_val     = $gda->shaffs . ' (' .get_predicate($type, $gda->shaffs) . ')';
                                   }
 
                                   if($type == 'M'){
-                                    $valM = $gda->shaff . $gda->shaffo . ' hal / ' . $gda->shaffn;
-                                    $fm_catatan = $valM;
-                                    $fm_val     = $gda->shaffs . ' (' .get_predicate($gda->shaffs) . ')';
+                                    $totalmurajaah = $gda->shaff . $gda->shaffo . ' hal / ' . $gda->shaffn;
+                                    $fm_catatan = $totalmurajaah;
+                                    $fm_val     = $gda->shaffs . ' (' .get_predicate($type, $gda->shaffs) . ')';
                                   }
 
                                   if($type == 'raw'){
@@ -118,9 +164,10 @@
                                     $nab_val = $gda->val;  
                                   }
                                 }
+                                
                                 ?>
                                 <tr>
-                                    <td>1</td>
+                                    <td><?php echo $no; ?></td>
                                     <td><?php echo $myday; ?></td>
                                     <td><?php echo $fz_catatan; ?></td>
                                     <td><?php echo $fz_val; ?></td>
@@ -134,6 +181,7 @@
                                     <td><?php echo $nab_val; ?></td>
                                 </tr>
                                 <?php
+                                $no++;
                             }
                         }
                     } ?>
@@ -142,18 +190,106 @@
                     </tbody>
                 </table> 
                 
-           <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
-            <div class="rowt">
-                <div class="col-xs-4 text-center signature">
-                    <?php echo $this->lang->line('principal'); ?>
+                <div class="rowt"><div class="col-lg-12">&nbsp;</div></div>
+                <div class="rowt">
+                    <div class="col-xs-7">&nbsp;</div>
+                    <div class="col-xs-4 text-right">
+                        <?php
+                        $day = date("d");
+                        $month = get_sign_date(date("m"));
+                        $year = date("Y");
+                        $signdate = $day . ' ' . $month . ' ' . $year;
+                        ?>
+                        <span class="date-sign">Tasikmalaya, <?php echo $signdate; ?></span>
+                    </div>
                 </div>
-                <div class="col-xs-2 text-center">
-                    &nbsp;
+                <div class="rowt">
+                    <div class="col-xs-1 text-center" style="width: 3%">&nbsp;</div>
+                    <div class="col-xs-3 text-center" style="width: 28%">
+                        <div class="knowing">
+                            <p>Orang Tua / Wali Santri</p>
+                        </div>
+                        <div class="signature">
+                            ( .............................. )
+                        </div>
+                    </div>
+                    <div class="col-xs-1 text-center" style="width: 5.15%">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-3 text-center" style="width: 28%">
+                        <div class="knowing">
+                        <?php
+                            $imagepath = IMG_URL . 'signature/1.png';
+                            $defaultpath = IMG_URL . 'signature/default.png';
+                            if(remote_file_exists($imagepath))
+                            {
+                                echo "<img class=\"sign-teacher middle\" src=\"$imagepath\"/>\n";
+                            }
+                            else
+                            {
+                                echo "<img class=\"sign-teacher default\" src=\"$defaultpath\"/>\n";
+                            } 
+                        ?>
+                        <p>Mudir PPTQ</p>
+                        </div>
+                        <div class="signature">
+                            <?php if(isset($school->adm_principal)) {
+                                echo $school->adm_principal;
+                            } ?>
+                        </div>
+                        <div class="stamp"><img src="<?php echo IMG_URL; ?>signature/stamp.png"></div>
+                    </div>
+                    <div class="col-xs-1 text-center" style="width: 5.15%">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-3 text-center" style="width: 28%">
+                        <div class="knowing">
+                            <?php if($clientcode == 'ymk') { ?>
+                            <?php
+                            $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
+                            $defaultpath1 = IMG_URL . 'signature/default.png';
+                            if(remote_file_exists($imagepath1))
+                            {
+                                echo "<img class=\"sign-teacher middle\" src=\"$imagepath1\"/>\n";
+                            }
+                            else
+                            {
+                                echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
+                            } 
+                            ?>
+                            <p>Muhafizh/ah</p>
+                            <?php } else { ?>
+                            <?php
+                            $imagepath1 = IMG_URL . 'signature/3.png';
+                            $defaultpath1 = IMG_URL . 'signature/default.png';
+                            if(remote_file_exists($imagepath1))
+                            {
+                                echo "<img class=\"sign-teacher middle\" src=\"$imagepath1\"/>\n";
+                            }
+                            else
+                            {
+                                echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
+                            } 
+                            ?>
+                            <p>Kasie Tahfidz</p>
+                            <?php } ?>
+                        </div>
+                        <div class="signature">
+                            <?php 
+                            if($clientcode == 'ymk') {
+                                if(isset($myteacher)) {
+                                    echo ucwords(strtolower($myteacher->name));
+                                }    
+                            } else {
+                                if(isset($school->adm_sietahfizh)) {
+                                    echo $school->adm_sietahfizh;
+                                }
+                            }
+                            ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-4 text-center signature">
-                    <?php echo $this->lang->line('class_teacher'); ?>
-                </div>
-            </div>
             
             <div class="row no-print">
                 <div class="col-xs-12 text-right">
@@ -167,9 +303,4 @@
     </div>
 </div>
 
-<style>
-.table>thead>tr>th,.table>tbody>tr>td {
-    padding: 2px;
-}
-
-</style>
+<link href="<?php echo CSS_URL; ?>print.css" rel="stylesheet">

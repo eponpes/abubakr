@@ -101,7 +101,27 @@
                             <?php  $attendance = get_student_tahfizh($obj->id, $school_id, $academic_year_id, $class_id, $section_id, $year, $month, $day ); 
 
                             $getdata = json_decode($attendance);
+                            $tahfizhm_type = '';
+                            $tahfizhm_shaff = '';
+                            $tahfizhm_shaff_o = '';
+                            $tahfizhm_shaff_note = '';
+                            $tahfizhm_shaff_score = '';
+
+                            $tahfizhz_type = '';
+                            $tahfizhz_shaff = '';
+                            $tahfizhz_shaff_o = '';
+                            $tahfizhz_shaff_note = '';
+                            $tahfizhz_shaff_score = '';
+
+                            $rawatib = '';
+                            $qiyam = '';
+                            $nabung = '';
+                            $dhuha = '';
+                            $siyam = '';
+                            $infaq = '';
+                            
                             foreach($getdata as $gda){
+
                                 if($gda->type == "M"){
                                     $tahfizhm_type = !empty($gda->type) ? $gda->type : "";
                                     $tahfizhm_shaff = !empty($gda->shaff) ? $gda->shaff : "";
