@@ -174,7 +174,7 @@ class Invoice_Model extends MY_Model {
         return $this->db->get()->result();
     } 
     
-    public function get_student_list( $school_id, $academic_year_id, $class_id, $student_id = null, $status_type = null){
+    public function get_student_list( $school_id, $academic_year_id, $class_id, $student_id = null, $status_type = null, $type = null, $teacher_id = null){
         
         $this->db->select('E.roll_no,  S.id, S.user_id, S.name, S.is_hostel_member, S.is_transport_member');
         $this->db->from('enrollments AS E');        
@@ -188,6 +188,14 @@ class Invoice_Model extends MY_Model {
         }
         if($student_id > 0){
             $this->db->where('E.student_id', $student_id); 
+        }
+
+        if(isset($type)){
+            if($type == 'tahfidz'){
+                $this->db->where('E.class_tahfizh_id', $teacher_id); 
+            } else if($type == 'bpi'){
+                $this->db->where('E.class_bpi_id', $teacher_id); 
+            }
         }
         
         

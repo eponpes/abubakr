@@ -56,6 +56,29 @@ class Invoice extends MY_Controller {
         $this->layout->view('invoice/index', $this->data);            
        
     }
+
+    public function check($school_id = null) {
+        
+        //check_permission(VIEW);
+        
+        $condition = array();
+        $condition['status'] = 1;        
+        if($this->session->userdata('role_id') != SUPER_ADMIN){            
+            $condition['school_id'] = $this->session->userdata('school_id');
+            $this->data['classes'] = $this->invoice->get_list('classes', $condition, '','', '', 'id', 'ASC');
+            $this->data['income_heads'] = $this->invoice->get_fee_type($condition['school_id']);
+        }
+        
+         // default global income head       
+        $this->data['invoices'] = $this->invoice->get_invoice_list($school_id); 
+        $this->data['filter_school_id'] = $school_id;
+        $this->data['schools'] = $this->schools;
+         
+        $this->data['list'] = TRUE;
+        $this->layout->title($this->lang->line('manage_invoice'). ' | ' . SMS);
+        $this->layout->view('invoice/check', $this->data);            
+       
+    }
     
     
     
@@ -778,10 +801,16 @@ class Invoice extends MY_Controller {
         $class_id = $this->input->post('class_id');
         $student_id = $this->input->post('student_id');
         $is_bulk = $this->input->post('is_bulk');
+        $teacher_id = $this->input->post('teacher_id');
+        $type = $this->input->post('type');
          
         $school = $this->invoice->get_school_by_id($school_id);
         $students = $this->invoice->get_student_list($school_id, $school->academic_year_id, $class_id, $student_id, 'regular');
-
+        $studentteachers = $this->invoice->get_student_list($school_id, $school->academic_year_id, $class_id, $student_id, 'regular', $type, $teacher_id);
+        $getids = array();
+        foreach($studentteachers as $stdid){
+            array_push($getids, $stdid->id);
+        }
         $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
         if($is_bulk){
              $str .= '<option value="all">' . $this->lang->line('all') . '</option>';
@@ -790,7 +819,7 @@ class Invoice extends MY_Controller {
         $select = 'selected="selected"';
         if (!empty($students)) {
             foreach ($students as $obj) {
-                $selected = $student_id == $obj->id ? $select : '';
+                $selected = ($student_id == $obj->id || in_array($obj->id, $getids)) ? $select : '';
                 $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . ' [' . $obj->roll_no . ']</option>';
             }
         }

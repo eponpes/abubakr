@@ -126,6 +126,15 @@
                             </a>    
                         </div>
                         <?php } ?>
+                        <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
+                        <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                            <a href="<?php echo site_url('groups/groups/add'); ?>" class="button">
+                                <figure><img src="<?php echo IMG_URL; ?>icon/class.png"></figure>
+                                <div class="text">
+                                    Manajemen Group
+                                </div>
+                            </a></div>
+                        <?php } ?>
                     </div>
                 </div>  
             </div>
@@ -286,9 +295,9 @@
             <div class="x_content">
                 <div class="row home-row">
                     <div class="tile_button">
-                        <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
+                        <?php if(has_permission(VIEW, 'accounting', 'invoice')  || $this->session->userdata('role_id') == TEACHER){ ?>
                         <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
-                            <a href="<?php echo site_url('accounting/invoice/index'); ?>" class="button">
+                            <a href="<?php echo site_url('accounting/invoice/check'); ?>" class="button">
                                 <figure><img src="<?php echo IMG_URL; ?>icon/check.png"></figure>
                                 <div class="text">
                                 <?php echo $this->lang->line('manage_invoice'); ?>
