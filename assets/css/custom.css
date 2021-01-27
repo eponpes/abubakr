@@ -3051,3 +3051,24 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     padding: 3px;
     color: white;
 }
+
+.noMargin {
+    margin: 0px !important;
+}
+
+.group_tahfizh input[type=checkbox],
+.radio input[type=radio]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  padding: 10px;
+}
+.top-border {
+    border-top: 1.5px solid grey;
+    margin-top: 11px;
+    float: left;
+    padding: 10px 0;
+}

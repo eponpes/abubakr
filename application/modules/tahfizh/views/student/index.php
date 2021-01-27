@@ -64,7 +64,7 @@
                         <p>
                             <h4><?php echo $this->lang->line('deposit'); ?></h4>
                             <?php echo $this->lang->line('day'); ?> : <?php echo date('l', strtotime($date)); ?><br/>
-                            <?php echo $this->lang->line('date'); ?> : <?php echo date($this->gsms_setting->sms_date_format, strtotime($date)); ?>
+                            <?php echo $this->lang->line('date'); ?> : <?php echo date('d M Y', strtotime($date)); ?><?php //echo date($this->gsms_setting->sms_date_format, strtotime($date)); ?>
                         </p>
                     </div>
                 </div>            
@@ -184,101 +184,126 @@
                                     <td><?php echo $obj->roll_no; ?></td>
                                     */ ?>
                                     <td>
-                                        <div id="shaff_type_<?php echo $obj->id; ?>" style="display: block; width: 100%">
-                                            <input type="radio" value="P" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhm_type == 'M' || $tahfizhz_type == 'Z' ){ echo 'checked="checked"'; } ?> /> Setoran
-                                            <fieldset class="group_tahfizh" id="group_tahfizh_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_type == 'M' || $tahfizhz_type == 'Z') echo 'display:block'; else echo 'display:none' ?>">
-                                                <input type="checkbox" value="M" itemid="<?php echo $obj->id; ?>" name="tahfizhm_<?php echo $obj->id; ?>" id="tahfizhm_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhm_type == 'M'){ echo 'checked="checked"'; } ?> /> Murajaah
-                                                <div id="detail_shaffm_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_type == 'M') echo 'display:block'; else echo 'display:none' ?>">
-                                                    <select itemid="<?php echo $obj->id; ?>" id="shaffm_<?php echo $obj->id; ?>" name="shaffm_<?php echo $obj->id; ?>">
-                                                        <option value="">Jumlah Murajaah</option>
-                                                        <option value="0.3" <?php if($tahfizhm_shaff == '0.3') echo 'selected';?>>1/3 Halaman</option>
-                                                        <option value="0.5" <?php if($tahfizhm_shaff == '0.5') echo 'selected';?>>1/2 Halaman</option>
-                                                        <option value="1" <?php if($tahfizhm_shaff == '1') echo 'selected';?>>1 Halaman</option>
-                                                        <option value="1.3" <?php if($tahfizhm_shaff == '1.3') echo 'selected';?>>1 1/3 Halaman</option>
-                                                        <option value="1.5" <?php if($tahfizhm_shaff == '1.5') echo 'selected';?>>1 1/2 Halaman</option>
-                                                        <option value="2" <?php if($tahfizhm_shaff == '2') echo 'selected';?>>2 Halaman</option>
-                                                        <option value="O" <?php if($tahfizhm_shaff == 'O') echo 'selected';?>>Lainnya</option>
-                                                    </select>
-                                                    <div id="shaffm_other_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_shaff == 'O') echo 'display:block'; else echo 'display:none'?>">
-                                                        <input type="text" id="shaffm_o_<?php echo $obj->id; ?>" name="shaffm_o_<?php echo $obj->id; ?>" value="<?php if(!empty($tahfizhm_shaff_o)) echo $tahfizhm_shaff_o;?>" style='width:45px'/> Halaman
+                                        <div id="shaff_type_<?php echo $obj->id; ?>" class="table-responsive">
+                                            <div class="row noMargin">
+                                                <div class="col-md-12">
+                                                    <div class="radio col-xs-12">
+                                                        <label class="col-xs-6" for="Present"> 
+                                                            <input type="radio" value="P" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present form-check-input fn_single_attendnce" <?php if($tahfizhm_type == 'M' || $tahfizhz_type == 'Z' ){ echo 'checked="checked"'; } ?> />&nbsp;<b>Setoran</b>
+                                                        </label>
+                                                        <label class="col-xs-6" for="Absent"> 
+                                                            <input type="radio" value="A" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizh_type == 'A'){ echo 'checked="checked"'; } ?> />&nbsp;<b>Tidak Setoran</b>
+                                                        </label>
                                                     </div>
-                                                    <div class="shaffm_note">
-                                                        <label for="shaffm_note_<?php echo $obj->id; ?>">Catatan:</label>  
-                                                        <textarea class="shaffm_note_textarea" id="shaffm_note_<?php echo $obj->id; ?>" name="shaffm_note_<?php echo $obj->id; ?>" /><?php if(!empty($tahfizhm_shaff_note)) echo $tahfizhm_shaff_note;?></textarea>
-                                                        <select itemid="<?php echo $obj->id; ?>" id="shaffm_score_<?php echo $obj->id; ?>" name="shaffm_score_<?php echo $obj->id; ?>">
-                                                        <option value="">Nilai</option>
-                                                        <option value="A+" <?php if($tahfizhm_shaff_score == 'A+') echo 'selected';?>>A+ (Mumtaz-Sempurna)</option>
-                                                        <option value="A" <?php if($tahfizhm_shaff_score == 'A') echo 'selected';?>>A (Jayyid Jiddan-Baik Sekali)</option>
-                                                        <option value="B" <?php if($tahfizhm_shaff_score == 'B') echo 'selected';?>>B (Jayyid-Baik)</option>
-                                                        <option value="C" <?php if($tahfizhm_shaff_score == 'C') echo 'selected';?>>C (Maqbul-Cukup)</option>
-                                                        <option value="D" <?php if($tahfizhm_shaff_score == 'D') echo 'selected';?>>D(Naqis-Kurang Baik)</option>
-                                                        <option value="E" <?php if($tahfizhm_shaff_score == 'E') echo 'selected';?>>E (Dhoif-Lemah)</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
 
-                                                <input type="checkbox" value="Z" itemid="<?php echo $obj->id; ?>" name="tahfizhz_<?php echo $obj->id; ?>" id="tahfizhz_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhz_type == 'Z'){ echo 'checked="checked"'; } ?> /> Ziyadah
-                                                <div id="detail_shaffz_<?php echo $obj->id; ?>" style="<?php if($tahfizhz_type == 'Z') echo 'display:block'; else echo 'display:none' ?>">
-                                                    <select itemid="<?php echo $obj->id; ?>" id="shaffz_<?php echo $obj->id; ?>" name="shaffz_<?php echo $obj->id; ?>">
-                                                    <option value="">Jumlah Ziyadah</option>
-                                                    <option value="0.3" <?php if($tahfizhz_shaff == '0.3') echo 'selected';?>>1/3 Halaman</option>
-                                                    <option value="0.5" <?php if($tahfizhz_shaff == '0.5') echo 'selected';?>>1/2 Halaman</option>
-                                                    <option value="1" <?php if($tahfizhz_shaff == '1') echo 'selected';?>>1 Halaman</option>
-                                                    <option value="1.3" <?php if($tahfizhz_shaff == '1.3') echo 'selected';?>>1 1/3 Halaman</option>
-                                                    <option value="1.5" <?php if($tahfizhz_shaff == '1.5') echo 'selected';?>>1 1/2 Halaman</option>
-                                                    <option value="2" <?php if($tahfizhz_shaff == '2') echo 'selected';?>>2 Halaman</option>
-                                                    <option value="O" <?php if($tahfizhz_shaff == 'O') echo 'selected';?>>Lainnya</option>
-                                                    </select>
-                                                    <div id="shaffz_other_<?php echo $obj->id; ?>" style="<?php if($tahfizhz_shaff == 'O') echo 'display:block'; else echo 'display:none'?>">
-                                                        <input type="text" id="shaffz_o_<?php echo $obj->id; ?>" name="shaffz_o_<?php echo $obj->id; ?>" value="<?php if(!empty($tahfizhz_shaff_o)) echo $tahfizhz_shaff_o;?>" style='width:45px'/> Halaman
+                                                    <fieldset class="group_tahfizh col-xs-12" id="group_tahfizh_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_type == 'M' || $tahfizhz_type == 'Z') echo 'display:block'; else echo 'display:none' ?>">
+                                                        <div class="checkbox">
+                                                            <label for="Murajaah"> 
+                                                                <input type="checkbox" value="M" itemid="<?php echo $obj->id; ?>" name="tahfizhm_<?php echo $obj->id; ?>" id="tahfizhm_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhm_type == 'M'){ echo 'checked="checked"'; } ?> />&nbsp;&nbsp; Tambah Murajaah
+                                                            </label>
+                                                        </div>
+                                                        
+                                                        <div class="form-group" id="detail_shaffm_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_type == 'M') echo 'display:block'; else echo 'display:none' ?>">
+                                                            <select class="form-control" itemid="<?php echo $obj->id; ?>" id="shaffm_<?php echo $obj->id; ?>" name="shaffm_<?php echo $obj->id; ?>">
+                                                                <option value="">Jumlah Murajaah</option>
+                                                                <option value="0.3" <?php if($tahfizhm_shaff == '0.3') echo 'selected';?>>1/3 Halaman</option>
+                                                                <option value="0.5" <?php if($tahfizhm_shaff == '0.5') echo 'selected';?>>1/2 Halaman</option>
+                                                                <option value="1" <?php if($tahfizhm_shaff == '1') echo 'selected';?>>1 Halaman</option>
+                                                                <option value="1.3" <?php if($tahfizhm_shaff == '1.3') echo 'selected';?>>1 1/3 Halaman</option>
+                                                                <option value="1.5" <?php if($tahfizhm_shaff == '1.5') echo 'selected';?>>1 1/2 Halaman</option>
+                                                                <option value="2" <?php if($tahfizhm_shaff == '2') echo 'selected';?>>2 Halaman</option>
+                                                                <option value="O" <?php if($tahfizhm_shaff == 'O') echo 'selected';?>>Lainnya</option>
+                                                            </select>
+                                                            <div id="shaffm_other_<?php echo $obj->id; ?>" style="<?php if($tahfizhm_shaff == 'O') echo 'display:block'; else echo 'display:none'?>">
+                                                                <input class="form-control" type="text" id="shaffm_o_<?php echo $obj->id; ?>" name="shaffm_o_<?php echo $obj->id; ?>" value="<?php if(!empty($tahfizhm_shaff_o)) echo $tahfizhm_shaff_o;?>" style='width:45px'/> Halaman
+                                                            </div>
+                                                            <div class="shaffm_note">
+                                                                <label for="shaffm_note_<?php echo $obj->id; ?>">Catatan:</label>  
+                                                                <textarea class="shaffm_note_textarea form-control" id="shaffm_note_<?php echo $obj->id; ?>" name="shaffm_note_<?php echo $obj->id; ?>" /><?php if(!empty($tahfizhm_shaff_note)) echo $tahfizhm_shaff_note;?></textarea>
+                                                                
+                                                                <select class="form-control" itemid="<?php echo $obj->id; ?>" id="shaffm_score_<?php echo $obj->id; ?>" name="shaffm_score_<?php echo $obj->id; ?>">
+                                                                    <option value="">Nilai</option>
+                                                                    <option value="A+" <?php if($tahfizhm_shaff_score == 'A+') echo 'selected';?>>A+ (Mumtaz-Sempurna)</option>
+                                                                    <option value="A" <?php if($tahfizhm_shaff_score == 'A') echo 'selected';?>>A (Jayyid Jiddan-Baik Sekali)</option>
+                                                                    <option value="B" <?php if($tahfizhm_shaff_score == 'B') echo 'selected';?>>B (Jayyid-Baik)</option>
+                                                                    <option value="C" <?php if($tahfizhm_shaff_score == 'C') echo 'selected';?>>C (Maqbul-Cukup)</option>
+                                                                    <option value="D" <?php if($tahfizhm_shaff_score == 'D') echo 'selected';?>>D(Naqis-Kurang Baik)</option>
+                                                                    <option value="E" <?php if($tahfizhm_shaff_score == 'E') echo 'selected';?>>E (Dhoif-Lemah)</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="checkbox">
+                                                            <label for="Ziyadah"> 
+                                                                <input type="checkbox" value="Z" itemid="<?php echo $obj->id; ?>" name="tahfizhz_<?php echo $obj->id; ?>" id="tahfizhz_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhz_type == 'Z'){ echo 'checked="checked"'; } ?> />&nbsp;&nbsp; Tambah Ziyadah
+                                                            </label>
+                                                        </div>
+
+                                                        
+                                                        <div id="detail_shaffz_<?php echo $obj->id; ?>" style="<?php if($tahfizhz_type == 'Z') echo 'display:block'; else echo 'display:none' ?>">
+                                                            <select class="form-control" itemid="<?php echo $obj->id; ?>" id="shaffz_<?php echo $obj->id; ?>" name="shaffz_<?php echo $obj->id; ?>">
+                                                                <option value="">Jumlah Ziyadah</option>
+                                                                <option value="0.3" <?php if($tahfizhz_shaff == '0.3') echo 'selected';?>>1/3 Halaman</option>
+                                                                <option value="0.5" <?php if($tahfizhz_shaff == '0.5') echo 'selected';?>>1/2 Halaman</option>
+                                                                <option value="1" <?php if($tahfizhz_shaff == '1') echo 'selected';?>>1 Halaman</option>
+                                                                <option value="1.3" <?php if($tahfizhz_shaff == '1.3') echo 'selected';?>>1 1/3 Halaman</option>
+                                                                <option value="1.5" <?php if($tahfizhz_shaff == '1.5') echo 'selected';?>>1 1/2 Halaman</option>
+                                                                <option value="2" <?php if($tahfizhz_shaff == '2') echo 'selected';?>>2 Halaman</option>
+                                                                <option value="O" <?php if($tahfizhz_shaff == 'O') echo 'selected';?>>Lainnya</option>
+                                                            </select>
+                                                            <div id="shaffz_other_<?php echo $obj->id; ?>" style="<?php if($tahfizhz_shaff == 'O') echo 'display:block'; else echo 'display:none'?>">
+                                                                <input class="form-control" type="text" id="shaffz_o_<?php echo $obj->id; ?>" name="shaffz_o_<?php echo $obj->id; ?>" value="<?php if(!empty($tahfizhz_shaff_o)) echo $tahfizhz_shaff_o;?>" style='width:45px'/> Halaman
+                                                            </div>
+                                                            <div class="shaffz_note">
+                                                            <label for="shaffz_note_<?php echo $obj->id; ?>">Catatan:</label>  
+                                                            <textarea  class="shaffz_note_textarea form-control" id="shaffz_note_<?php echo $obj->id; ?>" name="shaffz_note_<?php echo $obj->id; ?>" /><?php if(!empty($tahfizhz_shaff_note)) echo $tahfizhz_shaff_note;?></textarea>
+                                                            <select class="form-control" itemid="<?php echo $obj->id; ?>" id="shaffz_score_<?php echo $obj->id; ?>" name="shaffz_score_<?php echo $obj->id; ?>">
+                                                                <option value="">Nilai</option>
+                                                                <option value="A+" <?php if($tahfizhz_shaff_score == 'A+') echo 'selected';?>>A+ (Mumtaz-Sempurna)</option>
+                                                                <option value="A" <?php if($tahfizhz_shaff_score == 'A') echo 'selected';?>>A (Jayyid Jiddan-Baik Sekali)</option>
+                                                                <option value="B" <?php if($tahfizhz_shaff_score == 'B') echo 'selected';?>>B (Jayyid-Baik)</option>
+                                                                <option value="C" <?php if($tahfizhz_shaff_score == 'C') echo 'selected';?>>C (Maqbul-Cukup)</option>
+                                                                <option value="D" <?php if($tahfizhz_shaff_score == 'D') echo 'selected';?>>D(Naqis-Kurang Baik)</option>
+                                                                <option value="E" <?php if($tahfizhz_shaff_score == 'E') echo 'selected';?>>E (Dhoif-Lemah)</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>             
+                                            
+                                                    <div class="form-row top-border" id="mutabaah_<?php echo $obj->id; ?>">
+                                                        <div class="col-xs-6 col-sm-2 col-md-2 mb-1">
+                                                            <label for="raw_<?php echo $obj->id; ?>">Rawatib</label>
+                                                            <input type="text" name="raw_<?php echo $obj->id; ?>" class="form-control" id="raw_<?php echo $obj->id; ?>" placeholder="Rakaat" value="<?php echo (!empty($rawatib)?$rawatib:'0') ?>">
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-2 col-md-2 mb-1">
+                                                            <label for="dhu_<?php echo $obj->id; ?>">Dhuha</label>
+                                                            <input type="text" name="dhu_<?php echo $obj->id; ?>" class="form-control" id="dhu_<?php echo $obj->id; ?>" placeholder="Rakaat" value="<?php echo (!empty($dhuha)?$dhuha:'0') ?>">
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-2 col-md-2 mb-1">
+                                                            <label for="qiy_<?php echo $obj->id; ?>">Qiyam</label>
+                                                            <input type="text" name="qiy_<?php echo $obj->id; ?>" class="form-control" id="qiy_<?php echo $obj->id; ?>" placeholder="Rakaat" value="<?php echo (!empty($qiyam)?$qiyam:'0') ?>">
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-2 col-md-2 mb-1">
+                                                            <label for="siy_<?php echo $obj->id; ?>">Shiyam</label>
+                                                            <input type="text" name="siy_<?php echo $obj->id; ?>" class="form-control" id="siy_<?php echo $obj->id; ?>" placeholder="" value="<?php echo (!empty($siyam)?$siyam:'0') ?>">
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-2 col-md-2 mb-1">
+                                                            <label for="inf_<?php echo $obj->id; ?>">Infaq</label>
+                                                            <input type="text" name="inf_<?php echo $obj->id; ?>" class="form-control" id="inf_<?php echo $obj->id; ?>" placeholder="Rupiah" value="<?php echo (!empty($infaq)?$infaq:'0') ?>">
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-2 col-md-2 mb-1">
+                                                            <label for="nab_<?php echo $obj->id; ?>">Nabung</label>
+                                                            <input type="text" name="nab_<?php echo $obj->id; ?>" class="form-control" id="nab_<?php echo $obj->id; ?>" placeholder="Rupiah" value="<?php echo (!empty($nabung)?$nabung:'0') ?>">
+                                                        </div>
                                                     </div>
-                                                    <div class="shaffz_note">
-                                                    <label for="shaffz_note_<?php echo $obj->id; ?>">Catatan:</label>  
-                                                    <textarea class="shaffz_note_textarea" id="shaffz_note_<?php echo $obj->id; ?>" name="shaffz_note_<?php echo $obj->id; ?>" /><?php if(!empty($tahfizhz_shaff_note)) echo $tahfizhz_shaff_note;?></textarea>
-                                                    <select itemid="<?php echo $obj->id; ?>" id="shaffz_score_<?php echo $obj->id; ?>" name="shaffz_score_<?php echo $obj->id; ?>">
-                                                        <option value="">Nilai</option>
-                                                        <option value="A+" <?php if($tahfizhz_shaff_score == 'A+') echo 'selected';?>>A+ (Mumtaz-Sempurna)</option>
-                                                        <option value="A" <?php if($tahfizhz_shaff_score == 'A') echo 'selected';?>>A (Jayyid Jiddan-Baik Sekali)</option>
-                                                        <option value="B" <?php if($tahfizhz_shaff_score == 'B') echo 'selected';?>>B (Jayyid-Baik)</option>
-                                                        <option value="C" <?php if($tahfizhz_shaff_score == 'C') echo 'selected';?>>C (Maqbul-Cukup)</option>
-                                                        <option value="D" <?php if($tahfizhz_shaff_score == 'D') echo 'selected';?>>D(Naqis-Kurang Baik)</option>
-                                                        <option value="E" <?php if($tahfizhz_shaff_score == 'E') echo 'selected';?>>E (Dhoif-Lemah)</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                            <input type="radio" value="A" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" id="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizh_type == 'A'){ echo 'checked="checked"'; } ?> /> Tidak Setoran
-                                    
-                                            <div class="form-row" id="mutabaah_<?php echo $obj->id; ?>">
-                                                <div class="col-md-1 mb-1">
-                                                    <label for="raw_<?php echo $obj->id; ?>">Rawatib</label>
-                                                    <input type="text" name="raw_<?php echo $obj->id; ?>" class="form-control" id="raw_<?php echo $obj->id; ?>" placeholder="Rakaat" value="<?php echo (!empty($rawatib)?$rawatib:'0') ?>">
-                                                </div>
-                                                <div class="col-md-1 mb-1">
-                                                    <label for="dhu_<?php echo $obj->id; ?>">Dhuha</label>
-                                                    <input type="text" name="dhu_<?php echo $obj->id; ?>" class="form-control" id="dhu_<?php echo $obj->id; ?>" placeholder="Rakaat" value="<?php echo (!empty($dhuha)?$dhuha:'0') ?>">
-                                                </div>
-                                                <div class="col-md-1 mb-1">
-                                                    <label for="qiy_<?php echo $obj->id; ?>">Qiyam</label>
-                                                    <input type="text" name="qiy_<?php echo $obj->id; ?>" class="form-control" id="qiy_<?php echo $obj->id; ?>" placeholder="Rakaat" value="<?php echo (!empty($qiyam)?$qiyam:'0') ?>">
-                                                </div>
-                                                <div class="col-md-1 mb-1">
-                                                    <label for="siy_<?php echo $obj->id; ?>">Shiyam</label>
-                                                    <input type="text" name="siy_<?php echo $obj->id; ?>" class="form-control" id="siy_<?php echo $obj->id; ?>" placeholder="" value="<?php echo (!empty($siyam)?$siyam:'0') ?>">
-                                                </div>
-                                                <div class="col-md-1 mb-1">
-                                                    <label for="inf_<?php echo $obj->id; ?>">Infaq</label>
-                                                    <input type="text" name="inf_<?php echo $obj->id; ?>" class="form-control" id="inf_<?php echo $obj->id; ?>" placeholder="Rupiah" value="<?php echo (!empty($infaq)?$infaq:'0') ?>">
-                                                </div>
-                                                <div class="col-md-1 mb-1">
-                                                    <label for="nab_<?php echo $obj->id; ?>">Nabung</label>
-                                                    <input type="text" name="nab_<?php echo $obj->id; ?>" class="form-control" id="nab_<?php echo $obj->id; ?>" placeholder="Rupiah" value="<?php echo (!empty($nabung)?$nabung:'0') ?>">
-                                                </div>
-                                            </div>        
+                                                </div>     
+                                            </div>   
                                         </div>
                                     
                                     </td>
-                                    <td><input type="submit" itemid="<?php echo $obj->id; ?>" name="submit_tahfizh_<?php echo $obj->id; ?>"></td>
+                                    <td>
+                                        <input type="submit" value="SIMPAN" class="form-control btn-success" itemid="<?php echo $obj->id; ?>" name="submit_tahfizh_<?php echo $obj->id; ?>">
+                                    </td>
                                     <?php /*
                                     <td><input type="radio" value="Z" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($attendance == 'Z'){ echo 'checked="checked"'; } ?> /></td>
                                     <td><input type="radio" value="M" itemid="<?php echo $obj->id; ?>"  name="student_<?php echo $obj->id; ?>" class="late fn_single_attendnce" <?php if($attendance == 'M'){ echo 'checked="checked"'; } ?>/></td>
