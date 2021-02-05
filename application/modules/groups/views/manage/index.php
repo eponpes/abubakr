@@ -92,23 +92,23 @@
                             <div class="x_content"> 
                                <?php echo form_open_multipart(site_url('groups/groups/add'), array('name' => 'single', 'id' => 'single', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
+                               <?php $this->load->view('layout/school_list_form'); ?>
+
                                <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="updatetype">Tipe <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12"  name="updatetype"  id="updatetype" required="required">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="updatetype"  id="updatetype" required="required" onchange="reset_group_data()">
                                             <option value="tahfidz">Tahfidz</option> 
-                                            <option value="bpi">BPI</option>                                                                                 
+                                            <option value="bpi">BPI/Pembinaan</option>                                                                                 
                                         </select>
                                         <div class="help-block"><?php echo form_error('updatetype'); ?></div>
                                     </div>
                                 </div>
 
-                               <?php $this->load->view('layout/school_list_form'); ?>
-
                                <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo $this->lang->line('teacher'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12"  name="teacher_id"  id="teacher_id" required="required" onchange="reset_form_data()">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="teacher_id"  id="teacher_id" required="required" onchange="reset_class_student()">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>   
                                         </select>
                                         <div class="help-block"><?php echo form_error('teacher_id'); ?></div>
@@ -367,8 +367,20 @@
       $('#payment_method').prop('selectedIndex', 0);
       $('#fn_student_container').html('');
       $('.fn_check_button').hide();
-      $('#class_id').prop('selectedIndex', 0);
-      get_student_by_class();
+      //$('#class_id').prop('selectedIndex', 0);
+      //get_student_by_class();
+   }
+
+   function reset_class_student(){
+        $('#class_id').prop('selectedIndex', 0);
+        get_student_by_class();
+   }
+
+   function reset_group_data(){
+        $('#class_id').prop('selectedIndex', 0);
+        $('#teacher_id').prop('selectedIndex', 0);
+        get_teachers();
+        get_student_by_class();
    }
    
    

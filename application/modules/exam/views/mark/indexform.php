@@ -664,9 +664,9 @@
                                     $labelpredikat2 = "Belum Terlampaui";
                                     if ($alltotal2 == 8){
                                         $labelpredikat2 = "Basic 3";
-                                    } else if($alltotal2 >= 6){
+                                    } else if($alltotal2 > 4){
                                         $labelpredikat2 = "Basic 2";
-                                    }  else if($alltotal2 >= 4){
+                                    }  else if($alltotal2 < 5){
                                         $labelpredikat2 = "Basic 1";
                                     }
                                 ?>

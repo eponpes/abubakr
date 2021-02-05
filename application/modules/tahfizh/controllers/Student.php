@@ -39,6 +39,9 @@ class Student extends MY_Controller {
     public function index() {
 
         //check_permission(VIEW);
+
+        $this->data['clientcode'] = $this->global_setting->client_code;
+        
         if ($_POST) {
 
             $school_id  = $this->input->post('school_id');

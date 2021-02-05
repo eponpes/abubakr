@@ -184,14 +184,16 @@
                                         <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
                                     <?php } ?>
                                 </div>
-                                <div class="school-info col-sm-10 col-xs-9">
+                                <div class="school-info col-sm-9 col-xs-8">
                                     <div class="top-school"><?php echo $school->school_parent; ?></div>
                                     <?php if(isset($school)){ ?>
                                     <div class="name-school"><?php echo $school->school_name; ?></div>
                                     <p> <?php echo $school->address; ?></p>
                                 <?php } ?>
                                 </div>
-                                <div class="col-sm-1 col-xs-1">&nbsp;</div>
+                                <div class="school-logo col-sm-1 col-xs-2">
+                                    <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt="" width="150" />
+                                </div>
                             </div>
 
                             <hr class="style8" />
@@ -236,12 +238,15 @@
                                         <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
                                     <?php } ?>
                                 </div>
-                                <div class="school-info col-md-11">
+                                <div class="school-info col-md-10">
                                     <div class="top-school"><?php echo $school->school_parent; ?></div>
                                     <?php if(isset($school)){ ?>
                                     <div class="name-school"><?php echo $school->school_name; ?></div>
                                     <p> <?php echo $school->address; ?></p>
                                 <?php } ?>
+                                </div>
+                                <div class="school-logo col-md-1">
+                                    <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt=""  />
                                 </div>
                             </div>
 
