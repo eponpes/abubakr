@@ -439,6 +439,9 @@ class Resultcardform extends MY_Controller {
                         $gamma2 = array();
                         $values = json_decode($mex->value, true);
                         $values2 = json_decode($mex->value2, true);
+                        $class_name = $mex->class_name;
+                        $class_no = $mex->class_no;
+
     
                         foreach($values as $eval){
                             $totalmarkjuz += $eval['mark'];
@@ -692,7 +695,8 @@ class Resultcardform extends MY_Controller {
                         $values = json_decode($mex->value, true);
                         $values2 = json_decode($mex->value2, true);
                         $period = $mex->period;
-                        $class_id = $mex->class_id;
+                        $class_name = $mex->class_name;
+                        $class_no = $mex->class_no;
     
                         foreach($values as $eval){
                             $totalmarkjuz += $eval['mark'];
@@ -819,9 +823,9 @@ class Resultcardform extends MY_Controller {
                     $table_character .= '<thead><tr><th width="50%">Tahfidzul Quran</th><th width="50%">Tahsinul Quran</th></tr></thead>';
                     $totaltarget = count($gamma['targettahfizh']) + 1;
                     
-                    $tahsin_target_grade = get_tahsin_target_grade($class_id, $period);
+                    $tahsin_target_grade = get_tahsin_target_grade($class_name, $period);
                     $tahsin_target_detail = get_tahsin_target_detail($tahsin_target_grade);
-                    $tahfizh_target = get_tahfizh_target($class_id, $period);
+                    $tahfizh_target = get_tahfizh_target($class_name, $period);
                     $table_target_tahsin = 'Grade: <br>'.$tahsin_target_grade;
                     $table_target_tahfizh = 'Target: <br>'.$tahfizh_target;
                     

@@ -347,8 +347,9 @@ if (!function_exists('get_mark_form_results')) {
 
     function get_mark_form_results($school_id, $academic_year_id, $class_id, $student_id, $level = null, $period = null) {
         $ci = & get_instance();
-        $ci->db->select('MF.*');
+        $ci->db->select('MF.*, C.name AS class_name, C.numeric_name AS class_no');
         $ci->db->from('mark_forms AS MF');  
+        $ci->db->join('classes AS C', 'C.id = MF.class_id', 'left');
         $ci->db->where('MF.school_id', $school_id);
         $ci->db->where('MF.academic_year_id', $academic_year_id);
         $ci->db->where('MF.student_id', $student_id);
@@ -2863,29 +2864,29 @@ function remote_file_exists($url)
 }
 
 function get_tahsin_target_grade($class_id, $period){
-    if($class_id == 7 && $period == 'SM1'){
+    if($class_id == 'VII' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
-    } else if($class_id == 7 && $period == 'SM2'){
+    } else if($class_id == 'VII' && ($period == 'SM3' || $period == 'SM4')){ // UTS SM2 & UAS SM2
         $grade = 'Intermediete 2';
-    } else if($class_id == 8 && $period == 'SM1'){
+    } else if($class_id == 'VIII' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
-    } else if($class_id == 8 && $period == 'SM2'){
+    } else if($class_id == 'VIII' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
         $grade = 'Intermediete 3';
-    } else if($class_id == 9 && $period == 'SM1'){
+    } else if($class_id == 'IX' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
-    } else if($class_id == 9 && $period == 'SM2'){
+    } else if($class_id == 'IX' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
         $grade = 'Intermediete 3';
-    } else if($class_id == 10 && $period == 'SM1'){
+    } else if($class_id == 'X' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
-    } else if($class_id == 10 && $period == 'SM2'){
+    } else if($class_id == 'X' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
         $grade = 'Intermediete 2';
-    } else if($class_id == 11 && $period == 'SM1'){
+    } else if($class_id == 'XI' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
-    } else if($class_id == 11 && $period == 'SM2'){
+    } else if($class_id == 'XI' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
         $grade = 'Intermediete 3';
-    } else if($class_id == 12 && $period == 'SM1'){
+    } else if($class_id == 'XII' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
-    } else if($class_id == 12 && $period == 'SM2'){
+    } else if($class_id == 'XII' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
         $grade = 'Intermediete 3';
     } 
     return $grade;
@@ -2906,45 +2907,45 @@ function get_tahsin_target_detail($grade){
 }
 
 function get_tahfizh_target($class_id, $period){
-    if($class_id == 7 && $period == 'UTSSM2' || $period == 'SM3'){
+    if($class_id == 'VII' && $period == 'UTSSM2' || $period == 'SM3'){
         $target = 'Juz 30 (1/2 Juz) An Naba - Al Fajr';
-    } else if($class_id == 7 && ($period == 'UASSM2' || $period == 'SM4')){
+    } else if($class_id == 'VII' && ($period == 'UASSM2' || $period == 'SM4')){
         $target = 'Juz 30 (An Naba - An Naas)';
-    } else if($class_id == 8 && ($period == 'UTSSM1' || $period == 'SM1')){
+    } else if($class_id == 'VIII' && ($period == 'UTSSM1' || $period == 'SM1')){
         $target = 'Juz 29';
-    } else if($class_id == 8 && ($period == 'UASSM1' || $period == 'SM2')){
+    } else if($class_id == 'VIII' && ($period == 'UASSM1' || $period == 'SM2')){
         $target = 'Juz 28 & Juz 29';
-    } else if($class_id == 8 && ($period == 'UTSSM2' || $period == 'SM3')){
+    } else if($class_id == 'VIII' && ($period == 'UTSSM2' || $period == 'SM3')){
         $target = 'Juz 27';
-    } else if($class_id == 8 && ($period == 'UASSM2' || $period == 'SM4')){
+    } else if($class_id == 'VIII' && ($period == 'UASSM2' || $period == 'SM4')){
         $target = 'Juz 27 & Juz 28';
-    } else if($class_id == 9 && ($period == 'UTSSM1' || $period == 'SM1')){
+    } else if($class_id == 'IX' && ($period == 'UTSSM1' || $period == 'SM1')){
         $target = 'Juz 1 (1/2)';
-    } else if($class_id == 9 && ($period == 'UASSM1' || $period == 'SM2')){
+    } else if($class_id == 'IX' && ($period == 'UASSM1' || $period == 'SM2')){
         $target = 'Juz 1 (Full)';
-    } else if($class_id == 9 && ($period == 'UTSSM2' || $period == 'SM3')){
+    } else if($class_id == 'IX' && ($period == 'UTSSM2' || $period == 'SM3')){
         $target = 'Juz 30-28';
-    } else if($class_id == 9 && ($period == 'UASSM2' || $period == 'SM4')){
+    } else if($class_id == 'IX' && ($period == 'UASSM2' || $period == 'SM4')){
         $target = 'Juz 26,27 & Juz 1';
-    } else if($class_id == 10 && ($period == 'UTSSM2' || $period == 'SM3')){
+    } else if($class_id == 'X' && ($period == 'UTSSM2' || $period == 'SM3')){
         $target = 'Juz 30 (1/2 Juz) An Naba - Al Fajr';
-    } else if($class_id == 10 && ($period == 'UASSM2' || $period == 'SM4')){
+    } else if($class_id == 'X' && ($period == 'UASSM2' || $period == 'SM4')){
         $target = 'Juz 30 (An Naba - An Naas)';
-    } else if($class_id == 11 && ($period == 'UTSSM1' || $period == 'SM1')){
+    } else if($class_id == 'XI' && ($period == 'UTSSM1' || $period == 'SM1')){
         $target = 'Juz 29';
-    } else if($class_id == 11 && ($period == 'UASSM1' || $period == 'SM2')){
+    } else if($class_id == 'XI' && ($period == 'UASSM1' || $period == 'SM2')){
         $target = 'Juz 28 & Juz 29';
-    } else if($class_id == 11 && ($period == 'UTSSM2' || $period == 'SM3')){
+    } else if($class_id == 'XI' && ($period == 'UTSSM2' || $period == 'SM3')){
         $target = 'Juz 27';
-    } else if($class_id == 11 && ($period == 'UASSM2' || $period == 'SM4')){
+    } else if($class_id == 'XI' && ($period == 'UASSM2' || $period == 'SM4')){
         $target = 'Juz 27 & Juz 28';
-    } else if($class_id == 12 && ($period == 'UTSSM1' || $period == 'SM1')){
+    } else if($class_id == 'XII' && ($period == 'UTSSM1' || $period == 'SM1')){
         $target = 'Juz 1 (1/2)';
-    } else if($class_id == 12 && ($period == 'UASSM1' || $period == 'SM2')){
+    } else if($class_id == 'XII' && ($period == 'UASSM1' || $period == 'SM2')){
         $target = 'Juz 1 (Full)';
-    } else if($class_id == 12 && ($period == 'UTSSM2' || $period == 'SM3')){
+    } else if($class_id == 'XII' && ($period == 'UTSSM2' || $period == 'SM3')){
         $target = 'Juz 30-28';
-    } else if($class_id == 12 && ($period == 'UASSM2' || $period == 'SM4')){
+    } else if($class_id == 'XII' && ($period == 'UASSM2' || $period == 'SM4')){
         $target = 'Juz 26,27 & Juz 1';
     } 
     return $target;
