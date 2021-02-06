@@ -381,7 +381,7 @@ function get_predicate($type = null, $score) {
             break;
         }
     } else if($type == 'tahsin'){
-        if($clientcode == 'ymk'){
+        if($clientcode == 'ymk' || $clientcode == 'ymn'){
             switch($score){
                 case '1':
                     $label = 'Maqbul';
@@ -2862,4 +2862,91 @@ function remote_file_exists($url)
     if( $httpCode == 200 ){return true;}
 }
 
+function get_tahsin_target_grade($class_id, $period){
+    if($class_id == 7 && $period == 'SM1'){
+        $grade = 'Basic 3';
+    } else if($class_id == 7 && $period == 'SM2'){
+        $grade = 'Intermediete 2';
+    } else if($class_id == 8 && $period == 'SM1'){
+        $grade = 'Basic 3';
+    } else if($class_id == 8 && $period == 'SM2'){
+        $grade = 'Intermediete 3';
+    } else if($class_id == 9 && $period == 'SM1'){
+        $grade = 'Basic 3';
+    } else if($class_id == 9 && $period == 'SM2'){
+        $grade = 'Intermediete 3';
+    } else if($class_id == 10 && $period == 'SM1'){
+        $grade = 'Basic 3';
+    } else if($class_id == 10 && $period == 'SM2'){
+        $grade = 'Intermediete 2';
+    } else if($class_id == 11 && $period == 'SM1'){
+        $grade = 'Basic 3';
+    } else if($class_id == 11 && $period == 'SM2'){
+        $grade = 'Intermediete 3';
+    } else if($class_id == 12 && $period == 'SM1'){
+        $grade = 'Basic 3';
+    } else if($class_id == 12 && $period == 'SM2'){
+        $grade = 'Intermediete 3';
+    } 
+    return $grade;
+}
+
+function get_tahsin_target_detail($grade){
+    $target = array(
+        'Basic 3' =>   'Tepat dalam konsistensi tanda panjang<br>
+                        Tepat dalam keseimbangan tanda gunnah<br>
+                        Tepat dalam pengucapan huruf sukun<br>
+                        Tepat dalam tuntutan kesempurnaan vokal<br>',
+        'Basic 2' =>   'Kriteria Belum Sempurna di Salah Satu Kriteria<br> 
+                        meliputi (Konsistensi Tanda Panjang, Keseimbangan Tanda Gunnah,<br> 
+                        Pengucapan Huruf Sukun dan Tuntutan Kesempurnaan Vokal)',
+        'Basic 1' =>   'Kriteria Bacaan Masih Terbata-bata<br>Predikat Belum Terlampaui',
+    );
+    return $target[$grade];
+}
+
+function get_tahfizh_target($class_id, $period){
+    if($class_id == 7 && $period == 'UTSSM2' || $period == 'SM3'){
+        $target = 'Juz 30 (1/2 Juz) An Naba - Al Fajr';
+    } else if($class_id == 7 && ($period == 'UASSM2' || $period == 'SM4')){
+        $target = 'Juz 30 (An Naba - An Naas)';
+    } else if($class_id == 8 && ($period == 'UTSSM1' || $period == 'SM1')){
+        $target = 'Juz 29';
+    } else if($class_id == 8 && ($period == 'UASSM1' || $period == 'SM2')){
+        $target = 'Juz 28 & Juz 29';
+    } else if($class_id == 8 && ($period == 'UTSSM2' || $period == 'SM3')){
+        $target = 'Juz 27';
+    } else if($class_id == 8 && ($period == 'UASSM2' || $period == 'SM4')){
+        $target = 'Juz 27 & Juz 28';
+    } else if($class_id == 9 && ($period == 'UTSSM1' || $period == 'SM1')){
+        $target = 'Juz 1 (1/2)';
+    } else if($class_id == 9 && ($period == 'UASSM1' || $period == 'SM2')){
+        $target = 'Juz 1 (Full)';
+    } else if($class_id == 9 && ($period == 'UTSSM2' || $period == 'SM3')){
+        $target = 'Juz 30-28';
+    } else if($class_id == 9 && ($period == 'UASSM2' || $period == 'SM4')){
+        $target = 'Juz 26,27 & Juz 1';
+    } else if($class_id == 10 && ($period == 'UTSSM2' || $period == 'SM3')){
+        $target = 'Juz 30 (1/2 Juz) An Naba - Al Fajr';
+    } else if($class_id == 10 && ($period == 'UASSM2' || $period == 'SM4')){
+        $target = 'Juz 30 (An Naba - An Naas)';
+    } else if($class_id == 11 && ($period == 'UTSSM1' || $period == 'SM1')){
+        $target = 'Juz 29';
+    } else if($class_id == 11 && ($period == 'UASSM1' || $period == 'SM2')){
+        $target = 'Juz 28 & Juz 29';
+    } else if($class_id == 11 && ($period == 'UTSSM2' || $period == 'SM3')){
+        $target = 'Juz 27';
+    } else if($class_id == 11 && ($period == 'UASSM2' || $period == 'SM4')){
+        $target = 'Juz 27 & Juz 28';
+    } else if($class_id == 12 && ($period == 'UTSSM1' || $period == 'SM1')){
+        $target = 'Juz 1 (1/2)';
+    } else if($class_id == 12 && ($period == 'UASSM1' || $period == 'SM2')){
+        $target = 'Juz 1 (Full)';
+    } else if($class_id == 12 && ($period == 'UTSSM2' || $period == 'SM3')){
+        $target = 'Juz 30-28';
+    } else if($class_id == 12 && ($period == 'UASSM2' || $period == 'SM4')){
+        $target = 'Juz 26,27 & Juz 1';
+    } 
+    return $target;
+}
 /*STRICT DATA ACCESS END*/

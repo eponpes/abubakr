@@ -307,7 +307,7 @@
                                                             </div>
 
                                                             <div class="col-xs-12 col-md-4">
-                                                                <?php if($clientcode == 'ymk') { ?>
+                                                                <?php if($clientcode == 'ymk' || $clientcode == 'ymn') { ?>
                                                                 <div class="checkbox">
                                                                     <label for="Murajaah"> 
                                                                         <input type="checkbox" value="L" itemid="<?php echo $obj->id; ?>" name="tahfizhl_<?php echo $obj->id; ?>" id="tahfizhl_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhl_type == 'L'){ echo 'checked="checked"'; } ?> />&nbsp;&nbsp; Tambah Murajaah Manzil
@@ -348,7 +348,7 @@
                                                         </div>
                                                         
                                                     </fieldset>             
-                                                    <?php if($clientcode == 'ymk') { ?>
+                                                    <?php if($clientcode == 'ymk' || $clientcode == 'ymn') { ?>
                                                     <div id="mutabaah_<?php echo $obj->id; ?>">
                                                         <div class="form-row top-border">
                                                             <div class="col-xs-6 col-sm-2 col-md-2 mb-1">

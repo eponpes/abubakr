@@ -158,18 +158,50 @@
                         </div>
                     </div>
                     <?php } else if ($formtype == 'tahfizh') { ?>
-                    <div class="row">
-                        <div class="col-md-5 col-sm-5 col-xs-12">
-                            <div class="item form-group">
-                            <label for="period-choice">Pilih Semester</label>
-                            <select class="form-control" id="period2" name="period">
-                                <option>------</option>
-                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">Semester 1</option>
-                                <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">Semester 2</option>
-                            </select>
+                        <?php if($clientcode == 'ymk'){ ?>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="item form-group">
+                                <label for="period-choice">Pilih Semester</label>
+                                <select class="form-control" id="period2" name="period">
+                                    <option>------</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">Semester 1</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">Semester 2</option>
+                                </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <?php } else if($clientcode == 'ymn'){ ?>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="item form-group">
+                                <label for="period-choice">Pilih Caturwulan</label>
+                                <select class="form-control" id="period2" name="period">
+                                    <option>------</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">CAWU 1</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">CAWU 2</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM3'){echo 'selected';} ?> value="SM3">CAWU 3</option>
+
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } else if($clientcode == 'ibd'){ ?>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="item form-group">
+                                <label for="period-choice">Pilih Semester</label>
+                                <select class="form-control" id="period2" name="period">
+                                    <option>------</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">UTS SM1</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">UAS SM1</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM3'){echo 'selected';} ?> value="SM3">UTS SM2</option>
+                                    <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM4'){echo 'selected';} ?> value="SM4">UAS SM2</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
                     <?php } ?>
                 <?php } ?>
                
@@ -480,7 +512,7 @@
                                 <label for="tahfizh_tahsin">Tahsin</label>
                                 <select class="form-control" id="tahfizh_tahsin" name="indicator2[tahsin]">
                                     <option>--------</option>
-                                    <?php if($clientcode == 'ymk'){ ?>
+                                    <?php if($clientcode == 'ymk' || $clientcode == 'ymn'){ ?>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '1'){echo 'selected';} ?> value="1">Maqbul/Cukup</option>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Jayyid/Baik</option>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '3'){echo 'selected';} ?> value="3">Jayyid Jiddan/Baik Sekali</option>
@@ -603,7 +635,7 @@
                                 <label for="tahsin_target">Target Tahsin</label>
                                 <select class="form-control" id="tahsin_target" name="indicator2[tahsintarget]">
                                     <option>--------</option>
-                                    <?php if($clientcode == 'ymk'){ ?>
+                                    <?php if($clientcode == 'ymk' || $clientcode == 'ymn'){ ?>
                                     <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '1'){echo 'selected';} ?> value="1">Maqbul (C)</option>
                                     <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '2'){echo 'selected';} ?> value="2">Jayyid (B)</option>
                                     <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '3'){echo 'selected';} ?> value="3">Jayyid Jiddan (A)</option>
@@ -1055,7 +1087,7 @@ $(document).ready(function() {
       $("#marksheet").validate();
     $('#period2').change(function(){
         var p = this.value;
-        <?php if($clientcode == 'ymk') { ?>
+        <?php if($clientcode == 'ymk' || $clientcode == 'ymn') { ?>
             window.location = "<?php echo $form_url; ?>?p="+p+"&format=surat";
         <?php } else { ?>
             window.location = "<?php echo $form_url; ?>?p="+p;

@@ -313,7 +313,7 @@ class Mark extends MY_Controller {
         }
 
         if(!empty($_GET['p']) && $type == 'tahfizh'){
-            $periodlist = array('SM1','SM2');
+            $periodlist = array('SM1','SM2','SM3','SM4');
             if(!in_array($_GET['p'], $periodlist)){
                 redirect('dashboard');
             }

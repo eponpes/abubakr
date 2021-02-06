@@ -128,18 +128,49 @@
                     </div>
                 </div>
             <?php } else { ?> 
+                <?php if($clientcode == 'ibd') { ?>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="item form-group">
                             <label for="semester-choice">Pilih Semester</label>
                             <select class="form-control" id="semester" name="semester">
                                 <option value="0">-------</option>
-                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">1</option>
-                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">2</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">UTS SM1</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">UAS SM1</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '3'){echo 'selected';} ?> value="3">UTS SM2</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '4'){echo 'selected';} ?> value="4">UAS SM2</option>
                             </select>
                         </div>
                     </div>
                 </div>
+                <?php } else if($clientcode == 'ymn') { ?>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="item form-group">
+                            <label for="semester-choice">Pilih Caturwulan</label>
+                            <select class="form-control" id="semester" name="semester">
+                                <option value="0">-------</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">CAWU 1</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">CAWU 2</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '3'){echo 'selected';} ?> value="3">CAWU 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <?php } else { ?>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="item form-group">
+                            <label for="semester-choice">Pilih Semester</label>
+                            <select class="form-control" id="semester" name="semester">
+                                <option value="0">-------</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '1'){echo 'selected';} ?> value="1">UAS SM1</option>
+                                <option <?php if(isset($_GET['s']) && $_GET['s'] == '2'){echo 'selected';} ?> value="2">UAS SM2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
             <?php } ?>
             </div>
             <?php } ?>
@@ -437,7 +468,7 @@
                     </div>
                     <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
-                            <?php if($clientcode == 'ymk') { ?>
+                            <?php if($clientcode == 'ymk' || $clientcode == 'ymn') { ?>
                             <?php
                             $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
                             $defaultpath1 = IMG_URL . 'signature/default.png';
@@ -469,7 +500,7 @@
                         </div>
                         <div class="signature">
                             <?php 
-                            if($clientcode == 'ymk') {
+                            if($clientcode == 'ymk' || $clientcode == 'ymn') {
                                 if(isset($myteacher)) {
                                     echo ucwords(strtolower($myteacher->name));
                                 }    
@@ -508,7 +539,7 @@
             var param = '?';
             
             var paramformat = '';
-            if(code == 'ymk'){
+            if(code == 'ymk' || code == 'ymn'){
                 var paramformat = '&format=surat';
             }
             
@@ -692,7 +723,7 @@ $('#level').change(function(e){
 $('#semester').change(function(e){
     e.preventDefault();
     var s = this.value;
-    if(s == "1" || s == "2") {
+    if(s == "1" || s == "2" || s == "3" || s == "4") {
         <?php if($formtype == 'tahfizh' || $formtype == 'tahsin') { ?>
             window.location = "?s="+s+"&p=SM"+s;
         <?php } else { ?>

@@ -264,7 +264,7 @@
                                     </div>
                                     <div class="col-xs-3 text-center" style="width: 28%">
                                         <div class="knowing">
-                                            <?php if($clientcode == 'ymk') { ?>
+                                            <?php if($clientcode == 'ymk' || $clientcode == 'ymn') { ?>
                                             <?php
                                             $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
                                             $defaultpath1 = IMG_URL . 'signature/default.png';
@@ -296,7 +296,7 @@
                                         </div>
                                         <div class="signature">
                                             <?php 
-                                            if($clientcode == 'ymk') {
+                                            if($clientcode == 'ymk' || $clientcode == 'ymn') {
                                                 if(isset($myteacher)) {
                                                     echo ucwords(strtolower($myteacher->name));
                                                 }    
