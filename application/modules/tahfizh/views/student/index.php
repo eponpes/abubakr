@@ -238,7 +238,7 @@
                                                                         <input type="checkbox" value="Z" itemid="<?php echo $obj->id; ?>" name="tahfizhz_<?php echo $obj->id; ?>" id="tahfizhz_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($tahfizhz_type == 'Z'){ echo 'checked="checked"'; } ?> />&nbsp;&nbsp; Tambah Ziyadah
                                                                     </label>
                                                                 </div>
-                                                                <div id="detail_shaffz_<?php echo $obj->id; ?>" style="<?php if($tahfizhz_type == 'Z') echo 'display:block'; else echo 'display:none' ?>">
+                                                                <div class="form-group" id="detail_shaffz_<?php echo $obj->id; ?>" style="<?php if($tahfizhz_type == 'Z') echo 'display:block'; else echo 'display:none' ?>">
                                                                     <select class="form-control" itemid="<?php echo $obj->id; ?>" id="shaffz_<?php echo $obj->id; ?>" name="shaffz_<?php echo $obj->id; ?>">
                                                                         <option value="">Jumlah Ziyadah</option>
                                                                         <option value="0.3" <?php if($tahfizhz_shaff == '0.3') echo 'selected';?>>1/3 Halaman</option>

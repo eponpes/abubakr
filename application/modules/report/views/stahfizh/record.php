@@ -45,25 +45,27 @@
                                         <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
                                     <?php } ?>
                                 </div>
-                                <div class="school-info col-sm-10 col-xs-9">
+                                <div class="school-info col-sm-9 col-xs-8">
                                     <div class="top-school"><?php echo $school->school_parent; ?></div>
                                     <?php if(isset($school)){ ?>
                                     <div class="name-school"><?php echo $school->school_name; ?></div>
                                     <p> <?php echo $school->address; ?></p>
                                 <?php } ?>
                                 </div>
-                                <div class="col-sm-1 col-xs-1">&nbsp;</div>
+                                <div class="school-logo col-sm-1 col-xs-2">
+                                    <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt="" height="84" />
+                                </div>
                             </div>
 
                             <hr class="style8" />
-                            <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
+                            <h4><strong>تقرير إنجازات حفظ القرآن ومتبعة يومية</strong><h4>
                             <h5><strong>LAPORAN PENCAPAIAN TAHFIDZ AL-QUR’AN DAN MUTABAAH YAUMIYAH</strong></h5>
                                                         
                         </div>
                         <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
                             <tr>
                                 <td style="text-align:left; width: 150px">Nama</td>
-                                <td style="text-align:left; width: 30%">: <?php echo $student->name; ?> ( <?php echo $student->roll_no; ?> )</td>
+                                <td style="text-align:left; width: 30%">: <?php echo $student->name; ?></td>
                                 <td style="text-align:left; width: 10%"></td>
                                 <td style="text-align:left; width: 20%">Kelas/Semester</td>
                                 <td style="text-align:left; width: 150px"><?php echo $student->class_name . ' ' . $student->section; ?> </td>
@@ -86,103 +88,135 @@
                 <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th rowspan="2">No</th>
-                            <th rowspan="2" width="8%">Hari Tanggal</th>
-                            <th colspan="2">Hafalan Baru</th>                                            
-                            <th colspan="2">Muroja'ah</th>                                            
-                            <th rowspan="2">Rawatib</th>                                            
-                            <th rowspan="2">Dhuha</th>                                            
-                            <th rowspan="2">Qiyam</th>                                            
-                            <th rowspan="2">Puasa</th>                                            
-                            <th rowspan="2">Infaq (Rp.)</th>                                            
-                            <th rowspan="2">Nabung (Rp.)</th>                                            
+                            <th width="4%" rowspan="2" width="8%">Tanggal</th>
+                            <th colspan="2">Hafalan Baru</th>        
+                            <?php if($clientcode == 'ymn') { ?>     
+                                <th colspan="2">Muroja'ah</th>                      
+                                <th rowspan="2">Rawatib</th>                                            
+                                <th rowspan="2">Dhuha</th>                                            
+                                <th rowspan="2">Qiyam</th>                                            
+                                <th rowspan="2">Puasa</th>                                            
+                                <th rowspan="2">Infaq (Rp.)</th>                                            
+                                <th rowspan="2">Nabung (Rp.)</th>       
+                            <?php } else { ?>   
+                                <th colspan="2">Muroja'ah Sabaqi</th>   
+                                <th colspan="2">Muroja'ah Manzili</th>   
+                            <?php } ?>                                  
                         </tr>
-                        <tr>                           
+                        <tr>                
                             <th width="16%">Catatan</th>                                            
-                            <th width="8%">Nilai</th>                                            
+                            <th width="8%">Nilai</th>      
                             <th width="16%">Catatan</th>                                            
-                            <th width="8%">Nilai</th>                                            
+                            <th width="8%">Nilai</th>         
+                            <?php if($clientcode != 'ymn') { ?>            
+                            <th width="16%">Catatan</th>                                            
+                            <th width="8%">Nilai</th>
+                            <?php } ?>                              
                         </tr>
                     </thead>
                     <tbody id="fn_mark"> 
                        
                         <?php if (isset($student_record) && !empty($student_record)) { ?>
-                        <?php $no=1; foreach($student_record as $st){ ?>
+                        <?php $no=1; $noday=1; foreach($student_record as $st){ ?>
                         <?php $gd = json_decode($st);
                             if(!empty($gd)){
-                              $filltable = '';
-                              foreach ($gd as $gda) {
-                                $date = $gda->date;
-                                $type = $gda->type;
-                                $val = !empty($gda->val)?$gda->val:'';
-                                $myday = date("l",$date);
-                                $mydate = date("d-m-Y", $date);
+                                $filltable = '';
                                 $fz_catatan = ""; 
-                                $fm_caatan = "";
+                                $fm_catatan = "";
+                                $fl_catatan = "";
                                 $fz_val = "";
                                 $fm_val = "";
-                                                                  
-                                 if($type == 'Z'){
-                                      $totalziyadah = $gda->shaff . $gda->shaffo . ' hal / ' . $gda->shaffn;
-                                      $fz_catatan = $totalziyadah;
-                                      $fz_val     = $gda->shaffs . ' (' .get_predicate($type, $gda->shaffs) . ')';
-                                  }
+                                $fl_val = "";
+                                $raw_val = "";
+                                $dhu_val = "";
+                                $qiy_val = "";
+                                $siy_val = "";
+                                $inf_val = "";
+                                $nab_val = "";
+                                $shu_val = $dzu_val = $ash_val = $mag_val = $isy_val = "";
+                                $typeabs = false;
 
-                                  if($type == 'M'){
-                                    $totalmurajaah = $gda->shaff . $gda->shaffo . ' hal / ' . $gda->shaffn;
-                                    $fm_catatan = $totalmurajaah;
-                                    $fm_val     = $gda->shaffs . ' (' .get_predicate($type, $gda->shaffs) . ')';
-                                  }
+                               if($gd->type != 'A'){
+                                    foreach ($gd as $gda) {
+                                        $date = $gda->date;
+                                        $type = $gda->type;
+                                        $val = !empty($gda->val)?$gda->val:'';
+                                        $myday = translate_day_id(date("l",$date));
+                                        $mydate = date("d-m-y", $date);
+                                        $mydayno = date("d", $date);
+                                        $myday = $myday .', '. $mydate;
+                                        
+                                        if($type == 'Z'){
+                                            $totalziyadah = ($gda->shaff!='O'?$gda->shaff:'') . $gda->shaffo . ' hal / ' . $gda->shaffn;
+                                            $fz_catatan = $totalziyadah;
+                                            $fz_val     = $gda->shaffs . ' (' .get_predicate($type, $gda->shaffs) . ')';
+                                        }
+        
+                                        if($type == 'M'){
+                                            $totalmurajaah = ($gda->shaff!='O'?$gda->shaff:'') . $gda->shaffo . ' hal / ' . $gda->shaffn;
+                                            $fm_catatan = $totalmurajaah;
+                                            $fm_val     = $gda->shaffs . ' (' .get_predicate($type, $gda->shaffs) . ')';
+                                        }
+        
+                                        if($type == 'L'){
+                                            $totalmurajaah2 = ($gda->shaff!='O'?$gda->shaff:'') . $gda->shaffo . ' hal / ' . $gda->shaffn;
+                                            $fl_catatan = $totalmurajaah2;
+                                            $fl_val     = $gda->shaffs . ' (' .get_predicate($type, $gda->shaffs) . ')';
+                                        }
+        
+                                        if($type == 'shu'){ $shu_val = $gda->val; }
+                                        if($type == 'dzu'){ $dzu_val = $gda->val; }
+                                        if($type == 'ash'){ $ash_val = $gda->val; }
+                                        if($type == 'mag'){ $mag_val = $gda->val; }
+                                        if($type == 'isy'){ $isy_val = $gda->val; }
+                                        if($type == 'dhu'){ $dhu_val = $gda->val; }
+                                        if($type == 'qiy'){ $qiy_val = $gda->val; }
+                                        if($type == 'siy'){ $siy_val = $gda->val; }
+                                        if($type == 'inf'){ $inf_val = $gda->val; }
+                                        if($type == 'nab'){ $nab_val = $gda->val; }
+                                        }
+                                        
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $mydayno; ?></td>
+                                            <td><?php echo $fz_catatan; ?></td>
+                                            <td><?php echo $fz_val; ?></td>
+                                            <td><?php echo $fm_catatan; ?></td>
+                                            <td><?php echo $fm_val; ?></td>
+                                            <?php if($clientcode != 'ymn') { ?> 
+                                            <td><?php echo $fl_catatan; ?></td>
+                                            <td><?php echo $fl_val; ?></td>
+                                            <?php } ?>
+                                            <?php if($clientcode == 'ymn') { ?> 
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-2"><b>Shu:</b> <?php echo $shu_val; ?></div>
+                                                    <div class="col-md-2"><b>Dzu:</b> <?php echo $dzu_val; ?></div>
+                                                    <div class="col-md-2"><b>Ash:</b> <?php echo $ash_val; ?></div>
+                                                    <div class="col-md-2"><b>Mag:</b> <?php echo $mag_val; ?></div>
+                                                    <div class="col-md-2"><b>Isy:</b> <?php echo $isy_val; ?></div>
+                                                </div>
+                                            </td>
+                                            <td><?php echo $dhu_val; ?></td>
+                                            <td><?php echo $qiy_val; ?></td>
+                                            <td><?php echo $siy_val; ?></td>
+                                            <td><?php echo $inf_val; ?></td>
+                                            <td><?php echo $nab_val; ?></td>
+                                            <?php } ?>
+                                        </tr>
+                                        <?php
+                                        $no++;
+                                    }
+                               } else { 
+                                   $mydayno = sprintf("%02d", $noday);
 
-                                  if($type == 'raw'){
-                                    $raw_val = "";
-                                    $raw_val = $gda->val;  
-                                  }
-
-                                  if($type == 'dhu'){
-                                    $dhu_val = "";
-                                    $dhu_val = $gda->val;  
-                                  }
-
-                                  if($type == 'qiy'){
-                                    $qiy_val = "";
-                                    $qiy_val = $gda->val;  
-                                  }
-
-                                  if($type == 'siy'){
-                                    $siy_val = "";
-                                    $siy_val = $gda->val;  
-                                  }
-
-                                  if($type == 'inf'){
-                                    $inf_val = "";
-                                    $inf_val = $gda->val;  
-                                  }
-
-                                  if($type == 'nab'){
-                                    $nab_val = "";
-                                    $nab_val = $gda->val;  
-                                  }
-                                }
-                                
-                                ?>
-                                <tr>
-                                    <td><?php echo $no; ?></td>
-                                    <td><?php echo $myday; ?></td>
-                                    <td><?php echo $fz_catatan; ?></td>
-                                    <td><?php echo $fz_val; ?></td>
-                                    <td><?php echo $fm_catatan; ?></td>
-                                    <td><?php echo $fm_val; ?></td>
-                                    <td><?php echo $raw_val; ?></td>
-                                    <td><?php echo $dhu_val; ?></td>
-                                    <td><?php echo $qiy_val; ?></td>
-                                    <td><?php echo $siy_val; ?></td>
-                                    <td><?php echo $inf_val; ?></td>
-                                    <td><?php echo $nab_val; ?></td>
-                                </tr>
-                                <?php
-                                $no++;
-                            }
+                                   ?>
+                                   <tr><td><?php echo $mydayno; ?></td><td colspan="7">Tidak Setoran</td></tr>
+                                   <?php
+                               }
+                                    
+                               $noday++;
+                              
                         }
                     } ?>
                             

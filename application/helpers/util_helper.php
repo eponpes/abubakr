@@ -432,19 +432,25 @@ function get_predicate($type = null, $score) {
                 $label = 'Terlampaui';
             break;
         }
-    }  else if($type == 'Z' || $type == 'M'){
+    }  else if($type == 'Z' || $type == 'M' || $type == 'L'){
         switch($score){
-            case 'A':
+            case 'A+':
                 $label = 'Mumtaz';
             break;
-            case 'B':
+            case 'A':
                 $label = 'Jayyid Jiddan';
             break;
-            case 'C':
+            case 'B':
                 $label = 'Jayyid';
             break;
-            case 'D':
+            case 'C':
                 $label = 'Maqbul';
+            break;
+            case 'D':
+                $label = 'Naqis';
+            break;
+            case 'E':
+                $label = 'Dhoif';
             break;
             default:
             $label = 'Jayyid';
@@ -2837,14 +2843,23 @@ if (!function_exists('get_sign_date')) {
     function get_sign_date($date) {
         $month = array(
             '1' => 'Januari',
+            '01' => 'Januari',
             '2' => 'Februari',
+            '02' => 'Februari',
             '3' => 'Maret',
+            '03' => 'Maret',
             '4' => 'April',
+            '04' => 'April',
             '5' => 'Mei',
+            '05' => 'Mei',
             '6' => 'Juni',
+            '06' => 'Juni',
             '7' => 'Juli',
+            '07' => 'Juli',
             '8' => 'Agustus',
+            '08' => 'Agustus',
             '9' => 'September',
+            '09' => 'September',
             '10' => 'Oktober',
             '11' => 'November',
             '12' => 'Desember',
@@ -2949,5 +2964,21 @@ function get_tahfizh_target($class_id, $period){
         $target = 'Juz 26,27 & Juz 1';
     } 
     return $target;
+}
+
+if (!function_exists('translate_day_id')) {
+    function translate_day_id($day) {
+        $month = array(
+            'Sunday' => 'Ahad',
+            'Monday' => 'Senin',
+            'Tuesday' => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu'
+        );
+
+        return $month[$day];
+    }
 }
 /*STRICT DATA ACCESS END*/
