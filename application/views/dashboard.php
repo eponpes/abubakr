@@ -135,6 +135,18 @@
                                 </div>
                             </a></div>
                         <?php } ?>
+                        <?php if(has_permission(VIEW, 'library', 'book') || 
+                            has_permission(VIEW, 'library', 'member') || 
+                            has_permission(VIEW, 'library', 'issue') ||   
+                            has_permission(VIEW, 'library', 'ebook')){ ?> 
+                        <div class="col-md-2 col-sm-3 col-xs-3 tile_stats_count">
+                            <a href="<?php echo site_url('library/book/index'); ?>" class="button">
+                                <figure><img src="<?php echo IMG_URL; ?>icon/class.png"></figure>
+                                <div class="text">
+                                    Perpustakaan
+                                </div>
+                            </a></div>
+                        <?php } ?>
                     </div>
                 </div>  
             </div>

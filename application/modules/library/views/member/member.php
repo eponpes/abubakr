@@ -16,9 +16,9 @@
                 <div class="" data-example-id="togglable-tabs">
                     
                     <ul  class="nav nav-tabs bordered">
-                        <li class="<?php if(isset($list)){ echo 'active'; }?>"><a href="<?php echo site_url('library/member/index/'); ?>"   aria-expanded="true"><i class="fa fa-list-ol"></i> <?php echo $this->lang->line('member'); ?></a> </li>
+                        <li class="<?php if(isset($list)){ echo 'active'; }?>"><a href="<?php echo site_url('library/member/index'); ?>"   aria-expanded="true"><i class="fa fa-list-ol"></i> <?php echo $this->lang->line('member'); ?></a> </li>
                         <?php if(has_permission(ADD, 'library', 'member')){ ?>
-                            <li  class="<?php if(isset($non_list)){ echo 'active'; }?>"><a href="<?php echo site_url('library/member/add/'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('non_member'); ?></a> </li>                          
+                            <li  class="<?php if(isset($non_list)){ echo 'active'; }?>"><a href="<?php echo site_url('library/member/add'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('non_member'); ?></a> </li>                          
                         <?php } ?>
                           
                                                          

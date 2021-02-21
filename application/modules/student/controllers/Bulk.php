@@ -88,7 +88,7 @@ class Bulk extends MY_Controller {
             }
             
            
-            while (($arr = fgetcsv($handle)) !== false) {
+            while (($arr = fgetcsv($handle, null, ';')) !== false) {
 
                 if ($count == 1) { $count++;  continue; }
 
@@ -111,7 +111,6 @@ class Bulk extends MY_Controller {
                     $guardian_user['email']    =  isset($arr[57]) ? $arr[57] : '';
                     $guardian_user['username'] =  $this->student->get_custom_id('users', 'GUD');
                     $guardian_user['password'] =  get_random_tring(6);
-                    
                    
                     $guardian['user_id'] = $this->student->create_custom_user($guardian_user);  
                     
@@ -130,7 +129,7 @@ class Bulk extends MY_Controller {
                     $guardian['modified_at'] = date('Y-m-d H:i:s');
                     $guardian['modified_by'] = logged_in_user_id();
                     $guardian['status'] = 1; 
-                    
+
                     $data['guardian_id'] = $this->student->insert('guardians', $guardian);
                     
                      // now we have to create student user
