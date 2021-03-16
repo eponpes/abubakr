@@ -35,9 +35,9 @@ class Groups extends MY_Controller {
     * ********************************************************** */
     public function index($school_id = null) {
         
-        check_permission(VIEW);
+        //check_permission(VIEW);
         
-        $condition = array();
+        /*$condition = array();
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');
@@ -48,8 +48,10 @@ class Groups extends MY_Controller {
          // default global income head       
         $this->data['invoices'] = $this->invoice->get_invoice_list($school_id); 
         $this->data['filter_school_id'] = $school_id;
-        $this->data['schools'] = $this->schools;
-         
+        $this->data['schools'] = $this->schools;*/
+
+        $this->data['all_groups'] = $this->get_all_groups();
+
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_invoice'). ' | ' . SMS);
         $this->layout->view('manage/index', $this->data);            
@@ -76,6 +78,46 @@ class Groups extends MY_Controller {
 
         echo $str;
     }
+
+    public function get_all_groups() {
+        $school_id = 1;     
+        $type = isset($_GET['type'])?$_GET['type']:'tahfidz';         
+        $school = $this->groups->get_school_by_id($school_id);
+        $teachers = $this->groups->get_teachers($school_id, $teacher_id, 'regular');
+        $student_id = null;
+
+        $classes = $this->groups->get_list('classes', $condition, '','', '', 'id', 'ASC');
+        
+        $numOfCols = 4;
+        $rowCount = 0;
+        $bootstrapColWidth = 12 / $numOfCols;
+        $table_content .= '<div class="row">';
+        foreach ($teachers as $obj){
+            $teacher_id = $obj->id;
+            $teacher_name = $obj->name;
+            
+            foreach($classes as $class){
+                $studentteachers = $this->groups->get_student_list($school_id, $school->academic_year_id, $class->id, $student_id, 'regular', $type, $teacher_id);
+                    if (!empty($studentteachers)) { 
+                        $table_content .= '<div class="col-md-'.$bootstrapColWidth.'">';  
+                        $table_content .= '<strong>'.$i.'Pembina: '.$teacher_name.'<br> Kelas: '.$class->name.'<br> Anggota: '.count($studentteachers).' org</strong><br>';
+                        $nost = 1;
+                        foreach ($studentteachers as $objst) {
+                            $table_content .= $nost . '. ' . $objst->name . '<br>';
+                            $nost++;
+                        }
+                        $table_content .= '</div>';
+                        $rowCount++;
+                        if($rowCount % $numOfCols == 0) $table_content .= '</div><div class="row">';
+                    }
+            }
+           
+            
+        }
+        $table_content .= '</div>';
+
+        return $table_content;
+    }
     
     
     /*****************Function add**********************************
@@ -89,8 +131,7 @@ class Groups extends MY_Controller {
     public function add($school_id = null) {
 
         //check_permission(ADD);
-        
-        
+
         if ($_POST) {
             $this->_prepare_invoice_validation();
             if ($this->form_validation->run() === FALSE) {

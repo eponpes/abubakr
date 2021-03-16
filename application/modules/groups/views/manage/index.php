@@ -14,15 +14,21 @@
                 <div class="" data-example-id="togglable-tabs">
                     
                     <ul  class="nav nav-tabs bordered">
-                        <li  class="<?php if(isset($single)){ echo 'active'; }?>"><a href="<?php echo site_url('groups/groups/add'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> Kelola Groups</a> </li>                          
-                            
+                        <li  class="<?php if(!isset($single)){ echo 'active'; }?>"><a href="<?php echo site_url('groups/groups/index'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> Kelola Groups</a> </li>                          
+                        <li  class="<?php if(isset($single)){ echo 'active'; }?>"><a href="<?php echo site_url('groups/groups/add'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> Add Groups</a> </li>                          
                          <li class="li-class-list">
+                         <?php 
+                         if(!empty($_GET['type']) && ($_GET['type'] == 'tahfidz')){
+                            $tahfidz_selected = 'selected=selected';
+                         }
+                         if(!empty($_GET['type']) && ($_GET['type'] == 'bpi')){
+                            $bpi_selected = 'selected=selected';
+                         }
+                         ?>
                         <?php if($this->session->userdata('role_id') == SUPER_ADMIN){  ?>                                 
-                             <select  class="form-control col-md-7 col-xs-12" onchange="get_invoice_by_school(this.value);">
-                                     <option value="<?php echo site_url('accounting/invoice/index'); ?>">--<?php echo $this->lang->line('select_school'); ?>--</option> 
-                                 <?php foreach($schools as $obj ){ ?>
-                                     <option value="<?php echo site_url('accounting/invoice/index/'.$obj->id); ?>" <?php if(isset($filter_school_id) && $filter_school_id == $obj->id){ echo 'selected="selected"';} ?> > <?php echo $obj->school_name; ?></option>
-                                 <?php } ?>   
+                             <select  class="form-control col-md-7 col-xs-12" onchange="get_group_by_type(this.value);">
+                             <option value="<?php echo site_url('groups/groups/index'). '?type=tahfidz'; ?>" <?php echo $tahfidz_selected; ?>>Tahfidz</option>   
+                             <option value="<?php echo site_url('groups/groups/index'). '?type=bpi'; ?>" <?php echo $bpi_selected; ?>>BPI</option>   
                              </select>
                          <?php } ?>  
                         </li>      
@@ -31,59 +37,9 @@
                     <br/>                    
                     
                     <div class="tab-content">
-                        <div  class="tab-pane fade in <?php if(isset($list)){ echo 'active'; }?>" id="tab_invoice_list" >
+                        <div  class="tab-pane fade in active" id="tab_invoice_list" >
                             <div class="x_content">
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th><?php echo $this->lang->line('sl_no'); ?></th>
-                                        <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
-                                            <th><?php echo $this->lang->line('school'); ?></th>
-                                        <?php } ?>
-                                        <th><?php echo $this->lang->line('invoice_number'); ?></th>
-                                        <th><?php echo $this->lang->line('student'); ?></th>
-                                        <th><?php echo $this->lang->line('class'); ?></th>
-                                        <th><?php echo $this->lang->line('gross_amount'); ?></th>
-                                        <th><?php echo $this->lang->line('discount'); ?></th>
-                                        <th><?php echo $this->lang->line('net_amount'); ?></th>
-                                        <th><?php echo $this->lang->line('status'); ?></th>
-                                        <th><?php echo $this->lang->line('action'); ?></th>                                            
-                                    </tr>
-                                </thead>
-                                <tbody>   
-                                    <?php $count = 1; if(isset($invoices) && !empty($invoices)){ ?>
-                                        <?php foreach($invoices as $obj){ ?>
-                                        <tr>
-                                            <td><?php echo $count++; ?></td>
-                                            <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
-                                                <td><?php echo $obj->school_name; ?></td>
-                                            <?php } ?>
-                                            <td><?php echo $obj->custom_invoice_id; ?></td>
-                                            <td><?php echo $obj->student_name; ?></td>
-                                            <td><?php echo $obj->class_name; ?></td>
-                                            <td><?php echo $obj->gross_amount; ?></td>
-                                            <td><?php echo $obj->discount; ?></td>
-                                            <td><?php echo $obj->net_amount; ?></td>
-                                            <td><?php echo get_paid_status($obj->paid_status); ?></td>
-                                            <td>
-                                                <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
-                                                    <a href="<?php echo site_url('accounting/invoice/view/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
-                                                    <?php if($obj->paid_status != 'paid'){ ?>
-                                                        <a href="<?php echo site_url('accounting/payment/index/'.$obj->id); ?>" class="btn btn-success btn-xs"><i class="fa fa-credit-card"></i> <?php echo $this->lang->line('pay_now'); ?></a>
-                                                    <?php } ?>  
-                                                    
-                                                <?php } ?> 
-                                                <?php if(has_permission(DELETE, 'accounting', 'invoice')){ ?>
-                                                    <?php //if($obj->paid_status == 'unpaid'){ ?>
-                                                        <a href="<?php echo site_url('accounting/invoice/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
-                                                    <?php //} ?>
-                                                <?php } ?>                                                       
-                                            </td>
-                                        </tr>
-                                        <?php } ?>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
+                            <?php echo $all_groups; ?>
                             </div>
                         </div>
                         
@@ -491,7 +447,7 @@
     $("#bulk").validate();      
     $("#edit").validate(); 
     
-     function get_invoice_by_school(url){          
+     function get_group_by_type(url){          
         if(url){
             window.location.href = url; 
         }

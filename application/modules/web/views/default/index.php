@@ -5,6 +5,7 @@
             <div class="img">
                 <img src="<?php echo UPLOAD_PATH; ?>slider/<?php echo $obj->image; ?>" alt="">
             </div>
+            <?php /*
             <div class="content">
                 <div class="container">
                     <h3 class="intro animated"><?php echo $this->lang->line('welcome_to'); ?></h3>
@@ -19,7 +20,7 @@
                     </h2>
                     <a class="link animated glbscl-link-btn hvr-bs" href="<?php echo site_url('admission-online'); ?>"><?php echo $this->lang->line('admission_now'); ?></a>
                 </div>
-            </div>
+            </div> */ ?>
         </div>    
       
     <?php } ?>
@@ -67,7 +68,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title text-center">
-                    <h2 class="title"><?php echo $this->lang->line('our'); ?> <span class="inner"><?php echo $this->lang->line('facilities'); ?></span></h2>
+                    <h2 class="title"><span class="inner"><?php echo $this->lang->line('facilities'); ?> <?php echo $this->lang->line('our'); ?></span></h2>
                 </div>
             </div>
         </div>
@@ -156,7 +157,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title text-center">
-                    <h2 class="title"><?php echo $this->lang->line('our'); ?> <span class="inner"><?php echo $this->lang->line('achivement'); ?></span></h2>
+                    <h2 class="title"> <span class="inner"><?php echo $this->lang->line('achivement'); ?></span><?php echo $this->lang->line('our'); ?></h2>
                 </div>
             </div>
         </div>
