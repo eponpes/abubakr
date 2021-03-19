@@ -368,7 +368,7 @@ if (!function_exists('get_mark_form_results')) {
 }
 
 function get_predicate($type = null, $score) {
-    $clientcode = 'ymk';
+    //$clientcode = 'ymk';
     if($type == 'adab' || $type == 'murajaah'){
         switch($score){
             case '1':
@@ -395,17 +395,7 @@ function get_predicate($type = null, $score) {
                 break;
             }
         } else {
-            switch($score){
-                case '1':
-                    $label = 'Basic 1';
-                break;
-                case '2':
-                    $label = 'Basic 2';
-                break;
-                case '3':
-                    $label = 'Basic 3';
-                break;
-            }
+            $label = get_tahsin_target($score);
         }
         
     } else if($type == 'target'){
@@ -459,6 +449,27 @@ function get_predicate($type = null, $score) {
     }
     
     return $label;
+}
+
+function get_tahsin_target($score = null){
+    $tahsin_target = array(
+        '1' => 'Basic 1',
+        '2' => 'Basic 2',
+        '3' => 'Basic 3',
+        '4' => 'Intermediet 1',
+        '5' => 'Intermediet 2',
+        '6' => 'Intermediet 3',
+        '7' => 'Advance 1',
+        '8' => 'Advance 2',
+        '9' => 'Advance 3',
+    );
+    $tahsin = $tahsin_target;
+    if(!empty($score)){
+        if(!empty($tahsin_target[$score])){
+            $tahsin = $tahsin_target[$score];
+        }
+    }
+    return $tahsin;
 }
 
 function get_markform_score($score = null){
@@ -2500,8 +2511,69 @@ if (!function_exists('get_quran_juz_list')){
 }
 if (!function_exists('get_character_indicator')) {
 
-    function get_character_indicator($level = null) {
-        if(empty($level) || $level == 1) {
+    function get_character_indicator($level = null, $class_id = null) {
+        // Class id name for code ibd
+        //  VII = 2, VIII = 5, IX = 4, X = 6, XI = 7, XII = 8
+        if($level == 1 && $class_id == 99) {
+            $data_character = array(
+                '1' => array(
+                    'name' => 'Akidah Yang Bersih',
+                    'indicator' => array(
+                        '101' => 'Tidak berhubungan dengan jin',
+                        '102' => 'Tidak meminta tolong kepada orang yang berlindung kepada jin',
+                        '103' => 'Tidak meramal nasib dengan melihat telapak tangan',
+                        '104' => 'Tidak menghadiri majelis dukun dan peramal'
+                    )
+                ),
+                '2' => array(
+                    'name' => 'Ibadah Yang Benar',
+                    'indicator' => array(
+                        '201' => 'Tidak sungkan Adzan',
+                        '202' => 'Ihsan dalam Thaharah',
+                        '203' => 'Bersemangat untuk shalat'                    )
+                ),
+                '3' => array(
+                    'name' => 'Kepribadian yang matang dan berakhlak mulia',
+                    'indicator' => array(
+                        '301' => 'Tidak takabur',
+                        '302' => 'Tidak imma’ah (asal ikut, tidak punya prinsip)'
+                    )
+                ),
+                '4' => array(
+                    'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
+                    'indicator' => array(
+                        '401' => 'Menjauhi segala yang haram'
+                    )
+                ),
+                '5' => array(
+                    'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
+                    'indicator' => array(
+                        '501' => 'Komitmen dengan adab tilawah',
+                        '502' => 'Khusyuk dalam membaca Al-Quran'
+
+                    )
+                ),
+                '6' => array(
+                    'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
+                    'indicator' => array(
+                        '601' => 'Baik dalam membaca dan menulis',
+                        '602' => 'Mengkaji marhalah Makkiyah dan menguasai karakteristiknya',
+                        '603' => 'Mengenal 10 shahabat yang dijamin masuk surga',
+                        '604' => 'Mengetahui hukum thaharah'
+
+                    )
+                ),
+                '7' => array(
+                    'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
+                    'indicator' => array(
+                        '701' => 'Menjauhi sumber penghasilan haram',
+                        '702' => 'Menjauhi riba',
+                        '703' => 'Menjauhi judi dengan segala macamnya'
+
+                    )
+                )
+            );
+        } else if($level == 1) {
             $data_character = array(
                 '1' => array(
                     'name' => 'Akidah Yang Bersih',
@@ -2923,45 +2995,45 @@ function get_tahsin_target_detail($grade){
 
 function get_tahfizh_target($class_id, $period){
     if($class_id == 'VII' && $period == 'UTSSM2' || $period == 'SM3'){
-        $target = 'Juz 30 (1/2 Juz) An Naba - Al Fajr';
+        $target = '1/2 Juz (Juz 30: An Naba - Al Fajr)';
     } else if($class_id == 'VII' && ($period == 'UASSM2' || $period == 'SM4')){
-        $target = 'Juz 30 (An Naba - An Naas)';
+        $target = '1 Juz (Juz 30: An Naba - An Naas)';
     } else if($class_id == 'VIII' && ($period == 'UTSSM1' || $period == 'SM1')){
-        $target = 'Juz 29';
+        $target = '1 Juz (Juz 29)';
     } else if($class_id == 'VIII' && ($period == 'UASSM1' || $period == 'SM2')){
-        $target = 'Juz 28 & Juz 29';
+        $target = '2 Juz (Juz 28 & Juz 29)';
     } else if($class_id == 'VIII' && ($period == 'UTSSM2' || $period == 'SM3')){
-        $target = 'Juz 27';
+        $target = '1 Juz (Juz 27)';
     } else if($class_id == 'VIII' && ($period == 'UASSM2' || $period == 'SM4')){
-        $target = 'Juz 27 & Juz 28';
+        $target = '2 Juz (Juz 27 & Juz 28)';
     } else if($class_id == 'IX' && ($period == 'UTSSM1' || $period == 'SM1')){
-        $target = 'Juz 1 (1/2)';
+        $target = '1/2 Juz (Juz 1: Al Baqarah 1 - Al Baqarah 76)';
     } else if($class_id == 'IX' && ($period == 'UASSM1' || $period == 'SM2')){
-        $target = 'Juz 1 (Full)';
+        $target = '1 Juz (Juz 1)';
     } else if($class_id == 'IX' && ($period == 'UTSSM2' || $period == 'SM3')){
-        $target = 'Juz 30-28';
+        $target = '3 Juz (Juz 30, 29 & 28)';
     } else if($class_id == 'IX' && ($period == 'UASSM2' || $period == 'SM4')){
-        $target = 'Juz 26,27 & Juz 1';
+        $target = '3 Juz (Juz 26,27 & Juz 1)';
     } else if($class_id == 'X' && ($period == 'UTSSM2' || $period == 'SM3')){
-        $target = 'Juz 30 (1/2 Juz) An Naba - Al Fajr';
+        $target = '1/2 Juz (Juz 30: An Naba - Al Fajr)';
     } else if($class_id == 'X' && ($period == 'UASSM2' || $period == 'SM4')){
-        $target = 'Juz 30 (An Naba - An Naas)';
+        $target = '1 Juz (Juz 30: An Naba - An Naas)';
     } else if($class_id == 'XI' && ($period == 'UTSSM1' || $period == 'SM1')){
-        $target = 'Juz 29';
+        $target = '1 Juz (Juz 29)';
     } else if($class_id == 'XI' && ($period == 'UASSM1' || $period == 'SM2')){
-        $target = 'Juz 28 & Juz 29';
+        $target = '2 Juz (Juz 28 & Juz 29)';
     } else if($class_id == 'XI' && ($period == 'UTSSM2' || $period == 'SM3')){
-        $target = 'Juz 27';
+        $target = '1 Juz (Juz 27)';
     } else if($class_id == 'XI' && ($period == 'UASSM2' || $period == 'SM4')){
-        $target = 'Juz 27 & Juz 28';
+        $target = '2 Juz (Juz 27 & Juz 28)';
     } else if($class_id == 'XII' && ($period == 'UTSSM1' || $period == 'SM1')){
-        $target = 'Juz 1 (1/2)';
+        $target = '1/2 Juz (Juz 1: Al Baqarah 1 - Al Baqarah 76)';
     } else if($class_id == 'XII' && ($period == 'UASSM1' || $period == 'SM2')){
-        $target = 'Juz 1 (Full)';
+        $target = '1 Juz (Juz 1)';
     } else if($class_id == 'XII' && ($period == 'UTSSM2' || $period == 'SM3')){
-        $target = 'Juz 30-28';
+        $target = '3 Juz (Juz 30, 29 & 28)';
     } else if($class_id == 'XII' && ($period == 'UASSM2' || $period == 'SM4')){
-        $target = 'Juz 26,27 & Juz 1';
+        $target = '3 Juz (Juz 26,27 & Juz 1)';
     } 
     return $target;
 }

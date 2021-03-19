@@ -231,8 +231,6 @@ class Mark extends MY_Controller {
        
         $this->data['responsibility'] = $this->session->userdata('responsibility');
         
-        $data_character = get_character_indicator($levelchar);
-
         $academic_years = $this->markforms->get_list('academic_years', array('school_id'=>$school_id,'status' => 1), '','', '', 'id', 'ASC');
         $this->data['classes'] = $this->markforms->get_list('classes', $condition, '','', '', 'id', 'ASC');
         $this->data['school_id'] = $school_id;
@@ -241,6 +239,10 @@ class Mark extends MY_Controller {
         $this->data['class_id'] = $class_id;
         //$this->data['section_id'] = $section_id;
         $this->data['student_id'] = $student_id;
+
+        $data_character = get_character_indicator($levelchar, $class_id);
+        $tahsin_target = get_tahsin_target();
+        $this->data['tahsin_target'] = $tahsin_target;
 
         $getsurat = get_quran_chapter_list();
         $thesurat = '';

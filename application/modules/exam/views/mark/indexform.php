@@ -517,10 +517,16 @@
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Jayyid/Baik</option>
                                     <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '3'){echo 'selected';} ?> value="3">Jayyid Jiddan/Baik Sekali</option>
                                     <?php } else { ?>
-                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '1'){echo 'selected';} ?> value="1">Basic 1</option>
-                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '2'){echo 'selected';} ?> value="2">Basic 2</option>
-                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == '3'){echo 'selected';} ?> value="3">Basic 3</option>
-                                    <?php } ?>
+                                        <?php 
+                                        if(!empty($tahsin_target)){
+                                            foreach($tahsin_target as $ttid => $ttval){
+                                                ?>
+                                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == $ttid){echo 'selected';} ?> value="<?php echo $ttval; ?>"><?php echo $ttval; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                     <?php } ?>
                                 </select>
                                 <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tahsindesk]"  id="tahsin_desk" value="<?php echo isset($markvalues2['tahsindesk']) ?  $markvalues2['tahsindesk'] : ''; ?>" placeholder="Catatan Tahsin" type="text" autocomplete="off">
                                 <div class="help-block"><?php echo form_error('indicator2[tahsindesk]'); ?></div>
@@ -640,9 +646,15 @@
                                     <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '2'){echo 'selected';} ?> value="2">Jayyid (B)</option>
                                     <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '3'){echo 'selected';} ?> value="3">Jayyid Jiddan (A)</option>
                                     <?php } else { ?>
-                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '1'){echo 'selected';} ?> value="1">Basic 1</option>
-                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '2'){echo 'selected';} ?> value="2">Basic 2</option>
-                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == '3'){echo 'selected';} ?> value="3">Basic 3</option>
+                                        <?php 
+                                        if(!empty($tahsin_target)){
+                                            foreach($tahsin_target as $ttid => $ttval){
+                                                ?>
+                                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == $ttid){echo 'selected';} ?> value="<?php echo $ttval; ?>"><?php echo $ttval; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     <?php } ?>
                                 </select>
                                 <div class="help-block"><?php echo form_error('indicator2[tahsintarget]'); ?></div>

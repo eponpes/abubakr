@@ -684,7 +684,7 @@ class Resultcardform extends MY_Controller {
                     $penilaian = [
                         'adab' => ['Adab di Dalam Halaqoh', 'adabnote'],
                         'murajaah' => ['Murajaah Mengulang Hafalan', 'murajaahnote'],
-                        'tahsin' => ['Tahsin', 'tahsindesk'],
+                        'tahsin' => ['Praktek Tahsin', 'tahsindesk'],
                         'target' => ['Pencapaian Target Hafalan', 'targetnote'],
                     ];
                     
@@ -785,7 +785,7 @@ class Resultcardform extends MY_Controller {
                     $class = $student->class_name;
                     $table_mark_final .= '<tr><th>Ujian</th><th>Nilai</th><th>Predikat</th></tr>';
                     $table_mark_final .= '<tr><td>Tahfizh</td><td>'.$totaltahfizh.'</td><td>'.get_grade_tahfizh($totaltahfizh, $class).'</td></tr>';
-                    $table_mark_final .= '<tr><td>Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin, $class).'</td></tr>';
+                    $table_mark_final .= '<tr><td>Materi Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin, $class).'</td></tr>';
     
                     $table_mark_final .= '</tbody></table>';
 

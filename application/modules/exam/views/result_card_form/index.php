@@ -222,9 +222,15 @@
                                     <p> <?php echo $school->address; ?></p>
                                 <?php } ?>
                                 </div>
-                                <div class="school-logo col-sm-1 col-xs-2">
-                                    <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt="" width="150" />
-                                </div>
+                                <?php if($clientcode == 'ymn') {
+                                    ?>
+                                    <div class="school-logo col-sm-1 col-xs-2">
+                                        <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt="" height="80" />
+                                    </div>
+                                    <?php
+                                } 
+                                ?>
+                                
                             </div>
 
                             <hr class="style8" />
@@ -264,21 +270,26 @@
                     <div class="col-sm-12 col-xs-12">
                         <div class="text-center align-middle">
                             <div class="row">
-                                <div class="school-logo col-md-1">
+                                <div class="school-logo col-md-1 col-sm-2 col-xs-2">
                                     <?php if($school->logo){ ?>
                                         <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" width="80" />
                                     <?php } ?>
                                 </div>
-                                <div class="school-info col-md-10">
+                                <div class="school-info col-md-9 col-sm-9 col-xs-9">
                                     <div class="top-school"><?php echo $school->school_parent; ?></div>
                                     <?php if(isset($school)){ ?>
                                     <div class="name-school"><?php echo $school->school_name; ?></div>
                                     <p> <?php echo $school->address; ?></p>
                                 <?php } ?>
                                 </div>
-                                <div class="school-logo col-md-1">
-                                    <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt=""  />
-                                </div>
+                                <?php if($clientcode == 'ymn') {
+                                    ?>
+                                    <div class="school-logo col-md-1 col-sm-1 col-xs-2">
+                                        <img class="logo-report" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt="" height="80" />
+                                    </div>
+                                    <?php
+                                } 
+                                ?>
                             </div>
 
                             <hr class="style8" />
