@@ -2509,11 +2509,406 @@ if (!function_exists('get_quran_juz_list')){
         return $juz;
     }
 }
+
+function get_class_grade($clientcode = null, $class_id = null){
+    if($clientcode == 'ibd'){
+        $class_basic = array(2, 5, 4);
+        $class_next = array(6, 7,8);
+        if(in_array($class_id, $class_basic)){
+            return 'basic';
+        }
+    }
+
+    return 'next';
+}
 if (!function_exists('get_character_indicator')) {
 
     function get_character_indicator($level = null, $class_id = null) {
         // Class id name for code ibd
         //  VII = 2, VIII = 5, IX = 4, X = 6, XI = 7, XII = 8
+        $master_data = array();
+        if($level == '1'){
+            $master_data = array(
+                '1' => array(
+                    'name' => 'Akidah Yang Bersih',
+                    'indicator' => array(
+                        '101' => 'Tidak bersumpah dengan selain Allah Swt',
+                        '102' => 'Mengikhlaskan amal untuk Allah Swt',
+                        '103' => 'Mengimani rukun iman',
+                        '104' => 'Mensyukuri nikmat Allah Swt saat mendapatkan nikmat',
+                        '105' => 'Tidak mengikuti langkah-langkah setan',
+                    )
+                ),
+                '2' => array(
+                    'name' => 'Ibadah Yang Benar',
+                    'indicator' => array(
+                        '201' => 'Tidak sungkan Adzan',
+                        '202' => 'Ihsan dalam Thaharah',
+                        '203' => 'Bersemangat untuk shalat berjamaah',
+                        '204' => 'Ihsan dalam shalat',
+                        '205' => 'Qiyamul-Lail minimal sekali sepekan',
+                        '206' => 'Berpuasa fardlu',
+                        '207' => 'Berpuasa sunat minimal sehari dalam sebulan',
+                        '208' => 'Berdoa pada waktu-waktu utama',
+                        '209' => 'Menutup hari-harinya dengan bertaubat dan beristighfar',
+                        '210' => 'Berniat pada setiap melakukan perbuatan',
+                        '211' => 'Menjauhi dosa besar',
+                        '212' => 'Merutinkan dzikir pagi hari',
+                        '213' => 'Merutinkan dzikir sore hari',
+                        '214' => 'Menyebarluaskan salam',
+                    )
+                ),
+                '3' => array(
+                    'name' => 'Kepribadian yang matang dan berakhlak mulia',
+                    'indicator' => array(
+                        '301' => 'Tidak takabur',
+                        '302' => 'Tidak imma’ah (asal ikut, tidak punya prinsip)',
+                        '303' => 'Tidak dusta',
+                        '304' => 'Tidak mencaci maki',
+                        '305' => 'Tidak mengadu domba',
+                        '306' => 'Tidak ghibah',
+                        '307' => 'Tidak menjadikan orang buruk sebagai teman/sahabat',
+                        '308' => 'Memenuhi janji',
+                        '309' => 'Birrul walidain',
+                        '310' => 'Tidak menghina dan meremehkan orang lain',
+                        '311' => 'Menyayangi yang kecil',
+                        '312' => 'Menghormati yang besar',
+                        '313' => 'Menundukkan pandangan',
+                    )
+                ),
+                '4' => array(
+                    'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
+                    'indicator' => array(
+                        '401' => 'Menjauhi segala yang haram',
+                        '402' => 'Menjauhi tempat-tempat maksiat',
+                        '403' => 'Menjauhi tempat-tempat bermain yang haram',
+                        '404' => 'Memperbaiki penampilannya (performennya)',
+                        '405' => 'Bangun pagi',
+                        '406' => 'Menghabiskan waktu untuk belajar',
+                    )
+                ),
+                '5' => array(
+                    'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
+                    'indicator' => array(
+                        '501' => 'Komitmen dengan adab tilawah',
+                        '502' => 'Khusyuk dalam membaca Al-Quran',
+                        '503' => 'Hafal satu juz Al-Qur’an',
+                        '504' => 'Komitmen dengan wirid tilawah harian',
+                        '505' => 'Memperhatikan hukum-hukum tilawah',
+                    )
+                ),
+                '6' => array(
+                    'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
+                    'indicator' => array(
+                        '601' => 'Baik dalam membaca dan menulis',
+                        '602' => 'Berpartisipasi dalam kerja-kerja jama’i',
+                        '603' => 'Menghafalkan separuh Arba’in (1-20)',
+                        '604' => 'Memiliki kesadaran literasi',
+                        '605' => 'Menjadi pendengar yang baik',
+                        '606' => 'Mengemukakan pendapatnya',
+                    )
+                ),
+                '7' => array(
+                    'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
+                    'indicator' => array(
+                        '701' => 'Menabung, meskipun sedikit',
+                        '702' => 'Tidak menunda dalam melaksanakan hak orang lain',
+                        '703' => 'Menjaga fasilitas umum',
+                        '704' => 'Menjaga fasilitas pribadi',
+                        '705' => 'Bersih badan',
+                        '706' => 'Bersih pakaian',
+                        '707' => 'Bersih tempat tinggal',
+                        '708' => 'Komitmen dengan olah raga 2 jam setiap pekan',
+                        '709' => 'Bangun sebelum fajar',
+                        '710' => 'Memperhatikan tata cara baca yang sehat',
+                        '711' => 'Mencabut diri dari merokok',
+                    )
+                )
+            );
+            
+            
+            if($class_id == 2){ // VII
+                $class_vii_1 = array(
+                    '106' => 'Tidak meramal nasib dengan melihat telapak tangan',
+                    '107' => 'Tidak menghadiri majelis dukun dan peramal'
+                );
+                $class_vii_6 = array(
+                    '607' => 'Mengkaji marhalah Makkiyah dan menguasai karakteristiknya',
+                    '608' => 'Mengetahui hukum shalat'
+                );
+
+                foreach($class_vii_1 as $key => $content){ $master_data[1]['indicator'][$key] = $content;}    
+                foreach($class_vii_6 as $key => $content){ $master_data[6]['indicator'][$key] = $content; }
+            }
+
+            if($class_id == 5){ // VIII
+                $class_viii_3 = array(
+                    '314' => 'Tidak memotong pembicaraan orang lain',
+                    '315' => 'Tidak mencibir dengan isyarat apapun'
+                );
+                $class_viii_7 = array(
+                    '712' => 'Komitmen dengan adab makan dan minum sesuai dengan sunah'
+                );
+                foreach($class_viii_3 as $key => $content){ $master_data[3]['indicator'][$key] = $content;}    
+                foreach($class_viii_7 as $key => $content){ $master_data[7]['indicator'][$key] = $content; }
+            }
+
+            if($class_id == 4){ // IX
+                $class_ix_1 = array(
+                    '108' => 'Menerima dan tunduk secara penuh kepada Allah Swt dan tidak bertahkim kepada selain yang diturunkan-Nya',
+                    '109' => 'Memahami asma dan sifat-sifat Allah swt',
+                    '110' => 'Memiliki ketaatan dan rasa takut hanya kepada Allah swt.'
+                );
+                $class_ix_2 = array(
+                    '215' => 'Menahan anggota tubuh dari segala yang haram'
+                );
+                $class_ix_3 = array(
+                    '316' => 'Memahami aurat laki-laki dan perempuan',
+                    '317' => 'Memahami adab berpakaian sesuai dengan syariat islam',
+                    '318' => 'Membiasakan menutup aurat kepada yang bukan mahram',
+                );
+                $class_ix_4 = array(
+                    '407' => 'Memiliki sikap percaya diri untuk melakukan sesuatu perbuatan yang benar',
+                    '408' => 'Mampu menjadi penegak kebenaran mulai dari hal-hal kecil dalam kehidupan sehari-hari',
+                    '409' => 'Memahami batas-batas penggunaan indera penglihat dan pendengar',
+                    '410' => 'Mampu menggunakan dengan bijak mata dan telinga'
+                );
+                $class_ix_7 = array(
+                    '713' => 'Memahami aurat laki-laki dan perempuan',
+                    '714' => 'Memahami adab berpakaian sesuai dengan syariat islam',
+                    '715' => 'Membiasakan menutup aurat kepada yang bukan mahram',
+                );
+                foreach($class_ix_1 as $key => $content){ $master_data[1]['indicator'][$key] = $content;}    
+                foreach($class_ix_2 as $key => $content){ $master_data[2]['indicator'][$key] = $content; }
+                foreach($class_ix_3 as $key => $content){ $master_data[3]['indicator'][$key] = $content; }
+                foreach($class_ix_4 as $key => $content){ $master_data[4]['indicator'][$key] = $content; }
+                foreach($class_ix_7 as $key => $content){ $master_data[7]['indicator'][$key] = $content; }
+            }
+        } else if($level == '2'){
+            $master_data = array(
+                '1' => array(
+                    'name' => 'Akidah Yang Bersih',
+                    'indicator' => array(
+                        '101' => 'Tidak mendahulukan makhluk atas Khaliq',
+                        '102' => 'Mengesakan Allah swt dalam Rububiyyah dan Uluhiyyah',
+                        '103' => 'Tidak menyekutukan Allah swt, tidak dalam Asma-Nya, sifat-Nya dan Afal-Nya',
+                        '104' => 'Mengetahui batasan berwala dan berbara',
+                        '105' => 'Bersemangat untuk berteman dengan orang-orang shalih dari sisi-sisi kedekatan dan peneladanan',
+                        '106' => 'Meyakini terhapusnya dosa dengan taubat Nashuha',
+                        '107' => 'Memprediksikan datangnya kematian kapan saja',
+                        '108' => 'Berusaha meraih rasa manisnya iman',
+                        '109' => 'Berusaha meraih rasa manisnya ibadah',
+                        '110' => 'Merasakan adanya para malaikat mulia yang mencatat amalnya'                        
+                    )
+                ),
+                '2' => array(
+                    'name' => 'Ibadah Yang Benar',
+                    'indicator' => array(
+                        '201' => 'Melakukan qiyamul-Lail minimal satu kali dalam satu pekan',
+                        '202' => 'Bersedekah',
+                        '203' => 'Berpuasa sunnat minimal dua hari dalam satu bulan',
+                        '204' => 'Banyak bertaubat',
+                        '205' => 'Memerintahkan yang maruf',
+                        '206' => 'Mencegah yang Munkar',
+                        '207' => 'Merutinkan ibadah-ibadah sunnah Rawatib',
+                        '208' => 'Khusyu dalam shalat',
+                        '209' => 'Selalu memperbaharui niat dan meluruskannya',
+                        '210' => 'Menjaga organ tubuh (dari dosa)',
+                        '211' => 'Banyak dzikir kepada Allah swt disertai hafalan terhadap yang mudah-mudah',
+                        '212' => 'Banyak berdoa dengan memperhatikan syarat-syarat dan tata kramanya',
+                        '213' => 'Senantiasa bertafakkur'
+                    )
+                ),
+                '3' => array(
+                    'name' => 'Kepribadian yang matang dan berakhlak mulia',
+                    'indicator' => array(
+                        '301' => 'Tidak Inad (membangkang)',
+                        '302' => 'Tidak banyak mengobrol',
+                        '303' => 'Sedikit bercanda',
+                        '304' => 'Tidak berbisik dengan sesuatu yang bathil',
+                        '305' => 'Tidak Hiqd (menyimpan kemarahan)',
+                        '306' => 'Tidak Hasad',
+                        '307' => 'Memiliki rasa malu berbuat kesalahan',
+                        '308' => 'Menjalin hubungan baik dengan tetangga',
+                        '309' => 'Tawadhu tanpa merendahkan diri',
+                        '310' => 'Pemberani',
+                        '311' => 'Menjenguk orang sakit',
+                        '312' => 'Komitmen dengan adab meminta izin',
+                        '313' => 'Mensyukuri orang yang berbuat baik kepadanya',
+                        '314' => 'Menyambung silaturahim (shilatur-rahim)',
+                        '315' => 'Komitmen dengan tata krama sebagai pendengar',
+                        '316' => 'Komitmen dengan adab berbicara',
+                        '317' => 'Memuliakan tamu',
+                        '318' => 'Menjawab salam',
+                        '319' => 'Menebar senyum di depan orang lain',
+                        '320' => 'Berhati lembut',
+                        '321' => 'Merendahkan suara',
+                        '322' => 'Komitmen dengan adab Islam dalam setiap kesempatan',
+                        '323' => 'Membantu yang membutuhkan',
+                        '324' => 'Menolong yang terzhalimi',
+                        '325' => 'Bersemangat mengingatkan temannya ',
+                        '326' => 'Mendoakan yang bersin',                        
+                        '327' => 'Memberikan sesuatu dari yang dimiliki',
+                        '328' => 'Berusaha memenuhi hajat orang lain',
+                        '329' => 'Memberi makan orang lain'
+                    )
+                ),
+                '4' => array(
+                    'name' => 'Pribadi yang sungguh-sungguh,  disiplin dan mampu menahan nafsunya',
+                    'indicator' => array(
+                        '401' => 'Selalu menyertakan niat jihad',
+                        '402' => 'Menjadikan dirinya bersama orang baik',
+                        '403' => 'Sabar atas bencana',
+                        '404' => 'Menyesuaikan perbuatan dengan ucapan',
+                        '405' => 'Menerima dan memikul beban dakwah',
+                        '406' => 'Memerangi dorongan-dorongan nafsu',
+                        '407' => 'Tidak berlebihan mengkonsumsi yang mubah',
+                        '408' => 'Memakan apa yang disuguhkan dengan penuh keridhaan',
+                        '409' => 'Shalat menjadi barometer manajemen waktunya',
+                        '410' => 'Teratur di dalam segala aktivitas ',
+                        '411' => 'Bersemangat memenuhi janji-janji kerja',
+                        '412' => 'Memberitahukan gurunya problematika-problematika yang muncul',
+                        '413' => 'Mengisi waktunya dengan hal-hal yang berfaedah dan bermanfaat',
+                        '414' => 'Memperhatikan adab Islam dalam berkunjung dan mempersingkat pemenuhan hajatnya'
+
+                    )
+                ),
+                '5' => array(
+                    'name' => 'Mampu membaca, menghafal, dan memahami Al Qur’an',
+                    'indicator' => array(
+                        '501' => 'Khusyu saat membaca Alquran',
+                        '502' => 'Sekali Khatam Alquran setiap dua bulan',
+                        '503' => 'Mengaitkan antara Alquran dengan realita',
+                        '504' => 'Hafal dan bertajwid tiga juz Al quran (28-30)'
+                    )
+                ),
+                '6' => array(
+                    'name' => 'Mutsaqoful Fikri (Berwawasan Luas)',
+                    'indicator' => array(
+                        '601' => 'Memiliki kemampuan mengulas apa yang ia baca',
+                        '602' => 'Memiliki kesadaran iterasi',
+                        '603' => 'Menghadiri tasqif dan sarana BPI lainnya',
+                        '604' => 'Berpartisipasi dalam melontarkan dan memecahkan masalah'
+                    )
+                ),
+                '7' => array(
+                    'name' => 'Memiliki ketrampilan hidup (Kesehatan dan kebugaran, lifeskill dan berwirausaha, pengembangan diri)',
+                    'indicator' => array(
+                        '701' => 'Memiliki jiwa enterpreneurship',
+                        '702' => 'Berusaha menggali potensi dan bakat diri ',
+                        '703' => 'Mengutamakan produk-produk Islam',
+                        '704' => 'Hartanya tidak pergi ke pihak non Muslim',
+                        '705' => 'Membersihkan peralatan makan dan minumnya',
+                        '706' => 'Mampu mempersiapkan makanan',
+                        '707' => 'Mengobati diri sendiri',
+                        '708' => 'Tidak mempergunakan obat tanpa meminta petunjuk',
+                        '709' => 'Menjauhi makanan-makanan yang diawetkan dan mempergunakan minuman-minuman alami',
+                        '710' => 'Mengatur waktu-waktu makan',
+                        '711' => 'Memilih produsen-produsen makanan',
+                        '712' => 'Tidur 6 - 8 jam dan bangun sebelum fajar'
+                    )
+                )
+            );
+
+            if($class_id == 6){ // X
+                $class_x_3 = array(
+                    '330' => 'Memberi hadiah kepada tetangga',
+                    '331' => 'Mendorong orang lain berbuat baik',
+                    '332' => 'Membantu yang kesulitan'
+                );
+                foreach($class_x_3 as $key => $content){ $master_data[3]['indicator'][$key] = $content;}    
+            }
+
+            if($class_id == 7){ // XI
+                $class_xi_4 = array(
+                    '415' => 'Menertibkan ide-ide dan pikiran-pikirannya',
+                    '416' => 'Mengetahui nama pekerjaan yang penting',
+                    '417' => 'Menemukan spesialis pada diri sendiri',
+                    '418' => 'Mengetahui tentang madu',
+                    '419' => 'Mengetahui prinsip umum dalam berperilaku terhadap masyarakat',
+                    '420' => 'Memahami karakter dinul islam',
+                    '421' => 'Mengetahui cara untuk menjadi pribadi yang islami',
+                    '422' => 'Berusaha menjadi pribadi yang islami'
+                );
+                $class_xi_6 = array(
+                    '605' => 'Mengetahui peran umat islam dalam kemerdekaan indonesia',
+                    '606' => 'Mengetahui pergerakan nasional di Indonesia'
+                );
+                foreach($class_xi_4 as $key => $content){ $master_data[4]['indicator'][$key] = $content;}    
+                foreach($class_xi_6 as $key => $content){ $master_data[6]['indicator'][$key] = $content; }
+            }
+
+            if($class_id == 8){ // XII
+                $class_xii_1 = array(
+                    '111' => 'Tidak mengafirkan seorang muslim',
+                    '112' => 'Mengingkari orang-orang yang memperolok-olokkan ayat-ayat Allah swt dan tidak bergabung dalam majelis mereka',
+                    '113' => 'Tidak meminta berkah dengan mengusap-usap kuburan',
+                    '114' => 'Mempelajari madzhab-madzhab Islam yang berkaitan dengan Asma dan Sifat dan mengikuti madzhab salaf',
+                    '115' => 'Meyakini bahwa masa depan ada di tangan Islam',
+                    '116' => 'Merasakan adanya istighfar para malaikat dan doa mereka'
+                );
+                $class_xii_2 = array(
+                    '214' => 'Menabung untuk haji',
+                    '215' => 'Ziarah kubur untuk mengambil Ibrah',
+                    '216' => 'Mengikuti mabit'                    
+                );
+                $class_xii_3 = array(
+                    '333' => 'Bersih pakaian dan tempat tinggal',
+                    '334' => 'Terbiasa bangun sebelum shubuh',
+                    '335' => 'Memberi hadiah kepada tetangga',
+                    '336' => 'Memberikan pelayanan umum karena Allah swt',
+                    '337' => 'Membantu yang kesulitan',
+                    '338' => 'Membantu yang terkena musibah',
+                    '339' => 'mendekati orang lain',
+                    '340' => 'Mendorong orang lain berbuat baik'
+                );
+                $class_xii_4 = array(
+                    '423' => 'Menyumbangkan sebagian hartanya untuk amal islami',
+                    '424' => 'Menjaga janji-janji umum dan khusus'
+                );
+                $class_xii_5 = array(
+                    '505' => 'Membaca tafsir dua juz Al quran (28-29)'
+                );
+                $class_xii_6 = array(
+                    '607' => 'Mengenal sirah 20 sahabat yang syahid',
+                    '608' => 'Mengetahui hukum Zakat',
+                    '609' => 'Mengetahui fiqih Haji',
+                    '610' => 'Mengetahui sisi-sisi Syumuliyatul Islam',
+                    '611' => 'Mengetahui problematika kaum muslimin internal dan eksternal',
+                    '612' => 'Menghafal seluruh hadits Arbain (20 + 20)',
+                    '613' => 'Menghafal 50 hadits Riyadhush-Shalihin (20 + 30)',
+                    '614' => 'Mengenali hal-hal baru dari problematika kekinian',
+                    '615' => 'Menyebarluaskan apa saja yang diterbitkan oleh koran dan terbitan kita',
+                    '616' => 'Mencapai 80% kompetensi kognitif PAI dan mawad',
+                    '617' => 'Mengetahui pancasila',
+                    '618' => 'Mengetahui lagu indonesia raya',
+                    '619' => 'Mengetahui pembukaan UUD 1945',
+                    '620' => 'Mengetahui apa kerugian dunia akibat kemudnuran kaum muslimin',
+                    '621' => 'mengetahui urgensi khilafah dan kesatuan kaum muslimin',
+                    '622' => 'Mengetahui dan mengulas "tida risalah", yaitu dakwatuna, ila ayyi syaiin nadun-naas, dan ilasy=syabab',
+                    '623' => 'Mengetahui dan mengulas risalah aqaid',
+                    '624' => 'Memahami amal jamai dan taat',
+                    '625' => 'Membantah suara-suara miring yang dilontarkan kepada kita',
+                    '626' => 'Mengetahui bagaimana proses berdirinya negara israel',
+                    '627' => 'Mengetahui arah-arah pemikiran islam kontemporer'
+                );
+                $class_xii_7 = array(
+                    '713' => 'Mengikuti petunjuk-petunjuk kesehatan dalam tidur dan bangun tidur semampunya',
+                    '714' => 'Tidak berlebihan mengkonsumsi lemak',
+                    '715' => 'Tidak berlebihan mengkonsumsi garam',
+                    '716' => 'Tidak berlebihan mengkonsumsi gula',
+                    '717' => 'Berlatih 10 - 15 menit setiap hari',
+                    '718' => 'Berjalan 2 - 3 jam setiap pekan'
+                );
+                for($k=1;$k<8;$k++){
+                    $getdata = ${'class_xii_'.$k};
+                    foreach($getdata as $key => $content){ $master_data[$k]['indicator'][$key] = $content;}  
+                }
+            }
+        }
+
+
+        /*
         if($level == 1 && $class_id == 99) {
             $data_character = array(
                 '1' => array(
@@ -2905,10 +3300,9 @@ if (!function_exists('get_character_indicator')) {
                     )
                 )
             );
-        }
-        
+        }*/       
 
-        return $data_character;
+        return $master_data;
     }
 }
 if (!function_exists('get_sign_date')) {

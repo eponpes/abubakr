@@ -54,6 +54,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="updatetype">Tipe <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12"  name="updatetype"  id="updatetype" required="required" onchange="reset_group_data()">
+                                            <option value="">---Pilih Tipe---</option> 
                                             <option value="tahfidz">Tahfidz</option> 
                                             <option value="bpi">BPI/Pembinaan</option>                                                                                 
                                         </select>

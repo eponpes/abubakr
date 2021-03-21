@@ -145,7 +145,6 @@ class Groups extends MY_Controller {
                     redirect('groups/groups/add');
                 }
             } else {
-                echo 'cool';die();
                 error($this->lang->line('insert_failed'));
                 $this->data['post'] = $_POST;
             }
@@ -258,13 +257,38 @@ class Groups extends MY_Controller {
             $datap[] = $dob;
         }
 
+        $studentteachers = $this->groups->get_student_list($data['school_id'], $data['academic_year_id'], $data['class_id'], null, 'regular', $data['updatetype'], $data['teacher_id']);
+        $datanop = array();
+        if(!empty($studentteachers)){
+            foreach($studentteachers as $stt){
+                if(!in_array($stt->id, $datap)){
+                    $datanop[] = $stt->id;
+                }
+            }
+        }
+        
         $condition = array();
         $condition['school_id'] = $data['school_id'];
         $condition['class_id'] = $data['class_id'];
         $condition['academic_year_id'] = $data['academic_year_id'];
+
         
         $this->db->where_in('student_id', $datap);
         $this->db->update('enrollments', $updatedata, $condition);
+
+        if(!empty($datanop)){
+            $updatedata2 = array();
+            if($data['updatetype'] == 'bpi'){
+                $updatedata2['class_bpi_id'] = '1';
+            }
+            if($data['updatetype'] == 'tahfidz'){
+                $updatedata2['class_tahfizh_id'] = '1';
+            }
+
+            $this->db->where_in('student_id', $datanop);
+            $this->db->update('enrollments', $updatedata2, $condition);
+        }
+        
         
         return $group_add;
     }

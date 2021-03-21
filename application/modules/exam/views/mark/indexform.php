@@ -139,8 +139,12 @@
                             <label for="level-choice">Pilih Level</label>
                             <select class="form-control" id="level" name="level">
                                 <option>------</option>
-                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
-                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
+                                <?php 
+                                if(get_class_grade($clientcode, $class_id) == "basic") { ?>
+                                    <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
+                                <?php } else { ?>
+                                    <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
+                                <?php } ?>
                             </select>
                             </div>
                         </div>
