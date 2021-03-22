@@ -464,6 +464,7 @@
                                 <?php } ?>
                                
                             </div>
+                            <?php if($clientcode == 'ymk' || $clientcode == 'ymn'){ ?>
                             <div class="col-md-5 col-sm-12 col-xs-12 top-space">
                                 <div class="item form-group">
                                     <label for="target_tahfizh">Target Ujian Tahfizh</label>
@@ -480,6 +481,7 @@
                                     <div class="help-block"><?php echo form_error('indicator2[tfnote]'); ?></div>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
                     </section>
                     <h3>Penilaian Ziyadah</h3>
@@ -525,7 +527,7 @@
                                         if(!empty($tahsin_target)){
                                             foreach($tahsin_target as $ttid => $ttval){
                                                 ?>
-                                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == $ttid){echo 'selected';} ?> value="<?php echo $ttval; ?>"><?php echo $ttval; ?></option>
+                                                    <option <?php if(isset($markvalues2['tahsin']) && $markvalues2['tahsin'] == $ttid){echo 'selected';} ?> value="<?php echo $ttid; ?>"><?php echo $ttval; ?></option>
                                                 <?php
                                             }
                                         }
@@ -640,6 +642,7 @@
                                 <div class="help-block"><?php echo form_error('indicator2[tahsinnote]'); ?></div>
                             </div>
                         </div>
+                        <?php /*
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="item form-group">
                                 <label for="tahsin_target">Target Tahsin</label>
@@ -654,7 +657,7 @@
                                         if(!empty($tahsin_target)){
                                             foreach($tahsin_target as $ttid => $ttval){
                                                 ?>
-                                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == $ttid){echo 'selected';} ?> value="<?php echo $ttval; ?>"><?php echo $ttval; ?></option>
+                                                    <option <?php if(isset($markvalues2['tahsintarget']) && $markvalues2['tahsintarget'] == $ttid){echo 'selected';} ?> value="<?php echo $ttid; ?>"><?php echo $ttval; ?></option>
                                                 <?php
                                             }
                                         }
@@ -663,7 +666,7 @@
                                 </select>
                                 <div class="help-block"><?php echo form_error('indicator2[tahsintarget]'); ?></div>
                             </div>
-                        </div>
+                        </div> */ ?>
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">

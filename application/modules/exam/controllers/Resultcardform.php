@@ -291,7 +291,7 @@ class Resultcardform extends MY_Controller {
                 
                 $table_character .= 
                 '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                    <thead><tr><th>No</th><th>Karakter</th><th>Nilai</th></tr></thead>
+                    <thead><tr><th>No</th><th>Karakter</th><th>Nilai</th><th>Keterangan</th></tr></thead>
                     <tbody>
                 ';
                 $number = 1;
@@ -301,8 +301,8 @@ class Resultcardform extends MY_Controller {
                     } else {
                         $totalsmmark = number_format(${"totalsm". $semester."_".$number}, 1);
                     }
-
-                    $table_character .= '<tr><td>'.$number.'</td><td>'.$char7['name'].'</td><td>'.get_markform_score($totalsmmark).'</td></tr>';
+                    $markformscore = get_markform_score($totalsmmark);
+                    $table_character .= '<tr><td>'.$number.'</td><td width="60%">'.$char7['name'].'</td><td>'.$markformscore.'</td><td>'.get_markform_score_grade($markformscore).'</td></tr>';
                     $number++;
                 }
                 $table_character .= '</tbody></table>';

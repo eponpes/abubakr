@@ -301,8 +301,8 @@
                                 <td style="text-align:left; width: 150px">Nama</td>
                                 <td style="text-align:left; width: 30%">: <?php echo $student->name; ?></td>
                                 <td style="text-align:left; width: 10%"></td>
-                                <td style="text-align:left; width: 20%">Tahun Pelajaran</td>
-                                <td>2020/2021</td>
+                                <td style="text-align:left; width: 20%">Periode</td>
+                                <td>JAN-MAR 2021</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left; width: 150px">NIS/NISN</td>
