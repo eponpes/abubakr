@@ -2536,6 +2536,24 @@ function get_class_grade($clientcode = null, $class_id = null){
 
     return 'next';
 }
+
+function get_teacher_sign($teacher_id){
+    $teachers = array();
+    $teachers['id'] = $teacher_id;
+    $special_men = array(77, 78, 79, 80, 81, 36, 37);
+    $special_woman = array(71,72,73,74,75,76);
+    if(in_array($teacher_id, $special_men)){
+        $teachers['id'] = 52;
+        $teachers['name'] = 'Ust. Udin Zaenudin';
+        $teachers['draw'] = '<br>('.$teachers['name'].')';
+    } else if(in_array($teacher_id, $special_woman)){
+        $teachers['name'] = 'Ustdzh. Aisyah Hilma';
+        $teachers['draw'] = '<br>('.$teachers['name'].')';
+        $teachers['id'] = 30;
+    }
+
+    return $teachers;
+}
 if (!function_exists('get_character_indicator')) {
 
     function get_character_indicator($level = null, $class_id = null) {

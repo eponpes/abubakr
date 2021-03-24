@@ -404,7 +404,13 @@
                     <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
                             <?php
-                                $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
+                                $teacherpict = array();
+                                $teacherpict['id'] = $myteacher->id;
+        
+                                if($clientcode == 'ibd') {
+                                    $teacherpict = get_teacher_sign($teacherpict['id']);
+                                }
+                                $imagepath1 = IMG_URL . 'signature/'.$teacherpict['id'].'.png';
                                 $defaultpath1 = IMG_URL . 'signature/default.png';
                                 if(remote_file_exists($imagepath1))
                                 {
@@ -418,9 +424,15 @@
                             <p>Guru Pembina BPI</p>
                         </div>
                         <div class="signature">
-                            <?php if(isset($myteacher)) {
-                                    echo $myteacher->name;
-                                } ?>
+                            <?php 
+                                if(isset($myteacher)) {
+                                    if(!empty($teacherpict['name'])){
+                                        echo $teacherpict['name'];
+                                    } else {
+                                        echo $myteacher->name;
+                                    }
+                                } 
+                                ?>
                             </div>
                         </div>
                     </div>

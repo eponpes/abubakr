@@ -108,24 +108,15 @@ class Groups extends MY_Controller {
                             $nost++;
                         }
 
-                        $pictid = $obj->id;
+                        $teacherpict = array();
+                        $teacherpict['id'] = $obj->id;
 
                         if($clientcode == 'ibd') {
-                            $special_men = array(77, 78, 79, 80, 81, 36, 37);
-                            $special_woman = array(71,72,73,74,75,76);
-                            if(in_array($obj->id, $special_men)){
-                                $pictid = 52;
-                                $pictname = 'Ust. Udin Zaenudin';
-                                $pictname = '<br>('.$pictname.')';
-                            } else if(in_array($obj->id, $special_woman)){
-                                $pictname = 'Ustdzh. Aisyah Hilma';
-                                $pictname = '<br>('.$pictname.')';
-                                $pictid = 30;
-                            }
+                            $teacherpict = get_teacher_sign($teacherpict['id']);
                         }
 
-                        $sign_pict = '<img src="'.IMG_URL.'/signature/'.$pictid.'.png" alt="" width="70" /> ';
-                        $table_content .= '<div class""><br><strong>ID Pembina:'.$obj->id.'</strong><br>TTD: '.$sign_pict.$pictname.'</div>';
+                        $sign_pict = '<img src="'.IMG_URL.'/signature/'.$teacherpict["id"].'.png" alt="" width="70" /> ';
+                        $table_content .= '<div class""><br><strong>ID Pembina:'.$obj->id.'</strong><br>TTD: '.$sign_pict.$teacherpict["draw"].'</div>';
                         $table_content .= '</div></div>';
                         $rowCount++;
                         if($rowCount % $numOfCols == 0) $table_content .= '</div><div class="row">';
