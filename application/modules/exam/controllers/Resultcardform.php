@@ -996,6 +996,7 @@ class Resultcardform extends MY_Controller {
             
             $session = $this->resultcardform->get_single('academic_years', array('id' => $academic_year_id));
             $this->data['session'] = (isset($session->start_year)?$session->start_year:'') . '/' . (isset($session->end_year)?$session->end_year:'');
+            $this->data['academic_sessions'] = $this->data['session'];
             $class = $this->resultcardform->get_single('classes', array('id'=>$class_id));
             create_log('Has been filter result card for class: '. $class->name. ', '. $this->data['student']->name );
         }

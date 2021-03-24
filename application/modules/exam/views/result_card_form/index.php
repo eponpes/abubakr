@@ -296,20 +296,21 @@
 
                             <h5><strong>LAPORAN PENCAPAIAN BPI (BINA PRIBADI ISLAM)</strong></h5>
                         </div>
+                        <?php $periode = !empty($_GET['p'])? $_GET['p'] : 'Q1'; ?>
                         <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
                             <tr>
                                 <td style="text-align:left; width: 150px">Nama</td>
                                 <td style="text-align:left; width: 30%">: <?php echo $student->name; ?></td>
                                 <td style="text-align:left; width: 10%"></td>
                                 <td style="text-align:left; width: 20%">Periode</td>
-                                <td>JAN-MAR 2021</td>
+                                <td style="text-align:left; width: 30%">: <?php echo get_period_name($periode); ?> <?php echo get_academic_year_name($periode, $academic_sessions); ?></td>
                             </tr>
                             <tr>
                                 <td style="text-align:left; width: 150px">NIS/NISN</td>
                                 <td style="text-align:left; width: 30%">: <?php echo $student->roll_no; ?></td>
                                 <td style="text-align:left; width: 10%"></td>
                                 <td style="text-align:left; width: 20%">Kelas/Semester</td>
-                                <td><?php echo $student->class_name . ' ' . $student->section; ?> </td>
+                                <td style="text-align:left; width: 30%">: <?php echo $student->class_name . ' ' . $student->section; ?> </td>
                             </tr>
                         </table>
                         

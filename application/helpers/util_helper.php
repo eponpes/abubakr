@@ -3352,27 +3352,27 @@ function get_tahsin_target_grade($class_id, $period){
     if($class_id == 'VII' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
     } else if($class_id == 'VII' && ($period == 'SM3' || $period == 'SM4')){ // UTS SM2 & UAS SM2
-        $grade = 'Intermediete 2';
-    } else if($class_id == 'VIII' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
+    } else if($class_id == 'VIII' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
+        $grade = 'Intermediete 3';
     } else if($class_id == 'VIII' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
         $grade = 'Intermediete 3';
     } else if($class_id == 'IX' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
-        $grade = 'Basic 3';
+        $grade = 'Advance 3';
     } else if($class_id == 'IX' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
-        $grade = 'Intermediete 3';
+        $grade = 'Advance 3';
     } else if($class_id == 'X' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
     } else if($class_id == 'X' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
-        $grade = 'Intermediete 2';
-    } else if($class_id == 'XI' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
         $grade = 'Basic 3';
+    } else if($class_id == 'XI' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
+        $grade = 'Intermediete 3';
     } else if($class_id == 'XI' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
         $grade = 'Intermediete 3';
     } else if($class_id == 'XII' && ($period == 'SM1' || $period == 'SM2')){ // UTS SM1 & UAS SM1
-        $grade = 'Basic 3';
+        $grade = 'Advance 3';
     } else if($class_id == 'XII' && ($period == 'SM3' || $period == 'SM4')){ // UTS SMw & UAS SM2
-        $grade = 'Intermediete 3';
+        $grade = 'Advance 3';
     } 
     return $grade;
 }
@@ -3392,7 +3392,7 @@ function get_tahsin_target_detail($grade){
 }
 
 function get_tahfizh_target($class_id, $period){
-    if($class_id == 'VII' && $period == 'UTSSM2' || $period == 'SM3'){
+    if($class_id == 'VII' && ($period == 'UTSSM2' || $period == 'SM3')){
         $target = '1/2 Juz (Juz 30: An Naba - Al Fajr)';
     } else if($class_id == 'VII' && ($period == 'UASSM2' || $period == 'SM4')){
         $target = '1 Juz (Juz 30: An Naba - An Naas)';
@@ -3414,7 +3414,7 @@ function get_tahfizh_target($class_id, $period){
         $target = '3 Juz (Juz 26,27 & Juz 1)';
     } else if($class_id == 'X' && ($period == 'UTSSM2' || $period == 'SM3')){
         $target = '1/2 Juz (Juz 30: An Naba - Al Fajr)';
-    } else if($class_id == 'X' && ($period == 'UASSM2' || $period == 'SM4')){
+    } else if($class_id == 'X' && ($period == 'UASSM2' || $period == 'SM4')){ 
         $target = '1 Juz (Juz 30: An Naba - An Naas)';
     } else if($class_id == 'XI' && ($period == 'UTSSM1' || $period == 'SM1')){
         $target = '1 Juz (Juz 29)';
@@ -3449,6 +3449,31 @@ if (!function_exists('translate_day_id')) {
         );
 
         return $month[$day];
+    }
+}
+
+function get_period_name($period=null) {
+    $periods = array(
+        'Q1' => 'JULI - SEPTEMBER',
+        'Q2' => 'OKTOBER - DESEMBER',
+        'Q3' => 'JANUARI - MARET',
+        'Q4' => 'APRIL - JUNI'
+    );
+
+    if(!empty($period)){
+        return $periods[$period];
+    }
+
+    return $periods['Q1'];
+
+}
+
+function get_academic_year_name($period=null, $sessions = null) {
+    $pieces = explode("/", $sessions);
+    if($period == 'Q1' || $period == 'Q2'){
+        return $pieces[0];
+    } else {
+        return $pieces[1];
     }
 }
 /*STRICT DATA ACCESS END*/
