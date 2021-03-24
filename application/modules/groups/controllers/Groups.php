@@ -50,7 +50,7 @@ class Groups extends MY_Controller {
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;*/
 
-        $this->data['all_groups'] = $this->get_all_groups();
+        $this->data['all_groups'] = $this->get_all_groups($school_id);
 
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_invoice'). ' | ' . SMS);
@@ -79,8 +79,9 @@ class Groups extends MY_Controller {
         echo $str;
     }
 
-    public function get_all_groups() {
-        $school_id = 1;     
+    public function get_all_groups($school_id = null) {
+        $clientcode = $this->global_setting->client_code;
+        $school_id = !empty($school_id)?$school_id:1;     
         $type = isset($_GET['type'])?$_GET['type']:'tahfidz';         
         $school = $this->groups->get_school_by_id($school_id);
         $teachers = $this->groups->get_teachers($school_id, $teacher_id, 'regular');
@@ -99,14 +100,33 @@ class Groups extends MY_Controller {
             foreach($classes as $class){
                 $studentteachers = $this->groups->get_student_list($school_id, $school->academic_year_id, $class->id, $student_id, 'regular', $type, $teacher_id);
                     if (!empty($studentteachers)) { 
-                        $table_content .= '<div class="col-md-'.$bootstrapColWidth.'">';  
+                        $table_content .= '<div class="col-md-'.$bootstrapColWidth.'"><div style="margin: 1px; padding: 5px; border: 2px solid black">';  
                         $table_content .= '<strong>'.$i.'Pembina: '.$teacher_name.'<br> Kelas: '.$class->name.'<br> Anggota: '.count($studentteachers).' org</strong><br>';
                         $nost = 1;
                         foreach ($studentteachers as $objst) {
                             $table_content .= $nost . '. ' . $objst->name . '<br>';
                             $nost++;
                         }
-                        $table_content .= '</div>';
+
+                        $pictid = $obj->id;
+
+                        if($clientcode == 'ibd') {
+                            $special_men = array(77, 78, 79, 80, 81, 36, 37);
+                            $special_woman = array(71,72,73,74,75,76);
+                            if(in_array($obj->id, $special_men)){
+                                $pictid = 52;
+                                $pictname = 'Ust. Udin Zaenudin';
+                                $pictname = '<br>('.$pictname.')';
+                            } else if(in_array($obj->id, $special_woman)){
+                                $pictname = 'Ustdzh. Aisyah Hilma';
+                                $pictname = '<br>('.$pictname.')';
+                                $pictid = 30;
+                            }
+                        }
+
+                        $sign_pict = '<img src="'.IMG_URL.'/signature/'.$pictid.'.png" alt="" width="70" /> ';
+                        $table_content .= '<div class""><br><strong>ID Pembina:'.$obj->id.'</strong><br>TTD: '.$sign_pict.$pictname.'</div>';
+                        $table_content .= '</div></div>';
                         $rowCount++;
                         if($rowCount % $numOfCols == 0) $table_content .= '</div><div class="row">';
                     }
