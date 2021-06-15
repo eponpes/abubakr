@@ -234,12 +234,33 @@
                             </div>
 
                             <hr class="style8" />
+                            <?php 
+                                $periodic = 'uas';
+                                if ($clientcode == 'ibd'){
+                                    if($_GET['p'] == 'SM1' || $_GET['p'] == 'SM3') {
+                                        $periodic = 'uts';
+                                    }
+                                }
+                            ?>
                             <?php if($formtype == 'tahfizh') { ?>
-                                <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
-                            <h5><strong>LAPORAN PENILAIAN UJIAN AKHIR SEMESTER TAHSIN DAN TAHFIDZ AL-QUR’AN</strong></h5>
+                                <?php if($periodic == 'uts') { ?>
+                                    <h4><strong>تقرير نتائج الإمتحان النصفي في تحسين القرآن و تحفيظه </strong></h4>
+                                    <h5><strong>LAPORAN PENILAIAN UJIAN TENGAH SEMESTER TAHSIN DAN TAHFIDZ AL-QUR’AN</strong></h5>
+                            <?php } else if ($periodic == 'uas') { ?>
+                                    <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
+                                    <h5><strong>LAPORAN PENILAIAN UJIAN AKHIR SEMESTER TAHSIN DAN TAHFIDZ AL-QUR’AN</strong></h5>
+                                <?php } ?>
+                                
                             <?php } else if($formtype == 'tahsin') { ?>
-                                <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
-                            <h5><strong>LAPORAN PENILAIAN TAHSIN</strong></h5>
+                                <?php if($periodic == 'uas') { ?>
+                                    <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن</strong><h4>
+                                <h5><strong>LAPORAN PENILAIAN TAHSIN AKHIR SEMESTER</strong></h5>                                
+                                <?php } else if ($periodic == 'uts') { ?>
+                                <h4><strong>تقرير نتائج الامتحان النصفي في تحسين القرآن</strong><h4>
+                                <h5><strong>LAPORAN PENILAIAN TAHSIN TENGAH SEMESTER</strong></h5>
+                                <?php } ?>
+
+                                
                             <?php } ?>
 
                             

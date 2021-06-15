@@ -310,6 +310,7 @@ class Mark extends MY_Controller {
                     $vlabo2[$id2] = $mark2;                    
                 }
                 $this->data['markvalues2'] = $vlabo2; 
+                $this->data['markform_datecreated'] = $markforms->created_at; 
                 
             }
         }
@@ -411,6 +412,9 @@ class Mark extends MY_Controller {
                     $vlabo4[$id4] = $mark4;                    
                 }
                 $this->data['markvalues2'] = $vlabo4; 
+
+                $this->data['markform_datecreated'] = $markforms->created_at; 
+
             }
 
                 

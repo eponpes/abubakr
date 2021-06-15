@@ -681,11 +681,30 @@ class Resultcardform extends MY_Controller {
                     </div>
                     ';
                 } else {
-                    $penilaian = [
-                        'adab' => ['Adab di Dalam Halaqoh', 'adabnote'],
-                        'murajaah' => ['Murajaah Mengulang Hafalan', 'murajaahnote'],
-                        'tahsin' => ['Praktek Tahsin', 'tahsindesk'],
+                    $penilaiantahfizh = [
+                        'adab' => ['Adab', 'adabnote'],
+                        'murajaah' => ['Murajaah', 'murajaahnote'],
+                        'tahsin' => ['Tahsin', 'tahsindesk'],
                         'target' => ['Pencapaian Target Hafalan', 'targetnote'],
+                    ];
+                    $groups1 = [
+                        'tapan' => ['Konsistensi Tanda Panjang', 'tapanskill'],
+                        'gunnah' => ['Keseimbangan Tanda Gunnah', 'gunnahskill'],
+                        'vokal' => ['Tuntutan Kesempurnaan vokal', 'vokalskill'],
+                        'sukun' => ['Pengucapan Huruf Sukun', 'sukunskill'],
+                    ];
+    
+                    $groups2 = [
+                        'makum' => ['Makhroj Umum', 'makumskill'],
+                        'maksus' => ['Makhroj Khusus/specific', 'maksusskill'],
+                        'sifmu' => ['Sifat Mudah/Berlawanan', 'sifmuskill'],
+                        'sifme' => ['Sifat Menyeluruh', 'sifmeskill'],
+                    ];
+    
+                    $groups3 = [
+                        'hubhuruf' => ['Hubungan Antar Huruf', 'hubhurufskill'],
+                        'waqafibtida' => ['Waqaf dan Ibtida', 'waqafibtidaskill'],
+                        'tahkom' => ['Tahsin Komprehensif', 'tahkomskill'],
                     ];
                     
                     foreach($exam as $mex){
@@ -697,6 +716,7 @@ class Resultcardform extends MY_Controller {
                         $period = $mex->period;
                         $class_name = $mex->class_name;
                         $class_no = $mex->class_no;
+                        $createdat = $mex->created_at;
     
                         foreach($values as $eval){
                             $totalmarkjuz += $eval['mark'];
@@ -712,23 +732,28 @@ class Resultcardform extends MY_Controller {
                             
                         }
                     }
-    
+
+                    $datecreated = strtotime($datecreated);
+                    $datenewversion = strtotime('2021-06-11');
+                    if($this->data['clientcode'] == 'ibd' && $datecreated > $datenewversion){
+                        if($class_id == 2 || $class_id == 6){
+                            $groups = $groups1;
+                        } else if($class_id == 5 || $class_id == 7){
+                            $groups = $groups2;
+                        } else if($class_id == 4 || $class_id == 8){
+                            $groups = $groups3;
+                        }
+                    } else {
+                        $groups = $groups1;
+                    }    
+                    $penilaian = $groups;  
+                    
                     $pembagi = 0;
-                    if(!empty($gamma['tapan'])){
-                        $totalnilaimark += $gamma['tapan'];
-                        $pembagi++;
-                    }
-                    if(!empty($gamma['gunnah'])){
-                        $totalnilaimark += $gamma['gunnah'];
-                        $pembagi++;
-                    }
-                    if(!empty($gamma['vokal'])){
-                        $totalnilaimark += $gamma['vokal'];
-                        $pembagi++;
-                    }
-                    if(!empty($markvalues2['sukun'])){
-                        $totalnilaimark += $gamma['sukun'];
-                        $pembagi++;
+                    foreach($penilaian as $pen => $getpen){
+                        if(!empty($gamma[$pen])){
+                            $totalnilaimark += $gamma[$pen];
+                            $pembagi++;
+                        }
                     }
                     $totaltahsin = round($totalnilaimark / $pembagi, 1);
                     
@@ -748,7 +773,7 @@ class Resultcardform extends MY_Controller {
                         <tbody>
                     ';
                     $a=1;
-                    foreach($penilaian as $pen => $getpen){
+                    foreach($penilaiantahfizh as $pen => $getpen){
                         $labelin = $getpen[0];
                         $labelval = get_predicate($pen, $gamma[$pen]);
                         $labeldesk = $gamma[$getpen[1]];
@@ -833,25 +858,38 @@ class Resultcardform extends MY_Controller {
                     $table_character .= '</tbody></table>';
                 }
                 
-
                 $this->data['html_table_tahfizh'] = $table_character;
 
                 $this->data['markvalues2'] = $markvalues2;
             } else if ($type == 'tahsin') {
                 
-                $penilaian = [
+                $groups1 = [
                     'tapan' => ['Konsistensi Tanda Panjang', 'tapanskill'],
                     'gunnah' => ['Keseimbangan Tanda Gunnah', 'gunnahskill'],
                     'vokal' => ['Tuntutan Kesempurnaan vokal', 'vokalskill'],
                     'sukun' => ['Pengucapan Huruf Sukun', 'sukunskill'],
                 ];
-                
+
+                $groups2 = [
+                    'makum' => ['Makhroj Umum', 'makumskill'],
+                    'maksus' => ['Makhroj Khusus/specific', 'maksusskill'],
+                    'sifmu' => ['Sifat Mudah/Berlawanan', 'sifmuskill'],
+                    'sifme' => ['Sifat Menyeluruh', 'sifmeskill'],
+                ];
+
+                $groups3 = [
+                    'hubhuruf' => ['Hubungan Antar Huruf', 'hubhurufskill'],
+                    'waqafibtida' => ['Waqaf dan Ibtida', 'waqafibtidaskill'],
+                    'tahkom' => ['Tahsin Komprehensif', 'tahkomskill'],
+                ];
+
                 foreach($exam as $mex){
                     $totalmarkjuz = 0;
                     $totaladd = 0;
                     $gamma = array();
                     $values = json_decode($mex->value, true);
                     $values2 = json_decode($mex->value2, true);
+                    $datecreated = $mex->created_at;
 
                     foreach($values as $eval){
                         $totalmarkjuz += $eval['mark'];
@@ -868,24 +906,29 @@ class Resultcardform extends MY_Controller {
                     }
                 }
 
+                $datecreated = strtotime($datecreated);
+                $datenewversion = strtotime('2021-06-15 00:00:00');
+                if($this->data['clientcode'] == 'ibd' && $datecreated > $datenewversion){
+                    if($class_id == 2 || $class_id == 6){
+                        $groups = $groups1;
+                    } else if($class_id == 5 || $class_id == 7){
+                        $groups = $groups2;
+                    } else if($class_id == 4 || $class_id == 8){
+                        $groups = $groups3;
+                    }
+                } else {
+                    $groups = $groups1;
+                }    
+                $penilaian = $groups; 
+
                 $pembagi = 0;
-                if(!empty($gamma['tapan'])){
-                    $totalnilaimark += $gamma['tapan'];
-                    $pembagi++;
+                foreach($penilaian as $pent => $getpent){
+                    if(!empty($gamma[$pent])){
+                        $totalnilaimark += $gamma[$pent];
+                        $pembagi++;
+                    }
                 }
-                if(!empty($gamma['gunnah'])){
-                    $totalnilaimark += $gamma['gunnah'];
-                    $pembagi++;
-                }
-                if(!empty($gamma['vokal'])){
-                    $totalnilaimark += $gamma['vokal'];
-                    $pembagi++;
-                }
-                if(!empty($markvalues2['sukun'])){
-                    $totalnilaimark += $gamma['sukun'];
-                    $pembagi++;
-                }
-                
+                $totaltahsin = round($totalnilaimark / $pembagi, 1);
                 $totaltahfizh = round($totalmarkjuz / $totaladd, 1);
 
                 //print_r($gamma);die();

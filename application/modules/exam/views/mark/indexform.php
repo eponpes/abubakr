@@ -584,56 +584,167 @@
                     </section>
                     <h3>Ujian Tahsin</h3>
                     <section>
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="item form-group">
-                                <label for="tahsin_tapan">Konsistensi Tanda Panjang</label>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[tapan]"  id="tahsin_tapan" value="<?php echo isset($markvalues2['tapan']) ?  $markvalues2['tapan'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[tapan]'); ?>" type="text" autocomplete="off">
-                                <select class="form-control" id="tahsin_tapan_skill" name="indicator2[tapanskill]">
-                                    <option>Nilai Keterampilan</option>
-                                    <option <?php if(isset($markvalues2['tapanskill']) && $markvalues2['tapanskill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
-                                    <option <?php if(isset($markvalues2['tapanskill']) && $markvalues2['tapanskill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
-                                </select>
-                                <div class="help-block"><?php echo form_error('indicator2[tapan]'); ?></div>
+                    <?php 
+
+$groups1 = array(
+    'tapan' => array(
+        'key' => 'tapan',
+        'title' => 'Konsistensi Tanda Panjang',
+        'id' => 'tahsin_tapan',
+        'id_skill' => 'tahsin_tapan_skill',
+        'name' => 'indicator2[tapan]',
+        'value' => $markvalues2['tapan'],
+        'name_skill' => 'indicator2[tapanskill]',
+        'value_skill' => $markvalues2['tapanskill']
+    ),
+    'gunnah' => array(
+        'key' => 'gunnah',
+        'title' => 'Tuntutan Tanda Gunnah',
+        'id' => 'tahsin_gunnah',
+        'id_skill' => 'tahsin_gunnah_skill',
+        'name' => 'indicator2[gunnah]',
+        'value' => $markvalues2['gunnah'],
+        'name_skill' => 'indicator2[gunnahskill]',
+        'value_skill' => $markvalues2['gunnahskill']
+    ),
+    'vokal' => array(
+        'key' => 'vokal',
+        'title' => 'Tuntutan Kesempurnaan Vokal',
+        'id' => 'tahsin_vokal',
+        'id_skill' => 'tahsin_vokal_skill',
+        'name' => 'indicator2[vokal]',
+        'value' => $markvalues2['vokal'],
+        'name_skill' => 'indicator2[vokalskill]',
+        'value_skill' => $markvalues2['vokalskill']
+    ),
+    'sukun' => array(
+        'key' => 'sukun',
+        'title' => 'Pengucapan Huruf Sukun',
+        'id' => 'tahsin_sukun',
+        'id_skill' => 'tahsin_sukun_skill',
+        'name' => 'indicator2[sukun]',
+        'value' => $markvalues2['sukun'],
+        'name_skill' => 'indicator2[sukunskill]',
+        'value_skill' => $markvalues2['sukunskill']
+    )
+);
+
+// VIII/XI
+$groups2 = array(
+    'makum' => array(
+        'key' => 'makum',
+        'title' => 'Makhroj Umum',
+        'id' => 'tahsin_makum',
+        'id_skill' => 'tahsin_makum_skill',
+        'name' => 'indicator2[makum]',
+        'value' => $markvalues2['makum'],
+        'name_skill' => 'indicator2[makumskill]',
+        'value_skill' => $markvalues2['makumskill']
+    ),
+    'maksus' => array(
+        'key' => 'maksus',
+        'title' => 'Makhroj Khusus/specific',
+        'id' => 'tahsin_maksus',
+        'id_skill' => 'tahsin_maksus_skill',
+        'name' => 'indicator2[maksus]',
+        'value' => $markvalues2['maksus'],
+        'name_skill' => 'indicator2[maksusskill]',
+        'value_skill' => $markvalues2['maksusskill']
+    ),
+    'sifmu' => array(
+        'key' => 'sifmu',
+        'title' => 'Sifat Mudah/Berlawanan',
+        'id' => 'tahsin_sifmu',
+        'id_skill' => 'tahsin_sifmu_skill',
+        'name' => 'indicator2[sifmu]',
+        'value' => $markvalues2['sifmu'],
+        'name_skill' => 'indicator2[sifmuskill]',
+        'value_skill' => $markvalues2['sifmuskill']
+    ),
+    'sifme' => array(
+        'key' => 'sifme',
+        'title' => 'Sifat Menyeluruh',
+        'id' => 'tahsin_sifme',
+        'id_skill' => 'tahsin_sifme_skill',
+        'name' => 'indicator2[sifme]',
+        'value' => $markvalues2['sifme'],
+        'name_skill' => 'indicator2[sifmeskill]',
+        'value_skill' => $markvalues2['sifmeskill']
+    )
+);
+
+// IX/XII
+$groups3 = array(
+    'hubhuruf' => array(
+        'key' => 'hubhuruf',
+        'title' => 'Hubungan Antar Huruf',
+        'id' => 'tahsin_hubhuruf',
+        'id_skill' => 'tahsin_hubhuruf_skill',
+        'name' => 'indicator2[hubhuruf]',
+        'value' => $markvalues2['hubhuruf'],
+        'name_skill' => 'indicator2[hubhurufskill]',
+        'value_skill' => $markvalues2['hubhurufskill']
+    ),
+    'waqafibtida' => array(
+        'key' => 'waqafibtida',
+        'title' => 'Waqaf dan Ibtida',
+        'id' => 'tahsin_waqafibtida',
+        'id_skill' => 'tahsin_waqafibtida_skill',
+        'name' => 'indicator2[waqafibtida]',
+        'value' => $markvalues2['waqafibtida'],
+        'name_skill' => 'indicator2[waqafibtidaskill]',
+        'value_skill' => $markvalues2['waqafibtidaskill']
+    ),
+    'tahkom' => array(
+        'key' => 'tahkom',
+        'title' => 'Tahsin Komprehensif',
+        'id' => 'tahsin_tahkom',
+        'id_skill' => 'tahsin_tahkom_skill',
+        'name' => 'indicator2[tahkom]',
+        'value' => $markvalues2['tahkom'],
+        'name_skill' => 'indicator2[tahkomskill]',
+        'value_skill' => $markvalues2['tahkomskill']
+    )
+);
+                    $datecreated = strtotime($markform_datecreated);
+                    $datenewversion = strtotime('2021-06-15 00:00:00');
+                    // 2,5,4,6,7,8
+                    // VII, VIII, IX, X, XI ,XII
+                    if($clientcode == 'ibd' && $datecreated > $datenewversion) {
+                        if($class_id == 2 || $class_id == 6){
+                            $groups = $groups1;
+                        } else if($class_id == 5 || $class_id == 7){
+                            $groups = $groups2;
+                        } else if($class_id == 4 || $class_id == 8){
+                            $groups = $groups3;
+                        }
+                    } else {
+                        $groups = $groups1;
+                    }
+
+                    if(!empty($groups)) {
+                        echo '<div class="row">';
+                        foreach($groups as $group){
+
+                            ?>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="item form-group">
+                                    <label for="tahsin_tapan"><?php echo $group['title']; ?></label>
+                                    <input  class="form-control col-md-2 col-xs-4"  name="<?php echo $group['name']; ?>"  id="<?php echo $group['id']; ?>" value="<?php echo isset($group['value']) ?  $group['value'] : ''; ?>" placeholder="<?php echo $this->lang->line($group['name']); ?>" type="text" autocomplete="off">
+                                    <select class="form-control" id="<?php echo $group['id_skill']; ?>" name="<?php echo $group['name_skill']; ?>">
+                                        <option>Nilai Keterampilan</option>
+                                        <option <?php if(isset($group['value_skill']) && $group['value_skill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
+                                        <option <?php if(isset($group['value_skill']) && $group['value_skill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
+                                    </select>
+                                    <div class="help-block"><?php echo form_error($group['name']); ?></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="item form-group">
-                                <label for="tahsin_gunnah">Keseimbangan Tanda Gunnah</label>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[gunnah]"  id="tahsin_gunnah" value="<?php echo isset($markvalues2['gunnah']) ?  $markvalues2['gunnah'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[gunnah]'); ?>" type="text" autocomplete="off">
-                                <select class="form-control" id="tahsin_gunnah_skill" name="indicator2[gunnahskill]">
-                                    <option>Nilai Keterampilan</option>
-                                    <option <?php if(isset($markvalues2['gunnahskill']) && $markvalues2['gunnahskill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
-                                    <option <?php if(isset($markvalues2['gunnahskill']) && $markvalues2['gunnahskill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
-                                </select>
-                                <div class="help-block"><?php echo form_error('indicator2[gunnah]'); ?></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="item form-group">
-                                <label for="tahsin_vokal">Tuntutan Kesempurnaan Vokal</label>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[vokal]"  id="tahsin_vokal" value="<?php echo isset($markvalues2['vokal']) ?  $markvalues2['vokal'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[vokal]'); ?>" type="text" autocomplete="off">
-                                <select class="form-control" id="tahsin_vokal_skill" name="indicator2[vokalskill]">
-                                    <option>Nilai Keterampilan</option>
-                                    <option <?php if(isset($markvalues2['vokalskill']) && $markvalues2['vokalskill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
-                                    <option <?php if(isset($markvalues2['vokalskill']) && $markvalues2['vokalskill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
-                                </select>
-                                <div class="help-block"><?php echo form_error('indicator2[vokal]'); ?></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="item form-group">
-                                <label for="tahsin_sukun">Pengucapan Huruf Sukun</label>
-                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sukun]"  id="tahsin_sukun" value="<?php echo isset($markvalues2['sukun']) ?  $markvalues2['sukun'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sukun]'); ?>" type="text" autocomplete="off">
-                                <select class="form-control" id="tahsin_sukun_skill" name="indicator2[sukunskill]">
-                                    <option>Nilai Keterampilan</option>
-                                    <option <?php if(isset($markvalues2['sukunskill']) && $markvalues2['sukunskill'] == '2'){echo 'selected';} ?> value="2">Terlampaui</option>
-                                    <option <?php if(isset($markvalues2['sukunskill']) && $markvalues2['sukunskill'] == '1'){echo 'selected';} ?> value="1">Belum Terlampaui</option>
-                                </select>
-                                <div class="help-block"><?php echo form_error('indicator2[sukun]'); ?></div>
-                            </div>
-                        </div>
-                    </div>
+                            <?php
+                        }
+                        echo '</div>';                    
+                    }
+
+                    ?>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="item form-group">
