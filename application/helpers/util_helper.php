@@ -3393,13 +3393,13 @@ function get_tahsin_target_detail($grade){
 
 function get_tahfizh_target($class_id, $period){
     switch($period){
-        case 'UTSSM1':
-        case 'UASSM1':
+        case 'SM1':
+        case 'SM2':
             $session = 'SM1';
         break;
 
-        case 'UTSSM2':
-        case 'UASSM2':
+        case 'SM3':
+        case 'SM4':
             $session = 'SM2';
         break;
 
@@ -3413,7 +3413,7 @@ function get_tahfizh_target($class_id, $period){
         $target = '1 Juz (Juz 30)';
     } else if(($class_id == 'VIII' || $class_id == 'XI') && $session == 'SM1'){
         $target = '3 Juz (Juz 30, 29, 28)';
-    } else if(($class_id == 'VIII' || $class_id == 'VI') && $session == 'SM2'){
+    } else if(($class_id == 'VIII' || $class_id == 'XI') && $session == 'SM2'){
         $target = '5 Juz (Juz 30, 29, 28, 27, 26)';
     } else if(($class_id == 'IX' || $class_id == 'XII') && $session == 'SM1'){
         $target = '6 Juz (Juz 30, 29, 28, 27, 26, 1)';
