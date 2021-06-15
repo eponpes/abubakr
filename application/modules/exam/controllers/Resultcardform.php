@@ -516,7 +516,7 @@ class Resultcardform extends MY_Controller {
                     $table_character .= '<thead><tr><th>Juz</th><th>Surat dan Ayat</th></tr></thead>';
                     $table_character .= '<tr><td>'.$gamma['lastjuz'].'</td><td>'.$gamma['lastsuratayat'].'</td></tr>';
                     $table_character .= '<tr><td colspan="2" style="background:#f5f5f5;font-weight:bold">Total Hafalan</td></tr>';
-                    $table_character .= '<tr><td colspan="2">'.$gamma['totaljuz'].' juz</td></tr>';
+                    $table_character .= '<tr><td colspan="2">'.$gamma['totalhafalan'].'</td></tr>';
                     $table_character .= '</tbody></table>';
     
                     $table_tahfizh .= 
@@ -733,7 +733,7 @@ class Resultcardform extends MY_Controller {
                         }
                     }
 
-                    $datecreated = strtotime($datecreated);
+                    /*$datecreated = strtotime($datecreated);
                     $datenewversion = strtotime('2021-06-11');
                     if($this->data['clientcode'] == 'ibd' && $datecreated > $datenewversion){
                         if($class_id == 2 || $class_id == 6){
@@ -745,7 +745,8 @@ class Resultcardform extends MY_Controller {
                         }
                     } else {
                         $groups = $groups1;
-                    }    
+                    }*/  
+                    $groups = $groups1;
                     $penilaian = $groups;  
                     
                     $pembagi = 0;
@@ -795,7 +796,7 @@ class Resultcardform extends MY_Controller {
                     $table_achievement .= '<thead><tr><th>Juz</th><th>Surat dan Ayat</th></tr></thead>';
                     $table_achievement .= '<tr><td>'.$gamma['lastjuz'].'</td><td>'.$gamma['lastsuratayat'].'</td></tr>';
                     $table_achievement .= '<tr><td colspan="2" style="background:#f5f5f5;font-weight:bold">Total Hafalan</td></tr>';
-                    $table_achievement .= '<tr><td colspan="2">'.$gamma['totaljuz'].' juz</td></tr>';
+                    $table_achievement .= '<tr><td colspan="2">'.$gamma['totalhafalan'].'</td></tr>';
                     $table_achievement .= '</tbody></table>';
     
                     $table_mark_final .= 
@@ -906,7 +907,7 @@ class Resultcardform extends MY_Controller {
                     }
                 }
 
-                $datecreated = strtotime($datecreated);
+                /*$datecreated = strtotime($datecreated);
                 $datenewversion = strtotime('2021-06-15 00:00:00');
                 if($this->data['clientcode'] == 'ibd' && $datecreated > $datenewversion){
                     if($class_id == 2 || $class_id == 6){
@@ -918,7 +919,8 @@ class Resultcardform extends MY_Controller {
                     }
                 } else {
                     $groups = $groups1;
-                }    
+                }*/
+                $groups = $groups1; 
                 $penilaian = $groups; 
 
                 $pembagi = 0;

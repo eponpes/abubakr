@@ -570,14 +570,15 @@
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group">
                                 <label for="total_juz">Total Hafalan</label>
-                                <select class="form-control" id="total_juz" name="indicator2[totaljuz]">
+                                <input  class="form-control col-md-2 col-xs-4"  name="indicator2[totalhafalan]"  id="totalhafalan" value="<?php echo isset($markvalues2['totalhafalan']) ?  $markvalues2['totalhafalan'] : ''; ?>" placeholder="Total Pencapaian" type="text" autocomplete="off">
+                                <!--select class="form-control" id="total_juz" name="indicator2[totaljuz]">
                                     <option>--------</option>
-                                    <?php for($i=1;$i<=30;$i++) { ?>
+                                    <?php //for($i=1;$i<=30;$i++) { ?>
                                         <option <?php if(isset($markvalues2['totaljuz']) && $markvalues2['totaljuz'] == $i){echo 'selected';} ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                    <?php } ?>
+                                    <?php //} ?>
                                 </select>
-                                Juz
-                                <div class="help-block"><?php echo form_error('indicator2[totaljuz]'); ?></div>
+                                Juz-->
+                                <div class="help-block"><?php echo form_error('indicator2[totalhafalan]'); ?></div>
                             </div>
                         </div>
                     </div>
@@ -706,7 +707,7 @@ $groups3 = array(
         'value_skill' => $markvalues2['tahkomskill']
     )
 );
-                    $datecreated = strtotime($markform_datecreated);
+                    /*$datecreated = strtotime($markform_datecreated);
                     $datenewversion = strtotime('2021-06-14 00:00:00');
                     // 2,5,4,6,7,8
                     // VII, VIII, IX, X, XI ,XII
@@ -720,7 +721,8 @@ $groups3 = array(
                         }
                     } else {
                         $groups = $groups1;
-                    }
+                    }*/
+                    $groups = $groups1;
 
                     if(!empty($groups)) {
                         echo '<div class="row">';
