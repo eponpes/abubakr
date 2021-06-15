@@ -707,7 +707,7 @@ $groups3 = array(
     )
 );
                     $datecreated = strtotime($markform_datecreated);
-                    $datenewversion = strtotime('2021-06-15 00:00:00');
+                    $datenewversion = strtotime('2021-06-14 00:00:00');
                     // 2,5,4,6,7,8
                     // VII, VIII, IX, X, XI ,XII
                     if($clientcode == 'ibd' && $datecreated > $datenewversion) {
