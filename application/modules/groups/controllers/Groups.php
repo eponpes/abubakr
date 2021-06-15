@@ -100,6 +100,10 @@ class Groups extends MY_Controller {
             foreach($classes as $class){
                 $studentteachers = $this->groups->get_student_list($school_id, $school->academic_year_id, $class->id, $student_id, 'regular', $type, $teacher_id);
                     if (!empty($studentteachers)) { 
+                        usort($studentteachers, function($a, $b) {
+                            return $a->name <=> $b->name;
+                        });
+
                         $table_content .= '<div class="col-md-'.$bootstrapColWidth.'"><div style="margin: 1px; padding: 5px; border: 2px solid black">';  
                         $table_content .= '<strong>'.$i.'Pembina: '.$teacher_name.'<br> Kelas: '.$class->name.'<br> Anggota: '.count($studentteachers).' org</strong><br>';
                         $nost = 1;
