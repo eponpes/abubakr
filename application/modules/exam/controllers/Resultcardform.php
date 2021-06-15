@@ -513,10 +513,15 @@ class Resultcardform extends MY_Controller {
                         </thead>
                         <tbody>
                     ';
+                    if(!empty($gamma['totalhafalan'])){
+                        $totalhafalan = $gamma['totalhafalan'];
+                    } else {
+                        $totalhafalan = $gamma['totaljuz'] . ' juz';
+                    }
                     $table_character .= '<thead><tr><th>Juz</th><th>Surat dan Ayat</th></tr></thead>';
                     $table_character .= '<tr><td>'.$gamma['lastjuz'].'</td><td>'.$gamma['lastsuratayat'].'</td></tr>';
                     $table_character .= '<tr><td colspan="2" style="background:#f5f5f5;font-weight:bold">Total Hafalan</td></tr>';
-                    $table_character .= '<tr><td colspan="2">'.$gamma['totalhafalan'].'</td></tr>';
+                    $table_character .= '<tr><td colspan="2">'.$totalhafalan.'</td></tr>';
                     $table_character .= '</tbody></table>';
     
                     $table_tahfizh .= 
@@ -793,10 +798,15 @@ class Resultcardform extends MY_Controller {
                         </thead>
                         <tbody>
                     ';
+                    if(!empty($gamma['totalhafalan'])){
+                        $totalhafalan = $gamma['totalhafalan'];
+                    } else {
+                        $totalhafalan = $gamma['totaljuz'] . ' juz';
+                    }
                     $table_achievement .= '<thead><tr><th>Juz</th><th>Surat dan Ayat</th></tr></thead>';
                     $table_achievement .= '<tr><td>'.$gamma['lastjuz'].'</td><td>'.$gamma['lastsuratayat'].'</td></tr>';
                     $table_achievement .= '<tr><td colspan="2" style="background:#f5f5f5;font-weight:bold">Total Hafalan</td></tr>';
-                    $table_achievement .= '<tr><td colspan="2">'.$gamma['totalhafalan'].'</td></tr>';
+                    $table_achievement .= '<tr><td colspan="2">'.$totalhafalan.'</td></tr>';
                     $table_achievement .= '</tbody></table>';
     
                     $table_mark_final .= 
