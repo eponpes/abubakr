@@ -2273,12 +2273,39 @@ if (!function_exists('get_class_groups')) {
 
 if (!function_exists('get_muta_score')) {
 
-    function get_muta_score($name = null, $mark = null) {
-        $mutabaah = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir');
+    function get_muta_score($name = null, $mark = null, $options = null) {
+        $mutabaah = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah');
         $presence = array('present', 'permit', 'sick', 'alpha');
+
+        $prayist = 84;
+        $rawatibist = 84;
+        $qiyamist = 12;
+        $dzikirist = 84;
+        $tilawahist = 240;
+        $siyamist = 3;
+        $infaqist = 8;
+        $bookist = 8;
+
+        if(!empty($options)){
+            if(!empty($options['datecreated']) && !empty($options['datenewversion'])){
+                $created = $options['datecreated'];
+                $newversion = $options['datenewversion'];
+                if($created > $newversion){
+                    $prayist = 56;
+                    $rawatibist = 56;
+                    $qiyamist = 8;
+                    $dzikirist = 56;
+                    $tilawahist = 8;
+                    $siyamist = 3;
+                    $infaqist = 8;
+                    $bookist = 8;
+                }
+            }
+        }
+        
         switch($name){
             case 'pray':
-                $smark = $mark/84;
+                $smark = $mark/$prayist;
                 $period = 'hari';
             break;
 
@@ -2288,23 +2315,38 @@ if (!function_exists('get_muta_score')) {
             break;
 
             case 'tilawah':
-                $smark = $mark/240;
+                $smark = $mark/$tilawahist;
                 $period = 'pekan';
             break;
 
             case 'qiyam':
-                $smark = $mark/12;
+                $smark = $mark/$qiyamist;
                 $period = 'pekan';
             break;
 
             case 'rawatib':
-                $smark = $mark/84;
+                $smark = $mark/$rawatibist;
                 $period = 'hari';
             break;
 
             case 'dzikir':
-                $smark = $mark/84;
+                $smark = $mark/$dzikirist;
                 $period = 'hari';
+            break;
+
+            case 'siyam':
+                $smark = $mark/$siyamist;
+                $period = 'pekan';
+            break;
+
+            case 'sedekah':
+                $smark = $mark/$infaqist;
+                $period = 'pekan';
+            break;
+
+            case 'book':
+                $smark = $mark/$bookist;
+                $period = 'pekan';
             break;
 
             case 'present':
@@ -2323,6 +2365,8 @@ if (!function_exists('get_muta_score')) {
             $hotfix = 'x';
             if($name == 'tilawah'){
                 $hotfix = 'juz';
+            } else if($name == 'book'){
+                $hotfix = 'hal';
             }
             $getscore = round($smark,1) . $hotfix . " per " . $period;
         } else if(in_array($name, $presence)){
@@ -2342,6 +2386,8 @@ if (!function_exists('translate')) {
             'qiyam' => 'Shalat Sunnah Tahadjud/Qiyamullail',
             'siyam' => 'Puasa Sunnah',
             'tilawah' => 'Membaca/Murajaah Al Quran',
+            'book' => 'Membaca Buku/Tematik',
+            'sedekah' => 'Sedekah/Infaq',
             'sick' => 'Sakit',
             'permit' => 'Izin',
             'alpha' => 'Alpa',

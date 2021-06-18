@@ -326,7 +326,7 @@
                         <div class="row">
                             <div class="col-md-3 col-sm-3 col-xs-12">
                                 <div class="item form-group">
-                                    <label for="muta_sedekah">Sedekat</label>
+                                    <label for="muta_sedekah">Sedekah</label>
                                     <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sedekah]"  id="muta_sedekah" value="<?php echo isset($markvalues2['sedekah']) ?  $markvalues2['sedekah'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sedekah]'); ?>" type="text" autocomplete="off">
                                     <div class="help-block"><?php echo form_error('indicator2[sedekah]'); ?></div>
                                 </div>
@@ -929,8 +929,14 @@ $groups3 = array(
                 var p = $("#period option:selected").val();
                 if(p != 0){
                     param += '&p='+p;
+                    if(p == 'Q1' || p == 'Q2'){
+                        param += '&s=1';
+                    } else if(p == 'Q3' || p == 'Q4'){
+                        param += '&s=2';
+                    }
                 } else {
                     param += '&p=Q1';
+                    param += '&s=1';
                 }
             }
 

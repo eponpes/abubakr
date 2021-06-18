@@ -143,8 +143,8 @@ class Resultcardform extends MY_Controller {
 
         $data_character = get_character_indicator($levelchar);
 
-        $mutaarray = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'present', 'sick', 'permit', 'alpha');
-        $mutabaah = array('pray', 'duhua', 'tilawah', 'qiyam', 'rawatib', 'dzikir');
+        $mutaarray = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah', 'present', 'sick', 'permit', 'alpha');
+        $mutabaah = array('pray', 'duhua', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah');
         $targetmutabaah = array(
             'pray' => '5x per hari',
             'dhuha' => '7x per pekan',
@@ -152,12 +152,16 @@ class Resultcardform extends MY_Controller {
             'qiyam' => '7x per pekan',
             'rawatib' => '4x per hari',
             'dzikir' => '2x per hari',
+            'siyam' => '2x per pekan',
             'book' => '10hal per pekan',
-            'infaq' => '1x per pekan'
+            'sedekah' => '1x per pekan'
         );
         $presence = array('present', 'permit', 'sick', 'alpha');
 
         $this->data['characters'] = $data_character;
+
+        // Newest version in 2Q41;
+        $this->data['periodunique'] = $semesterchar . $periodchar . $academic_year_id;
         
         if (!empty($school_id) && !empty($class_id) && !empty($student_id) && !empty($academic_year_id)) {
 
@@ -282,7 +286,13 @@ class Resultcardform extends MY_Controller {
                             $total[2][$muti] += ${"m" . $muti};
                         }
                     }
+
+                    $datecreated = $mex->created_at;
                 }
+
+                $datecreated = strtotime($datecreated);
+                $datenewversion = strtotime('2021-06-11');
+                $optionsMuta = array('datecreated' => $datecreated, 'datenewversion' => $datenewversion);
                 
                 $semester = isset($_GET['s'])?$_GET['s']:1;
 
@@ -339,7 +349,7 @@ class Resultcardform extends MY_Controller {
                             $tdadd = '<td>'.${"m" . $muta}.'</td>';
                         }
                         
-                        $table_character2 .= '<tr><td>'.$number2.'</td><td>'.translate($muta).'</td>'.$tdtarget.$tdadd.'<td>'.get_muta_score($muta, $totalsm).'</td></tr>';
+                        $table_character2 .= '<tr><td>'.$number2.'</td><td>'.translate($muta).'</td>'.$tdtarget.$tdadd.'<td>'.get_muta_score($muta, $totalsm, $optionsMuta).'</td></tr>';
                         $number2++;
                     } else if(in_array($muta, $presence)){
                         $totalsm = $total[$semester][$muta];
