@@ -393,6 +393,9 @@ function get_predicate($type = null, $score) {
                 case '3':
                     $label = 'Jayyid Jiddan';
                 break;
+                default:
+                    $label = 'Jayyid';
+                break;
             }
         } else {
             $label = get_tahsin_target($score);
@@ -1123,6 +1126,43 @@ if (!function_exists('get_genders')) {
         return array(
             'male' => $ci->lang->line('male'),
             'female' => $ci->lang->line('female')
+        );
+    }
+
+}
+
+if (!function_exists('get_educations')) {
+
+    function get_educations() {
+        $ci = & get_instance();
+        return array(
+            '1' => 'S3',
+            '2' => 'S2',
+            '3' => 'S1',
+            '4' => 'Diploma',
+            '5' => 'SMA/SMK',
+            '6' => 'SMP',
+            '7' => 'SD',
+            '8' => 'Lainnya'
+        );
+    }
+
+}
+
+if (!function_exists('get_jobs')) {
+
+    function get_jobs() {
+        $ci = & get_instance();
+        return array(
+            '1' => 'Pelajar',
+            '2' => 'Karyawan',
+            '3' => 'Pengusaha',
+            '4' => 'Freelance',
+            '5' => 'Mahasiswa',
+            '6' => 'Guru',
+            '7' => 'Dosen',
+            '8' => 'Ibu Rumah Tangga',
+            '9' => 'Belum Bekerja'
         );
     }
 

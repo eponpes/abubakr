@@ -547,7 +547,7 @@
                             <?php 
                             if($clientcode == 'ymk' || $clientcode == 'ymn') {
                                 if(isset($myteacher)) {
-                                    echo ucwords(strtolower($myteacher->name));
+                                    echo $myteacher->name;
                                 }    
                             } else {
                                 if(isset($school->adm_sietahfizh)) {
