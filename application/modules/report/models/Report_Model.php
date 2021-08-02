@@ -231,17 +231,20 @@ class Report_Model extends MY_Model {
     }
     
   
-     public function get_student_list($school_id, $academic_year_id, $class_id, $section_id = null){
+     public function get_student_list($school_id, $academic_year_id, $class_id, $section_id = null, $month = null){
          
-        $this->db->select('E.roll_no,  S.id, S.name');
+        $this->db->select('E.roll_no,  S.id, S.name, S.age, S.phone, S.pob, R.name as regname');
         $this->db->from('enrollments AS E');        
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
+        $this->db->join('regencies AS R', 'S.regency_id = R.id', 'left');
+        $this->db->join('student_tahfizh AS ST', 'ST.student_id = S.id', 'left');
+        $this->db->where('ST.month', $month);   
         $this->db->where('E.academic_year_id', $academic_year_id);       
         $this->db->where('E.class_id', $class_id); 
         if($section_id){
             $this->db->where('E.section_id', $section_id); 
         }
-        $this->db->where('E.school_id', $school_id);       
+        $this->db->where('E.school_id', $school_id);
         $this->db->where('S.status_type', 'regular');      
         
         $class_tahfizh_id = '';

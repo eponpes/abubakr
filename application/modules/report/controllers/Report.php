@@ -1173,6 +1173,76 @@ class Report extends My_Controller {
         
     }
 
+    /*****************Function stahfizh**********************************
+    * @type            : Function
+    * @function name   : stahfizh
+    * @description     : Load student tahfizh report user interface                 
+    *                    with various filtering options
+    *                    and process to load student tahfizh report   
+    * @param           : null
+    * @return          : null 
+    * ********************************************************** */
+    public function qtahfizh($school_id = null, $academic_year_id = null, $class_id = null, $month = null) {
+
+        //check_permission(VIEW);
+
+        $this->data['month_number'] = 1;       
+        $this->data['days'] = 31;
+        $this->data['clientcode'] = $this->global_setting->client_code;
+
+        if(isset($month)){
+            $month = strtolower(date("F", mktime(0, 0, 0, $month, 10))); 
+        }
+
+        if ($_POST) {
+            $school_id = $this->input->post('school_id');
+            $academic_year_id = $this->input->post('academic_year_id');
+            $class_id = $this->input->post('class_id');
+            //$section_id = $this->input->post('section_id');
+            $month = $this->input->post('month');
+            $month = date('m', strtotime($month));
+            $buildredirect = $school_id .'/'. $academic_year_id .'/'. $class_id . '/' . $month;
+            redirect('report/qtahfizh/' . $buildredirect);
+        }
+
+
+        $this->data['school_id'] = $school_id;
+        $this->data['academic_year_id'] = $academic_year_id;
+        $this->data['class_id'] = $class_id;
+        //$this->data['section_id'] = $section_id;
+        $this->data['month'] = $month;
+        $this->data['month_number'] = date('m', strtotime($this->data['month']));
+        
+        $classes = $this->report->get_single('classes', array('id' => $class_id));            
+        //$sections = $this->report->get_single('sections', array('id' => $section_id));            
+        $this->data['class_section_name'] = $classes->name;
+        
+        $session = $this->report->get_single('academic_years', array('id' => $academic_year_id, 'school_id'=>$school_id));            
+        $this->data['school'] = $this->report->get_school_by_id($school_id);
+
+        $this->data['session'] = (isset($session->start_year)?$session->start_year:'') . '/' . (isset($session->end_year)?$session->end_year:'');
+
+        $this->data['students'] = $this->report->get_student_list($school_id, $academic_year_id, $class_id, null, $this->data['month_number']);
+        
+        $this->data['year'] = substr($session->session_year, 7);
+        $this->data['days'] =  @date('t', mktime(0, 0, 0, $this->data['month_number'], 1, $this->data['year']));
+        //$this->data['days'] = cal_days_in_month(CAL_GREGORIAN, $this->data['month_number'], $this->data['year']);
+        
+        $condition = array();
+        $condition['status'] = 1;        
+        if($this->session->userdata('role_id') != SUPER_ADMIN){ 
+            
+            $condition['school_id'] = $this->session->userdata('school_id');  
+            $this->data['classes'] = $this->report->get_list('classes', $condition, '','', '', 'id', 'ASC');
+        }
+        
+
+        $this->data['report_url'] = site_url('report/qtahfizh');
+        $this->layout->title($this->lang->line('student_tahfizh') . ' | ' . SMS);
+        $this->layout->view('stahfizh/active', $this->data);
+        
+    }
+
     public function srecord($student_id = null, $school_id = null, $academic_year_id = null, $class_id = null, $month = null) {
         
         //check_permission(EDIT);

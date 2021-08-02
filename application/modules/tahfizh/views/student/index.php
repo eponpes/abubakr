@@ -613,9 +613,10 @@
             mymuta = { type: name, date: tahfizhdate, val: value }
             status.push ( mymuta );
         });
-
+        
         if(type == 'A'){
-            status = { type: type, date: tahfizhdate };
+            tahfizhalpha = { type: type, date: tahfizhdate };
+            status.push ( tahfizhalpha );
         } else {
             if(tahfizhm === 'M'){
                 var shaffm = $("#shaffm_"+itemid).val();

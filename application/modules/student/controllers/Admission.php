@@ -252,12 +252,12 @@ class Admission extends MY_Controller {
         $this->form_validation->set_rules('username', $this->lang->line('username'), 'trim|required|callback_username');
         $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[5]|max_length[30]');
         $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');
-        $this->form_validation->set_rules('roll_no', $this->lang->line('roll_no'), 'trim|required'); 
+        //$this->form_validation->set_rules('roll_no', $this->lang->line('roll_no'), 'trim|required'); 
 
         $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|valid_email');
         
-        $this->form_validation->set_rules('admission_no', $this->lang->line('admission_no'), 'trim|required');
-        $this->form_validation->set_rules('admission_date', $this->lang->line('admission_date'), 'trim|required');
+        //$this->form_validation->set_rules('admission_no', $this->lang->line('admission_no'), 'trim|required');
+        //$this->form_validation->set_rules('admission_date', $this->lang->line('admission_date'), 'trim|required');
         $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required');
 
         //$this->form_validation->set_rules('guardian_id', $this->lang->line('guardian'), 'trim|required');
@@ -276,8 +276,8 @@ class Admission extends MY_Controller {
         $this->form_validation->set_rules('photo', $this->lang->line('photo'), 'trim|callback_photo');
                 
         // guardian fields
-        $this->form_validation->set_rules('guardian_name', $this->lang->line('guardian_name'), 'trim|required');
-        $this->form_validation->set_rules('guardian_phone', $this->lang->line('guardian_phone'), 'trim|required');
+        //$this->form_validation->set_rules('guardian_name', $this->lang->line('guardian_name'), 'trim|required');
+        //$this->form_validation->set_rules('guardian_phone', $this->lang->line('guardian_phone'), 'trim|required');
         
     }
                         

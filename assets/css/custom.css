@@ -3072,3 +3072,6 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     float: left;
     padding: 10px 0;
 }
+#magictable_wrapper {
+    overflow-x: hidden;
+}

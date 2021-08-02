@@ -33,6 +33,10 @@
                 <ul class="nav side-menu">                    
                     <li><a href="<?php echo site_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> <?php echo $this->lang->line('dashboard'); ?></a>  </li>
                     
+                    <?php $clientcode = $this->global_setting->client_code; ?>
+
+                    <?php if($clientcode != 'qpu') { ?>
+
                     <?php if($this->session->userdata('role_id') != SUPER_ADMIN){ ?>
                         <?php if(has_permission(VIEW, 'setting', 'setting') || has_permission(VIEW, 'setting', 'payment')  || has_permission(VIEW, 'setting', 'sms')){ ?> 
                             <li><a><i class="fa fa-gears"></i> <?php echo $this->lang->line('setting'); ?> <span class="fa fa-chevron-down"></span></a>
@@ -724,6 +728,8 @@
                         </ul>
                     </li>  
                     
+                <?php } ?>
+                
                 </ul>
             </div>     
         </div>

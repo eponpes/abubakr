@@ -77,6 +77,10 @@ class Web extends CI_Controller {
             $this->data['theme'] = 'default';
             break;
 
+            case 'EP1QPU01072021':
+            $this->data['theme'] = 'qpu';
+            break;
+
             default:
             $this->data['theme'] = 'default';
         }
@@ -514,7 +518,9 @@ class Web extends CI_Controller {
 
                 $this->_prepare_admission_validation();
                 if ($this->form_validation->run() === TRUE) {
-                    $data = $this->_get_posted_admission_data();                   
+                    $data = $this->_get_posted_admission_data();  
+                    
+                    //print_r($data);die();
                     $insert_id = $this->web->insert('admissions', $data);                   
                     if ($insert_id) {
                         $this->session->set_userdata('success', $this->lang->line('apply_successful'));                        
@@ -589,9 +595,9 @@ class Web extends CI_Controller {
         $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');   
         $this->form_validation->set_rules('type_id', $this->lang->line('student_type'), 'trim');   
         
-        $this->form_validation->set_rules('gud_phone', $this->lang->line('guardian_phone'), 'trim|required'); 
-        $this->form_validation->set_rules('gud_name', $this->lang->line('guardian_name'), 'trim|required'); 
-        $this->form_validation->set_rules('gud_email', $this->lang->line('email'), 'trim'); 
+        //$this->form_validation->set_rules('gud_phone', $this->lang->line('guardian_phone'), 'trim|required'); 
+        //$this->form_validation->set_rules('gud_name', $this->lang->line('guardian_name'), 'trim|required'); 
+        //$this->form_validation->set_rules('gud_email', $this->lang->line('email'), 'trim'); 
         $this->form_validation->set_rules('photo', $this->lang->line('photo'), 'trim|callback_photo');
         
     }
@@ -693,6 +699,10 @@ class Web extends CI_Controller {
         $items[] = 'previous_school_address';
         $items[] = 'previous_school_city';
         $items[] = 'graduate_year';
+
+        $items[] = 'totalmemo';
+        $items[] = 'education';
+        $items[] = 'job';
         
         $data = elements($items, $_POST);        
         

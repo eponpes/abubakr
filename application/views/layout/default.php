@@ -104,6 +104,7 @@
         <script src="<?php echo VENDOR_URL; ?>datatables/tools/jszip.min.js"></script>
         <script src="<?php echo VENDOR_URL; ?>datatables/tools/vfs_fonts.js"></script>
         <script src="<?php echo VENDOR_URL; ?>datatables/tools/buttons.html5.min.js"></script> 
+        <script src="<?php echo VENDOR_URL; ?>datatables/tools/buttons.print.min.js"></script> 
         <script src="<?php echo VENDOR_URL; ?>datatables/dataTables.bootstrap.js"></script> 
         
         <script src="<?php echo VENDOR_URL; ?>datatables/rowReorder/dataTables.rowReorder.min.js"></script> 
