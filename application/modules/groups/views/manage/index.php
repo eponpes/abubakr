@@ -15,6 +15,8 @@
                     
                     <ul  class="nav nav-tabs bordered">
                         <li  class="<?php if(!isset($single)){ echo 'active'; }?>"><a href="<?php echo site_url('groups/groups/index'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> Kelola Groups</a> </li>                          
+                        <?php 
+                        if($this->session->userdata('role_id') == ADMIN || $this->session->userdata('role_id') == SUPER_ADMIN) { ?>
                         <li  class="<?php if(isset($single)){ echo 'active'; }?>"><a href="<?php echo site_url('groups/groups/add'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> Add Groups</a> </li>                          
                          <li class="li-class-list">
                          <?php 
@@ -31,7 +33,8 @@
                              <option value="<?php echo site_url('groups/groups/index'). '?type=bpi'; ?>" <?php echo $bpi_selected; ?>>BPI</option>   
                              </select>
                          <?php } ?>  
-                        </li>      
+                        </li>    
+                        <?php } ?>  
                             
                     </ul>
                     <br/>                    

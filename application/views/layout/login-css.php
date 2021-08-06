@@ -311,7 +311,7 @@
 <?php }elseif($this->global_setting->theme_name == 'lime-green'){ ?>
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/lime-green.jpg);  
+        background: url(<?php echo $path; ?>assets/images/login-screen/lime-green.jpg);
         background-color: #33ce34;
     }
     .login_form{
@@ -438,7 +438,7 @@
 <?php }elseif($this->global_setting->theme_name == 'ibad-v1'){ ?>
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/lime-green.jpg);  
+        background: url(<?php echo $path; ?>assets/images/login-screen/lime-green.jpg);
         background-color: #33ce34;
     }
     .login_form{
@@ -459,6 +459,34 @@
    .form-control.has-feedback-left {
         border: .5px solid #49c549;     
    }
+
+   <?php }elseif($this->global_setting->theme_name == 'quran1'){ ?>
+
+    .login{    
+        background: url(<?php echo $path; ?>assets/images/login-screen/quran1.jpg);
+        background-color: #fff;
+    }
+    .login_form{
+        background: #fff; 
+    }     
+    .login-button{
+        color: #3e3d3d !important;
+        background-color: #fff !important;
+        border: .5px solid #edeff4 !important;
+    }
+    .login-button:hover{
+        background-color: #edeff4 !important;
+    }
+    .login_wrapper h1{   
+        background: #fff;
+        color: #3e3d3d; 
+    }
+    .login_content .red {
+        color: red !important;
+    }
+    .form-control.has-feedback-left {
+        border: .5px solid #3e3d3d;     
+    }
 
 <?php }else{ ?>
     

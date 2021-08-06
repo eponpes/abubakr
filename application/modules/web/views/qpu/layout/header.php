@@ -20,13 +20,7 @@
 			                <a class="nav-link" href="<?php echo site_url(); ?>#program">Program</a>
 			            </li><!--end nav item-->    
 			            <li class="nav-item">
-			                <a class="nav-link" href="<?php echo site_url(); ?>#services">Fitur</a>
-			            </li><!--end nav item-->    
-			            <li class="nav-item">
 			                <a class="nav-link" href="<?php echo site_url(); ?>#video">Video Metode Puzzle</a>
-			            </li><!--end nav item-->
-						<li class="nav-item">
-			                <a class="nav-link" href="<?php echo site_url(); ?>#team">Tim</a>
 			            </li><!--end nav item-->
 						<?php if (logged_in_user_id()) { ?>                     
 							<li class="nav-item">

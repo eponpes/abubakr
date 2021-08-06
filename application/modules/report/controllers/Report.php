@@ -1221,8 +1221,15 @@ class Report extends My_Controller {
         $this->data['school'] = $this->report->get_school_by_id($school_id);
 
         $this->data['session'] = (isset($session->start_year)?$session->start_year:'') . '/' . (isset($session->end_year)?$session->end_year:'');
-
-        $this->data['students'] = $this->report->get_student_list($school_id, $academic_year_id, $class_id, null, $this->data['month_number']);
+        $student_id = false;
+        $ci = & get_instance();
+        if($ci->session->userdata('role_id') == STUDENT){
+            $student_id = $ci->session->userdata('profile_id');
+            $student_name = $ci->session->userdata('name');
+            $this->data['student_name'] = $student_name; 
+        }
+        
+        $this->data['students'] = $this->report->get_student_list($school_id, $academic_year_id, $class_id, null, $this->data['month_number'], $student_id);
         
         $this->data['year'] = substr($session->session_year, 7);
         $this->data['days'] =  @date('t', mktime(0, 0, 0, $this->data['month_number'], 1, $this->data['year']));

@@ -118,9 +118,11 @@ class Groups extends MY_Controller {
                         if($clientcode == 'ibd') {
                             $teacherpict = get_teacher_sign($teacherpict['id']);
                         }
-
-                        $sign_pict = '<img src="'.IMG_URL.'/signature/'.$teacherpict["id"].'.png" alt="" width="70" /> ';
-                        $table_content .= '<div class""><br><strong>ID Pembina:'.$obj->id.'</strong><br>TTD: '.$sign_pict.$teacherpict["draw"].'</div>';
+                        
+                        if($this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN){   
+                            $sign_pict = '<img src="'.IMG_URL.'/signature/'.$teacherpict["id"].'.png" alt="" width="70" /> ';
+                            $table_content .= '<div class""><br><strong>ID Pembina:'.$obj->id.'</strong><br>TTD: '.$sign_pict.$teacherpict["draw"].'</div>';
+                        }
                         $table_content .= '</div></div>';
                         $rowCount++;
                         if($rowCount % $numOfCols == 0) $table_content .= '</div><div class="row">';

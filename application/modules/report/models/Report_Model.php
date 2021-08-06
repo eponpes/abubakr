@@ -231,7 +231,7 @@ class Report_Model extends MY_Model {
     }
     
   
-     public function get_student_list($school_id, $academic_year_id, $class_id, $section_id = null, $month = null){
+     public function get_student_list($school_id, $academic_year_id, $class_id, $section_id = null, $month = null, $student_id = null){
          
         $this->db->select('E.roll_no,  S.id, S.name, S.age, S.phone, S.pob, R.name as regname');
         $this->db->from('enrollments AS E');        
@@ -243,6 +243,9 @@ class Report_Model extends MY_Model {
         $this->db->where('E.class_id', $class_id); 
         if($section_id){
             $this->db->where('E.section_id', $section_id); 
+        }
+        if($student_id){
+            $this->db->where('E.student_id', $student_id); 
         }
         $this->db->where('E.school_id', $school_id);
         $this->db->where('S.status_type', 'regular');      

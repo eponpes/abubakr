@@ -83,7 +83,7 @@ $features = array(
             'module' => 'invoice',
             'image' => 'icon/class.png',
             'label' => $lang['group'],
-            'link' => site_url('groups/groups/add')
+            'link' => site_url('groups/groups/index')
         ),
         'library' => array(
             'view' => 'library',
@@ -265,6 +265,10 @@ if($clientcode == 'ibd'){
     $clients = $clients1;
 } else if($clientcode == 'qpu'){
     $clients = $clients3;
+    if($this->session->userdata('role_id') == STUDENT) {
+        unset($features['Activity']);
+        //unset($features['Akademik']['group']);
+    }
     unset($features['Raport']);
     unset($features['Keuangan']);
 } else {

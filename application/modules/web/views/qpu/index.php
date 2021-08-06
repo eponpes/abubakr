@@ -11,8 +11,7 @@
                                     <h1 class="heading text-white mb-3">Qur'an Puzzle</h1>
                                     <p class="para-desc text-white-50">Menghafal Dengan Mudah, Kuat dan Tahan Lama</p>
                                     <div class="mt-4 pt-2">
-                                        <a href="javascript:void(0)" class="btn btn-custom mb-2 mr-2">Get Started</a>
-                                        <a href="javascript:void(0)" class="btn btn-outline-white mb-2">Download now !</a>
+                                        <a href="<?php echo site_url('admission-online').'?code=pistol'; ?>" class="btn btn-custom mb-2 mr-2">AYO MULAI</a>
                                     </div>
                                 </div>
                             </div><!--end col-->
@@ -49,7 +48,7 @@
                             <i class="mdi mdi-material-design text-custom h2"></i>
                             <h4 class="title text-uppercase mt-2 mb-3">Program PISTOL</h4>
                             <p class="text-muted">PISTOL (Program Intensif Studi Tahfizh Online) untuk semua usia dari anak-anak sampai lansia</p>
-                            <a href="javascript:void(0)" class="btn btn-custom mt-2">Daftar Sekarang</a>
+                            <a href="<?php echo site_url('admission-online').'?code=pistol'; ?>" class="btn btn-custom mt-2">Daftar Sekarang</a>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -60,7 +59,7 @@
                             <i class="mdi mdi-arch text-custom h2"></i>
                             <h4 class="title text-uppercase mt-2 mb-3">Karantina 3 Hari 2 Malam</h4>
                             <p class="text-muted">Program Karantina Tahfizh selama 3 Hari 2 malam dengan target menghafal surat Al Baqarah (Juz 1,2, dan 3)</p>
-                            <a href="javascript:void(0)" class="btn btn-custom mt-2">Daftar Sekarang</a>
+                            <a href="<?php echo site_url('admission-online').'?code=karantina'; ?>" class="btn btn-custom mt-2">Daftar Sekarang</a>
                         </div>
                     </div><!--end col-->
 
@@ -79,7 +78,7 @@
                             <i class="mdi mdi-material-design text-custom h2"></i>
                             <h4 class="title text-uppercase mt-2 mb-3">WORKSHOP 120 MENIT</h4>
                             <p class="text-muted">Menghafal Surat Ar Rahman</p>
-                            <a href="javascript:void(0)" class="btn btn-custom mt-2">Daftar Sekarang</a>
+                            <a href="<?php echo site_url('admission-online').'?code=workshop'; ?>" class="btn btn-custom mt-2">Daftar Sekarang</a>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->

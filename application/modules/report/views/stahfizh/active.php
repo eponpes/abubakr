@@ -105,20 +105,13 @@
                                     <hr class="style8" />
                                     <h4><strong>تقرير نتائج الامتحان النهائي في تحسين القرآن وتحفيظه</strong><h4>
                                     <h5><strong>LAPORAN KEAKTIFAN DAN PENCAPAIAN PESERTA</strong></h5>
+                                    <?php if($student_name) { ?>                                    
+                                    <h6><strong>Nama: <?php echo $student_name; ?></strong><h6>
+                                    <?php } ?>
+                                    <p><?php echo "Kelas: ". $class_section_name; ?></p>
+                                    <p><?php echo "Periode: ". $this->lang->line($month). ', '.$session; ?></p>
                                                                 
                                 </div>
-                                <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
-                                    <tr>
-                                        <td style="text-align:left; width: 100px">Periode</td>
-                                        <td style="text-align:left; width: 10%">: <?php echo $this->lang->line($month); ?></td>
-                                        <td style="text-align:left; width: 10%"></td>
-                                        <td style="text-align:left; width: 150px">Tahun Akademik</td>
-                                        <td style="text-align:left; width: 10%">: <?php echo $session ?></td>
-                                        <td style="text-align:left; width: 10%"></td>
-                                        <td style="text-align:left; width: 150px">Kelas / Bagian</td>
-                                        <td style="text-align:left; width: 15%">: <?php echo $class_section_name; ?></td>
-                                    </tr>
-                                </table>
                                 
                             </div>
                         </div>            
