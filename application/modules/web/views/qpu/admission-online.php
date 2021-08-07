@@ -52,6 +52,16 @@
                                  <label for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span></label>
                                  <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_id" id="add_class_id" required="required" onchange="get_section_by_class(this.value, '');">
                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                    <?php 
+                                        $code = $_GET['code']; 
+                                        if($code == 'pistol'){
+                                            $post['class_id'] = '13';
+                                        } else if($code == 'karantina'){
+                                            $post['class_id'] = '14';
+                                        } else if($code == 'workshop'){
+                                            $post['class_id'] = '15';
+                                        }
+                                    ?>
                                     <?php foreach($classes as $obj){ ?>
                                         <option value="<?php echo $obj->id; ?>" <?php echo isset($post['class_id']) && $post['class_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
                                     <?php } ?>
