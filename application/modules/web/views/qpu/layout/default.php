@@ -6,8 +6,8 @@
         <meta charset="utf-8" />
         <title><?php echo $title_for_layout; ?></title>   
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Premium Bootstrap 4 Landing Page Template" />
-        <meta name="keywords" content="bootstrap 4, premium, marketing, multipurpose" />
+        <meta name="description" content="PISTOL (Program Setoran Online), Karantina 3 Hari 2 Malam, Workshop Seminar 120 Menit" />
+        <meta name="keywords" content="tahfidz, tahfizh, setoran online, karantina, pistol, workshop, quran" />
         <meta content="Themesdesign" name="author" />
         <!-- favicon -->
         <?php if($this->global_setting->favicon_icon){ ?>
