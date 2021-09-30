@@ -104,18 +104,19 @@
                             <th><?php echo $this->lang->line('name'); ?>/ <?php echo $this->lang->line('phone'); ?></th>                           
                             <th><?php echo $this->lang->line('roll_no'); ?></th>
                             <th><?php echo $this->lang->line('photo'); ?></th>
-                            <th><?php echo $this->lang->line('total_mark'); ?></th>                                            
+                            <?php /*<th><?php echo $this->lang->line('total_mark'); ?></th>                                            
                             <th><?php echo $this->lang->line('obtain_mark'); ?></th>                                            
                             <th><?php echo $this->lang->line('average_grade_point'); ?></th>                                            
                             <th><?php echo $this->lang->line('result'); ?></th>                                            
-                            <th><?php echo $this->lang->line('position'); ?></th>                                            
-                            <th><?php echo $this->lang->line('class_option'); ?></th>                                            
-                            <th><?php echo $this->lang->line('next_roll_no'); ?></th>                                            
+                            <th><?php echo $this->lang->line('position'); ?></th>*/ ?>                                   
+                            <th><?php echo 'ID Student'; //$this->lang->line('class_option'); ?></th>                                            
+                            <th><?php echo 'Next ID Student'; //$this->lang->line('next_roll_no'); ?></th>                                            
                         </tr>
                     </thead>
                     <tbody id="fn_mark">   
                         <?php
                         $count = 1;
+                        $next_roll = 1;
                         if (isset($students) && !empty($students)) {
                             ?>
                             <?php foreach ($students as $obj) { ?>
@@ -136,11 +137,11 @@
                                         <?php } ?>
                                         <input type="hidden" value="<?php echo $obj->id; ?>"  name="students[]" />                                       
                                     </td>  
-                                    <td><?php if(isset($result) && $result->total_mark > 0 ){ echo $result->total_mark; }else{ echo ''; } ?></td>
+                                    <?php /*<td><?php if(isset($result) && $result->total_mark > 0 ){ echo $result->total_mark; }else{ echo ''; } ?></td>
                                     <td><?php if(isset($result) && $result->total_obtain_mark > 0 ){ echo $result->total_obtain_mark; }else{ echo ''; } ?></td>
                                     <td><?php if(isset($result) && $result->avg_grade_point > 0 ){ echo $result->avg_grade_point; }else{ echo ''; } ?></td>
                                     <td><?php if(isset($result) && $result->result_status ){ echo $this->lang->line($result->result_status); }else{ echo ''; } ?></td>
-                                    <td><?php echo $position; ?></td>
+                                    <td><?php echo $position; ?></td>*/ ?>
                                     <td>
                                         <select  class="form-control col-md-7 col-xs-12" name="promotion_class_id[<?php echo $obj->id; ?>]"  required="required">                                
                                             <option value="<?php echo $next_class->id; ?>" <?php if(isset($enroll) && $enroll->class_id == $next_class->id){ echo 'selected="selected"';} ?>><?php echo $next_class->name; ?></option>
@@ -148,10 +149,13 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="number" value="<?php if(isset($enroll)){ echo $enroll->roll_no;} ?>"  name="roll_no[<?php echo $obj->id; ?>]"  class="form-control col-md-7 col-xs-12 small-field" required="required"  autocomplete="off"/>
+                                        <?php
+                                            $next_id_student = date("Ymd").$next_session_id.$next_class->id.$next_roll;
+                                        ?>
+                                        <input type="number" value="<?php echo $next_id_student; ?>"  name="roll_no[<?php echo $obj->id; ?>]"  class="form-control col-md-7 col-xs-12 small-field" required="required"  autocomplete="off"/>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php $next_roll++; } ?>
                         <?php }else{ ?>
                                 <tr>
                                     <td colspan="12" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
