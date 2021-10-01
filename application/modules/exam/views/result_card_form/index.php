@@ -97,8 +97,8 @@
                             <label for="level-choice">Pilih Level</label>
                             <select class="form-control" id="level" name="level">
                                 <option value="0">-------</option>
-                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
-                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
+                                <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar&Lanjut</option>
+                                <?php /*<option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>*/ ?>
                             </select>
                         </div>
                     </div>

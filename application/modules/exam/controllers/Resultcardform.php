@@ -141,7 +141,7 @@ class Resultcardform extends MY_Controller {
 
         $this->data['formtype'] = $type;
 
-        $data_character = get_character_indicator($levelchar);
+        $data_character = get_character_indicator($levelchar, $class_id, $periodchar);
 
         $mutaarray = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah', 'present', 'sick', 'permit', 'alpha');
         $mutabaah = array('pray', 'duhua', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah');

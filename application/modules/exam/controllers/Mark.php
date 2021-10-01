@@ -222,6 +222,7 @@ class Mark extends MY_Controller {
         
         //check_permission(ADD);
         $levelchar = $_GET['l'];
+        $periodchar = $_GET['p'];
 
         if(empty($school_id)){
             $school_id = $this->session->userdata('school_id'); 
@@ -240,7 +241,7 @@ class Mark extends MY_Controller {
         //$this->data['section_id'] = $section_id;
         $this->data['student_id'] = $student_id;
 
-        $data_character = get_character_indicator($levelchar, $class_id);
+        $data_character = get_character_indicator($levelchar, $class_id, $periodchar);
         $tahsin_target = get_tahsin_target();
         $this->data['tahsin_target'] = $tahsin_target;
 

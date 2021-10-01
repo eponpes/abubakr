@@ -141,10 +141,10 @@
                                 <option>------</option>
                                 <?php 
                                 if(get_class_grade($clientcode, $class_id) == "basic") { ?>
-                                    <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar</option>
-                                <?php } else { ?>
+                                    <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar&Lanjut</option>
+                                <?php } /*else { ?>
                                     <option <?php if(isset($_GET['l']) && $_GET['l'] == '2'){echo 'selected';} ?> value="2">Tingkat Lanjut</option>
-                                <?php } ?>
+                                <?php } */?>
                             </select>
                             </div>
                         </div>
