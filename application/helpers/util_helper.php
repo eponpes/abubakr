@@ -2616,8 +2616,8 @@ if (!function_exists('get_quran_juz_list')){
 
 function get_class_grade($clientcode = null, $class_id = null){
     if($clientcode == 'ibd'){
-        $class_basic = array(2, 5, 4);
-        $class_next = array(6, 7,8);
+        $class_basic = array(2, 5, 4,6,7,8);
+        $class_next = array(6,7,8);
         if(in_array($class_id, $class_basic)){
             return 'basic';
         }
