@@ -167,7 +167,7 @@ class Resultcardform extends MY_Controller {
 
             if($this->session->userdata('role_id') == STUDENT){
                 
-                $student = get_user_by_role($this->session->userdata('role_id'), $this->session->userdata('id'));
+                $student = get_user_by_role($this->session->userdata('role_id'), $this->session->userdata('id'), $academic_year_id);
                 $school_id = $student->school_id;
                 $class_id = $student->class_id;
                 //$section_id = $student->section_id;
@@ -181,7 +181,7 @@ class Resultcardform extends MY_Controller {
                 $student_id = $student_id;
                 
                 $std = $this->resultcardform->get_single('students', array('id'=>$student_id));
-                $student = get_user_by_role(STUDENT, $std->user_id);
+                $student = get_user_by_role(STUDENT, $std->user_id, $academic_year_id);
             }
 
             $teacher_id = '';
