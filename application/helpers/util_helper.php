@@ -2320,14 +2320,24 @@ if (!function_exists('get_muta_score')) {
         $mutabaah = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah', 'silat', 'sport');
         $presence = array('present', 'permit', 'sick', 'alpha');
 
-        $prayist = 84;
+        /*FORCE UPDATE $prayist = 84;
         $rawatibist = 84;
         $qiyamist = 12;
         $dzikirist = 84;
         $tilawahist = 240;
         $siyamist = 3;
         $infaqist = 8;
+        $bookist = 8;*/
+        $prayist = 56;
+        $rawatibist = 56;
+        $qiyamist = 8;
+        $dzikirist = 56;
+        $tilawahist = 8;
+        $siyamist = 8;
+        $infaqist = 8;
         $bookist = 8;
+        $silatist = 8;
+        $sportist = 8;
 
         if(!empty($options)){
             if(!empty($options['datecreated']) && !empty($options['datenewversion'])){
