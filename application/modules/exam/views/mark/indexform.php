@@ -255,6 +255,36 @@
                             $dzikir = $markvalues2['dzikir'];
                             $mutadzikiri = get_muta_score('dzikir', $dzikir);
                         }
+
+                        $mutasiyami = '';
+                        if(isset($markvalues2['siyam'])){
+                            $siyam = $markvalues2['siyam'];
+                            $mutasiyami = get_muta_score('siyam', $siyam);
+                        }
+
+                        $mutabooki = '';
+                        if(isset($markvalues2['book'])){
+                            $book = $markvalues2['book'];
+                            $mutabooki = get_muta_score('book', $book);
+                        }
+
+                        $mutasilaturahmi = '';
+                        if(isset($markvalues2['silat'])){
+                            $silaturahmi = $markvalues2['silat'];
+                            $mutasilaturahmi = get_muta_score('silat', $silaturahmi);
+                        }
+
+                        $mutasedekahi = '';
+                        if(isset($markvalues2['sedekah'])){
+                            $sedekah = $markvalues2['sedekah'];
+                            $mutasedekahi = get_muta_score('sedekah', $sedekah);
+                        }
+
+                        $mutariyadohi = '';
+                        if(isset($markvalues2['sport'])){
+                            $sport = $markvalues2['sport'];
+                            $mutariyadohi = get_muta_score('sport', $sport);
+                        }
                         ?>
                         <div class="row">
                             <div class="col-md-3 col-sm-3 col-xs-12">
@@ -312,6 +342,7 @@
                                 <div class="item form-group">
                                     <label for="muta_siyam">Puasa Sunnah</label>
                                     <input  class="form-control col-md-2 col-xs-4"  name="indicator2[siyam]"  id="muta_siyam" value="<?php echo isset($markvalues2['siyam']) ?  $markvalues2['siyam'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[siyam]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutasiyami;?>
                                     <div class="help-block"><?php echo form_error('indicator2[siyam]'); ?></div>
                                 </div>
                             </div>
@@ -319,6 +350,7 @@
                                 <div class="item form-group">
                                     <label for="muta_book">Membaca Buku Tematik</label>
                                     <input  class="form-control col-md-2 col-xs-4"  name="indicator2[book]"  id="muta_book" value="<?php echo isset($markvalues2['book']) ?  $markvalues2['book'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[book]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutabooki;?>
                                     <div class="help-block"><?php echo form_error('indicator2[book]'); ?></div>
                                 </div>
                             </div>
@@ -328,6 +360,7 @@
                                 <div class="item form-group">
                                     <label for="muta_sedekah">Sedekah</label>
                                     <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sedekah]"  id="muta_sedekah" value="<?php echo isset($markvalues2['sedekah']) ?  $markvalues2['sedekah'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sedekah]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutasedekahi;?>
                                     <div class="help-block"><?php echo form_error('indicator2[sedekah]'); ?></div>
                                 </div>
                             </div>
@@ -335,6 +368,7 @@
                                 <div class="item form-group">
                                     <label for="meta_silat">Silaturrahim</label>
                                     <input  class="form-control col-md-2 col-xs-4"  name="indicator2[silat]"  id="meta_silat" value="<?php echo isset($markvalues2['silat']) ?  $markvalues2['silat'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[silat]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutasilaturahmi;?>
                                     <div class="help-block"><?php echo form_error('indicator2[silat]'); ?></div>
                                 </div>
                             </div>
@@ -342,6 +376,7 @@
                                 <div class="item form-group">
                                     <label for="muta_sport">Berolahraga</label>
                                     <input  class="form-control col-md-2 col-xs-4"  name="indicator2[sport]"  id="muta_sport" value="<?php echo isset($markvalues2['sport']) ?  $markvalues2['sport'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[sport]'); ?>" type="text" autocomplete="off">
+                                    <?php echo $mutariyadohi;?>
                                     <div class="help-block"><?php echo form_error('indicator2[sport]'); ?></div>
                                 </div>
                             </div>

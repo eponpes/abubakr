@@ -2317,7 +2317,7 @@ if (!function_exists('get_class_groups')) {
 if (!function_exists('get_muta_score')) {
 
     function get_muta_score($name = null, $mark = null, $options = null) {
-        $mutabaah = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah');
+        $mutabaah = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah', 'silat', 'sport');
         $presence = array('present', 'permit', 'sick', 'alpha');
 
         $prayist = 84;
@@ -2334,22 +2334,16 @@ if (!function_exists('get_muta_score')) {
                 $created = $options['datecreated'];
                 $newversion = $options['datenewversion'];
                 if($created > $newversion){
-                    /*$prayist = 56;
+                    $prayist = 56;
                     $rawatibist = 56;
                     $qiyamist = 8;
                     $dzikirist = 56;
                     $tilawahist = 8;
-                    $siyamist = 3;
-                    $infaqist = 8;
-                    $bookist = 8;*/
-                    $prayist = 32;
-                    $rawatibist = 32;
-                    $qiyamist = 8;
-                    $dzikirist = 32;
-                    $tilawahist = 8;
                     $siyamist = 8;
                     $infaqist = 8;
                     $bookist = 8;
+                    $silatist = 8;
+                    $sportist = 8;
                 }
             }
         }
@@ -2397,6 +2391,16 @@ if (!function_exists('get_muta_score')) {
 
             case 'book':
                 $smark = $mark/$bookist;
+                $period = 'pekan';
+            break;
+
+            case 'silat':
+                $smark = $mark/$silatist;
+                $period = 'pekan';
+            break;
+
+            case 'sport':
+                $smark = $mark/$sportist;
                 $period = 'pekan';
             break;
 
