@@ -236,9 +236,16 @@
                             <hr class="style8" />
                             <?php 
                                 $periodic = 'uas';
+                                $period_label = '';
+                                $numperiod = $_GET['s'];
                                 if ($clientcode == 'ibd'){
                                     if($_GET['p'] == 'SM1' || $_GET['p'] == 'SM3') {
                                         $periodic = 'uts';
+                                    }
+                                    if($numperiod == 1 || $numperiod == 2){
+                                        $period_label = 'Semester 1';
+                                    } else if($numperiod == 3 || $numperiod == 4){
+                                        $period_label = 'Semseter 2';
                                     }
                                 }
                             ?>
@@ -262,7 +269,6 @@
 
                                 
                             <?php } ?>
-
                             
                         </div>
                         <table id="datatable-responsive" class="table dt-responsive nowrap noborder" cellspacing="0" width="100%">
@@ -278,7 +284,7 @@
                                 <td style="text-align:left; width: 30%">: <?php echo $student->roll_no; ?></td>
                                 <td style="text-align:left; width: 10%"></td>
                                 <td style="text-align:left; width: 20%">Kelas/Semester</td>
-                                <td style="text-align:left; width: 150px"><?php echo $student->class_name . ' ' . $student->section; ?> </td>
+                                <td style="text-align:left; width: 150px"><?php echo $student->class_name . ' ' . $student->section; ?> / <?php echo $period_label; ?></td>
                             </tr>
                         </table>
                         
@@ -385,7 +391,7 @@
                                     echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
                                 } 
                             ?>
-                            <p>Mudir PPTQ</p>
+                            <p>Direktur Harian PPTQ Ibadurrohman</p>
                         </div>
                         <div class="signature">
                             <?php if(isset($school->adm_principal)) {
@@ -476,7 +482,7 @@
                     <div class="col-xs-1 text-center" style="width: 3%">&nbsp;</div>
                     <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
-                            <p>Orang Tua / Wali Santri</p>
+                            <p>ORANG TUA/WALI SANTRI</p>
                         </div>
                         <div class="signature">
                             ( .............................. )
@@ -499,7 +505,7 @@
                                 echo "<img class=\"sign-teacher default\" src=\"$defaultpath\"/>\n";
                             } 
                         ?>
-                        <p>Mudir PPTQ</p>
+                        <p>DIREKTUR <?php echo isset($school->school_name) ? $school->school_name : ''; ?></p>
                         </div>
                         <div class="signature">
                             <?php if(isset($school->adm_principal)) {
@@ -526,7 +532,7 @@
                                 echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
                             } 
                             ?>
-                            <p>Muhafizh/ah</p>
+                            <p>MUHAFIZH/AH</p>
                             <?php } else { ?>
                             <?php
                             $imagepath1 = IMG_URL . 'signature/3.png';
@@ -540,7 +546,7 @@
                                 echo "<img class=\"sign-teacher default\" src=\"$defaultpath1\"/>\n";
                             } 
                             ?>
-                            <p>Kasie Tahfidz</p>
+                            <p>KETUA BIDANG TAHFIDZ</p>
                             <?php } ?>
                         </div>
                         <div class="signature">

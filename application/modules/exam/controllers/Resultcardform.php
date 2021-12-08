@@ -144,7 +144,7 @@ class Resultcardform extends MY_Controller {
         $data_character = get_character_indicator($levelchar, $class_id, $periodchar);
 
         $mutaarray = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah', 'present', 'sick', 'permit', 'alpha');
-        $mutabaah = array('pray', 'duhua', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah');
+        $mutabaah = array('pray', 'dhuha', 'tilawah', 'qiyam', 'rawatib', 'dzikir', 'siyam', 'book', 'sedekah');
         $targetmutabaah = array(
             'pray' => '5x per hari',
             'dhuha' => '7x per pekan',
@@ -292,8 +292,13 @@ class Resultcardform extends MY_Controller {
 
                 $datecreated = strtotime($datecreated);
                 $datenewversion = strtotime('2021-06-11');
-                $optionsMuta = array('datecreated' => $datecreated, 'datenewversion' => $datenewversion);
-                
+                $optionsMuta = array(
+                    'datecreated' => $datecreated, 
+                    'datenewversion' => $datenewversion,
+                    'class_name' => $student->class_name,
+                    'gender' => $student->gender
+                );
+
                 $semester = isset($_GET['s'])?$_GET['s']:1;
 
                 // NILAI SEMESTER 1
