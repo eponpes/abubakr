@@ -380,7 +380,7 @@
                     <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
                             <?php
-                                $imagepath1 = IMG_URL . 'signature/1.png';
+                                $imagepath1 = IMG_URL . 'signature/1.png?v=9.12.21';
                                 $defaultpath1 = IMG_URL . 'signature/default.png';
                                 if(remote_file_exists($imagepath1))
                                 {
@@ -494,7 +494,7 @@
                     <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
                         <?php
-                            $imagepath = IMG_URL . 'signature/1.png';
+                            $imagepath = IMG_URL . 'signature/1.png?v=9.12.21';
                             $defaultpath = IMG_URL . 'signature/default.png';
                             if(remote_file_exists($imagepath))
                             {
@@ -505,7 +505,7 @@
                                 echo "<img class=\"sign-teacher default\" src=\"$defaultpath\"/>\n";
                             } 
                         ?>
-                        <p>DIREKTUR <?php echo isset($school->school_name) ? $school->school_name : ''; ?></p>
+                        <p>DIREKTUR HARIAN <?php echo isset($school->school_name) ? $school->school_name : ''; ?></p>
                         </div>
                         <div class="signature">
                             <?php if(isset($school->adm_principal)) {
