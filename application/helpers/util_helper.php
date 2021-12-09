@@ -2362,7 +2362,7 @@ if (!function_exists('get_muta_score')) {
                         $tilawahist = 8;        // Tilawah
                         $siyamist   = 8;        // Puasa
                         $infaqist   = 8;        // Infaq
-                        $bookist    = 10;       // Membaca Buku
+                        $bookist    = 8;       // Membaca Buku
                         $silatist   = 8;        // Silaturahmi
                         $sportist   = 8;        // Olahraga
                         $dhuhaist   = 8;        // Dhuha
@@ -2377,7 +2377,7 @@ if (!function_exists('get_muta_score')) {
                         $tilawahist = 8;        // Tilawah
                         $siyamist   = 8;        // Puasa
                         $infaqist   = 8;        // Infaq
-                        $bookist    = 10;       // Membaca Buku
+                        $bookist    = 8;       // Membaca Buku
                         $silatist   = 8;        // Silaturahmi
                         $sportist   = 8;        // Olahraga
                         $dhuhaist   = 8;        // Dhuha
@@ -2392,7 +2392,7 @@ if (!function_exists('get_muta_score')) {
                         $tilawahist = 8;        // Tilawah
                         $siyamist   = 6;        // Puasa
                         $infaqist   = 8;        // Infaq
-                        $bookist    = 10;       // Membaca Buku
+                        $bookist    = 8;       // Membaca Buku
                         $silatist   = 8;        // Silaturahmi
                         $sportist   = 8;        // Olahraga
                         $dhuhaist   = 6;        // Dhuha
@@ -2408,7 +2408,7 @@ if (!function_exists('get_muta_score')) {
                         $tilawahist = 8;        // Tilawah
                         $siyamist   = 6;        // Puasa
                         $infaqist   = 8;        // Infaq
-                        $bookist    = 10;       // Membaca Buku
+                        $bookist    = 8;       // Membaca Buku
                         $silatist   = 8;        // Silaturahmi
                         $sportist   = 8;        // Olahraga
                         $dhuhaist   = 6;        // Dhuha
@@ -2747,7 +2747,7 @@ if (!function_exists('get_character_indicator')) {
         if(in_array($class_id, $smp_class)){
             $aqidah = array("Tidak berhubungan dengan jin", "Tidak meminta tolong kepada orang yang berlindung kepada jin", "Tidak meramal nasib dengan melihat telapak tangan/zodiak", "Tidak menghadiri majelis dukun dan peramal", "Tidak meminta berkah dengan mengusap-usap kuburan", "Tidak meminta tolong kepada orang yang telah dikubur (mati)", "Tidak bersumpah dengan selain Allah Swt", "Tidak tasyaum (merasa sial karena melihat atau mendengar sesuatu)", "Mengikhlaskan amal untuk Allah Swt", "Mengimani rukun iman", "Beriman kepada nikmat dan siksa kubur", "Mensyukuri nikmat Allah Swt saat mendapatkan nikmat", "Menjadikan setan sebagai musuh", "Tidak mengikuti langkah-langkah setan", "Menerima dan tunduk secara penuh kepada Allah Swt dan tidak bertahkim kepada selain yang diturunkan-Nya");
 
-            $ibadah = array("Tidak sungkan adzan/iqomat/memimpin wirid", "Ihsan dalam thaharah", "Bersemangat untuk shalat berjama’ah", "Ihsan dalam shalat", "Qiyamul-Lail minimal sekali sepekan", "Membayar infaq majlis", "Berpuasa fardlu", "Berpuasa sunat minimal sehari dalam sebulan", "Memiliki keinginan melaksanakan haji", "Berdoa pada waktu-waktu utama", "Menutup hari-harinya dengan bertaubat dan beristighfar", "Berniat pada setiap melakukan perbuatan", "Menjauhi dosa besar", "Merutinkan dzikir pagi hari", "Merutinkan dzikir sore hari", "Dzikir kepada Allah dalam setiap keadaan", "Memenuhi nadzar", "Menyebarluaskan salam", "Menahan anggota tubuh dari segala yang haram", "Beri’tikaf pada bulan Ramadhan, jika mungkin", "Mempergunakan siwak", "Senantiasa menjaga kondisi Thaharah, jika mungkin");
+            $ibadah = array("Tidak sungkan adzan/iqomat/memimpin wirid", "Ihsan dalam thaharah", "Bersemangat untuk shalat berjama’ah", "Ihsan dalam shalat", "Qiyamul-Lail minimal sekali sepekan", "Membayar infaq majlis", "Berpuasa fardlu", "Berpuasa sunat minimal sehari dalam sebulan", "Memiliki keinginan melaksanakan haji", "Berdoa pada waktu-waktu utama", "Menutup hari-harinya dengan bertaubat dan beristighfar", "Berniat pada setiap melakukan perbuatan", "Menjauhi dosa besar", "Merutinkan dzikir pagi hari", "Merutinkan dzikir sore hari", "Dzikir kepada Allah dalam setiap keadaan", "Memenuhi nadzar", "Menyebarluaskan salam", "Menahan anggota tubuh dari segala yang haram", "Beri’tikaf pada bulan Ramadhan, jika mungkin", "Rutin Membersihkan Gigi", "Senantiasa menjaga kondisi Thaharah, jika mungkin");
 
             $kepribadian = array("Tidak takabur", "Tidak imma’ah (asal ikut, tidak punya prinsip)", "Tidak dusta", "Tidak mencaci maki", "Tidak mengadu domba", "Tidak ghibah", "Tidak menjadikan orang buruk sebagai teman/sahabat", "Memenuhi janji", "Birrul walidain", "Memiliki kepedulian terhadap keluarganya", "Memiliki kepedulian pada agamanya", "Tidak memotong pembicaraan orang lain", "Tidak membully dengan cara apapun", "Tidak menghina dan meremehkan orang lain", "Menyayangi yang kecil", "Menghormati yang besar", "Menundukkan pandangan", "Menyimpan rahasia", "Menutupi dosa orang lain", "Melaksanakan hak kedua orang tua", "Membantu yang membutuhkan", "Peduli terhadap teman dan lingkungan", "Memiliki empati terhadap orang lain");
 
@@ -2986,7 +2986,7 @@ if (!function_exists('get_character_indicator')) {
                 'indicator' => $alquran
             ),
             '6' => array(
-                'name' => 'Mutsaqoful Fikri',
+                'name' => 'Memiliki Wawasan',
                 'indicator' => $alfiqri
             ),
             '7' => array(

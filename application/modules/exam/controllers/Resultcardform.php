@@ -149,7 +149,7 @@ class Resultcardform extends MY_Controller {
             'pray' => '5x per hari',
             'dhuha' => '7x per pekan',
             'tilawah' => '7 juz per pekan',
-            'qiyam' => '7x per pekan',
+            'qiyam' => '1x per pekan',
             'rawatib' => '4x per hari',
             'dzikir' => '2x per hari',
             'siyam' => '2x per pekan',
@@ -298,6 +298,23 @@ class Resultcardform extends MY_Controller {
                     'class_name' => $student->class_name,
                     'gender' => $student->gender
                 );
+
+                if(!empty($student->gender) && !empty($student->class_name)){
+                    if($student->class_name == 'X' || $student->class_name == 'XI' || $student->class_name == 'XII'){
+                        // Tingkat Lanjut SMA
+                        $targetmutabaah = array(
+                            'pray' => '5x per hari',
+                            'dhuha' => '7x per pekan',
+                            'tilawah' => '7 juz per pekan',
+                            'qiyam' => '3x per pekan',
+                            'rawatib' => '4x per hari',
+                            'dzikir' => '2x per hari',
+                            'siyam' => '2x per pekan',
+                            'book' => '10hal per pekan',
+                            'sedekah' => '1x per pekan'
+                        );
+                    }
+                }
 
                 $semester = isset($_GET['s'])?$_GET['s']:1;
 
