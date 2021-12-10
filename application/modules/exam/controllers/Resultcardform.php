@@ -567,7 +567,7 @@ class Resultcardform extends MY_Controller {
                     ';
                     $table_tahfizh .= '<tr><th>Ujian</th><th>Nilai</th><th>Predikat</th></tr>';
                     $table_tahfizh .= '<tr><td>Tahfizh</td><td>'.$totaltahfizh.'</td><td>'.get_grade_tahfizh($totaltahfizh).'</td></tr>';
-                    $table_tahfizh .= '<tr><td>Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin).'</td></tr>';
+                    //$table_tahfizh .= '<tr><td>Tahsin</td><td>'.$totaltahsin.'</td><td>'.get_grade_tahfizh($totaltahsin).'</td></tr>';
     
                     $table_tahfizh .= '</tbody></table>';
 
@@ -615,7 +615,7 @@ class Resultcardform extends MY_Controller {
     
                     $table_present .= '</tbody></table>';
 
-                    $table_tahsin_note .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    /*$table_tahsin_note .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Catatan Tahsin</th>
@@ -624,6 +624,7 @@ class Resultcardform extends MY_Controller {
                     <tbody>';
                     $table_tahsin_note .= '<tr><td style="vertical-align: middle;height: 90px">'.$gamma['tahsinnote'].'</td></tr>';
                     $table_tahsin_note .= '</tbody></table>';
+                    */
 
                     $table_tahfizh_note .= '<table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>

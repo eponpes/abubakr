@@ -238,6 +238,7 @@
                                 $periodic = 'uas';
                                 $period_label = '';
                                 $numperiod = $_GET['s'];
+                                $numperiodp = $_GET['p'];
                                 if ($clientcode == 'ibd'){
                                     if($_GET['p'] == 'SM1' || $_GET['p'] == 'SM3') {
                                         $periodic = 'uts';
@@ -246,6 +247,12 @@
                                         $period_label = 'Semester 1';
                                     } else if($numperiod == 3 || $numperiod == 4){
                                         $period_label = 'Semseter 2';
+                                    }
+                                } else {
+                                    if($_GET['p'] == 'SM1') {
+                                        $period_label = 'Semester 1';
+                                    } else {
+                                        $period_label = 'Semester 2';
                                     }
                                 }
                             ?>

@@ -618,6 +618,7 @@
                         </div>
                     </div>
                     </section>
+                    <?php if($clientcode != 'ymk') { ?>
                     <h3>Ujian Tahsin</h3>
                     <section>
                     <?php 
@@ -875,6 +876,7 @@ $groups3 = array(
                         </div>
                     </div>
                     </section>
+                    <?php } ?>
                     <h3>Ketidakhadiran</h3>
                     <section>
                         <div class="row">
