@@ -512,7 +512,12 @@
                                 echo "<img class=\"sign-teacher default\" src=\"$defaultpath\"/>\n";
                             } 
                         ?>
-                        <p>DIREKTUR HARIAN <?php echo isset($school->school_name) ? $school->school_name : ''; ?></p>
+                        <?php if($clientcode == 'ibd') {
+                            $dirlabel = "DIREKTUR HARIAN";
+                        } else {
+                            $dirlabel = "PIMPINAN";
+                        } ?>
+                        <p><?php echo $dirlabel; ?> <?php echo isset($school->school_name) ? $school->school_name : ''; ?></p>
                         </div>
                         <div class="signature">
                             <?php if(isset($school->adm_principal)) {
