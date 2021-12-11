@@ -234,6 +234,67 @@ class Groups_Model extends MY_Model {
         return $this->db->get()->row();
     }
 
+    public function check_form_completed( $student_id, $options = array() ){
+        
+        if($options['type'] == 'tahfidz'){
+            $options['type'] = 'tahfizh';
+        }
+
+        $this->db->select('M.value, M.value2');
+        $this->db->from('mark_forms AS M');
+        $this->db->where('M.type', $options['type']); 
+        $this->db->where('M.academic_year_id', $options['academic_year_id']);       
+        $this->db->where('M.class_id', $options['class_id']);  
+        $this->db->where('M.school_id', $options['school_id']); 
+        $this->db->where('M.student_id', $student_id); 
+        $this->db->where('M.period', $options['period']); 
+        
+        $complete = false;
+        $complete2 = false;
+        $results = $this->db->get()->result();
+        if(!empty($results)){           
+           foreach($results as $result){
+             $value = json_decode($result->value, true);
+             if(!empty($value)){
+                $total_val = count($value);
+                $totalcomplete = 0;         
+                foreach($value as $val){
+                    if(!empty($val['mark']) && $val['mark'] != '--------'){
+                        $totalcomplete++;
+                    }
+                } 
+
+                if($total_val == $totalcomplete){
+                    $complete = true;
+                }
+             }
+             $value2 = json_decode($result->value2, true);
+             
+             if(!empty($value2)){       
+                $total_val2 = count($value2);
+                $totalcomplete2 = 0;         
+                foreach($value2 as $val2){
+                    if(!empty($val2['mark']) && $val2['mark'] != '--------'){
+                        $totalcomplete2++;
+                    }
+                } 
+
+                if($total_val2 == $totalcomplete2){
+                    $complete2 = true;
+                }
+            }
+            
+             
+           }
+        }
+
+        if($complete && $complete2){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     
 
     

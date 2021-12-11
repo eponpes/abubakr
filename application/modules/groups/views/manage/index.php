@@ -29,8 +29,8 @@
                          ?>
                         <?php if($this->session->userdata('role_id') == SUPER_ADMIN){  ?>                                 
                              <select  class="form-control col-md-7 col-xs-12" onchange="get_group_by_type(this.value);">
-                             <option value="<?php echo site_url('groups/groups/index'). '?type=tahfidz'; ?>" <?php echo $tahfidz_selected; ?>>Tahfidz</option>   
-                             <option value="<?php echo site_url('groups/groups/index'). '?type=bpi'; ?>" <?php echo $bpi_selected; ?>>BPI</option>   
+                                <option value="<?php echo site_url('groups/groups/index'). '?type=tahfidz'; ?>" <?php echo $tahfidz_selected; ?>>Tahfidz</option>   
+                                <option value="<?php echo site_url('groups/groups/index'). '?type=bpi'; ?>" <?php echo $bpi_selected; ?>>BPI</option>   
                              </select>
                          <?php } ?>  
                         </li>    
@@ -40,9 +40,86 @@
                     <br/>                    
                     
                     <div class="tab-content">
+                        <div class="tab-header-form">
+                            <?php
+                                $type = !empty($_GET['type']) ? $_GET['type'] : 'tahfidz';
+                            ?>
+                        <?php if(!empty($type)) { ?>
+                            <?php if($type == 'bpi') { ?>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <div class="item form-group">
+                                    <label for="level-choice">Pilih Level</label>
+                                    <select class="form-control" id="level" name="level">
+                                        <option>------</option>
+                                        <option <?php if(isset($_GET['l']) && $_GET['l'] == '1'){echo 'selected';} ?> value="1">Tingkat Dasar&Lanjut</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <div class="item form-group">
+                                    <label for="period-choice">Pilih Period</label>
+                                        <select class="form-control" id="period" name="period">
+                                            <option>--------</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q1'){echo 'selected';} ?> value="Q1">Q1</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q2'){echo 'selected';} ?> value="Q2">Q2</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q3'){echo 'selected';} ?> value="Q3">Q3</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'Q4'){echo 'selected';} ?> value="Q4">Q4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } else if ($type == 'tahfidz') { ?>
+                                <?php if($clientcode == 'ymk'){ ?>
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="item form-group">
+                                        <label for="period-choice">Pilih Semester</label>
+                                        <select class="form-control" id="period2" name="period">
+                                            <option>------</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">Semester 1</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">Semester 2</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } else if($clientcode == 'ymn'){ ?>
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="item form-group">
+                                        <label for="period-choice">Pilih Caturwulan</label>
+                                        <select class="form-control" id="period2" name="period">
+                                            <option>------</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">CAWU 1</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">CAWU 2</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM3'){echo 'selected';} ?> value="SM3">CAWU 3</option>
+
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } else if($clientcode == 'ibd'){ ?>
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="item form-group">
+                                        <label for="period-choice">Pilih Semester</label>
+                                        <select class="form-control" id="period2" name="period">
+                                            <option>------</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM1'){echo 'selected';} ?> value="SM1">UTS SM1</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM2'){echo 'selected';} ?> value="SM2">UAS SM1</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM3'){echo 'selected';} ?> value="SM3">UTS SM2</option>
+                                            <option <?php if(isset($_GET['p']) && $_GET['p'] == 'SM4'){echo 'selected';} ?> value="SM4">UAS SM2</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                        </div>
                         <div  class="tab-pane fade in active" id="tab_invoice_list" >
                             <div class="x_content">
-                            <?php echo $all_groups; ?>
+                                <?php echo $all_groups; ?>
                             </div>
                         </div>
                         
@@ -451,10 +528,27 @@
     $("#bulk").validate();      
     $("#edit").validate(); 
     
-     function get_group_by_type(url){          
+    function get_group_by_type(url){          
         if(url){
             window.location.href = url; 
         }
     }  
+
+    var type = '<?php echo $_GET['type']; ?>';
+    var url = '<?php echo site_url('groups/groups/index'); ?>';
+
+    $('#period2').change(function(){
+        var p = this.value;       
+        window.location = url + "?type="+ type + "&p="+p;
+    });
+    $('#level').change(function(){
+        var l = this.value;
+        window.location = url + "?type="+ type + "&p=Q1&l="+l;
+    });
+    $('#period').change(function(){
+        var l = $("#level option:selected").val();
+        var p = this.value;
+        window.location = url + "?type="+ type + "&p="+p+"&l="+l;
+    });
     
 </script>

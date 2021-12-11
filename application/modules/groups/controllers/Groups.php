@@ -53,6 +53,7 @@ class Groups extends MY_Controller {
         $this->data['all_groups'] = $this->get_all_groups($school_id);
 
         $this->data['list'] = TRUE;
+        $this->data['clientcode'] = $this->global_setting->client_code;
         $this->layout->title($this->lang->line('manage_invoice'). ' | ' . SMS);
         $this->layout->view('manage/index', $this->data);            
        
@@ -93,6 +94,18 @@ class Groups extends MY_Controller {
         $rowCount = 0;
         $bootstrapColWidth = 12 / $numOfCols;
         $table_content .= '<div class="row">';
+
+        $table_content .= '<div>';
+            $table_content .= '<table>
+                                    <tr>
+                                        <td>School: </td><td>'.$school_id.'</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Academic Year: </td><td>'.$school->academic_year_id.'</td>
+                                    </tr>
+                                </table>';
+        $table_content .= '</div>';
+        
         foreach ($teachers as $obj){
             $teacher_id = $obj->id;
             $teacher_name = $obj->name;
@@ -105,9 +118,44 @@ class Groups extends MY_Controller {
                         });
 
                         $table_content .= '<div class="col-md-'.$bootstrapColWidth.'"><div style="margin: 1px; padding: 5px; border: 2px solid black">';  
-                        $table_content .= '<strong>'.$i.'Pembina: '.$teacher_name.'<br> Kelas: '.$class->name.'<br> Anggota: '.count($studentteachers).' org</strong><br>';
+                        
                         $nost = 1;
+
+                        $table_content .= '<div>';
+                        $table_content .= '<table class="halaqoh-label">
+                                                <tr>
+                                                    <td>Pembina</td><td>: '.$teacher_name.'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Kelas</td><td>: '.$class->name.'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anggota</td><td>: '.count($studentteachers).' org</td>
+                                                </tr>
+                                            </table>';
+                        $table_content .= '</div>';
+
+                        // Check Jika sudah terinput nilai ujian di semester berjalan
+                        // Table cek mark_forms | student_id, academic_year_id, period, school_id, class_id, value, value2 
+                        // Table cek 
+                        $period = !empty($_GET['p']) ? $_GET['p'] : 'SM1';
+                        
+                        $type = !empty($_GET['type']) ? $_GET['type'] : 'tahfidz';
+                        
+                        $options = array(
+                            'school_id' => $school_id,
+                            'academic_year_id' => $school->academic_year_id,
+                            'class_id' => $class->id,
+                            'type' => $type,
+                            'period' => $period
+                        );
+
+                        
                         foreach ($studentteachers as $objst) {
+                            $checkforms = $this->groups->check_form_completed($objst->id, $options);
+                            if($checkforms){
+                                $table_content .= '&nbsp;&nbsp;<i class="fa fa-check-circle green"></i>'; 
+                            }
                             $table_content .= $nost . '. ' . $objst->name . '<br>';
                             $nost++;
                         }

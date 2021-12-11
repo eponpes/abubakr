@@ -501,7 +501,7 @@
                             </div>
                             <?php if($clientcode == 'ymk' || $clientcode == 'ymn'){ ?>
                             <div class="col-md-5 col-sm-12 col-xs-12 top-space">
-                                <div class="item form-group">
+                                <!--div class="item form-group">
                                     <label for="target_tahfizh">Target Ujian Tahfizh</label>
                                     <select class="form-control" id="target_tahfizh" name="indicator2[targettahfizh][]" multiple="multiple">
                                         <option>Target Tahfizh (Juz)<option>
@@ -509,7 +509,7 @@
                                             <option <?php if(in_array($i, $tahfizhtarget)){echo 'selected';} ?> value="<?php echo $i; ?>">Juz <?php echo $i; ?></option>
                                         <?php } ?>
                                     </select> 
-                                </div>
+                                </div-->
                                 <div class="item form-group">
                                     <label for="tahfizh_note">Catatan Tahfizh</label>
                                     <textarea class="form-control col-md-2 col-xs-4"  name="indicator2[tfnote]"  id="tahfizh_note" placeholder="<?php echo $this->lang->line('indicator2[tfnote]'); ?>"  rows="10"><?php echo isset($markvalues2['tfnote']) ?  $markvalues2['tfnote'] : ''; ?></textarea>

@@ -3075,3 +3075,12 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 #magictable_wrapper {
     overflow-x: hidden;
 }
+.fa.black {
+    color: #000;
+}
+.fa.green {
+    color: rgb(47, 179, 30);
+}
+.halaqoh-label {
+    font-weight: bold;
+}
