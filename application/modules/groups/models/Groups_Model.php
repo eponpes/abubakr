@@ -238,6 +238,8 @@ class Groups_Model extends MY_Model {
         
         if($options['type'] == 'tahfidz'){
             $options['type'] = 'tahfizh';
+        } else if($options['type'] == 'bpi'){
+            $options['type'] = 'default';
         }
 
         $this->db->select('M.value, M.value2');

@@ -534,7 +534,7 @@
         }
     }  
 
-    var type = '<?php echo $_GET['type']; ?>';
+    var type = '<?php echo !empty($_GET['type'])?$_GET['type']:'tahfidz'; ?>';
     var url = '<?php echo site_url('groups/groups/index'); ?>';
 
     $('#period2').change(function(){

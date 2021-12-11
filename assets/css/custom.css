@@ -3078,9 +3078,27 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 .fa.black {
     color: #000;
 }
+.fa.white {
+    color: rgb(255, 255, 255);
+}
 .fa.green {
     color: rgb(47, 179, 30);
 }
 .halaqoh-label {
     font-weight: bold;
+}
+ul.mygroup {
+    margin: 0;
+    padding: 0;
+}
+ul.mygroup li{
+    list-style: none;
+}
+ul.mygroup .fa {
+    padding-right: 5px;
+    font-size: 14px;
+}
+ul.mygroup .active {
+    color: white;
+    background: green;
 }

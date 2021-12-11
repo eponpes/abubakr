@@ -150,15 +150,22 @@ class Groups extends MY_Controller {
                             'period' => $period
                         );
 
-                        
+                        $table_content .= '<ul class="mygroup">';
                         foreach ($studentteachers as $objst) {
                             $checkforms = $this->groups->check_form_completed($objst->id, $options);
+                            $class = '';
+                            $icon_check = '';
                             if($checkforms){
-                                $table_content .= '&nbsp;&nbsp;<i class="fa fa-check-circle green"></i>'; 
+                                $class = 'active';
+                                $icon_check = '<i class="fa fa-check-circle white"></i>'; 
                             }
+                            $table_content .= '<li class="'.$class.'">';
+                            $table_content .= $icon_check;
                             $table_content .= $nost . '. ' . $objst->name . '<br>';
                             $nost++;
+                            $table_content .= '</li>';
                         }
+                        $table_content .= '</ul>';
 
                         $teacherpict = array();
                         $teacherpict['id'] = $obj->id;
