@@ -880,13 +880,24 @@ $groups3 = array(
                     <h3>Ketidakhadiran</h3>
                     <section>
                         <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-12">
+                            <?php 
+                            $jp = '';
+                            $hidden = '';
+                            $valjp = '';
+                            if($clientcode == 'ymk') { 
+                                $hidden = 'hidden';
+                                $jp = 'readonly';
+                                $valjp = '70';
+                            }    
+                            ?>
+                            <div class="col-md-3 col-sm-3 col-xs-12 <?php echo $hidden; ?>">
                                 <div class="item form-group">
                                     <label for="abs_present">Jumlah Pertemuan</label>
-                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[present]"  id="abs_present" value="<?php echo isset($markvalues2['present']) ?  $markvalues2['present'] : ''; ?>" placeholder="<?php echo $this->lang->line('indicator2[present]'); ?>" type="text" autocomplete="off">
+                                    <input  class="form-control col-md-2 col-xs-4"  name="indicator2[present]"  id="abs_present" value="<?php echo isset($markvalues2['present']) ?  $markvalues2['present'] : $valjp; ?>" placeholder="<?php echo $this->lang->line('indicator2[present]'); ?>" type="text" autocomplete="off" <?php echo $jp; ?>>
                                     <div class="help-block"><?php echo form_error('indicator2[present]'); ?></div>
                                 </div>
                             </div>
+                            
                             <div class="col-md-3 col-sm-3 col-xs-12">
                                 <div class="item form-group">
                                     <label for="abs_sick">Sakit</label>
@@ -1092,6 +1103,12 @@ $(document).ready(function() {
         });
         $("body").append(fieldSet);
     });
+
+    /*$("#abs_permit,#abs_sick,#abs_alpha").on("change", function(e){
+        var thisvalue = $(this).val();
+        var presentvalue = $('#abs_present_value').val();
+        $('#abs_present').val(presentvalue-thisvalue);        
+    });*/
 });
 
         $("#bpi-form").steps({
@@ -1294,7 +1311,7 @@ $(document).ready(function() {
         var fullurl = "<?php echo $form_url_s; ?>/"+school_id+"/"+academic_year_id+"/"+class_id+"/"+student_id+".html";
         $('#resultcard').attr('action', fullurl).submit();
     });
-    
+
 </script>
 <style>
 .scroll-block {

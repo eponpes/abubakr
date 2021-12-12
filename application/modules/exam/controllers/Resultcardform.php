@@ -611,7 +611,12 @@ class Resultcardform extends MY_Controller {
                     $table_present .= '<tr><td>Sakit</td><td>'.get_muta_score('sick', $gamma['sick']).'</td></tr>';
                     $table_present .= '<tr><td>Izin</td><td>'.get_muta_score('permit', $gamma['permit']).'</td></tr>';
                     $table_present .= '<tr><td>Alpha</td><td>'.get_muta_score('alpha', $gamma['alpha']).'</td></tr>';
-                    $table_present .= '<tr><td style="vertical-align: middle" colspan="2">Jumlah Pertemuan <br/>'.get_muta_score('present', $gamma['present']).'</td></tr>';
+
+                    // Hardcoded for this semester 1 2021
+                    // Present is 70
+                    $total_present = 70;
+                    $total_present = $total_present - ($gamma['sick']+$gamma['permit']+$gamma['alpha']);
+                    $table_present .= '<tr><td style="vertical-align: middle" colspan="2">Jumlah Keaktifan <br/>'.get_muta_score('present', $total_present).'</td></tr>';
     
                     $table_present .= '</tbody></table>';
 
