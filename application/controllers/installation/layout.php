@@ -24,7 +24,7 @@
         <link href="<?php echo VENDOR_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
     
         <!-- Custom Theme Style -->       
-        <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">       
+        <link href="<?php echo CSS_URL; ?>custom.css?v=1.0" rel="stylesheet">       
         <link href="<?php echo CSS_URL; ?>theme/jazzberry-jam.css" rel="stylesheet">
       
         <!-- jQuery -->
