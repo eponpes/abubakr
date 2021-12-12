@@ -177,12 +177,16 @@ class Grade extends MY_Controller {
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');   
         $this->form_validation->set_rules('grade_name', $this->lang->line('grade_name'), 'trim|required|callback_grade_name');   
         $this->form_validation->set_rules('basic_salary', $this->lang->line('basic_salary'), 'trim|required');   
+        $this->form_validation->set_rules('devotion', $this->lang->line('devotion'), 'trim');   
+        $this->form_validation->set_rules('family', $this->lang->line('family'), 'trim');   
+        $this->form_validation->set_rules('child', $this->lang->line('child'), 'trim');   
+        $this->form_validation->set_rules('consumtion', $this->lang->line('consumtion'), 'trim');   
         $this->form_validation->set_rules('house_rent', $this->lang->line('house_rent'), 'trim');   
         $this->form_validation->set_rules('transport', $this->lang->line('transport_allowance'), 'trim');   
         $this->form_validation->set_rules('medical', $this->lang->line('medical_allowance'), 'trim');   
         $this->form_validation->set_rules('over_time_hourly_rate', $this->lang->line('over_time_hourly_rate'), 'trim');   
         $this->form_validation->set_rules('provident_fund', $this->lang->line('provident_fund'), 'trim');   
-        $this->form_validation->set_rules('hourly_rate', $this->lang->line('hourly_rate'), 'trim|required');   
+        $this->form_validation->set_rules('hourly_rate', $this->lang->line('hourly_rate'), 'trim');   
         $this->form_validation->set_rules('total_allowance', $this->lang->line('total_allowance'), 'trim');   
         $this->form_validation->set_rules('total_deduction', $this->lang->line('total_deduction'), 'trim');   
         $this->form_validation->set_rules('gross_salary', $this->lang->line('gross_salary'), 'trim|required');   
@@ -236,6 +240,10 @@ class Grade extends MY_Controller {
         $items[] = 'school_id';
         $items[] = 'grade_name';
         $items[] = 'basic_salary';
+        $items[] = 'devotion';
+        $items[] = 'family';
+        $items[] = 'child';
+        $items[] = 'consumtion';
         $items[] = 'house_rent';
         $items[] = 'transport';
         $items[] = 'medical';

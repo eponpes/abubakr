@@ -146,7 +146,7 @@
                                         <div class="col-md-3 col-sm-3 col-xs-12">
                                             <div class="item form-group">
                                                 <label for="salary_type"><?php echo $this->lang->line('salary_type'); ?> <span class="required">*</span></label>
-                                                <input  class="form-control col-md-7 col-xs-12"  name="salary_type"  id="add_salary_type" value="<?php echo $this->lang->line($payment->salary_type); ?>" placeholder="<?php echo $this->lang->line('salary_type'); ?>" required="required" readonly="readonly" type="text" autocomplete="off">
+                                                <input  class="form-control col-md-7 col-xs-12"  name="salary_type"  id="add_salary_type" value="<?php echo $payment->salary_type; ?>" placeholder="<?php echo $this->lang->line('salary_type'); ?>" required="required" readonly="readonly" type="text" autocomplete="off">
                                                 <div class="help-block"><?php echo form_error('salary_type'); ?></div>
                                             </div>
                                         </div>
@@ -165,6 +165,37 @@
                                                     <div class="help-block"><?php echo form_error('house_rent'); ?></div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <div class="item form-group">
+                                                    <label for="devotion">Tunjangan Pengabdian </label>
+                                                    <input  class="form-control col-md-7 col-xs-12"  name="devotion"  id="add_devotion" value="<?php echo $payment->devotion; ?>" placeholder="<?php echo $this->lang->line('devotion'); ?>" readonly="readonly" type="number" autocomplete="off">
+                                                    <div class="help-block"><?php echo form_error('devotion'); ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <div class="item form-group">
+                                                    <label for="family">Tunjangan Keluarga</label>
+                                                    <input  class="form-control col-md-7 col-xs-12"  name="family"  id="add_family" value="<?php echo $payment->family; ?>" placeholder="<?php echo $this->lang->line('family'); ?>" readonly="readonly" type="number" autocomplete="off">
+                                                    <div class="help-block"><?php echo form_error('family'); ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <div class="item form-group">
+                                                    <label for="child">Tunjangan Anak </label>
+                                                    <input  class="form-control col-md-7 col-xs-12"  name="child"  id="add_child" value="<?php echo $payment->child; ?>" placeholder="<?php echo $this->lang->line('child'); ?>" readonly="readonly" type="number" autocomplete="off">
+                                                    <div class="help-block"><?php echo form_error('child'); ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <div class="item form-group">
+                                                    <label for="consumtion">Konsumsi </label>
+                                                    <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="consumtion"  id="add_consumtion" value="<?php echo $payment->consumtion; ?>" value="" placeholder="<?php echo $this->lang->line('consumtion'); ?>" readonly="readonly" type="number" autocomplete="off">
+                                                    <div class="help-block"><?php echo form_error('consumtion'); ?></div>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-md-3 col-sm-3 col-xs-12">
                                                 <div class="item form-group">
                                                     <label for="transport"><?php echo $this->lang->line('transport_allowance'); ?> </label>
@@ -366,7 +397,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="salary_type"><?php echo $this->lang->line('salary_type'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="salary_type"  id="edit_salary_type" value="<?php echo $this->lang->line(strtolower($edit_payment->salary_type)); ?>" placeholder="<?php echo $this->lang->line('salary_type'); ?>" required="required" readonly="readonly" type="text" autocomplete="off">
+                                            <input  class="form-control col-md-7 col-xs-12"  name="salary_type"  id="edit_salary_type" value="<?php echo $edit_payment->salary_type; ?>" placeholder="<?php echo $this->lang->line('salary_type'); ?>" required="required" readonly="readonly" type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('salary_type'); ?></div>
                                         </div>
                                     </div>
@@ -384,6 +415,34 @@
                                                 <label for="house_rent"><?php echo $this->lang->line('house_rent'); ?> </label>
                                                 <input  class="form-control col-md-7 col-xs-12"  name="house_rent"  id="edit_house_rent" value="<?php echo $edit_payment->house_rent; ?>" placeholder="<?php echo $this->lang->line('house_rent'); ?>" readonly="readonly" type="number" autocomplete="off">
                                                 <div class="help-block"><?php echo form_error('house_rent'); ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <div class="item form-group">
+                                                <label for="devotion">Tunjangan Pengabdian</label>
+                                                <input  class="form-control col-md-7 col-xs-12"  name="devotion"  id="edit_devotion" value="<?php echo $edit_payment->devotion; ?>" placeholder="<?php echo $this->lang->line('devotion'); ?>" readonly="readonly" type="number" autocomplete="off">
+                                                <div class="help-block"><?php echo form_error('devotion'); ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <div class="item form-group">
+                                                <label for="family">Tunjangan Keluarga</label>
+                                                <input  class="form-control col-md-7 col-xs-12"  name="family"  id="edit_family" value="<?php echo $edit_payment->medical; ?>" placeholder="<?php echo $this->lang->line('family'); ?>" readonly="readonly" type="number" autocomplete="off">
+                                                <div class="help-block"><?php echo form_error('family'); ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <div class="item form-group">
+                                                <label for="child">Tunjangan Anak </label>
+                                                <input  class="form-control col-md-7 col-xs-12"  name="child"  id="edit_child" value="<?php echo $edit_payment->child; ?>" placeholder="<?php echo $this->lang->line('child'); ?>" readonly="readonly" type="number" autocomplete="off">
+                                                <div class="help-block"><?php echo form_error('child'); ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <div class="item form-group">
+                                                <label for="consumtion">Konsumsi</label>
+                                                <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="consumtion"  id="edit_consumtion" value="<?php echo $edit_payment->consumtion; ?>" placeholder="<?php echo $this->lang->line('consumtion'); ?>" readonly="readonly" type="number" autocomplete="off">
+                                                <div class="help-block"><?php echo form_error('consumtion'); ?></div>
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-sm-3 col-xs-12">
@@ -661,6 +720,11 @@
         if(type === 'monthly'){
            
             var basic_salary = $('#add_basic_salary').val() ? parseFloat($('#add_basic_salary').val()) : 0;
+            var devotion = $('#add_devotion').val() ? parseFloat($('#add_devotion').val()) : 0;
+            var family = $('#add_family').val() ? parseFloat($('#add_family').val()) : 0;
+            var child = $('#add_child').val() ? parseFloat($('#add_child').val()) : 0;
+            var consumtion = $('#add_consumtion').val() ? parseFloat($('#add_consumtion').val()) : 0;
+
             var house_rent = $('#add_house_rent').val() ? parseFloat($('#add_house_rent').val()) : 0;
             var transport = $('#add_transport').val() ? parseFloat($('#add_transport').val()): 0;
             var medical = $('#add_medical').val() ? parseFloat($('#add_medical').val()) : 0;
@@ -675,7 +739,7 @@
             var provident_fund = $('#add_provident_fund').val() ? parseFloat($('#add_provident_fund').val()) : 0;
             var penalty = $('#add_penalty').val() ? parseFloat($('#add_penalty').val()) : 0;
 
-           $('#add_total_allowance').val(house_rent+transport+medical+bonus+ot_total_amount);       
+           $('#add_total_allowance').val(devotion+family+child+consumtion+house_rent+transport+medical+bonus+ot_total_amount);       
             var total_allowance = $('#add_total_allowance').val() ? parseFloat($('#add_total_allowance').val()) : 0;
 
             $('#add_total_deduction').val(provident_fund+penalty);
@@ -711,6 +775,11 @@
         if(type === 'monthly'){
            
             var basic_salary = $('#edit_basic_salary').val() ? parseFloat($('#edit_basic_salary').val()) : 0;
+            var devotion = $('#edit_devotion').val() ? parseFloat($('#edit_devotion').val()) : 0;
+            var family = $('#edit_family').val() ? parseFloat($('#edit_family').val()) : 0;
+            var child = $('#edit_child').val() ? parseFloat($('#edit_child').val()) : 0;
+            var consumtion = $('#edit_consumtion').val() ? parseFloat($('#edit_consumtion').val()) : 0;
+
             var house_rent = $('#edit_house_rent').val() ? parseFloat($('#edit_house_rent').val()) : 0;
             var transport = $('#edit_transport').val() ? parseFloat($('#edit_transport').val()): 0;
             var medical = $('#edit_medical').val() ? parseFloat($('#edit_medical').val()) : 0;
@@ -725,7 +794,7 @@
             var provident_fund = $('#edit_provident_fund').val() ? parseFloat($('#edit_provident_fund').val()) : 0;
             var penalty = $('#edit_penalty').val() ? parseFloat($('#edit_penalty').val()) : 0;
 
-           $('#edit_total_allowance').val(house_rent+transport+medical+bonus+ot_total_amount);       
+           $('#edit_total_allowance').val(devotion+family+child+consumtion+house_rent+transport+medical+bonus+ot_total_amount);       
             var total_allowance = $('#edit_total_allowance').val() ? parseFloat($('#edit_total_allowance').val()) : 0;
 
             $('#edit_total_deduction').val(provident_fund+penalty);

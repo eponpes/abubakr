@@ -281,6 +281,10 @@ class Payment extends MY_Controller {
         if( strtolower($this->input->post('salary_type')) == 'monthly'){
             
             $items[] = 'basic_salary';
+            $items[] = 'devotion';
+            $items[] = 'family';
+            $items[] = 'child';
+            $items[] = 'consumtion';
             $items[] = 'house_rent';
             $items[] = 'transport';
             $items[] = 'medical';
