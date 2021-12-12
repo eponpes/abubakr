@@ -38,7 +38,7 @@
         <?php }elseif($this->global_setting->enable_rtl){ ?>
             <link href="<?php echo CSS_URL; ?>rtl/custom-rtl.css" rel="stylesheet">             
         <?php }else{ ?>
-            <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
+            <link href="<?php echo CSS_URL; ?>custom.css?v=1.0" rel="stylesheet">
         <?php } ?>
         
         <?php if($this->session->userdata('theme')){ ?>
