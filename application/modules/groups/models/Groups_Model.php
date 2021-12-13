@@ -266,7 +266,7 @@ class Groups_Model extends MY_Model {
                     }
                 } 
 
-                if($total_val == $totalcomplete){
+                if($totalcomplete == $total_val){
                     $complete = true;
                 }
              }
@@ -281,7 +281,7 @@ class Groups_Model extends MY_Model {
                     }
                 } 
 
-                if($total_val2 == $totalcomplete2){
+                if($totalcomplete2 >= ($total_val2-5)){
                     $complete2 = true;
                 }
             }
