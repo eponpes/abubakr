@@ -533,7 +533,8 @@
                         <div class="knowing">
                             <?php if($clientcode == 'ymk' || $clientcode == 'ymn') { ?>
                             <?php
-                            $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png';
+                            $nowversion = strtotime("now");
+                            $imagepath1 = IMG_URL . 'signature/'.$myteacher->id.'.png?v=1.'.$nowversion;
                             $defaultpath1 = IMG_URL . 'signature/default.png';
                             if(remote_file_exists($imagepath1))
                             {
