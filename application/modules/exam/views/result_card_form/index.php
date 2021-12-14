@@ -253,6 +253,8 @@
                                         $period_label = 'Semester 1';
                                     } else if($numperiod == 2) {
                                         $period_label = 'Semester 2';
+                                    } else {
+                                        $period_label = 'Semester 1';
                                     }
                                 }
                             ?>
