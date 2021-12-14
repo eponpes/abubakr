@@ -249,9 +249,8 @@
                                         $period_label = 'Semseter 2';
                                     }
                                 } else {
-                                    if($_GET['p'] == 'SM1') {
-                                        $period_label = 'Semester 1';
-                                    } else {
+                                    $period_label = 'Semester 1';
+                                    if($_GET['p'] == 'SM2') {
                                         $period_label = 'Semester 2';
                                     }
                                 }
