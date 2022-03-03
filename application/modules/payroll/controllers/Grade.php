@@ -70,7 +70,6 @@ class Grade extends MY_Controller {
                     success($this->lang->line('insert_success'));
                     redirect('payroll/grade/index/'.$data['school_id']);
                 } else {
-					echo 'what';die();
                     error($this->lang->line('insert_failed'));
                     redirect('payroll/grade/add');
                 }
