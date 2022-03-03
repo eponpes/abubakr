@@ -70,6 +70,7 @@ class Grade extends MY_Controller {
                     success($this->lang->line('insert_success'));
                     redirect('payroll/grade/index/'.$data['school_id']);
                 } else {
+					echo 'what';die();
                     error($this->lang->line('insert_failed'));
                     redirect('payroll/grade/add');
                 }
@@ -179,14 +180,18 @@ class Grade extends MY_Controller {
         $this->form_validation->set_rules('basic_salary', $this->lang->line('basic_salary'), 'trim|required');   
         $this->form_validation->set_rules('devotion', $this->lang->line('devotion'), 'trim');   
         $this->form_validation->set_rules('family', $this->lang->line('family'), 'trim');   
-        $this->form_validation->set_rules('child', $this->lang->line('child'), 'trim');   
-        $this->form_validation->set_rules('consumtion', $this->lang->line('consumtion'), 'trim');   
-        $this->form_validation->set_rules('house_rent', $this->lang->line('house_rent'), 'trim');   
+        $this->form_validation->set_rules('child', $this->lang->line('child'), 'trim');
+		$this->form_validation->set_rules('position', $this->lang->line('position'), 'trim');   
+        $this->form_validation->set_rules('guardian', $this->lang->line('guardian'), 'trim');   
+        $this->form_validation->set_rules('cluster', $this->lang->line('cluster'), 'trim');   
+		$this->form_validation->set_rules('person_in_charge', $this->lang->line('person_in_charge'), 'trim');   
+        //$this->form_validation->set_rules('consumtion', $this->lang->line('consumtion'), 'trim');   
+        //$this->form_validation->set_rules('house_rent', $this->lang->line('house_rent'), 'trim');   
         $this->form_validation->set_rules('transport', $this->lang->line('transport_allowance'), 'trim');   
         $this->form_validation->set_rules('medical', $this->lang->line('medical_allowance'), 'trim');   
-        $this->form_validation->set_rules('over_time_hourly_rate', $this->lang->line('over_time_hourly_rate'), 'trim');   
-        $this->form_validation->set_rules('provident_fund', $this->lang->line('provident_fund'), 'trim');   
-        $this->form_validation->set_rules('hourly_rate', $this->lang->line('hourly_rate'), 'trim');   
+        //$this->form_validation->set_rules('over_time_hourly_rate', $this->lang->line('over_time_hourly_rate'), 'trim');   
+        //$this->form_validation->set_rules('provident_fund', $this->lang->line('provident_fund'), 'trim');   
+        //$this->form_validation->set_rules('hourly_rate', $this->lang->line('hourly_rate'), 'trim');   
         $this->form_validation->set_rules('total_allowance', $this->lang->line('total_allowance'), 'trim');   
         $this->form_validation->set_rules('total_deduction', $this->lang->line('total_deduction'), 'trim');   
         $this->form_validation->set_rules('gross_salary', $this->lang->line('gross_salary'), 'trim|required');   
@@ -243,13 +248,17 @@ class Grade extends MY_Controller {
         $items[] = 'devotion';
         $items[] = 'family';
         $items[] = 'child';
-        $items[] = 'consumtion';
-        $items[] = 'house_rent';
+		$items[] = 'position';
+        $items[] = 'guardian';
+        $items[] = 'cluster';
+		$items[] = 'person_in_charge';
+        //$items[] = 'consumtion';
+        //$items[] = 'house_rent';
         $items[] = 'transport';
         $items[] = 'medical';
-        $items[] = 'over_time_hourly_rate';
-        $items[] = 'provident_fund';
-        $items[] = 'hourly_rate';
+        //$items[] = 'over_time_hourly_rate';
+        //$items[] = 'provident_fund';
+        //$items[] = 'hourly_rate';
         $items[] = 'total_allowance';
         $items[] = 'total_deduction';
         $items[] = 'gross_salary';

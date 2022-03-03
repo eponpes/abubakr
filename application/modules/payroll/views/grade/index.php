@@ -114,17 +114,17 @@
                                             <div class="help-block"><?php echo form_error('basic_salary'); ?></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="house_rent"><?php echo $this->lang->line('house_rent'); ?> </label>
-                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="house_rent"  id="add_house_rent" value="<?php echo isset($post['house_rent']) ?  $post['house_rent'] : ''; ?>" placeholder="<?php echo $this->lang->line('house_rent'); ?>" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('house_rent'); ?></div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="row">
-                                <div class="col-md-3 col-sm-3 col-xs-12">
+									<div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="transport"><?php echo $this->lang->line('transport_allowance'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="transport"  id="add_transport" value="<?php echo isset($post['transport']) ?  $post['transport'] : ''; ?>" placeholder="<?php echo $this->lang->line('transport_allowance'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('transport'); ?></div>
+                                        </div>
+                                    </div>
+                                	<div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="devotion">Tunjangan Pengabdian </label>
                                             <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="devotion"  id="add_devotion" value="<?php echo isset($post['devotion']) ?  $post['devotion'] : ''; ?>" placeholder="<?php echo $this->lang->line('devotion'); ?>" type="number" autocomplete="off">
@@ -145,53 +145,51 @@
                                             <div class="help-block"><?php echo form_error('child'); ?></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                               </div>
+
+							   <div class="row">
+                                	<div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="consumtion">Konsumsi </label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="consumtion"  id="add_consumtion" value="<?php echo isset($post['consumtion']) ?  $post['consumtion'] : ''; ?>" placeholder="<?php echo $this->lang->line('consumtion'); ?>" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('consumtion'); ?></div>
+                                            <label for="position">Tunjangan Jabatan </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="position"  id="add_position" value="<?php echo isset($post['position']) ?  $post['position'] : ''; ?>" placeholder="<?php echo $this->lang->line('position'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('position'); ?></div>
                                         </div>
                                     </div>
-                               </div>   
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="guardian">Wali Kelas </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="guardian"  id="add_guardian" value="<?php echo isset($post['guardian']) ?  $post['guardian'] : ''; ?>" placeholder="<?php echo $this->lang->line('guardian'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('guardian'); ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="cluster">Gugus</label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="cluster"  id="add_cluster" value="<?php echo isset($post['cluster']) ?  $post['cluster'] : ''; ?>" placeholder="<?php echo $this->lang->line('cluster'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('cluster'); ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="person_in_charge">PJ Kegiatan </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="person_in_charge"  id="add_person_in_charge" value="<?php echo isset($post['person_in_charge']) ?  $post['person_in_charge'] : ''; ?>" placeholder="<?php echo $this->lang->line('person_in_charge'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('person_in_charge'); ?></div>
+                                        </div>
+                                    </div>
+                               </div>
                                 
                                <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="transport"><?php echo $this->lang->line('transport_allowance'); ?></label>
-                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="transport"  id="add_transport" value="<?php echo isset($post['transport']) ?  $post['transport'] : ''; ?>" placeholder="<?php echo $this->lang->line('transport_allowance'); ?>" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('transport'); ?></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="medical"><?php echo $this->lang->line('medical_allowance'); ?></label>
+                                            <label for="medical">Fasilitas BPJS</label>
                                             <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="medical"  id="add_medical" value="<?php echo isset($post['medical']) ?  $post['medical'] : ''; ?>" placeholder="<?php echo $this->lang->line('medical_allowance'); ?>" type="number" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('medical'); ?></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="over_time_hourly_rate"><?php echo $this->lang->line('over_time_hourly_rate'); ?> </label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="over_time_hourly_rate"  id="add_over_time_hourly_rate" value="<?php echo isset($post['over_time_hourly_rate']) ?  $post['over_time_hourly_rate'] : ''; ?>" placeholder="<?php echo $this->lang->line('over_time_hourly_rate'); ?>" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('over_time_hourly_rate'); ?></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="provident_fund"><?php echo $this->lang->line('provident_fund'); ?> </label>
-                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="provident_fund"  id="add_provident_fund" value="<?php echo isset($post['provident_fund']) ?  $post['provident_fund'] : ''; ?>" placeholder="<?php echo $this->lang->line('provident_fund'); ?>" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('provident_fund'); ?></div>
-                                        </div>
-                                    </div>
+                                    
                                </div>   
                                <div class="row">
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="hourly_rate"><?php echo $this->lang->line('hourly_rate'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="hourly_rate"  id="add_hourly_rate" value="<?php echo isset($post['hourly_rate']) ?  $post['hourly_rate'] : ''; ?>" placeholder="<?php echo $this->lang->line('hourly_rate'); ?>" required="required" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('hourly_rate'); ?></div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="total_allowance"><?php echo $this->lang->line('total_allowance'); ?></label>
@@ -214,6 +212,40 @@
                                         </div>
                                     </div>
                                </div>  
+								
+							   <?php /*
+							   <h4>Others</h4>
+							   <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="over_time_hourly_rate"><?php echo $this->lang->line('over_time_hourly_rate'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="over_time_hourly_rate"  id="add_over_time_hourly_rate" value="<?php echo isset($post['over_time_hourly_rate']) ?  $post['over_time_hourly_rate'] : ''; ?>" placeholder="<?php echo $this->lang->line('over_time_hourly_rate'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('over_time_hourly_rate'); ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="provident_fund"><?php echo $this->lang->line('provident_fund'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="provident_fund"  id="add_provident_fund" value="<?php echo isset($post['provident_fund']) ?  $post['provident_fund'] : ''; ?>" placeholder="<?php echo $this->lang->line('provident_fund'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('provident_fund'); ?></div>
+                                        </div>
+                                    </div>
+							   <div class="row">
+							  		<div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="hourly_rate"><?php echo $this->lang->line('hourly_rate'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="hourly_rate"  id="add_hourly_rate" value="<?php echo isset($post['hourly_rate']) ?  $post['hourly_rate'] : ''; ?>" placeholder="<?php echo $this->lang->line('hourly_rate'); ?>" required="required" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('hourly_rate'); ?></div>
+                                        </div>
+                                    </div>
+									 <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="house_rent"><?php echo $this->lang->line('house_rent'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="house_rent"  id="add_house_rent" value="<?php echo isset($post['house_rent']) ?  $post['house_rent'] : ''; ?>" placeholder="<?php echo $this->lang->line('house_rent'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('house_rent'); ?></div>
+                                        </div>
+                                    </div>
+							   </div>
+							   */ ?>
                                 <div class="row">   
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
@@ -265,15 +297,15 @@
                                             <div class="help-block"><?php echo form_error('basic_salary'); ?></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="house_rent"><?php echo $this->lang->line('house_rent'); ?> </label>
-                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="house_rent"  id="edit_house_rent" value="<?php echo isset($grade->house_rent) ?  $grade->house_rent : ''; ?>" placeholder="<?php echo $this->lang->line('house_rent'); ?>" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('house_rent'); ?></div>
-                                        </div>
-                                    </div>
                                 </div>  
                                 <div class="row">
+									<div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="transport"><?php echo $this->lang->line('transport_allowance'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="transport"  id="edit_transport" value="<?php echo isset($grade->transport) ?  $grade->transport : ''; ?>" placeholder="<?php echo $this->lang->line('transport_allowance'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('transport'); ?></div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="devotion">Tunjangan Pengabdian </label>
@@ -295,30 +327,53 @@
                                             <div class="help-block"><?php echo form_error('child'); ?></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                </div> 
+
+								<div class="row">
+									<div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="consumtion">Konsumsi </label>
-                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="consumtion"  id="edit_consumtion" value="<?php echo isset($grade->consumtion) ?  $grade->consumtion : ''; ?>" placeholder="<?php echo $this->lang->line('consumtion'); ?>" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('consumtion'); ?></div>
+                                            <label for="position">Tunjangan Jabatan</label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="position"  id="edit_position" value="<?php echo isset($grade->position) ?  $grade->position : ''; ?>" placeholder="<?php echo $this->lang->line('position'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('position'); ?></div>
                                         </div>
                                     </div>
-                                </div>    
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="guardian">Wali Kelas </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="guardian"  id="edit_guardian" value="<?php echo isset($grade->guardian) ?  $grade->guardian : ''; ?>" placeholder="<?php echo $this->lang->line('guardian'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('guardian'); ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="cluster">Gugus </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="cluster"  id="edit_cluster" value="<?php echo isset($grade->cluster) ?  $grade->cluster : ''; ?>" placeholder="<?php echo $this->lang->line('cluster'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('cluster'); ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="person_in_charge">PJ Kegiatan </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="person_in_charge"  id="edit_person_in_charge" value="<?php echo isset($grade->person_in_charge) ?  $grade->person_in_charge : ''; ?>" placeholder="<?php echo $this->lang->line('person_in_charge'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('person_in_charge'); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="transport"><?php echo $this->lang->line('transport_allowance'); ?></label>
-                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="transport"  id="edit_transport" value="<?php echo isset($grade->transport) ?  $grade->transport : ''; ?>" placeholder="<?php echo $this->lang->line('transport_allowance'); ?>" type="number" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('transport'); ?></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="medical"><?php echo $this->lang->line('medical_allowance'); ?></label>
+                                            <label for="medical">Fasilitas BPJS</label>
                                             <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="medical"  id="edit_medical" value="<?php echo isset($grade->medical) ?  $grade->medical : ''; ?>" placeholder="<?php echo $this->lang->line('medical_allowance'); ?>" type="number" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('medical'); ?></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                </div>    
+
+								<?php /*
+								<h4>Others</h4>
+								<div class="row">
+									<div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="over_time_hourly_rate"><?php echo $this->lang->line('over_time_hourly_rate'); ?> </label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="over_time_hourly_rate"  id="edit_over_time_hourly_rate" value="<?php echo isset($grade->over_time_hourly_rate) ?  $grade->over_time_hourly_rate : ''; ?>" placeholder="<?php echo $this->lang->line('over_time_hourly_rate'); ?>" type="number" autocomplete="off">
@@ -332,16 +387,25 @@
                                             <div class="help-block"><?php echo form_error('provident_fund'); ?></div>
                                         </div>
                                     </div>
-                                </div>    
+									<div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="house_rent"><?php echo $this->lang->line('house_rent'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="house_rent"  id="edit_house_rent" value="<?php echo isset($grade->house_rent) ?  $grade->house_rent : ''; ?>" placeholder="<?php echo $this->lang->line('house_rent'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('house_rent'); ?></div>
+                                        </div>
+                                    </div>
+								</div>
+								*/ ?>
                                     
                                 <div class="row">    
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <?php /*
+									<div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="hourly_rate"><?php echo $this->lang->line('hourly_rate'); ?> <span class="required">*</span></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="hourly_rate"  id="edit_hourly_rate" value="<?php echo isset($grade->hourly_rate) ?  $grade->hourly_rate : ''; ?>" placeholder="<?php echo $this->lang->line('hourly_rate'); ?>" required="required" type="number" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('hourly_rate'); ?></div>
                                         </div>
-                                    </div>
+                                    </div> */ ?>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="total_allowance"><?php echo $this->lang->line('total_allowance'); ?></label>
@@ -463,19 +527,27 @@
     $('.fn_add_claculate').on('keyup', function(){
         
         var basic_salary = $('#add_basic_salary').val() ? parseFloat($('#add_basic_salary').val()) : 0;
-        var devotion = $('#add_devotion').val() ? parseFloat($('#add_devotion').val()) : 0;
-        var family = $('#add_family').val() ? parseFloat($('#add_family').val()) : 0;
-        var child = $('#add_child').val() ? parseFloat($('#add_child').val()) : 0;
-        var consumtion = $('#add_consumtion').val() ? parseFloat($('#add_consumtion').val()) : 0;
-        var house_rent = $('#add_house_rent').val() ? parseFloat($('#add_house_rent').val()) : 0;
-        var transport = $('#add_transport').val() ? parseFloat($('#add_transport').val()): 0;
-        var medical = $('#add_medical').val() ? parseFloat($('#add_medical').val()) : 0;
-        var provident_fund = $('#add_provident_fund').val() ? parseFloat($('#add_provident_fund').val()) : 0;
+
+		var transport = $('#add_transport').val() ? parseFloat($('#add_transport').val()): 0;
+		var devotion = $('#add_devotion').val() ? parseFloat($('#add_devotion').val()) : 0;
+		var family = $('#add_family').val() ? parseFloat($('#add_family').val()) : 0;
+		var child = $('#add_child').val() ? parseFloat($('#add_child').val()) : 0;
+		var position = $('#add_position').val() ? parseFloat($('#add_position').val()): 0;
+		var guardian = $('#add_guardian').val() ? parseFloat($('#add_guardian').val()) : 0;
+		var cluster = $('#add_cluster').val() ? parseFloat($('#add_cluster').val()) : 0;
+		var person_in_charge = $('#add_person_in_charge').val() ? parseFloat($('#add_person_in_charge').val()) : 0;
+		var grades = transport+devotion+family+child+position+guardian+cluster+person_in_charge;
+		var medical = $('#add_medical').val() ? parseFloat($('#add_medical').val()) : 0;
+
+		var deduction = 0;
+
+		//var house_rent = $('#add_house_rent').val() ? parseFloat($('#add_house_rent').val()) : 0;
+        //var provident_fund = $('#add_provident_fund').val() ? parseFloat($('#add_provident_fund').val()) : 0;
         
-       $('#add_total_allowance').val(house_rent+transport+medical+family+child+consumtion);       
+       $('#add_total_allowance').val(grades+medical);       
         var total_allowance = $('#add_total_allowance').val() ? parseFloat($('#add_total_allowance').val()) : 0;
         
-        $('#add_total_deduction').val(provident_fund);
+        $('#add_total_deduction').val(deduction);
         var total_deduction = $('#add_total_deduction').val() ? parseFloat($('#add_total_deduction').val()) : 0;
         
         $('#add_gross_salary').val(basic_salary+total_allowance);
@@ -486,19 +558,27 @@
     $('.fn_edit_claculate').on('keyup', function(){
         
         var basic_salary = $('#edit_basic_salary').val() ? parseFloat($('#edit_basic_salary').val()) : 0;
-        var devotion = $('#edit_devotion').val() ? parseFloat($('#edit_devotion').val()) : 0;
-        var family = $('#edit_family').val() ? parseFloat($('#edit_family').val()) : 0;
-        var child = $('#edit_child').val() ? parseFloat($('#edit_child').val()) : 0;
-        var consumtion = $('#edit_consumtion').val() ? parseFloat($('#edit_consumtion').val()) : 0;
-        var house_rent = $('#edit_house_rent').val() ? parseFloat($('#edit_house_rent').val()) : 0;
+
         var transport = $('#edit_transport').val() ? parseFloat($('#edit_transport').val()): 0;
-        var medical = $('#edit_medical').val() ? parseFloat($('#edit_medical').val()) : 0;
-        var provident_fund = $('#edit_provident_fund').val() ? parseFloat($('#edit_provident_fund').val()) : 0;
+		var devotion = $('#edit_devotion').val() ? parseFloat($('#edit_devotion').val()) : 0;
+		var family = $('#edit_family').val() ? parseFloat($('#edit_family').val()) : 0;
+		var child = $('#edit_child').val() ? parseFloat($('#edit_child').val()) : 0;
+		var position = $('#edit_position').val() ? parseFloat($('#edit_position').val()): 0;
+		var guardian = $('#edit_guardian').val() ? parseFloat($('#edit_guardian').val()) : 0;
+		var cluster = $('#edit_cluster').val() ? parseFloat($('#edit_cluster').val()) : 0;
+		var person_in_charge = $('#edit_person_in_charge').val() ? parseFloat($('#edit_person_in_charge').val()) : 0;
+		var grades = transport+devotion+family+child+position+guardian+cluster+person_in_charge;
+		var medical = $('#edit_medical').val() ? parseFloat($('#edit_medical').val()) : 0;
+
+		var deduction = 0;
+
+		//var house_rent = $('#edit_house_rent').val() ? parseFloat($('#edit_house_rent').val()) : 0;
+        //var provident_fund = $('#edit_provident_fund').val() ? parseFloat($('#edit_provident_fund').val()) : 0;
         
-       $('#edit_total_allowance').val(house_rent+transport+medical+family+child+consumtion+devotion);       
+       $('#edit_total_allowance').val(grades+medical);       
         var total_allowance = $('#edit_total_allowance').val() ? parseFloat($('#edit_total_allowance').val()) : 0;
         
-        $('#edit_total_deduction').val(provident_fund);
+        $('#edit_total_deduction').val(deduction);
         var total_deduction = $('#edit_total_deduction').val() ? parseFloat($('#edit_total_deduction').val()) : 0;
         
         $('#edit_gross_salary').val(basic_salary+total_allowance);

@@ -281,27 +281,34 @@ class Payment extends MY_Controller {
         if( strtolower($this->input->post('salary_type')) == 'monthly'){
             
             $items[] = 'basic_salary';
+			$items[] = 'transport';
             $items[] = 'devotion';
             $items[] = 'family';
             $items[] = 'child';
-            $items[] = 'consumtion';
-            $items[] = 'house_rent';
-            $items[] = 'transport';
+			$items[] = 'position';
+            $items[] = 'guardian';
+            $items[] = 'cluster';
+			$items[] = 'person_in_charge';
             $items[] = 'medical';
-            $items[] = 'over_time_hourly_rate';
-            $items[] = 'over_time_total_hour';
-            $items[] = 'over_time_amount';
-            $items[] = 'provident_fund';
             
         }else{
-            
             $items[] = 'hourly_rate';
             $items[] = 'total_hour';
         }
-        
-        
-        $items[] = 'bonus';
-        $items[] = 'penalty';
+
+		$items[] = 'consumtion';
+        $items[] = 'other_bonus';
+		$items[] = 'salary_correction';
+		$items[] = 'health_fund';
+		$items[] = 'exam_bonus';
+
+		$items[] = 'absence';
+        $items[] = 'lateness';
+		$items[] = 'child_administration';
+		$items[] = 'self_medical';
+		$items[] = 'qurban_or_wedding';
+		$items[] = 'school_loan';
+
         $items[] = 'gross_salary';
         $items[] = 'total_allowance';
         $items[] = 'total_deduction';
