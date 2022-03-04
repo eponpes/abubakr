@@ -137,12 +137,19 @@
 
  <script type="text/javascript">
     function getPaymentModal(payment_id,payment_to){
+
+		var school_id = $('#school_id').val(); 
+        if(!school_id){
+           toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+           $('#payment_to').prop('selectedIndex',0);
+           return false;
+        }
          
          $('.modal-body').html('<p style="padding: 20px;"><p style="padding: 20px;text-align:center;"><img src="<?php echo IMG_URL; ?>loading.gif" /></p>');
           $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('payroll/history/get_single_payment'); ?>",
-            data   : {payment_id : payment_id, payment_to : payment_to},  
+            data   : {school_id : school_id, payment_id : payment_id, payment_to : payment_to},  
             success: function(response){                                                   
                if(response)
                {

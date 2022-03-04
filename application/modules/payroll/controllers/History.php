@@ -76,7 +76,9 @@ class History extends MY_Controller {
         
        $payment_id = $this->input->post('payment_id');
        $payment_to = $this->input->post('payment_to');
+	   $school_id = $this->input->post('school_id');
        
+	   $this->data['school'] = $this->payment->get_school_by_id($school_id);
        $this->data['payment'] = $this->payment->get_single_payment($payment_id, $payment_to);
        echo $this->load->view('get-single-payment', $this->data);
     }

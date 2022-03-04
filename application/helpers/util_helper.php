@@ -3134,4 +3134,10 @@ function get_academic_year_name($period=null, $sessions = null) {
         return $pieces[1];
     }
 }
+
+function moneyformat($angka){
+	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
+	return $hasil_rupiah;
+}
+
 /*STRICT DATA ACCESS END*/
