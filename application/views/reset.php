@@ -47,7 +47,7 @@
                         <p class="green" style="color:#fff;"><?php echo $this->session->flashdata('success'); ?></p>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="password" name="password" required="required" class="form-control has-feedback-left" placeholder="<?php echo $this->lang->line('password'); ?>">
+                        <input type="password" name="password" required="required" class="form-control has-feedback-left"  minlength="6" maxlength="20" placeholder="<?php echo $this->lang->line('password'); ?>">
                         <span class="fa fa-asterisk form-control-feedback left" aria-hidden="true"></span>
                     </div>  
                     
@@ -60,7 +60,7 @@
                         <input  class="btn btn-primary login-button" type="submit" name="submit" value="<?php echo $this->lang->line('submit'); ?>" />
                     </div>
                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <a class="reset_pass btn btn-primary login-button" href="<?php echo site_url('login') ?>"><?php echo $this->lang->line('back_to_login'); ?></a>
+                        <a class="reset_pass btn btn-primary login-button" href="<?php echo site_url('auth/login') ?>"><?php echo $this->lang->line('back_to_login'); ?></a>
                     </div>
                     <div class="clearfix"></div>                        
                     <?php echo form_close(); ?>

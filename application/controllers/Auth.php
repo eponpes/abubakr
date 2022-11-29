@@ -22,14 +22,17 @@ class Auth extends CI_Controller {
     public function __construct() {
 
         parent::__construct();
+                
         $this->load->model('Auth_Model', 'auth', true);
         $this->global_setting = $this->db->get_where('global_setting', array('status'=>1))->row();        
         
         
         if(!empty($this->global_setting) && $this->global_setting->language){             
-            $this->lang->load($this->global_setting->language);             
+            $this->lang->load($this->global_setting->language);
+            define('SMS', $this->global_setting->brand_title);
         }else{
            $this->lang->load('english');
+           define('SMS', 'Global - Multi School Management System Express');
         }
     }
 
@@ -45,6 +48,10 @@ class Auth extends CI_Controller {
 
     public function login() {
 
+        if (logged_in_user_id()) {
+            redirect('dashboard/index');
+        } 
+       
         if ($_POST) {
          
             $data['username'] = $this->input->post('username');           
@@ -54,28 +61,29 @@ class Auth extends CI_Controller {
            
             if (!empty($login)) {
               
-                // check school status
-                
+                // check school status                
                 if($login->role_id != SUPER_ADMIN){                    
                    $school = $this->auth->get_single('schools', array('status' => 1, 'id'=>$login->school_id));
-                   
+                                     
                    if(empty($school)){
                         $this->session->set_flashdata('error', $this->lang->line('invalid_login'));
-                        redirect('login');
+                        redirect('auth/login');
                    }
                 }
-                
+
+                               
                 // check user active status
                 if (!$login->status) {
                     $this->session->set_flashdata('error', $this->lang->line('user_active_status'));
-                    redirect('login');
+                    redirect('auth/login');
                 }
 
                 // check is setting role permission by admin
                 $privileges = $this->auth->get_list('privileges', array('role_id' => $login->role_id));
+                
                 if (empty($privileges)) {
                     $this->session->set_flashdata('error', $this->lang->line('privilege_not_setting'));
-                    redirect('login');
+                    redirect('auth/login');
                 }
 
                 // User table data
@@ -100,7 +108,6 @@ class Auth extends CI_Controller {
                 } else {
                     $profile = $this->auth->get_single('employees', array('user_id' => $login->id));
                 } 
-
             
                 if (isset($profile->name)) {
                    $this->session->set_userdata('name', $profile->name);
@@ -156,10 +163,11 @@ class Auth extends CI_Controller {
             } else {
                 
                 $this->session->set_flashdata('error', $this->lang->line('invalid_login'));
-                redirect('login');
+                redirect('auth/login');
             }
+        }else{
+         $this->load->view('login');
         }
-        redirect();
     }
 
     /*     * ***************Function logout**********************************
@@ -173,7 +181,13 @@ class Auth extends CI_Controller {
     public function logout($key = null) {
 
         @create_log('Has been logged out');
-         
+        
+        // process redirect 
+        $school = '';
+        if($this->session->userdata('role_id') != SUPER_ADMIN){
+           $school = $this->auth->get_single('schools', array('id' => $this->session->userdata('school_id')));
+        }
+        
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('role_id');
         $this->session->unset_userdata('email');
@@ -187,10 +201,14 @@ class Auth extends CI_Controller {
         $this->session->unset_userdata($key);
 
         $this->session->unset_userdata('theme');
-               
-
         $this->session->sess_destroy();
-        redirect('login', 'refresh');
+        
+        if(!empty($school)){
+            if($school->school_url){
+                redirect($school->school_url.'/login', 'refresh');
+            }
+        }
+        redirect('auth/login', 'refresh');
         exit;
     }
 
@@ -235,7 +253,7 @@ class Auth extends CI_Controller {
             }
         }
 
-        redirect('forgot');
+        redirect('auth/forgot');
         exit;
     }
 
@@ -310,7 +328,7 @@ class Auth extends CI_Controller {
             $this->auth->update('users', array('reset_key' => $key), array('id' => $data->id));
 
             $message = $this->lang->line('to_reset_password'). '<br/><br/>';
-            $message .= site_url('reset/' . $key);
+            $message .= site_url('auth/reset/' . $key);
             $message .= '<br/><br/>';
             $message .= $this->lang->line('if_not_request_just_ignore') . '.<br/><br/>';
             $message .= $this->lang->line('thank_you').'<br/>';
@@ -350,14 +368,14 @@ class Auth extends CI_Controller {
         $data = array();
         $this->load->helper('form');
         $user = $this->auth->get_single('users', array('reset_key' => $key));
-        
+       
         if (!empty($user)) {
             $data['user'] = $user;
             $data['key'] = $key;
             $this->load->view('reset', $data);
         } else {
             $this->session->set_flashdata('error', $this->lang->line('unexpected_error'));
-            redirect('login');
+            redirect('auth/login');
         }
     }
 
@@ -377,7 +395,7 @@ class Auth extends CI_Controller {
 
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
-            $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[5]|max_length[30]');
+            $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[6]|max_length[20]');
             $this->form_validation->set_rules('conf_password', $this->lang->line('conf_password'), 'trim|required|matches[password]');
 
             if ($this->form_validation->run() === TRUE) {
@@ -389,7 +407,7 @@ class Auth extends CI_Controller {
                 $data['modified_at'] = date('Y-m-d H:i:s');               
                 $this->auth->update('users', $data, array('id' => $this->input->post('id')));
                 $this->session->set_flashdata('success', $this->lang->line('update_success'));               
-                redirect('login', 'refresh');
+                redirect('auth/login', 'refresh');
             } else {
                 $this->session->set_flashdata('error', $this->lang->line('password_reset_error'));
                 redirect('auth/reset/' . $this->input->post('key'));

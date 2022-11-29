@@ -63,7 +63,7 @@
                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password"><?php echo $this->lang->line('password'); ?> <span class="required">*</span>
                                      </label>
                                      <div class="col-md-6 col-sm-6 col-xs-12">
-                                         <input  class="form-control col-md-7 col-xs-12"  name="password"  id="password" value="" placeholder="<?php echo $this->lang->line('password'); ?>" required="required" type="password" autocomplete="off">
+                                         <input  class="form-control col-md-7 col-xs-12"  name="password"  id="password" value="" placeholder="<?php echo $this->lang->line('password'); ?>" required="required" type="password" minlength="6" maxlength="20" autocomplete="off">
                                          <div class="help-block"><?php echo form_error('password'); ?></div>
                                      </div>
                                  </div>
@@ -79,7 +79,7 @@
                                  <div class="ln_solid"></div>
                                  <div class="form-group">
                                      <div class="col-md-6 col-md-offset-3">
-                                         <a href="<?php echo site_url('administrator/user'); ?>" class="btn btn-primary"><?php echo $this->lang->line('cancel'); ?></a>
+                                         <a href="<?php echo site_url('administrator/user/index'); ?>" class="btn btn-primary"><?php echo $this->lang->line('cancel'); ?></a>
                                          <button id="send" type="submit" class="btn btn-success"><?php echo $this->lang->line('update'); ?></button>
                                      </div>
                                  </div>

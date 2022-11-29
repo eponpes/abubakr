@@ -44,7 +44,7 @@
                         <p class="red"><?php echo $this->session->flashdata('error'); ?></p>
                         <p class="green"><?php echo $this->session->flashdata('success'); ?></p>
                     </div>
-                    <?php echo form_open(site_url('verify'), array('name' => 'verify', 'id' => 'verify'), ''); ?>
+                    <?php echo form_open(site_url('verify/index'), array('name' => 'verify', 'id' => 'verify'), ''); ?>
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                         <input type="text" name="purchase_code" class="form-control has-feedback-left" placeholder="<?php echo $this->lang->line('purchase_code'); ?>">
                         <span class="fa fa-asterisk form-control-feedback left" aria-hidden="true"></span>

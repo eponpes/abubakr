@@ -55,7 +55,7 @@
                         <input  class="btn btn-primary login-button" type="submit" name="submit" value="<?php echo $this->lang->line('submit'); ?>"/>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <a class="reset_pass btn btn-primary login-button" href="<?php echo site_url('login') ?>"><?php echo $this->lang->line('back_to_login'); ?></a>
+                        <a class="reset_pass btn btn-primary login-button" href="<?php echo site_url('auth/login') ?>"><?php echo $this->lang->line('back_to_login'); ?></a>
                     </div>
                     <div class="clearfix"></div>                        
                     <?php echo form_close(); ?>

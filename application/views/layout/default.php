@@ -33,12 +33,12 @@
         <link href="<?php echo VENDOR_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
     
         <!-- Custom Theme Style -->
-        <?php if($this->school_setting->enable_rtl){ ?>
+        <?php if(@$this->school_setting->enable_rtl){ ?>
             <link href="<?php echo CSS_URL; ?>rtl/custom-rtl.css" rel="stylesheet">             
         <?php }elseif($this->global_setting->enable_rtl){ ?>
             <link href="<?php echo CSS_URL; ?>rtl/custom-rtl.css" rel="stylesheet">             
         <?php }else{ ?>
-            <link href="<?php echo CSS_URL; ?>custom.css?v=1.0" rel="stylesheet">
+            <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
         <?php } ?>
         
         <?php if($this->session->userdata('theme')){ ?>
@@ -65,7 +65,7 @@
               gtag('config', '<?php echo $this->global_setting->google_analytics; ?>');
             </script>
         <?php } ?>
-        
+                
     </head>
 
     <body class="nav-md">
@@ -119,14 +119,14 @@
        <script type="text/javascript">
        
        jQuery.extend(jQuery.validator.messages, {
-                required: "<?php echo $this->lang->line('required_field'); ?>",
-                email: "<?php echo $this->lang->line('enter_valid_email'); ?>",
-                url: "<?php echo $this->lang->line('enter_valid_url'); ?>",
-                date: "<?php echo $this->lang->line('enter_valid_date'); ?>",
-                number: "<?php echo $this->lang->line('enter_valid_number'); ?>",
-                digits: "<?php echo $this->lang->line('enter_only_digit'); ?>",
-                equalTo: "<?php echo $this->lang->line('enter_same_value_again'); ?>",
-                remote: "<?php echo $this->lang->line('pls_fix_this'); ?>",
+                required: "<?php echo $this->lang->line("required_field"); ?>",
+                email: "<?php echo $this->lang->line("enter_valid_email"); ?>",
+                url: "<?php echo $this->lang->line("enter_valid_url"); ?>",
+                date: "<?php echo $this->lang->line("enter_valid_date"); ?>",
+                number: "<?php echo $this->lang->line("enter_valid_number"); ?>",
+                digits: "<?php echo $this->lang->line("enter_only_digit"); ?>",
+                equalTo: "<?php echo $this->lang->line("enter_same_value_again"); ?>",
+                remote: "<?php echo $this->lang->line("pls_fix_this"); ?>",
                 dateISO: "Please enter a valid date (ISO).",
                 maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
                 minlength: jQuery.validator.format("Please enter at least {0} characters."),
