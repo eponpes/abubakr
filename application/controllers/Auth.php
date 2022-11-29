@@ -52,7 +52,7 @@ class Auth extends CI_Controller {
             redirect('dashboard/index');
         } 
        
-        if ($_POST) {
+        if ($_POST && !isset($_SESSION['logged_in'])) {
          
             $data['username'] = $this->input->post('username');           
             $data['password'] = md5($this->input->post('password'));
