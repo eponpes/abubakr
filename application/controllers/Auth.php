@@ -48,7 +48,7 @@ class Auth extends CI_Controller {
 
     public function login() {
 
-        if (logged_in_user_id()) {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             redirect('dashboard/index');
         } 
        
@@ -91,6 +91,12 @@ class Auth extends CI_Controller {
                 $this->session->set_userdata('role_id', $login->role_id);
                 $this->session->set_userdata('username', $login->username);
                 $this->session->set_userdata('school_id', $login->school_id);
+
+                $_SESSION['user_id']      = (int)$login->id;
+                $_SESSION['username']     = (string)$login->username;
+                $_SESSION['logged_in']    = (bool)true;
+                $_SESSION['role_id']      = (int)$login->role_id;
+                $_SESSION['school_id']    = (int)$login->school_id;
                 
                 
                 if ($login->role_id == SUPER_ADMIN) {
@@ -199,6 +205,13 @@ class Auth extends CI_Controller {
         $this->session->unset_userdata('profile_id');
         $this->session->unset_userdata('school_id');
         $this->session->unset_userdata($key);
+
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+            // remove session datas
+			foreach ($_SESSION as $key => $value) {
+				unset($_SESSION[$key]);
+			}
+        }
 
         $this->session->unset_userdata('theme');
         $this->session->sess_destroy();
