@@ -187,6 +187,13 @@
                                                         <option value="transfer" <?php echo $obj->status_type == 'transfer' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('transfer'); ?></option>
                                                         <option value="passed" <?php echo $obj->status_type == 'passed' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('passed'); ?></option>
                                                     </select>
+                                                    <select  class="form-control col-md-7 col-xs-12 status-type"  name="class_id"  id="class_id" onchange="update_status_promotion('<?php echo $obj->id; ?>', this.value, '<?php echo $obj->academic_year_id; ?>');">
+                                                    <?php if(isset($class_list) && !empty($class_list)){ ?>
+                                                        <?php foreach($class_list as $objclass ){ ?>
+                                                            <option value="<?php echo $objclass->id; ?>" <?php echo $obj->class_id == $objclass->id ?  'selected="selected"' : ''; ?>><?php echo 'Moved to -> ' . $objclass->name; ?></option> 
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                    </select>
                                                 <?php } ?>    
                                             </td>
                                         </tr>
@@ -2313,7 +2320,28 @@
                }
             }
         });
-    }    
+    }
+
+    function update_status_promotion(student_id, class_id, academic_year_id){
+        
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/update_status_promotion'); ?>",
+            data   : { student_id : student_id, class_id : class_id, academic_year_id: academic_year_id},
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {
+                   toastr.success('<?php echo $this->lang->line('update_success'); ?>');
+                   return false;
+               } else {
+                    toastr.error('Error');
+                    return false;
+               }
+            }
+        });
+    }  
              
     $("#add").validate();     
     $("#edit").validate();   

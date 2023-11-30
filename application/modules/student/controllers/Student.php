@@ -85,6 +85,8 @@ class Student extends MY_Controller {
             $this->data['guardians'] = $this->student->get_list('guardians', $condition, '','', '', 'id', 'ASC');
             $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
             $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC'); 
+        } else {
+            $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
         }
 
         $this->data['provinces'] = $this->student->get_provinces();

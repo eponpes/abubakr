@@ -1204,4 +1204,24 @@ class Ajax extends My_Controller {
          echo $this->ajax->update('students', array('modified_at'=>date('Y-m-d H:i:s'), 'status_type'=>$status), array('id'=>$student_id));         
     }
 
+    /*****************Function update_status_promotion**********************************
+     * @type            : Function
+     * @function name   : update_status_promotion
+     * @description     : update_status_promotion               
+     *                    
+     * @param           : null
+     * @return          : null 
+     * ********************************************************** */
+    
+     public function update_status_promotion() {
+        
+        $student_id   = $this->input->post('student_id');
+        $class_id     = $this->input->post('class_id');
+        $academic_year_id     = $this->input->post('academic_year_id');
+
+
+        echo $this->ajax->update('enrollments', array('modified_at'=>date('Y-m-d H:i:s'), 'class_id'=>$class_id), array('student_id'=>$student_id, 'academic_year_id'=>$academic_year_id));         
+     
+   }
+
 }
