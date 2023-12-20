@@ -15,13 +15,32 @@
         <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet">  
         <link href="https://fonts.googleapis.com/css?family=Michroma" rel="stylesheet"> 
-        <link href="https://fonts.googleapis.com/css?family=Prosto+One" rel="stylesheet">         
+        <link href="https://fonts.googleapis.com/css?family=Prosto+One" rel="stylesheet">   
+        <link href="https://fonts.googleapis.com/css?family=Stalemate" rel="stylesheet">   
+              
         <!-- Bootstrap -->
         <link href="<?php echo VENDOR_URL; ?>bootstrap/bootstrap.min.css" rel="stylesheet">       
         <!-- Custom Theme Style -->
         <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
         
         <style>
+            @font-face {
+            font-family: 'hand-script';
+                src:  url('https://pptq.eponpes.id/assets/images/font/hand-script.ttf.woff') format('woff'),
+                url('https://pptq.eponpes.id/assets/images/font/hand-script.ttf.svg#hand-script') format('svg'),
+                url('https://pptq.eponpes.id/assets/images/font/hand-script.ttf.eot'),
+                url('https://pptq.eponpes.id/assets/images/font/hand-script.eot?#iefix') format('embedded-opentype'); 
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+            font-family: 'righten';
+                src:  url('https://pptq.eponpes.id/assets/images/font/righten.woff') format('woff'),
+                url('https://pptq.eponpes.id/assets/images/font/righten.eot'),
+                url('https://pptq.eponpes.id/assets/images/font/righten.eot?#iefix') format('embedded-opentype'); 
+                font-weight: normal;
+                font-style: normal;
+            }
             body {background: #fff;}
             @page { margin: 0; }   
             @media print {
@@ -54,13 +73,20 @@
                 text-align: center;
             }
             .main-text {
-                font-family: 'Oswald', 'EB Garamond', serif;
+                font-family: 'righten';
                 padding-top: 320px; 
-                font-size: 35px;
+                font-size: 100px;
+                font-weight: 700;
                 padding-left: 0px;
             }
             .main-text span {
+                text-transform: capitalize;
+            }
+            .main-text span {
                 text-decoration: auto;
+            }
+            .main-text-block {
+                margin-top: -50px;
             }
             
 
@@ -97,7 +123,7 @@
                         <div class="clear"></div>
                         <div class="main-text-block">
                             <p class="main-text">
-                                <?php echo $certificate->main_text; ?>
+                                <?php echo ucwords(strtolower($certificate->main_text)); ?>
                             </p>
                         </div>
                         <div class="footer-section">
