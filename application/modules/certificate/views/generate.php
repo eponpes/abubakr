@@ -24,20 +24,13 @@
         <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
         
         <style>
+            @import url('https://fonts.cdnfonts.com/css/righten');
             @font-face {
             font-family: 'hand-script';
                 src:  url('https://pptq.eponpes.id/assets/images/font/hand-script.ttf.woff') format('woff'),
                 url('https://pptq.eponpes.id/assets/images/font/hand-script.ttf.svg#hand-script') format('svg'),
                 url('https://pptq.eponpes.id/assets/images/font/hand-script.ttf.eot'),
                 url('https://pptq.eponpes.id/assets/images/font/hand-script.eot?#iefix') format('embedded-opentype'); 
-                font-weight: normal;
-                font-style: normal;
-            }
-            @font-face {
-            font-family: 'righten';
-                src:  url('https://pptq.eponpes.id/assets/images/font/righten.woff') format('woff'),
-                url('https://pptq.eponpes.id/assets/images/font/righten.eot'),
-                url('https://pptq.eponpes.id/assets/images/font/righten.eot?#iefix') format('embedded-opentype'); 
                 font-weight: normal;
                 font-style: normal;
             }
@@ -73,10 +66,9 @@
                 text-align: center;
             }
             .main-text {
-                font-family: 'righten';
+                font-family: 'Righten', sans-serif;
                 padding-top: 320px; 
-                font-size: 100px;
-                font-weight: 700;
+                font-size: 110px;
                 padding-left: 0px;
             }
             .main-text span {
@@ -86,7 +78,23 @@
                 text-decoration: auto;
             }
             .main-text-block {
-                margin-top: -50px;
+                margin-top: -55px;
+            }
+            .main-class-name {
+                letter-spacing: 4px;
+                font-family: 'Oswald';
+                position: absolute;
+                font-size: 24px;
+                font-weight: bold;
+                top: 55%;
+                left: 25.5%;
+                width: 110px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+                text-transform: uppercase;
             }
             
 
