@@ -503,7 +503,14 @@
                     <div class="col-xs-3 text-center" style="width: 28%">
                         <div class="knowing">
                         <?php
-                            $imagepath = IMG_URL . 'signature/1.png?v=9.12.21';
+							// This intended for YMK temporary leader
+							$signname = 'Nurhanipah, S.Pd.I.';
+							$signid = 1;
+							if($academic_year_id == 5 && $clientcode == 'ymk'){
+								$signname = 'Joni Qodariyanto, Lc';
+								$signid = 88;
+							}
+                            $imagepath = IMG_URL . 'signature/' . $signid . '.png?v=22.11.24';
                             $defaultpath = IMG_URL . 'signature/default.png';
                             if(remote_file_exists($imagepath))
                             {
@@ -522,9 +529,11 @@
                         <p><?php echo $dirlabel; ?> <?php echo isset($school->school_name) ? $school->school_name : ''; ?></p>
                         </div>
                         <div class="signature">
-                            <?php if(isset($school->adm_principal)) {
+                            <?php if(isset($school->adm_principal) && $clientcode != 'ymk') {
                                 echo $school->adm_principal;
-                            } ?>
+                            } else {
+								echo $signname;
+							} ?>
                         </div>
                         <div class="stamp"><img src="<?php echo IMG_URL; ?>signature/stamp.png"></div>
                     </div>

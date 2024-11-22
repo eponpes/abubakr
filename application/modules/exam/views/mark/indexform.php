@@ -483,7 +483,12 @@
                     <section>
                         <div class="row">
                             <div class="col-md-12">
-                                Pilih Juz dan Isi Nilai dengan Angka
+                                Pilih Juz/Itqon dan Isi Nilai dengan Angka<br><br>
+								91 keatas = Mumtaz<br>
+								81 - 90 = Jayyid Jiddan<br>
+								66 - 80 = Jayyid<br>
+								55 - 65 = Maqbul<br>
+								55 Kebawah = Naqis (Tidak Lulus)<br>
                             </div>
                         </div>
                         <div class="row">

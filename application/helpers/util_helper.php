@@ -2537,6 +2537,16 @@ if (!function_exists('is_JSON')){
 if (!function_exists('get_quran_chapter_list')){
     function get_quran_chapter_list() {
         $ayat = array(
+			'IQ-1' => array('ITQON 1 (ANNAS - AL ALA)', 'ITQON 1'),
+			'IQ-2' => array('ITQON 2 (AT THORIQ - AN NABA)', 'ITQON 2'),
+			'J-30' => array('KENAIKAN JUZ 30', 'JUZ 30'),
+			'IQ-3' => array('ITQON 3 (AL MURSALAT - ALJIN)', 'ITQON 3'),
+			'IQ-4' => array('ITQON 4 (NUH - AL MULK)', 'ITQON 4'),
+			'J-29' => array('KENAIKAN JUZ 29', 'JUZ 29'),
+			'IQ-5' => array('ITQON 5 (AL MUMTAHANAH  - AL HASYR AYAT 9)', 'ITQON 5'),
+			'IQ-6' => array('ITQON 6 (AL HASYR 10 - AL MUJADILAH)', 'ITQON 6'),
+			'J-28' => array('KENAIKAN JUZ 28', 'JUZ 28'),
+			'IQ-7' => array('ITQON 7 (AL FATIHAH - AL BAQARAH 141)', 'ITQON 7'),
             1 => array('AL-FATIHAH', 'PEMBUKAAN'),
             2 => array('AL-BAQARAH', 'SAPI BETINA'),
             3 => array('ALI IMRAN', 'KELUARGA IMRAN'),
