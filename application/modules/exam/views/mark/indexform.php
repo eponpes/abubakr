@@ -1045,7 +1045,7 @@ $(document).ready(function() {
         var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + intId + "\"/>");
         fieldWrapper.data("idx", intId);
         var fCol = $("<div class='col-md-3' />");
-        var fName = $("<input name=\"ayat["+intId+"][]\" type=\"text\" class=\"fieldname form-control\" placeholder=\"Ayat\" />");
+        var fName = $("<input name=\"ayat["+intId+"][]\" type=\"text\" class=\"fieldname form-control\" placeholder=\"Surat/Ayat\" />");
         var fType = $("<select id=\"thesurat"+intId+"\" name=\"thesurat["+intId+"][]\" class=\"fieldtype form-control\">"+fOption+"</select>");
         var fMark = $("<input name=\"mark["+intId+"][]\" type=\"text\" class=\"fieldname form-control\" placeholder=\"Nilai\" />");
         var removeButton = $("<input type=\"button\" class=\"remove\" value=\"-\" />");
@@ -1378,7 +1378,7 @@ input.fieldname
     float:left;
     display:block;
     margin:5px;
-    width: 80px;
+    width: 100px;
 }
 select.fieldtype
 {

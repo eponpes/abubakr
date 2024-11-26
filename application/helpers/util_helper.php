@@ -2537,6 +2537,10 @@ if (!function_exists('is_JSON')){
 if (!function_exists('get_quran_chapter_list')){
     function get_quran_chapter_list() {
         $ayat = array(
+			'CUSTOM' => array('MATERI CUSTOM', 'CUSTOM'),
+			'IQRO' => array('IQRO (ANNAS - AL ASR)', 'PRE-ITQON'),
+			'IQ-0.1' => array('ITQON 0.1 (ANNAS - BAYYINAH)', 'PRE-ITQON'),
+			'IQ-0.2' => array('ITQON 0.2 (AL QODR - AL ALA)', 'PRE-ITQON'),
 			'IQ-1' => array('ITQON 1 (ANNAS - AL ALA)', 'ITQON 1'),
 			'IQ-2' => array('ITQON 2 (AT THORIQ - AN NABA)', 'ITQON 2'),
 			'J-30' => array('KENAIKAN JUZ 30', 'JUZ 30'),

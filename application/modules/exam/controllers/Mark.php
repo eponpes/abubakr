@@ -359,7 +359,7 @@ class Mark extends MY_Controller {
                         $valopt .= '
                         <div class="fieldwrapper" id="field'.$field.'">
                         <select id="thesurat'.$field.'" name="thesurat['.$field.'][]" class="fieldtype form-control">'.$thesurat5.'</select>
-                        <input name="ayat['.$field.'][]" type="text" class="fieldname form-control" placeholder="Ayat" value="'.$mayat.'">
+                        <input name="ayat['.$field.'][]" type="text" class="fieldname form-control" placeholder="Surat/Ayat" value="'.$mayat.'">
                         <input name="mark['.$field.'][]" type="text" class="fieldname form-control" placeholder="Nilai" value="'.$mmark.'">
                         <input type="button" class="remove" value="-">
                         </div>
