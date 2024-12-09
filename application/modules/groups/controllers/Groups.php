@@ -152,25 +152,6 @@ class Groups extends MY_Controller {
 
                         $table_content .= '<ul class="mygroup">';
                         foreach ($studentteachers as $objst) {
-                            $gamma = [];
-                            $values2 = json_decode($objst->value2, true);
-
-                            foreach($values2 as $eval2){
-                                if($eval2['name'] == 'targettahfizh'){
-                                    $gamma[$eval2['name']] = json_decode($eval2['mark']);
-                                } else {
-                                    $gamma[$eval2['name']] = $eval2['mark'];
-                                }
-                            }
-                            
-                            if(!empty($gamma['totalhafalan'])){
-                                $totalhafalan = $gamma['totalhafalan'];
-                            } else {
-                                $totalhafalan = $gamma['totaljuz'] . ' juz';
-                            }
-                            
-                            $gammalist = 'Juz ' . $gamma['lastjuz'].', ' . $gamma['lastsuratayat'].' (' . $totalhafalan . ')';
-
                             $checkforms = $this->groups->check_form_completed($objst->id, $options);
                             $class = '';
                             $icon_check = '';
@@ -181,7 +162,6 @@ class Groups extends MY_Controller {
                             $table_content .= '<li class="'.$class.'">';
                             $table_content .= $icon_check;
                             $table_content .= $nost . '. ' . $objst->name . '<br>';
-                            $table_content .= '<span style="background-color:yellow;color:black">' . $gammalist . '</span><br>';
                             $nost++;
                             $table_content .= '</li>';
                         }

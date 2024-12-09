@@ -174,17 +174,9 @@ class Groups_Model extends MY_Model {
 
     public function get_student_list( $school_id, $academic_year_id, $class_id, $student_id = null, $status_type = null, $type = null, $teacher_id = null){
         
-        $this->db->select('E.roll_no,  S.id, S.user_id, S.name, S.is_hostel_member, S.is_transport_member, MF.value2');
+        $this->db->select('E.roll_no,  S.id, S.user_id, S.name, S.is_hostel_member, S.is_transport_member');
         $this->db->from('enrollments AS E');        
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
-        $this->db->join('mark_forms as MF', 'MF.student_id = E.student_id', 'left');
-        $this->db->where('MF.period', 'SM2'); 
-        $this->db->where('MF.level', 10); 
-        $this->db->where('MF.type', 'tahfizh'); 
-        $this->db->where('MF.academic_year_id', $academic_year_id); 
-        $this->db->where('MF.class_id', $class_id); 
-        $this->db->where('MF.school_id', $school_id); 
-
         $this->db->where('E.academic_year_id', $academic_year_id);       
         $this->db->where('E.class_id', $class_id);  
         $this->db->where('E.school_id', $school_id); 
